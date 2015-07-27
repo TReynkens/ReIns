@@ -1,0 +1,466 @@
+######################################################################
+## EM algorithm mixtures of Erlangs for censored and truncated data ##
+######################################################################
+
+# Date: 07/07/2015
+# Author: Roel Verbelen with adaptations by Tom Reynkens
+
+## Initial values
+
+# supply number of shapes M and spread factor s
+
+ME_initial <- function(lower, upper, trunclower=0, truncupper=Inf, M=10, s=1){
+  # data for initial step: treat left and right censored data as observed and take mean for interval censored data
+  uc <- lower[lower==upper & !is.na(lower==upper)]
+  lc <- upper[is.na(lower)]
+  rc <- lower[is.na(upper)]
+  ic <- (lower[lower!=upper & !is.na(lower!=upper)] + upper[lower!=upper & !is.na(lower!=upper)]) / 2
+  initial_data = c(uc, lc, rc, ic)
+  theta <- max(initial_data)/M
+  shape <- seq(1, M)
+  alpha <- rep(0,M)
+  for (i in 1:M){
+    alpha[i] <- sum(initial_data <= i*theta & initial_data > (i-1)*theta)
+  }    
+  shape <- shape[alpha>0]
+  alpha <- alpha[alpha>0]/sum(alpha)
+  # spread out shapes and adjust theta
+  shape <- s*shape
+  theta <- theta/s
+  # alpha to beta
+  t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)  
+  beta = alpha * t_probabilities / sum(alpha*t_probabilities)
+  list(theta=theta, shape=shape, alpha=alpha, beta=beta) 
+}
+
+## Log likelihood
+
+ME_loglikelihood <- function(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring){
+  likelihood_contribution = numeric(0)
+  if(no_censoring){  
+    # matrix containing alpha*density (uncensored)
+    x_components <-  t(t(x_densities)*beta/t_probabilities)
+    # likelihood contribution (uncensored)
+    likelihood_contribution <- rowSums(x_components) 
+  }   
+  if(censoring){  
+    # matrix containing alpha*probabilities (censored)
+    c_components <- t(t(c_probabilities)*beta/t_probabilities)
+    # likelihood contribution (censored)
+    likelihood_contribution <- c(likelihood_contribution, rowSums(c_components)) 
+  }   
+  loglikelihood_contribution <- ifelse(likelihood_contribution>0, log(likelihood_contribution), -1000)
+  # loglikelihood
+  sum(loglikelihood_contribution)
+}
+
+## ^{u}z_{ij}^{(k)}: posterior probabilities (uncensored)
+
+ME_u_z <-function(x_densities, beta, t_probabilities, M){      
+  x_components <- t(t(x_densities)*beta/t_probabilities)
+  u_z <- x_components / rowSums(x_components)
+  # in case all ^{u}z_{ij}^{k} for j=1,...,M are numerically 0
+  u_z[is.nan(u_z)] = 1/M
+  u_z
+}
+
+## ^{c}z_{ij}^{(k)}: posterior probabilities (censored)
+
+ME_c_z <-function(c_probabilities, beta, t_probabilities, M){      
+  c_components <- t(t(c_probabilities)*beta/t_probabilities)
+  c_z <- c_components / rowSums(c_components)
+  # in case all ^{c}z_{ij}^{k} for j=1,...,M are numerically 0
+  c_z[is.nan(c_z)] = 1/M
+  c_z
+}
+ 
+## Expected value of censored observations
+
+ME_expected_c <-function(lower, upper, shape, theta, c_z){  
+  c_exp <- theta * (outer(upper, shape+1, pgamma, scale=theta) - outer(lower, shape+1, pgamma, scale=theta))/(outer(upper, shape, pgamma, scale=theta) - outer(lower, shape, pgamma, scale=theta))
+  c_exp <- t(t(c_exp)*shape)
+  # replace numerical 0/0 (NaN) or Inf by correct expected value
+  c_exp <- ifelse(is.nan(c_exp) | c_exp==Inf, ifelse(outer(lower, shape*theta, ">"), lower, upper), c_exp)
+  c_exp <- rowSums(c_z * c_exp)  
+}
+
+## T^{(k)}: correction term due to truncation
+
+ME_T <- function(trunclower, truncupper, shape, theta, beta){
+  # avoid NaN
+  if(truncupper==Inf){ 
+    # take log first for numerical stability (avoid Inf / Inf)
+    deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(1 - pgamma(trunclower, shape, scale=theta))
+    deriv_trunc <- exp(deriv_trunc_log_1)    
+  } else{    
+    deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta))
+    deriv_trunc_log_2 <- shape*log(truncupper)-truncupper/theta - (shape-1)*log(theta) - lgamma(shape) - log(pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta))
+    deriv_trunc <- exp(deriv_trunc_log_1)-exp(deriv_trunc_log_2)
+  }
+  sum(beta*deriv_trunc)
+}
+
+## Auxiliary functions used to maximize theta in the M-step
+
+theta_nlm_u_c <- function(theta, x, c_exp, n, beta, shape, trunclower, truncupper){
+  T <- ME_T(trunclower, truncupper, shape, theta, beta)
+  (theta - ((sum(x)+sum(c_exp))/n-T)/sum(beta*shape))^2
+}
+
+theta_nlm_u <- function(theta, x, n, beta, shape, trunclower, truncupper){
+  T <- ME_T(trunclower, truncupper, shape, theta, beta)
+  (theta - (sum(x)/n-T)/sum(beta*shape))^2
+}
+
+theta_nlm_c <- function(theta, c_exp, n, beta, shape, trunclower, truncupper){
+  T <- ME_T(trunclower, truncupper, shape, theta, beta)
+  (theta - (sum(c_exp)/n-T)/sum(beta*shape))^2
+}
+
+## EM algorithm (censored and truncated data)
+
+ME_em <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE){
+  n <- length(lower)
+  M <- length(shape)
+  # separate uncensored and censored observations
+  uncensored <- (lower==upper & !is.na(lower==upper))
+  # Uncensored observations
+  x <- lower[uncensored]
+  # Censored observations
+  lower[is.na(lower)] <- trunclower
+  upper[is.na(upper)] <- truncupper
+  lower <- lower[!uncensored]
+  upper <- upper[!uncensored]  
+  # Boolean for having uncensored and censored observations
+  no_censoring <- (length(x) != 0)  
+  censoring <- (length(lower) != 0)  
+  iteration <- 1
+  if(no_censoring){  
+    # matrix containing densities (uncensored)
+    x_densities <- outer(x,shape,dgamma, scale=theta)
+  }   
+  if(censoring){  
+    # matrix containing censoring probabilities (censored)
+    c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
+  } 
+  # truncation probabilities
+  t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
+  loglikelihood <- ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
+  old_loglikelihood <- -Inf
+  history_loglikelihood <- loglikelihood
+  history_theta <- theta
+  while(loglikelihood - old_loglikelihood > eps){
+    old_loglikelihood <- loglikelihood
+    # E step
+    if(no_censoring & censoring){
+      u_z <- ME_u_z(x_densities, beta, t_probabilities, M)
+      c_z <- ME_c_z(c_probabilities, beta, t_probabilities, M)
+      c_exp <- ME_expected_c(lower, upper, shape, theta, c_z)      
+    } else if(no_censoring){
+      u_z <- ME_u_z(x_densities, beta, t_probabilities, M)
+    } else{
+      c_z <- ME_c_z(c_probabilities, beta, t_probabilities, M)
+      c_exp <- ME_expected_c(lower, upper, shape, theta, c_z)      
+    }
+    # M step
+    if(no_censoring & censoring){
+      beta <- (colSums(u_z)+colSums(c_z))/n 
+      theta <- nlm(theta_nlm_u_c, theta, x, c_exp, n, beta, shape, trunclower, truncupper)$estimate
+    } else if(no_censoring){
+      beta <- colSums(u_z)/n   
+      theta <- nlm(theta_nlm_u, theta, x, n, beta, shape, trunclower, truncupper)$estimate
+    } else{
+      beta <- colSums(c_z)/n     
+      theta <- nlm(theta_nlm_c, theta, c_exp, n, beta, shape, trunclower, truncupper)$estimate
+    }
+    iteration <- iteration + 1
+    if(no_censoring){  
+      # matrix containing densities (uncensored)
+      x_densities <- outer(x,shape,dgamma, scale=theta)
+    }   
+    if(censoring){  
+      # matrix containing censoring probabilities (censored)
+      c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
+    } 
+     # truncation probabilities
+    t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
+    loglikelihood <- ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
+    if(print) print(loglikelihood)
+    history_loglikelihood <- c(history_loglikelihood, loglikelihood)
+    history_theta <- c(history_theta, theta)
+  }
+  # beta to alpha
+  alpha_tilde <- beta / t_probabilities
+  alpha <- alpha_tilde / sum(alpha_tilde)
+ list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, history_loglikelihood = history_loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n), history_theta=history_theta) 
+}
+
+## Shape adjustments
+
+ME_shape_adj <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE){
+  shape <- shape[beta>0]
+  beta <- beta[beta>0]/sum(beta)
+  M <- length(shape)
+  fit <- ME_em(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE)
+  loglikelihood <- fit$loglikelihood
+  theta <- fit$theta
+  beta <- fit$beta
+  alpha <- fit$alpha
+  # before and after are the loglikelihoods used in the outer while loop
+  before_loglikelihood <- -Inf
+  after_loglikelihood <- loglikelihood    
+  iteration <- 1
+  while(after_loglikelihood > before_loglikelihood + eps){    
+    if(print) cat("iteration = ", iteration, "\n")
+    before_loglikelihood <- after_loglikelihood
+    # Try increasing the shapes
+    for(i in M:1){
+      improve <- TRUE
+      while( (improve==TRUE) && (i == M || (shape[i] < shape[i+1]-1))) {
+        new_shape <- shape
+        new_shape[i] <- new_shape[i]+1        
+        fit <- ME_em(lower, upper, trunclower, truncupper, theta, new_shape, beta, eps, print=FALSE)
+        new_loglikelihood <- fit$loglikelihood
+        if(new_loglikelihood > loglikelihood + eps){
+          loglikelihood <- new_loglikelihood
+          shape <- new_shape
+          theta <- fit$theta
+          beta <- fit$beta 
+          alpha <- fit$alpha
+          if(print) cat("loglikelihood = ", loglikelihood, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")      
+        } else{improve <- FALSE}
+      }
+    }
+    # Try decreasing the shapes
+    for(i in 1:M){
+      improve <- TRUE
+      while( (improve==TRUE) && ( (i == 1) || shape[i] > shape[i-1]+1 ) && shape[i]>1){
+        new_shape <- shape
+        new_shape[i] <- new_shape[i]-1
+        fit <- ME_em(lower, upper, trunclower, truncupper, theta, new_shape, beta, eps, print=FALSE)
+        new_loglikelihood <- fit$loglikelihood
+        if(new_loglikelihood > loglikelihood + eps){
+          loglikelihood <- new_loglikelihood
+          shape <- new_shape
+          theta <- fit$theta
+          beta <- fit$beta 
+          alpha <- fit$alpha
+          if(print) cat("loglikelihood = ", loglikelihood, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")      
+        } else{improve <- FALSE}
+      }          
+    }
+    after_loglikelihood <- loglikelihood  
+    iteration <- iteration + 1
+  }
+  list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(length(lower))) 
+}
+
+## Reduction of M based on an information criterium: AIC and BIC implemented
+
+ME_shape_red <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, criterium="AIC", eps=1e-03, print=TRUE){
+  n <- length(lower)
+  fit <- ME_shape_adj(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE)
+  loglikelihood <- fit$loglikelihood
+  IC <- fit[[criterium]]
+  shape <- fit$shape
+  theta <- fit$theta
+  beta <- fit$beta   
+  alpha <- fit$alpha
+  M <- length(shape)
+  if(print) cat("M = ", M, ", ", criterium, " = ", IC, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")
+  improve <- TRUE
+  while((improve==TRUE) && length(shape) > 1){    
+    new_shape <- shape[beta != min(beta)]
+    new_beta <- beta[beta != min(beta)]
+    new_beta <- new_beta/sum(new_beta)
+    fit <- ME_shape_adj(lower, upper, trunclower, truncupper, theta, new_shape, new_beta, eps, print=FALSE)
+    new_IC <- fit[[criterium]]
+    if(new_IC < IC){ 
+      IC <- new_IC
+      loglikelihood <- fit$loglikelihood  
+      shape <- fit$shape
+      theta <- fit$theta
+      beta <- fit$beta  
+      alpha <- fit$alpha
+      M <- length(shape)
+      if(print) cat("M = ", M, ", ", criterium, " = ", IC, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")
+    } else{improve <- FALSE}        
+  }
+  list(M = M, alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
+}
+
+## Calibration procedure for mixtures of Erlangs by repeatedly using the EM algorithm while adjusting and reducing the shape parameters based on an information criterium (AIC and BIC implemented)
+
+# Specify lower and upper censoring points (lower, upper), lower and upper truncation points (trunclower, truncupper).
+# The censoring status is determined as follows:
+# Uncensored: lower and upper are both present and equal.
+# Left Censored: lower is missing (NA), but upper is present.
+# Right Censored: lower is present, but upper is missing (NA).
+# Interval Censored: lower and upper are present and different.
+# e.g.: lower=c(1,NA,3,4); upper=c(1,2,NA,5); specifies an observed event at 1, left censoring at 2, right censoring at 3, and interval censoring at [4,5],
+# By default no truncation: trunclower=0, truncupper=Inf
+# alpha = beta in case of no truncation
+
+ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, criterium="AIC", eps=1e-03, print=TRUE){
+  
+  initial <- ME_initial(lower, upper, trunclower, truncupper, M, s)
+  fit <- ME_shape_red(lower, upper, trunclower, truncupper, initial$theta, initial$shape, initial$beta, criterium, eps, print)
+  list(alpha = fit$alpha, beta = fit$beta, shape = fit$shape, theta = fit$theta, loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s) 
+}
+
+
+
+## Check input arguments for MEtune
+ME_checkInput  <- function(lower, upper, trunclower, truncupper) {
+
+  nl <- length(lower)
+  nu <- length(upper)
+  ntl <- length(trunclower)
+  ntu <- length(truncupper)
+  
+  # Check lengths
+  if(nl!=1 & nu!=1 & nl!=nu) {
+    stop("lower and upper should have equal length if both do not have length 1.")
+  }
+  
+  if(ntl!=1 & ntu!=1 & ntl!=ntu) {
+    stop("trunclower and truncupper should have equal length if both do not have length 1.")
+  }
+  
+  
+  
+  # Check data types
+  if(any(!is.numeric(lower) & !is.na(lower))) {
+    stop("lower should consist of numerics and/or NAs.")
+  }
+  
+  if(any(!is.numeric(upper) & !is.na(upper))) {
+    stop("upper should consist of numerics and/or NAs.")
+  }
+  
+  if(any(!is.numeric(trunclower))) {
+    stop("trunclower should consist of numerics.")
+  }
+  
+  if(any(!is.numeric(truncupper))) {
+    stop("truncupper should consist of numerics.")
+  }
+  
+  
+  # Check inequalities
+  if(!all(is.na(lower)) & !all(is.na(upper))) {
+    if(any(lower>upper)) {
+      stop("lower should be smaller than (or equal to) upper.")
+    }
+  }
+  
+  
+  if(any(trunclower>truncupper)) {
+    stop("trunclower should be smaller than (or equal to) truncupper.")
+  }
+  
+  
+  if(any(!is.finite(trunclower) & !is.finite(truncupper))) {
+    stop("trunclower and truncupper cannot be both infinite.")
+  }
+  
+  if(!all(is.na(lower))) {
+    if(any(trunclower>lower)) {
+      stop("trunclower should be smaller than (or equal to) lower.")
+    }
+  }
+  
+  
+  if(!all(is.na(upper))) {
+    if(any(truncupper<upper)) {
+      stop("truncupper should be larger than (or equal to) cupper.")
+    }
+  }
+  
+}
+
+
+
+## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
+MEtune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, nCores = detectCores(), criterium = "AIC", eps = 1e-03, print=TRUE, file="log.txt"){
+ 
+  ######
+  # Check input
+  
+  ME_checkInput(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper)
+ 
+  #######
+  # Original code
+  
+  tuning_parameters = expand.grid(M, s)
+  cl <- makePSOCKcluster(nCores)
+  registerDoParallel(cl)  
+  if(print) writeLines(c(""), file)
+  i <- 1
+  all_model <- foreach(i = 1:nrow(tuning_parameters), .export=c("ME_initial", "ME_loglikelihood", "ME_u_z", "ME_c_z", "ME_expected_c", "ME_T", "theta_nlm_u_c", "theta_nlm_u", "theta_nlm_c", "ME_em", "ME_shape_adj", "ME_shape_red", "ME_fit"), .errorhandling = 'remove') %dopar% {
+    if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
+    ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE)
+  }
+  stopCluster(cl)
+  performances <- data.frame(tuning_parameters[,1], tuning_parameters[,2], sapply(all_model, function(x) with(x, get(criterium))), sapply(all_model, with, M))
+  colnames(performances) = c('M_initial', 's', criterium, 'M')
+  best_index <- which.min(performances[, criterium])
+  best_model <- all_model[[best_index]]  
+  list(best_model = best_model, performances = performances, all_model = all_model)
+}
+
+## Density function
+
+ME_density <- function(x, theta, shape, alpha, trunclower = 0, truncupper = Inf, log = FALSE){
+  f <- outer(x, shape, dgamma, scale = theta)
+  d <- rowSums(t(t(f)*alpha))
+  if(!(trunclower==0 & truncupper==Inf)){
+    d <- d / (ME_cdf(truncupper, theta, shape, alpha) - ME_cdf(trunclower, theta, shape, alpha)) * ((trunclower <= x) & (x <= truncupper))
+  }
+  if(log){
+    d <- log(d)
+  }
+  d
+}
+
+## Cumulative distribution function
+
+ME_cdf <- function(x, theta, shape, alpha, trunclower = 0, truncupper = Inf, lower.tail = TRUE, log.p = FALSE){     
+  cdf <- outer(x, shape, pgamma, scale=theta)
+  p <- rowSums(t(t(cdf)*alpha))
+  if(!(trunclower==0 & truncupper==Inf)){
+    l <- ME_cdf(trunclower, theta, shape, alpha)
+    u <- ME_cdf(truncupper, theta, shape, alpha)
+    p <- ((p - l) / (u - l)) ^ {(x <= truncupper)} * (trunclower <= x)
+  }
+  if(!lower.tail){
+    p <- 1 - p
+  }
+  if(log.p){
+    p <- log(p)
+  }
+  p
+} 
+
+
+
+## Excess-of-loss reinsurance premium: L xs R
+
+## Excess-of-loss reinsurance premium: C xs R (Retention R, Cover C, Limit L = R+C)
+
+ME_XL <- function(R, C, theta, shape, alpha){ 
+  M <- max(shape)
+  shapes <- seq(1, M)
+  alphas <- rep(0, M)
+  alphas[shape] <- alpha
+  coeff <- rep(0, M)
+  for(n in 1:M){
+    coeff[n] <- sum( alphas[0:(M-n)+n] * (0:(M-n)+1) * pgamma(C, shape = 0:(M-n)+2, scale = theta) )
+  }
+  if(C == Inf){
+    XL <- theta^2 * sum( coeff * dgamma(R, shapes, scale=theta) )
+  }else{
+    XL <- theta^2 * sum( coeff * dgamma(R, shapes, scale=theta) ) +  C *ME_cdf(R+C, theta, shape, alpha, lower.tail = FALSE)    
+  }
+  XL  
+}

@@ -1,0 +1,49 @@
+\name{GPDfit}
+\alias{GPDfit}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Fit GPD using MLE
+}
+\description{
+Fit the Generalised Pareto Distribution (GPD) to data using Maximum Likelihood Estimation (MLE).
+}
+\usage{
+GPDfit(data, start = c(0.1, 1), warnings = FALSE)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{data}{
+  Vector of \eqn{n} observations. 
+}
+  \item{start}{
+Vector of length 2 containing the starting values for the optimisation. The first element
+is the starting value for the estimator of \eqn{\gamma} and the second element is the starting value for the estimator of \eqn{\sigma}. Default is \code{c(0.1,1)}.
+}
+  \item{warnings}{
+Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
+}
+}
+
+\value{
+A vector with the MLE estimate for the \eqn{\gamma} parameter of the GPD as the first component and the MLE estimate for the \eqn{\sigma} parameter of the GPD as the second component.
+}
+\references{
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+}
+\author{
+Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code from Klauss Herrmann.
+}
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+\code{\link{GPDmle}}, \code{\link{EPDfit}}
+}
+\examples{
+data(soa)
+
+# Look at last 500 obs of SOA data
+SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
+
+# Fit GPD to last 500 observations
+res <- GPDmle(SOAdata)
+}

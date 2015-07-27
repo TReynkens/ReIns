@@ -1,0 +1,105 @@
+
+import("stats")
+import("graphics")
+import("survival")
+import("MASS")
+importFrom("utils","tail")
+
+# Splicing part
+import("doParallel","parallel")
+import("foreach")
+
+#########################
+# Random
+
+export("dpareto","ppareto","qpareto","rpareto") 
+export("dtpareto","ptpareto","qtpareto","rtpareto") 
+export("dgpd","pgpd","qgpd","rgpd") 
+
+#########################
+# Plots
+
+export("ExpQQ") 
+export("ParetoQQ","ParetoQQ_der")
+export("LognormalQQ","LognormalQQ_der") 
+export("MeanExcess") 
+
+
+#########################
+# Estimators for Pareto-type tails
+
+export("Hill")
+export("Hill.2oQV") 
+export("Prob", "Quant", "Return")
+export("Weissman.p", "Weissman.q", "Weissman.r")
+export("Quant.2oQV", "Weissman.q.2oQV") 
+export("Scale","Scale.2o") 
+export("EPD","EPDfit","ProbEPD","ReturnEPD")
+
+
+#########################
+# General estimators
+
+export("genQQ", "generalizedQQ") 
+export("genHill","ProbGH","QuantGH","ReturnGH")
+export("Moment","ProbMOM","QuantMOM","ReturnMOM")
+export("LStail","TSfraction")
+export("POT","GPDmle","GPDfit","GPDresiduals")
+export("ProbGPD", "QuantGPD","ReturnGPD")
+
+
+#########################
+# Regression
+
+export("ScaleReg")
+#export("ScaleReg_surv","ScaleReg_survi")
+export("ProbReg","QuantReg")
+
+#########################
+# Censored estimators
+
+export("KaplanMeier", "Turnbull")
+export("cHill","cgenHill")
+export("cExpQQ","cLognormalQQ","cParetoQQ","cgenQQ")
+export("cMoment")
+export("cGPDmle","cPOT")
+export("cProb","cQuant","cReturn")
+export("cProbGH","cQuantGH","cReturnGH")
+export("cProbMOM","cQuantMOM","cReturnMOM")
+export("cProbGPD","cQuantGPD","cReturnGPD")
+export("cEPD","cProbEPD","cReturnEPD")
+export("ciHill","ciProb","ciReturn")
+export("ciExpQQ","ciLognormalQQ","ciParetoQQ")
+export("ciEPD","ciProbEPD","ciReturnEPD")
+
+
+#########################
+# Truncation estimators
+
+export("trHill","trDT","trEndpoint","trQuant",
+       "trProb")
+export("trTest")
+#export("tr.DT","tr.beta")
+
+
+#####################################
+# Censoring+truncation
+
+export("trcHill","trciHill")
+export("trcProb","trciProb")
+#export("trciDT","trciEndpoint")
+
+
+#####################################
+# Splicing
+
+#export("MEtune")
+export("SpliceFitHill","SpliceFitcHill","SpliceFitGPD")
+export("SplicePDF","SpliceCDF")
+export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB")
+
+#####################################
+# Excess loss premiums
+
+export("ExcessHill","ExcessEPD","ExcessGPD")
+export("ExcessSpliceHill","ExcessSpliceGPD","ExcessSplicecHill")

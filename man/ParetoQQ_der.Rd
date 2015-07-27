@@ -1,0 +1,63 @@
+\name{ParetoQQ_der}
+\alias{ParetoQQ_der}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Derivative plot of the Pareto QQplot
+}
+\description{
+Computes the derivative plot of the Pareto QQplot. These values can be plotted as a function of the data or as a function of the tail parameter \eqn{k}.
+}
+\usage{
+ParetoQQ_der(data, k = FALSE, plot = TRUE, 
+            main = "Derivative plot of Pareto QQplot", ...)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+ \item{data}{
+  Vector of \eqn{n} observations. 
+}
+  \item{plot}{
+Logical indicating if the derivative values should be plotted, default is \code{TRUE}.
+}
+  \item{k}{
+Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the data (\code{k=FALSE}). Default is \code{FALSE}.
+}
+  \item{main}{
+Title for the plot, default is \code{"Derivative plot of Pareto QQplot"}.
+}
+  \item{\dots}{
+Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+}
+}
+\details{
+The derivative plot of a Pareto QQplot is \deqn{(k,H_{k,n})} or \deqn{(X_{n-k,n},H_{k,n})}
+with \eqn{H_{k,n}} the Hill estimates.
+}
+
+\value{
+A list with following components:
+\item{xval}{Vector of the x-values of the plot (\eqn{k} or \eqn{X_{n-k,n}}).}
+\item{yval}{Vector of the derivative values \eqn{H_{k,n}}.}
+}
+
+\references{
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+}
+\author{
+Tom Reynkens.
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+\code{\link{ParetoQQ}}, \code{\link{MeanExcess}}, \code{\link{LognormalQQ_der}}
+}
+\examples{
+data(norwegianfire)
+
+# Pareto QQ-plot for Norwegian Fire Insurance data for claims in 1976.
+ParetoQQ(norwegianfire$size[norwegianfire$year==76])
+
+# Derivate plot
+ParetoQQ_der(norwegianfire$size[norwegianfire$year==76])
+}
