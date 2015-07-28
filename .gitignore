@@ -10,8 +10,8 @@
 *-Ex.R
 # RStudio files
 .Rproj.user/
+ReIns.Rproj
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
 >>>>>>> f88277f2f35786c5ee5a9202c0ad3e8ce917a15e
-ReIns.Rproj
