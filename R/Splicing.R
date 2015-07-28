@@ -233,7 +233,7 @@ SplicePDF <- function(x, splicefit) {
   ind <- x<=t
   
   # Case x<=t
-  d[ind] <- const * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$alpha, 
+  d[ind] <- const * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
                        theta = MEfit$theta, trunclower = trunclower, truncupper = t)
   
   # Case x>t
@@ -294,7 +294,7 @@ SpliceCDF <- function(x, splicefit) {
   ind <- (x<=t)
   
   # Case x<=t
-  p[ind] <- const * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$alpha, 
+  p[ind] <- const * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
                 theta = MEfit$theta, trunclower = trunclower, truncupper = t)
 
   # Case x>t
