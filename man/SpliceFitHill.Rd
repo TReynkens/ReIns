@@ -9,7 +9,7 @@ Fit spliced distribution of a mixed Erlang and a Pareto distribution. The shape 
 }
 \usage{
 SpliceFitHill(X, const, const2 = 0, M = 20, s = 1:10, trunclower = 0, 
-              EVTtruncation = FALSE, ncores = NULL)
+              EVTtruncation = FALSE, EVTtruncation2 = FALSE, ncores = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,7 +34,10 @@ an optimal mixed Erlang fit using an AIC criterion.
 Lower truncation point. Default is 0.
 }
   \item{EVTtruncation}{
-Logical indicating if a truncated Pareto distribution should be fitted as second splicing distribution, default is \code{FALSE}. For double splicing, the third distribution will always be an untruncated Pareto distribution!
+Logical indicating if a truncated Pareto distribution should be fitted as second splicing distribution, default is \code{FALSE}. 
+}
+  \item{EVTtruncation2}{
+Logical indicating if a truncated Pareto distribution should be fitted as third splicing distribution, default is \code{FALSE}.
 }
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
@@ -53,7 +56,8 @@ A list with components:
 \item{trunclower}{Lower truncation point as given by the user.}
 \item{const}{The splicing constant, it can differ slightly from the input argument \code{const}.}
 \item{const2}{The second splicing constant, it can differ slightly from the input argument \code{const2}. It is only returned for double splicing.}
-\item{type}{Type of the EVT fit, here \code{"Hill""} or \code{"trHill""}.}
+\item{type}{Type of the first part of the EVT fit, here \code{"Hill"} or \code{"trHill"}.}
+\item{type2}{Type of the second part of the EVT fit, here \code{"Hill"} or \code{"trHill"}. It is only returned for double splicing.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.

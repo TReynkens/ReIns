@@ -4,7 +4,7 @@
 # Fit splicing of mixed Erlang and (truncated) Pareto
 # If const is non-zero, an extra splicing with a Pareto is included
 SpliceFitHill <- function(X, const, const2 = 0, M=20, s=1:10, trunclower = 0,
-                          EVTtruncation = FALSE, ncores = NULL) {
+                          EVTtruncation = FALSE, EVTtruncation2 = FALSE, ncores = NULL) {
   
   n <- length(X)
   
@@ -74,12 +74,25 @@ SpliceFitHill <- function(X, const, const2 = 0, M=20, s=1:10, trunclower = 0,
     
   } else {
     # Second splicing part
-    res <- Hill(X)
-    EVTfit$gamma2 <- res$gamma[res$k==k2]
+    
+    if (EVTtruncation2) {
+      res <- trHill(X)
+      resDT <- trDT(X, gamma=res$gamma)
+      resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
+      EVTfit$gamma2 <- res$gamma[res$k==k2]
+      EVTfit$endpoint2 <- resEndpoint$Tk[resEndpoint$k==k2]
+      type2 <- "trHill"
+      
+    } else {
+      res <- Hill(X)
+      EVTfit$gamma2 <- res$gamma[res$k==k2]
+      type2 <- "Hill"
+    }  
+
     
     const2 <- 1-k2/n
-    return(list(MEfit=MEfit,EVTfit=EVTfit,t=t1,t2=t2,
-                trunclower=trunclower,const=const,const2=const2,type=type))
+    return(list(MEfit=MEfit,EVTfit=EVTfit,t=t1,t2=t2,trunclower=trunclower,const=const,const2=const2,
+                type=type,type2=type2))
   }
   
 }
@@ -256,11 +269,21 @@ SplicePDF <- function(x, splicefit) {
       d[ind2] <- dtpareto(x[ind2],shape=1/EVTfit$gamma,scale=t1,endpoint=EVTfit$endpoint) * (const2-const1)
       # CDF is 1 after endpoint
       d[x>EVTfit$endpoint] <- 1
+    } else {
+      stop("Invalid type.")
     }
     
-    ind3 <- x>t2
-    d[ind3] <- dpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
     
+    ind3 <- x>t2
+    
+    if(splicefit$type2=="Hill") {
+      d[ind3] <- dpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
+    } else if(splicefit$type2=="trHill") {
+      d[ind3] <- dtpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2,endpoint=EVTfit$endpoint2) * (1-const2)
+    } else {
+      stop("Invalid type2.")
+    }
+
   } else {
     
     if(splicefit$type=="GPD") {
@@ -271,7 +294,10 @@ SplicePDF <- function(x, splicefit) {
       d[!ind] <- (1-const) * dtpareto(x[!ind], shape=1/EVTfit$gamma, scale=t, endpoint=EVTfit$endpoint)
       # density is 0 after endpoint
       d[x>EVTfit$endpoint] <- 0
+    } else {
+      stop("Invalid type.")
     }
+    
   }
 
   return(d)
@@ -317,11 +343,18 @@ SpliceCDF <- function(x, splicefit) {
       p[ind2] <- const1 + ptpareto(x[ind2],shape=1/EVTfit$gamma,scale=t1,endpoint=EVTfit$endpoint) * (const2-const1)
       # CDF is 1 after endpoint
       p[x>EVTfit$endpoint] <- 1
+    } else {
+      stop("Invalid type.")
     }
     
     ind3 <- x>t2
-    p[ind3] <- const2 + ppareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
-    
+    if(splicefit$type2=="Hill") {
+      p[ind3] <- const2 + ppareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
+    } else if(splicefit$type2=="trHill") {
+      p[ind3] <- const2 + ptpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2,endpoint=EVTfit$endpoint2) * (1-const2)
+    } else {
+      stop("Invalid type2.")
+    }
     
   } else {
     
@@ -334,7 +367,10 @@ SpliceCDF <- function(x, splicefit) {
       p[!ind] <- const + ptpareto(x[!ind],shape=1/EVTfit$gamma,scale=t,endpoint=EVTfit$endpoint) * (1-const)
       # CDF is 1 after endpoint
       p[x>EVTfit$endpoint] <- 1
+    } else {
+      stop("Invalid type.")
     }
+    
   
   }
   
