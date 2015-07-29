@@ -3,45 +3,75 @@
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
 # If const is non-zero, an extra splicing with a Pareto is included
-SpliceFitHill <- function(X, const, const2 = 0, M=20, s=1:10, trunclower = 0,
-                          EVTtruncation = FALSE, EVTtruncation2 = FALSE, ncores = NULL) {
+SpliceFitHill <- function(X, const, M=20, s=1:10, trunclower = 0,
+                          EVTtruncation = FALSE, ncores = NULL) {
   
   n <- length(X)
   
-  # Check input for const and const2
-  if(const<=0 | const>=1) {
-    stop("const should be a number strictly between zero and 1.")
-  }
-  
-  if(const2<0 | const2>=1) {
-    stop("const2 should be a number between zero and 1.")
-  }
-  
-  if(const2!=0 & const2<=const) {
-    stop("const2 should be 0 or strictly larger than const.")
-  }
-  
-  if(const2>0) {
-    # Double splicing
-    k2 <- floor((1-const2)*n)
-    k1 <- floor((1-const)*n)-k2
-  } else {
-    # Single splicing
-    k1 <- floor((1-const)*n)
+  # Check input for const
+  if(any(const<0) | any(const>=1)) {
+    stop("const should be a vector of numbers between 0 and 1.")
   }
 
+  if(is.unsorted(const, strictly=TRUE)) {
+    stop("const should be a strictly increasing vector.")
+  }
+  
+  l <- length(const)
+  
+  if(l>1 & any(const==0)) {
+    stop("const cannnot have a zero-element.")
+  }
+  
+
+  if(length(EVTtruncation)!=l & length(EVTtruncation)!=1) {
+    stop("EVTtruncation should have length 1 or the same length as const.")
+    
+  } else if(l!=1 & length(EVTtruncation)==1) {
+    EVTtruncation <- rep(EVTtruncation,l)
+  }
   
   # Check input for ncores
   if(is.null(ncores)) ncores <- max(detectCores()-1, 1)
   if(is.na(ncores)) ncores <- 1
   
-  Xsort <- sort(X)
-  t1 <- Xsort[length(X)-k1]
-  if(const2>0) {
-    t2 <- Xsort[length(X)-k2]
+  
+  # Determine values of k 
+  kvec <- numeric(l)
+  
+  if(l>1) {
+    # l-splicing
+    kvec[l] <-  floor((1-const[l])*n)
+    for(i in (l-1):1) {
+      kvec[i] <-  floor((1-const[i])*n)-sum(kvec[(i+1):l])
+    }
   } else {
-    t2 <- Inf
+    # Single splicing
+    kvec[1] <- floor((1-const)*n)
   }
+  
+  
+  # Determine values of splicing points
+  
+  Xsort <- sort(X)
+  tvec <- numeric(l)
+  
+  
+  if(l>1) {
+    # l-splicing
+    tvec[l] <-  Xsort[length(X)-kvec[l]]
+    const[l] <- 1-kvec[l]/n
+
+    for(i in (l-1):1) {
+      const[i] <- 1-sum(kvec[l:i])/n
+      tvec[i] <-  Xsort[length(X)-sum(kvec[l:i])]
+    }
+  } else {
+    # Single splicing
+    const[1] <- 1-kvec[1]/n
+    tvec[1] <- Xsort[length(X)-kvec[1]]
+  }
+  t1 <- tvec[1]
   
   
   # Mixing Erlang part
@@ -54,46 +84,40 @@ SpliceFitHill <- function(X, const, const2 = 0, M=20, s=1:10, trunclower = 0,
   
   # EVT part
   EVTfit <- list()
-  if (EVTtruncation) {
-    res <- trHill(X[X<=t2])
-    resDT <- trDT(X[X<=t2], gamma=res$gamma)
-    resEndpoint <- trEndpoint(X[X<=t2], gamma=res$gamma, DT=resDT$DT)
-    EVTfit$gamma <- res$gamma[res$k==k1]
-    EVTfit$endpoint <- resEndpoint$Tk[resEndpoint$k==k1]
-    type <- "trHill"
-  } else {
-    res <- Hill(X[X<=t2])
-    EVTfit$gamma <- res$gamma[res$k==k1]
-    type <- "Hill"
-  }
   
-  const <- 1-k1/n
+  type <- character(l)
+  
+  EVTfit$gamma <- numeric(l)
+  EVTfit$endpoint <- rep(Inf, l)
 
-  if(const2==0) {
-    return(list(MEfit=MEfit,EVTfit=EVTfit,t=t1,trunclower=trunclower,const=const,type=type))
+  # Splice parts
+  for(i in 1:l) {
     
-  } else {
-    # Second splicing part
+    # Endpoint for last splicing is Inf
+    if(i==l) {
+      tt <- Inf
+    } else {
+      tt <- tvec[i+1]
+    }
     
-    if (EVTtruncation2) {
-      res <- trHill(X)
-      resDT <- trDT(X, gamma=res$gamma)
-      resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
-      EVTfit$gamma2 <- res$gamma[res$k==k2]
-      EVTfit$endpoint2 <- resEndpoint$Tk[resEndpoint$k==k2]
-      type2 <- "trHill"
+    if(EVTtruncation[i]) {
+      res <- trHill(X[X<=tt])
+      resDT <- trDT(X[X<=tt], gamma=res$gamma)
+      resEndpoint <- trEndpoint(X[X<=tt], gamma=res$gamma, DT=resDT$DT)
+      EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+      EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
+      type[i] <- "trHill"
       
     } else {
-      res <- Hill(X)
-      EVTfit$gamma2 <- res$gamma[res$k==k2]
-      type2 <- "Hill"
-    }  
-
+      res <- Hill(X[X<=tt])
+      EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+      type[i] <- "Hill"
+    }
     
-    const2 <- 1-k2/n
-    return(list(MEfit=MEfit,EVTfit=EVTfit,t=t1,t2=t2,trunclower=trunclower,const=const,const2=const2,
-                type=type,type2=type2))
   }
+  
+
+  return(list(MEfit=MEfit,EVTfit=EVTfit,t=tvec,trunclower=trunclower,const=const,type=type))
   
 }
 
@@ -114,6 +138,9 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M=20, s=1:10, trunclower =
     stop("const should be a number strictly between zero and 1.")
   }
   
+  if(length(const)>1) {
+    stop("const should be a single number.")
+  }
   
   # Check input for ncores
   if(is.null(ncores)) ncores <- max(detectCores()-1, 1)
@@ -204,6 +231,10 @@ SpliceFitGPD <- function(X, const, M=20, s=1:10, trunclower = 0, ncores = NULL) 
     stop("const should be a number strictly between zero and 1.")
   }
   
+  if(length(const)>1) {
+    stop("const should be a single number.")
+  }
+  
   n <- length(X)
   k <- floor((1-const)*n)
   
@@ -238,68 +269,50 @@ SplicePDF <- function(x, splicefit) {
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
   
-  t <- splicefit$t
+  tvec <- splicefit$t
   trunclower <- splicefit$trunclower
   
   const <- splicefit$const
+  l <- length(const)
   
-  ind <- x<=t
+  type <- splicefit$type
+  
+  ind <- (x<=tvec[1])
   
   # Case x<=t
-  d[ind] <- const * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
-                       theta = MEfit$theta, trunclower = trunclower, truncupper = t)
+  d[ind] <- const[1] * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
+                       theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
   
   # Case x>t
-  if(exists("const2",where=splicefit)) {
-    # Double splicing
+  for(i in 1:l) {
     
-    const1 <- const
-    t1 <- t
-    t2 <- splicefit$t2
-    const2 <- splicefit$const2
-    ind2 <- x>t1 & x<=t2
+    # Next splicing point (Inf for last part)
+    tt <- ifelse(i==l,Inf,tvec[i+1])
     
-    # Case x>t
-    if(splicefit$type=="GPD") {
-      # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
-      d[ind2] <- dgpd(x[ind2],gamma=EVTfit$gamma,mu=t1,sigma=EVTfit$sigma) * (const2-const1)
-    } else if(splicefit$type %in% c("Hill","cHill","ciHill")) {
-      d[ind2] <- dpareto(x[ind2],shape=1/EVTfit$gamma,scale=t1) * (const2-const1)
-    } else if(splicefit$type %in% c("trHill","trciHill")) {
-      d[ind2] <- dtpareto(x[ind2],shape=1/EVTfit$gamma,scale=t1,endpoint=EVTfit$endpoint) * (const2-const1)
-      # CDF is 1 after endpoint
-      d[x>EVTfit$endpoint] <- 1
-    } else {
-      stop("Invalid type.")
-    }
+    # Index for all observations in ith EVTpart
+    ind <- x>tvec[i] & x<=tt
     
+    # Constant corresponding to next splicing part
+    # (1 for last splicing part)
+    cconst <- ifelse(i==l,1,const[i+1])
     
-    ind3 <- x>t2
-    
-    if(splicefit$type2=="Hill") {
-      d[ind3] <- dpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
-    } else if(splicefit$type2=="trHill") {
-      d[ind3] <- dtpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2,endpoint=EVTfit$endpoint2) * (1-const2)
-    } else {
-      stop("Invalid type2.")
-    }
+    # Endpoint of splicing part, min of next splicing point and
+    # endpoint from Pareto
+    e <- min(tt,EVTfit$endpoint[i])
 
-  } else {
-    
-    if(splicefit$type=="GPD") {
-      d[!ind] <- (1-const) * dgpd(x[!ind],gamma=EVTfit$gamma,mu=t,sigma=EVTfit$sigma)
-    } else if(splicefit$type %in% c("Hill","cHill","ciHill")) {
-      d[!ind] <- (1-const) * dpareto(x[!ind], shape=1/EVTfit$gamma, scale=t)
-    } else if(splicefit$type %in% c("trHill","trciHill")) {
-      d[!ind] <- (1-const) * dtpareto(x[!ind], shape=1/EVTfit$gamma, scale=t, endpoint=EVTfit$endpoint)
-      # density is 0 after endpoint
-      d[x>EVTfit$endpoint] <- 0
+    if(splicefit$type[i]=="GPD") {
+      d[ind] <- dtgpd(x[ind],gamma=EVTfit$gamma,mu=tvec[i],sigma=EVTfit$sigma,endpoint=e) * (cconst-const[i])
+      
+    } else if(type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+      d[ind] <- dtpareto(x[ind],shape=1/EVTfit$gamma[i],scale=tvec[i],endpoint=e) * (cconst-const[i])
+      
     } else {
       stop("Invalid type.")
     }
-    
+    # PDF is 0 after endpoint
+    d[x>EVTfit$endpoint[i]] <- 0
   }
-
+  
   return(d)
 }
 
@@ -312,71 +325,52 @@ SpliceCDF <- function(x, splicefit) {
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
   
-  t <- splicefit$t
+  tvec <- splicefit$t
   trunclower <- splicefit$trunclower
   
   const <- splicefit$const
+  l <- length(const)
   
-  ind <- (x<=t)
+  type <- splicefit$type
+  
+  ind <- (x<=tvec[1])
   
   # Case x<=t
-  p[ind] <- const * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
-                theta = MEfit$theta, trunclower = trunclower, truncupper = t)
+  p[ind] <- const[1] * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
+                theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
 
   # Case x>t
-  if(exists("const2",where=splicefit)) {
-    # Double splicing
-
-    const1 <- const
-    t1 <- t
-    t2 <- splicefit$t2
-    const2 <- splicefit$const2
-    ind2 <- x>t1 & x<=t2
+  for(i in 1:l) {
     
-    # Case x>t
-    if(splicefit$type=="GPD") {
+    # Next splicing point (Inf for last part)
+    tt <- ifelse(i==l,Inf,tvec[i+1])
+    
+    # Index for all observations in ith EVTpart
+    ind <- x>tvec[i] & x<=tt
+    
+    # Constant corresponding to next splicing part
+    # (1 for last splicing part)
+    cconst <- ifelse(i==l,1,const[i+1])
+    
+    # Endpoint of splicing part, min of next splicing point and
+    # endpoint from Pareto
+    e <- min(tt,EVTfit$endpoint[i])
+    
+    if(splicefit$type[i]=="GPD") {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
-      p[ind2] <- const1 + pgpd(x[ind2],gamma=EVTfit$gamma,mu=t1,sigma=EVTfit$sigma) * (const2-const1)
-    } else if(splicefit$type %in% c("Hill","cHill","ciHill")) {
-      p[ind2] <- const1 + ppareto(x[ind2],shape=1/EVTfit$gamma,scale=t1) * (const2-const1)
-    } else if(splicefit$type %in% c("trHill","trciHill")) {
-      p[ind2] <- const1 + ptpareto(x[ind2],shape=1/EVTfit$gamma,scale=t1,endpoint=EVTfit$endpoint) * (const2-const1)
-      # CDF is 1 after endpoint
-      p[x>EVTfit$endpoint] <- 1
+      p[ind] <- const[i] + ptgpd(x[ind],gamma=EVTfit$gamma,mu=tvec[i],sigma=EVTfit$sigma,endpoint=e) * (cconst-const[i])
+    
+    } else if(type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+      p[ind] <- const[i] + ptpareto(x[ind],shape=1/EVTfit$gamma[i],scale=tvec[i],endpoint=e) * (cconst-const[i])
+    
     } else {
       stop("Invalid type.")
     }
     
-    ind3 <- x>t2
     
-    if(splicefit$type2=="Hill") {
-      p[ind3] <- const2 + ppareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
-    } else if(splicefit$type2=="trHill") {
-      p[ind3] <- const2 + ptpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2,endpoint=EVTfit$endpoint2) * (1-const2)
-      p[x>EVTfit$endpoint2] <- 1
-    } else {
-      stop("Invalid type2.")
-    }
-    
-  } else {
-    
-    if(splicefit$type=="GPD") {
-      # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
-      p[!ind] <- const + pgpd(x[!ind],gamma=EVTfit$gamma,mu=t,sigma=EVTfit$sigma) * (1-const)
-    } else if(splicefit$type %in% c("Hill","cHill","ciHill")) {
-      p[!ind] <- const + ppareto(x[!ind],shape=1/EVTfit$gamma,scale=t) * (1-const)
-    } else if(splicefit$type %in% c("trHill","trciHill")) {
-      p[!ind] <- const + ptpareto(x[!ind],shape=1/EVTfit$gamma,scale=t,endpoint=EVTfit$endpoint) * (1-const)
-      # CDF is 1 after endpoint
-      p[x>EVTfit$endpoint] <- 1
-    } else {
-      stop("Invalid type.")
-    }
-    
-  
+    # CDF is 1 after endpoint
+    p[x>EVTfit$endpoint[i]] <- 1
   }
-  
-  p[p>1] <- 1
   
   return(p)
 }
