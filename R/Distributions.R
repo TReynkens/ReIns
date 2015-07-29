@@ -208,6 +208,59 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
 }
 
 
+eps <- 10^(-14)
+dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
+  
+  return(dgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma))
+  
+}
+
+ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
+  
+  if (sigma<0) {
+    stop("sigma should be strictly positive.")
+  }
+  
+  if(endpoint<=mu) {
+    stop("endpoint should be strictly larger than mu.")
+  }
+  
+  return(pgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma))
+}
+
+
+qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf) {
+  
+  if (!all(p>=0 & p<=1)) {
+    stop("p should be between 0 and 1.")
+  }
+  
+  if (sigma<0) {
+    stop("sigma should be strictly positive.")
+  }
+  
+  if(endpoint<=mu) {
+    stop("endpoint should be strictly larger than mu.")
+  }
+  
+  return(qgpd(p*pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),gamma=gamma,mu=mu,sigma=sigma))
+   
+}
+
+
+rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
+  
+  if (sigma<0) {
+    stop("sigma should be strictly positive.")
+  }
+  
+  if(endpoint<=mu) {
+    stop("endpoint should be strictly larger than mu.")
+  }
+  
+  
+  qtgpd(runif(n),gamma=gamma,mu=mu,sigma=sigma, endpoint=endpoint)
+}
 
 
 ###############################################################
