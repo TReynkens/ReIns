@@ -348,10 +348,12 @@ SpliceCDF <- function(x, splicefit) {
     }
     
     ind3 <- x>t2
+    
     if(splicefit$type2=="Hill") {
       p[ind3] <- const2 + ppareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2) * (1-const2)
     } else if(splicefit$type2=="trHill") {
       p[ind3] <- const2 + ptpareto(x[ind3],shape=1/EVTfit$gamma2,scale=t2,endpoint=EVTfit$endpoint2) * (1-const2)
+      p[x>EVTfit$endpoint2] <- 1
     } else {
       stop("Invalid type2.")
     }
@@ -373,6 +375,8 @@ SpliceCDF <- function(x, splicefit) {
     
   
   }
+  
+  p[p>1] <- 1
   
   return(p)
 }
