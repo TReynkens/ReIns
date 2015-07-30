@@ -2,37 +2,37 @@
 
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
-SpliceFitHill <- function(X, const, M=10, s=1:10, trunclower = 0,
+SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
                           EVTtruncation = FALSE, ncores = NULL) {
   
   n <- length(X)
   
   # Check input for const
-  if(any(const<0) | any(const>=1)) {
+  if (any(const<0) | any(const>=1)) {
     stop("const should be a vector of numbers between 0 and 1.")
   }
 
-  if(is.unsorted(const, strictly=TRUE)) {
+  if (is.unsorted(const, strictly=TRUE)) {
     stop("const should be a strictly increasing vector.")
   }
   
   l <- length(const)
   
-  if(l>1 & any(const==0)) {
+  if (l>1 & any(const==0)) {
     stop("const cannnot have a zero-element.")
   }
   
 
-  if(length(EVTtruncation)!=l & length(EVTtruncation)!=1) {
+  if (length(EVTtruncation)!=l & length(EVTtruncation)!=1) {
     stop("EVTtruncation should have length 1 or the same length as const.")
     
-  } else if(l!=1 & length(EVTtruncation)==1) {
+  } else if (l!=1 & length(EVTtruncation)==1) {
     EVTtruncation <- rep(EVTtruncation,l)
   }
   
   # Check input for ncores
-  if(is.null(ncores)) ncores <- max(detectCores()-1, 1)
-  if(is.na(ncores)) ncores <- 1
+  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
+  if (is.na(ncores)) ncores <- 1
   
   
   # Determine values of splicing points
@@ -53,7 +53,7 @@ SpliceFitHill <- function(X, const, M=10, s=1:10, trunclower = 0,
   # Number of points in splicing part larger than splicing point
   kvec <- k_init
   
-  if(l>1) {
+  if (l>1) {
     for(i in (l-1):1) {
       kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
     } 
@@ -78,16 +78,16 @@ SpliceFitHill <- function(X, const, M=10, s=1:10, trunclower = 0,
   EVTfit$endpoint <- rep(Inf, l)
 
   # Splice parts
-  for(i in 1:l) {
+  for (i in 1:l) {
     
     # Endpoint for last splicing is Inf
-    if(i==l) {
+    if (i==l) {
       tt <- Inf
     } else {
       tt <- tvec[i+1]
     }
     
-    if(EVTtruncation[i]) {
+    if (EVTtruncation[i]) {
       res <- trHill(X[X<=tt])
       resDT <- trDT(X[X<=tt], gamma=res$gamma)
       resEndpoint <- trEndpoint(X[X<=tt], gamma=res$gamma, DT=resDT$DT)
@@ -103,8 +103,7 @@ SpliceFitHill <- function(X, const, M=10, s=1:10, trunclower = 0,
     
   }
   
-
-  return(list(MEfit=MEfit,EVTfit=EVTfit,t=tvec,trunclower=trunclower,const=const,type=type))
+  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=type) )
   
 }
 
@@ -114,24 +113,24 @@ SpliceFitHill <- function(X, const, M=10, s=1:10, trunclower = 0,
 
 
 # Fit splicing of mixed Erlang and Pareto for right or interval censoring
-SpliceFitcHill <- function(Z, I = Z, censored, const, M=10, s=1:10, trunclower = 0,
+SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclower = 0,
                             EVTtruncation = FALSE, ncores = NULL) {
   
   # Check if interval censoring is present
   interval <- !(all(Z==I))
   
   # Check input for const
-  if(const<=0 | const>=1) {
+  if (const<=0 | const>=1) {
     stop("const should be a number strictly between zero and 1.")
   }
   
-  if(length(const)>1) {
+  if (length(const)>1) {
     stop("const should be a single number.")
   }
   
   # Check input for ncores
-  if(is.null(ncores)) ncores <- max(detectCores()-1, 1)
-  if(is.na(ncores)) ncores <- 1
+  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
+  if (is.na(ncores)) ncores <- 1
   
   
   n <- length(Z)
@@ -140,14 +139,14 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M=10, s=1:10, trunclower =
   Zsort <- sort(Z)
   t <- Zsort[n-k]
   
-  if(length(censored)!=n) {
+  if (length(censored)!=n) {
     stop("Z and censored should have the same length.")
   }
   
-  if(interval) {
+  if (interval) {
     # Interval censoring
     
-    if(length(Z)!=length(I)) {
+    if (length(Z)!=length(I)) {
       stop("Z and I should have the same length.")
     }
     
@@ -201,24 +200,24 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M=10, s=1:10, trunclower =
     type <- "cHill"
   }
   
-   return(list(MEfit=MEfit,EVTfit=EVTfit,t=t,trunclower=trunclower,const=const,type=type))
+   return( list(MEfit=MEfit, EVTfit=EVTfit, t=t, trunclower=trunclower, const=const, type=type) )
 }
 
 
 
 # Fit splicing of mixed Erlang and GPD (POT)
-SpliceFitGPD <- function(X, const, M=10, s=1:10, trunclower = 0, ncores = NULL) {
+SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NULL) {
 
   # Check input for ncores
-  if(is.null(ncores)) ncores <- max(detectCores()-1, 1)
-  if(is.na(ncores)) ncores <- 1
+  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
+  if (is.na(ncores)) ncores <- 1
   
   # Check input for const
-  if(const<=0 | const>=1) {
+  if (const<=0 | const>=1) {
     stop("const should be a number strictly between zero and 1.")
   }
   
-  if(length(const)>1) {
+  if (length(const)>1) {
     stop("const should be a single number.")
   }
   
@@ -243,7 +242,7 @@ SpliceFitGPD <- function(X, const, M=10, s=1:10, trunclower = 0, ncores = NULL) 
   POTfit$gamma <- res[1]
   POTfit$sigma <- res[2]
   
-  return(list(MEfit=MEfit,EVTfit=POTfit,t=t,trunclower=trunclower,const=1-k/n,type="GPD"))
+  return( list(MEfit=MEfit, EVTfit=POTfit, t=t, trunclower=trunclower, const=1-k/n, type="GPD"))
 }
 
 ########################################################################
@@ -271,7 +270,7 @@ SplicePDF <- function(x, splicefit) {
                        theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
   
   # Case x>t
-  for(i in 1:l) {
+  for (i in 1:l) {
     
     # Next splicing point (Inf for last part)
     tt <- ifelse(i==l,Inf,tvec[i+1])
@@ -287,10 +286,10 @@ SplicePDF <- function(x, splicefit) {
     # endpoint from Pareto
     e <- min(tt,EVTfit$endpoint[i])
 
-    if(splicefit$type[i]=="GPD") {
+    if (splicefit$type[i]=="GPD") {
       d[ind] <- dtgpd(x[ind],gamma=EVTfit$gamma,mu=tvec[i],sigma=EVTfit$sigma,endpoint=e) * (cconst-const[i])
       
-    } else if(type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+    } else if (type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
       d[ind] <- dtpareto(x[ind],shape=1/EVTfit$gamma[i],scale=tvec[i],endpoint=e) * (cconst-const[i])
       
     } else {
@@ -327,7 +326,7 @@ SpliceCDF <- function(x, splicefit) {
                 theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
 
   # Case x>t
-  for(i in 1:l) {
+  for (i in 1:l) {
     
     # Next splicing point (Inf for last part)
     tt <- ifelse(i==l,Inf,tvec[i+1])
@@ -343,11 +342,11 @@ SpliceCDF <- function(x, splicefit) {
     # endpoint from Pareto
     e <- min(tt,EVTfit$endpoint[i])
     
-    if(splicefit$type[i]=="GPD") {
+    if (splicefit$type[i]=="GPD") {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
       p[ind] <- const[i] + ptgpd(x[ind],gamma=EVTfit$gamma,mu=tvec[i],sigma=EVTfit$sigma,endpoint=e) * (cconst-const[i])
     
-    } else if(type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+    } else if (type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
       p[ind] <- const[i] + ptpareto(x[ind],shape=1/EVTfit$gamma[i],scale=tvec[i],endpoint=e) * (cconst-const[i])
     
     } else {
@@ -402,7 +401,7 @@ SpliceCDF <- function(x, splicefit) {
 # Plot of fitted survival function and ECDF estimator + bounds
 SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   
-  plot(x,1-SpliceCDF(x,splicefit=splicefit),type="l",xlab="x",ylab="1-F(x)", ...)
+  plot(x, 1-SpliceCDF(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
 
   # ECDF estimator
   fit  <- ecdf(X)
@@ -413,17 +412,17 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   # http://stats.stackexchange.com/questions/55500/confidence-intervals-for-empirical-cdf
   n <- length(X)
   eps <- sqrt(1/(2*n)*log(2/alpha))
-  lines(x,est,lty=1,col="red")
-  lines(x,pmax(est-eps,0),lty=2,col="blue")
-  lines(x,pmin(est+eps,1),lty=2,col="blue")
-  legend("topright",c("Fitted survival function","Empirical survival function","95% confidence bounds"),
-         lty=c(1,1,2),col=c("black","red","blue"))
+  lines(x, est, lty=1, col="red")
+  lines(x, pmax(est-eps,0), lty=2, col="blue")
+  lines(x, pmin(est+eps,1), lty=2, col="blue")
+  legend("topright", c("Fitted survival function","Empirical survival function","95% confidence bounds"),
+         lty=c(1,1,2), col=c("black","red","blue"))
 }
 
 # Plot of fitted survival function and Turnbull estimator + bounds
 SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   
-  plot(x,1-SpliceCDF(x,splicefit=splicefit),type="l",xlab="x",ylab="1-F(x)", ...)
+  plot(x, 1-SpliceCDF(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
   # Sort the data with index return
   s <- sort(Z, index.return = TRUE)
@@ -436,7 +435,7 @@ SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(Z==I,"right","interval")
+  type <- ifelse(Z==I, "right", "interval")
   fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
   f = stepfun(fit$time,c(1,fit$surv))
   est <- f(x)
@@ -444,11 +443,11 @@ SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   lines(x,est,col="red")
   
   # Confidence bounds
-  lines(fit$time,fit$lower, col = "blue", lty = 2)
-  lines(fit$time,fit$upper, col = "blue", lty = 2)
-  lines(x,est,lty=1,col="red")
-  legend("topright",c("Fitted survival function","Turnbull estimator","95% confidence bounds"),
-         lty=c(1,1,2),col=c("black","red","blue"))
+  lines(fit$time, fit$lower, col = "blue", lty = 2)
+  lines(fit$time, fit$upper, col = "blue", lty = 2)
+  lines(x, est, lty=1, col="red")
+  legend("topright", c("Fitted survival function","Turnbull estimator","95% confidence bounds"),
+         lty=c(1,1,2), col=c("black","red","blue"))
 }
 
 
@@ -459,19 +458,20 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   fit  <- ecdf(X)
   est <- 1-fit(x)
   
-  if(log) {
+  if (log) {
     ind <- est>0
-    plot(-log(est[ind]),-log(1-SpliceCDF(x[ind],splicefit=splicefit)),type="l",xlab="-log(Empirical survival probability)",
+    plot(-log(est[ind]), -log(1-SpliceCDF(x[ind],splicefit=splicefit)), type="l",
+         xlab="-log(Empirical survival probability)",
          ylab="-log(Fitted survival probability)", ...)
   } else {
-    plot(est,1-SpliceCDF(x,splicefit=splicefit),type="l",xlab="Empirical survival probability",
+    plot(est, 1-SpliceCDF(x,splicefit=splicefit), type="l", xlab="Empirical survival probability",
          ylab="Fitted survival probability", ...)
   }
-  abline(a=0,b=1)
+  abline(a=0, b=1)
 }
 
 # Probability - probability plot with Turnbull estimator
-SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log=FALSE, ...) {
+SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE, ...) {
   
   # Sort the data with index return
   s <- sort(Z, index.return = TRUE)
@@ -484,18 +484,18 @@ SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log=FALSE, .
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(Z==I,"right","interval")
+  type <- ifelse(Z==I, "right", "interval")
   fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
-  f = stepfun(fit$time,c(1,fit$surv))
+  f = stepfun(fit$time, c(1,fit$surv))
   est <- f(x)
   
   
-  if(log) {
-    plot(-log(est),-log(1-SpliceCDF(x,splicefit=splicefit)),type="l",xlab="-log(Empirical surv. probs)",
+  if (log) {
+    plot(-log(est), -log(1-SpliceCDF(x,splicefit=splicefit)), type="l", xlab="-log(Empirical surv. probs)",
          ylab="-log(Fitted surv. probs)", ...)
   } else {
-    plot(est,1-SpliceCDF(x,splicefit=splicefit),type="l",
-         xlab="Empirical survival probability",ylab="Fitted probability", ...)
+    plot(est, 1-SpliceCDF(x, splicefit=splicefit), type="l",
+         xlab="Empirical survival probability", ylab="Fitted probability", ...)
   }
   abline(a=0,b=1)
 }
@@ -508,8 +508,8 @@ SpliceLL <- function(x = sort(X), X, splicefit, ...) {
   fit  <- ecdf(X)
 
   X <- sort(X)
-  plot(log(X),log(1-fit(X)),ylab="log(emp. surv.)",xlab="log(X)",type="p", ...)
-  lines(log(x),log(1-SpliceCDF(x,splicefit=splicefit)))
+  plot(log(X), log(1-fit(X)), ylab="log(emp. surv.)", xlab="log(X)", type="p", ...)
+  lines(log(x), log(1-SpliceCDF(x, splicefit=splicefit)))
 }
 
 
@@ -526,12 +526,12 @@ SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(Z==I,"right","interval")
+  type <- ifelse(Z==I, "right", "interval")
   fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
-  f = stepfun(fit$time,c(1,fit$surv))
+  f = stepfun(fit$time, c(1,fit$surv))
 
   Z <- sort(Z)
-  plot(log(Z),log(f(Z)),ylab="log(Turnbull surv.)",xlab="log(X)",type="p", ...)
-  lines(log(x),log(1-SpliceCDF(x,splicefit=splicefit)))
+  plot(log(Z), log(f(Z)), ylab="log(Turnbull surv.)", xlab="log(X)", type="p", ...)
+  lines(log(x), log(1-SpliceCDF(x, splicefit=splicefit)))
 }
 

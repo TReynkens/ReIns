@@ -18,7 +18,7 @@ ExcessHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = T
   }
   
   # Premium
-  if(is.finite(endpoint)) {
+  if (is.finite(endpoint)) {
     # Truncated Pareto model
     #beta <- X[n]/X[n-K]
     beta <- endpoint/X[n-K]
@@ -43,7 +43,7 @@ ExcessHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = T
   # plots if TRUE 
   plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, u=u),plot=plot,add=add)
+  output(list(k=K, premium=premium, u=u), plot=plot, add=add)
   
 }
 
@@ -51,7 +51,7 @@ ExcessHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = T
 ExcessHill_single <- function(t, gamma, u, endpoint = Inf) {
   
   # Premium
-  if(is.finite(endpoint)) {
+  if (is.finite(endpoint)) {
     # Truncated Pareto model
     beta <- endpoint/t
     premium <- 1 / (1-beta^(-1/gamma)) * ( t^(1/gamma) / (1/gamma-1) * 
@@ -76,7 +76,7 @@ ExcessEPD <- function(data, gamma, delta, tau, u, warnings = TRUE, plot = TRUE, 
     stop("u should be a numeric of length 1.")
   }
   
-  if( length(gamma)!=length(delta) | length(gamma)!=length(tau)) {
+  if (length(gamma)!=length(delta) | length(gamma)!=length(tau)) {
     stop("gamma, delta and tau should have equal length.")
   } 
   
@@ -103,7 +103,7 @@ ExcessEPD <- function(data, gamma, delta, tau, u, warnings = TRUE, plot = TRUE, 
   # plots if TRUE 
   plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, u=u),plot=plot,add=add)
+  output(list(k=K, premium=premium, u=u), plot=plot, add=add)
   
 }
 
@@ -147,7 +147,7 @@ ExcessGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add =
   # plots if TRUE 
   plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, u=u),plot=plot,add=add)
+  output(list(k=K, premium=premium, u=u), plot=plot, add=add)
   
 }
 
@@ -181,18 +181,18 @@ ExcessSpliceHill <- function(splicefit, u) {
       
       if(u > tvec[2] ) {
         # u>t2 case
-        premium <- (1-const[2]) * ExcessHill_single(t=tvec[2],gamma=EVTfit$gamma[2],endpoint=endpoint[2],u=u)
+        premium <- (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=u)
         
       } else if(u<tvec[2] & u>tvec[1]) {
         # t<u<t2 case
         
         e <- min(tvec[2],endpoint[1])
         
-        par_t2 <- ExcessHill_single(t=tvec[1],gamma=EVTfit$gamma[1],endpoint=e,u=tvec[2])
-        par_u <- ExcessHill_single(t=tvec[1],gamma=EVTfit$gamma[1],endpoint=e,u=u)
+        par_t2 <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
+        par_u <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=u)
         
         premium <- (const[2]-const[1]) * (par_u - par_t2) + (1-const[2]) * (tvec[2]-u) +  
-                    (1-const[2]) * ExcessHill_single(t=tvec[2],gamma=EVTfit$gamma[2],endpoint=endpoint[2],u=tvec[2])
+          (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
      
       } else {
         # u<t case
@@ -202,15 +202,16 @@ ExcessSpliceHill <- function(splicefit, u) {
                       theta = MEfit$theta)
         me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
                       theta = MEfit$theta)
-        Ft <- ME_cdf(tvec[1],shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+        Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
         
         e <- min(tvec[2],endpoint[1])
-        par_t <- ExcessHill_single(t=tvec[1],gamma=EVTfit$gamma[1],endpoint=e,u=tvec[1])
-        par_t2 <- ExcessHill_single(t=tvec[1],gamma=EVTfit$gamma[1],endpoint=e,u=tvec[2])
+        par_t <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[1])
+        par_t2 <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
         
         premium <- (me_u-me_t - (1-Ft) * (tvec[1]-u))/Ft * const[1] + (1-const[1]) * (tvec[1]-u) + 
           (const[2]-const[1]) * (par_t - par_t2) + 
-          (1-const[2]) * (tvec[2]-tvec[1]) + (1-const[2]) * ExcessHill_single(t=tvec[2],gamma=EVTfit$gamma[2],endpoint=endpoint[2],u=tvec[2])
+          (1-const[2]) * (tvec[2]-tvec[1]) + 
+          (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
       }
       
     } else {
@@ -223,7 +224,7 @@ ExcessSpliceHill <- function(splicefit, u) {
     
     if(u > tvec[l] & u<endpoint[l]) {
       # u>t case
-      premium <- (1-const[l]) * ExcessHill_single(t=tvec[l],gamma=EVTfit$gamma,endpoint=endpoint,u=u)
+      premium <- (1-const[l]) * ExcessHill_single(t=tvec[l], gamma=EVTfit$gamma, endpoint=endpoint, u=u)
       
     } else if(u<endpoint[l]) {
       # u<t case
@@ -232,10 +233,10 @@ ExcessSpliceHill <- function(splicefit, u) {
                     theta = MEfit$theta)
       me_t <- ME_XL(R=tvec[l], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
                     theta = MEfit$theta)
-      Ft <- ME_cdf(tvec[l],shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+      Ft <- ME_cdf(tvec[l], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
       
       premium <- (me_u-me_t - (1-Ft) * (tvec[l]-u))/Ft * const[l] + (1-const[l]) * (tvec[l]-u) + 
-        (1-const[l]) * ExcessHill_single(t=tvec[l],gamma=EVTfit$gamma,endpoint=endpoint[l],u=tvec[l])
+        (1-const[l]) * ExcessHill_single(t=tvec[l], gamma=EVTfit$gamma, endpoint=endpoint[l], u=tvec[l])
       
     } else {
       premium <- 0
@@ -265,7 +266,7 @@ ExcessSplicecHill <- function(splicefit, u) {
   
   if(u > splicefit$t & u<endpoint) {
     # u>t case
-    premium <- (1-splicefit$const) * ExcessHill_single(t=splicefit$t,gamma=EVTfit$gamma,endpoint=endpoint,u=u)
+    premium <- (1-splicefit$const) * ExcessHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=u)
     
   } else if(u<endpoint) {
     # u<t case
@@ -274,10 +275,10 @@ ExcessSplicecHill <- function(splicefit, u) {
                   theta = MEfit$theta)
     me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
                   theta = MEfit$theta)
-    Ft <- ME_cdf(splicefit$t,shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+    Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
     
     premium <- (me_u-me_t - (1-Ft) * (splicefit$t-u))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u) + 
-      (1-splicefit$const) * ExcessHill_single(t=splicefit$t,gamma=EVTfit$gamma,endpoint=endpoint,u=splicefit$t)
+      (1-splicefit$const) * ExcessHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=splicefit$t)
     
   } else {
     premium <- 0
@@ -310,9 +311,10 @@ ExcessSpliceGPD <- function(splicefit, u) {
                   theta = MEfit$theta)
     me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
                   theta = MEfit$theta)
-    Ft <- ME_cdf(splicefit$t,shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+    Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
 
-   premium <- (me_u-me_t - (1-Ft) * (splicefit$t-u))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u) + (1-splicefit$const) * EVTfit$sigma / (1-EVTfit$gamma)
+   premium <- (me_u-me_t - (1-Ft) * (splicefit$t-u))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u) + 
+     (1-splicefit$const) * EVTfit$sigma / (1-EVTfit$gamma)
       
   } 
   
