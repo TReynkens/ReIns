@@ -362,36 +362,55 @@ SpliceCDF <- function(x, splicefit) {
 
 
 
-# # Splicing quantiles
-# SpliceQuant <- function(p, splicefit) {
-#   
-#   q <- numeric(length(p))
-#   
-#   MEfit <- splicefit$MEfit
-#   EVTfit <- splicefit$EVTfit
-#   
-#   t <- splicefit$t
-#   trunclower <- splicefit$trunclower
-#   
-#   const <- splicefit$const
-#   
-#   ind <- (p<const)
-#   
-#   # Quantiles of ME part
-#   q[ind] <- ME_VaR(p[ind]/const, shape = MEfit$shape, alpha = MEfit$alpha, 
-#                      theta = MEfit$theta, trunclower=trunclower, truncupper=t, 
-#                    interval=c(trunclower,t)) 
-#   # Quantiles of EVT part
-#   if(splicefit$type=="GPD") {
-#     q[!ind] <- t + EVTfit$sigma/EVTfit$gamma * ( ((1-p[!ind])/(1-const))^(-EVTfit$gamma) - 1 )
-#   } else if(splicefit$type %in% c("Hill","cHill","ciHill")) {
-#     q[!ind] <- t*((1-p[!ind])/(1-const))^(-EVTfit$gamma1)
-#   } else if(splicefit$type %in% c("trHill","trciHill")) {
-#     q[!ind] <- t*(1-(p[!ind]-const)/(1-const)*(1-(EVTfit$endpoint/t)^(-1/EVTfit$gamma)))^(-EVTfit$gamma)
-#   }
-#   
-#   return(q)
-# }
+# Splicing quantiles
+SpliceQuant <- function(p, splicefit) {
+  
+  q <- numeric(length(p))
+  
+  MEfit <- splicefit$MEfit
+  EVTfit <- splicefit$EVTfit
+  
+  tvec <- splicefit$t
+  trunclower <- splicefit$trunclower
+  
+  const <- splicefit$const
+  l <- length(const)
+
+  ind <- (p<const[1])
+  
+  if (any(ind)) {
+    # Quantiles of ME part
+    q[ind] <- ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$beta, 
+                     theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
+                     interval=c(trunclower,tvec[1])) 
+  }
+
+  
+  # Quantiles of EVT part
+  
+  for (i in 1:l) {
+    
+    # Next splicing point (Inf for last part)
+    cconst <- ifelse(i==l, 1, const[i+1])
+    
+    # Index for all observations in ith EVTpart
+    ind <- p>=const[i] & p<cconst
+    
+    tt <- ifelse(i==l, Inf, tvec[i+1])
+    e <- min(EVTfit$endpoint[i], tt)
+    
+    if (splicefit$type[i]=="GPD") {
+      q[ind] <- tvec[i] + EVTfit$sigma/EVTfit$gamma * ( ((1-p[ind])/(1-const[i]))^(-EVTfit$gamma) - 1 )
+    } else if (splicefit$type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+      q[ind] <-  tvec[i] * (1-(p[ind]-const[i])/(cconst-const[i]) * (1-(e/tvec[i])^(-1/EVTfit$gamma[i])))^(-EVTfit$gamma[i])
+    }
+  }
+  
+  # Special case
+  q[p==1] <- EVTfit$endpoint[l]
+  
+  return(q)
+}
 
 
 ###########################################################################

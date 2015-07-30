@@ -94,9 +94,8 @@ export("trcProb","trciProb")
 #####################################
 # Splicing
 
-#export("MEtune")
 export("SpliceFitHill","SpliceFitcHill","SpliceFitGPD")
-export("SplicePDF","SpliceCDF")
+export("SplicePDF","SpliceCDF","SpliceQuant")
 export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB")
 
 #####################################

@@ -442,7 +442,39 @@ ME_cdf <- function(x, theta, shape, alpha, trunclower = 0, truncupper = Inf, low
   p
 } 
 
+## Value-at-Risk (VaR) or quantile function
 
+ME_VaR <- function(p, theta, shape, alpha, trunclower = 0, truncupper = Inf, interval = if(trunclower == 0 & truncupper == Inf){c(qgamma(p, shape = min(shape), scale = theta), qgamma(p, shape = max(shape), scale = theta))}else{c(trunclower, min(truncupper, trunclower + qgamma(p, shape = max(shape), scale = theta)))}, start = qgamma(p, shape = shape[which.max(alpha)], scale = theta)){
+  if(p==1){
+    return(Inf) 
+  }    
+  if(length(shape) == 1 & trunclower == 0 & truncupper == Inf){
+    VaR <- qgamma(p, shape = shape, scale = theta)
+  }
+  else{
+    objective <- function(x){return(10000000*(ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p)^2)}    
+    VaR_nlm <- nlm(f = objective, p = start)
+    VaR_optimize <- optimize(f = objective, interval = interval)
+    VaR <- ifelse(VaR_nlm$minimum < VaR_optimize$objective, VaR_nlm$estimate, VaR_optimize$minimum)    
+  }
+  if(objective(VaR)>1e-06){ # in case optimization fails, retry with more different starting values
+    alpha <- alpha[order(shape)]
+    shape <- shape[order(shape)]
+    VaR_nlm <-  vector("list", length(shape))
+    VaR_optimize <-  vector("list", length(shape))
+    interval <- c(0, qgamma(p, shape, scale = theta))
+    for(i in 1:length(shape)){
+      VaR_nlm[[i]] <- nlm(f = objective, p = qgamma(p, shape = shape[i], scale = theta))    
+      VaR_optimize[[i]] <- optimize(f = objective, interval = interval[c(i, i+1)])
+    }
+    VaR_nlm <- sapply(VaR_nlm, with, estimate)[which.min(sapply(VaR_nlm, with, minimum))]
+    VaR_optimize <- sapply(VaR_optimize, with, minimum)[which.min(sapply(VaR_optimize, with, objective))]
+    VaR <- ifelse(objective(VaR_nlm) < objective(VaR_optimize), VaR_nlm, VaR_optimize)  
+  }  
+  VaR  
+}
+
+ME_VaR <- Vectorize(ME_VaR, vectorize.args = c("p", "start"))
 
 ## Excess-of-loss reinsurance premium: L xs R
 
