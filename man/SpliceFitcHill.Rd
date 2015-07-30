@@ -8,7 +8,7 @@ Splicing of mixed Erlang and Pareto for censored data
 Fit spliced distribution of a mixed Erlang and a Pareto distribution, both adapted for right or interval censoring. The shape parameter of the Pareto distribution is determined using the Hill estimator adpated for censoring. 
 }
 \usage{
-SpliceFitcHill(Z, I = Z, censored, const, M = 20, s = 1:10, trunclower = 0,
+SpliceFitcHill(Z, I = Z, censored, const, M = 10, s = 1:10, trunclower = 0,
               EVTtruncation = FALSE, ncores = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -27,7 +27,7 @@ insurance context, these are the incurred values. By default, they are equal to 
 Probability of quantile where the distributions will be spliced (splicing point).
 }
   \item{M}{
-Initial number of Erlang mixtures, default is 20. This number can change when determining
+Initial number of Erlang mixtures, default is 10. This number can change when determining
 an optimal mixed Erlang fit using an AIC criterion.
 }
   \item{s}{

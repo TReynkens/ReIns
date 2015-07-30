@@ -8,7 +8,7 @@ Splicing of mixed Erlang and Pareto
 Fit spliced distribution of a mixed Erlang and Pareto distribution(s). The shape parameter of the Pareto distribution(s) is determined using the Hill estimator. 
 }
 \usage{
-SpliceFitHill(X, const, M = 20, s = 1:10, trunclower = 0, 
+SpliceFitHill(X, const, M = 10, s = 1:10, trunclower = 0, 
               EVTtruncation = FALSE, ncores = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -21,7 +21,7 @@ Vector of length \eqn{l} containing the probabilities of the quantiles where the
 }
 
   \item{M}{
-Initial number of Erlang mixtures, default is 20. This number can change when determining
+Initial number of Erlang mixtures, default is 10. This number can change when determining
 an optimal mixed Erlang fit using an AIC criterion.
 }
   \item{s}{
