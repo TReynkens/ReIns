@@ -74,8 +74,9 @@ dtpareto = function(x, shape, scale=1, endpoint=Inf) {
     stop("endpoint should be strictly larger than scale.")
   }
   
-  return(dpareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale))
-
+  return( ifelse(x<=endpoint, 
+                 dpareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale),
+                 0) )
 }
 
 ptpareto = function(x, shape, scale=1, endpoint=Inf) {
@@ -91,7 +92,9 @@ ptpareto = function(x, shape, scale=1, endpoint=Inf) {
     stop("endpoint should be strictly larger than scale.")
   }
  
-  return(ppareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale))
+  return(ifelse(x<=endpoint, 
+                ppareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale),
+                1) )
   
   #return(ifelse(x>=scale,(1-(scale/x)^shape)/(1-(scale/endpoint)^shape),0))
 }
@@ -208,10 +211,11 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
 }
 
 
-eps <- 10^(-14)
 dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
   
-  return(dgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma))
+  return( ifelse(x<=endpoint, 
+                 dgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
+                 0) )
   
 }
 
@@ -225,7 +229,9 @@ ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
     stop("endpoint should be strictly larger than mu.")
   }
   
-  return(pgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma))
+  return( ifelse(x<=endpoint, 
+                 pgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
+                 1) )
 }
 
 
