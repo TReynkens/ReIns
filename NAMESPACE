@@ -15,6 +15,7 @@ import("foreach")
 export("dpareto","ppareto","qpareto","rpareto") 
 export("dtpareto","ptpareto","qtpareto","rtpareto") 
 export("dgpd","pgpd","qgpd","rgpd") 
+export("dtgpd","ptgpd","qtgpd","rtgpd") 
 
 #########################
 # Plots

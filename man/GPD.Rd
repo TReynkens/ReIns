@@ -8,7 +8,7 @@
 The generalised Pareto distribution
 }
 \description{
-Density, distribution function, quantile function and random generation for the generalised Pareto distribution (GPD).
+Density, distribution function, quantile function and random generation for the Generalised Pareto Distribution (GPD).
 }
 \usage{
 dgpd(x, gamma, mu = 0, sigma)
@@ -32,7 +32,7 @@ Number of observations.
 The \eqn{\gamma} parameter of the GPD, a real number.
 }
   \item{mu}{
-The \eqn{\mu} parameter of the GPD, a strictly positive number.
+The \eqn{\mu} parameter of the GPD, a strictly positive number. Default is 0.
 }
   \item{sigma}{
 The \eqn{\sigma} parameter of the GPD, a strictly positive number.
@@ -62,7 +62,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[=ppareto]{Pareto}}, \code{\link[stats]{Distributions}}
+\code{\link[=ptgpd]{tGPD}}, \code{\link[=ppareto]{Pareto}}, \code{\link[stats]{Distributions}}
 }
 
 
