@@ -2,7 +2,6 @@
 
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
-# If const is non-zero, an extra splicing with a Pareto is included
 SpliceFitHill <- function(X, const, M=20, s=1:10, trunclower = 0,
                           EVTtruncation = FALSE, ncores = NULL) {
   
@@ -36,43 +35,31 @@ SpliceFitHill <- function(X, const, M=20, s=1:10, trunclower = 0,
   if(is.na(ncores)) ncores <- 1
   
   
-  # Determine values of k 
-  kvec <- numeric(l)
-  
-  if(l>1) {
-    # l-splicing
-    kvec[l] <-  floor((1-const[l])*n)
-    for(i in (l-1):1) {
-      kvec[i] <-  floor((1-const[i])*n)-sum(kvec[(i+1):l])
-    }
-  } else {
-    # Single splicing
-    kvec[1] <- floor((1-const)*n)
-  }
-  
-  
   # Determine values of splicing points
-  
+    
   Xsort <- sort(X)
-  tvec <- numeric(l)
   
+  # Number of points larger than splicing points
+  k_init <- floor((1-const)*n)
+  
+  # Splicing points
+  tvec <- numeric(l)
+  tvec <-  Xsort[n-k_init]
+
+  
+  # Update const
+  const <- 1-k_init/n
+  
+  # Number of points in splicing part larger than splicing point
+  kvec <- k_init
   
   if(l>1) {
-    # l-splicing
-    tvec[l] <-  Xsort[length(X)-kvec[l]]
-    const[l] <- 1-kvec[l]/n
-
     for(i in (l-1):1) {
-      const[i] <- 1-sum(kvec[l:i])/n
-      tvec[i] <-  Xsort[length(X)-sum(kvec[l:i])]
-    }
-  } else {
-    # Single splicing
-    const[1] <- 1-kvec[1]/n
-    tvec[1] <- Xsort[length(X)-kvec[1]]
+      kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
+    } 
   }
   t1 <- tvec[1]
-  
+   
   
   # Mixing Erlang part
   MEind <- (X<=t1) 
@@ -366,7 +353,6 @@ SpliceCDF <- function(x, splicefit) {
     } else {
       stop("Invalid type.")
     }
-    
     
     # CDF is 1 after endpoint
     p[x>EVTfit$endpoint[i]] <- 1
