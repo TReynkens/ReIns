@@ -13,6 +13,8 @@ ExcessHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = T
   premium <- numeric(n)
   K <- 1:(n-1)
   
+  
+  
   if (length(u)>1 & length(u)!=(n-1)) {
     stop("u should be a numeric of length 1 or n-1.")
   }
@@ -157,10 +159,6 @@ ExcessGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add =
 ExcessSpliceHill <- function(u, splicefit) {
   
 
-  if (length(u)>1) {
-    stop("u should be a numeric of length 1.")
-  }
-  
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
 
@@ -174,73 +172,79 @@ ExcessSpliceHill <- function(u, splicefit) {
     stop("Splicing of ME with 3 or more Pareto distributions is not supported.")
   }
   
-  if(l>1) {
-    # l-splicing
- 
-    if(u<endpoint[2]) {
+  premium <- numeric(length(u))
+  
+  for (i in 1:length(u)) {
+    
+    if (l>1) {
+      # l-splicing
       
-      if(u > tvec[2] ) {
-        # u>t2 case
-        premium <- (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=u)
+      if (u[i]<endpoint[2]) {
         
-      } else if(u<tvec[2] & u>tvec[1]) {
-        # t<u<t2 case
+        if (u[i] > tvec[2]) {
+          # u[i]>t2 case
+          premium[i] <- (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=u[i])
+          
+        } else if (u[i]<tvec[2] & u[i]>tvec[1]) {
+          # t<u[i]<t2 case
+          
+          e <- min(tvec[2],endpoint[1])
+          
+          par_t2 <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
+          par_u <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=u[i])
+          
+          premium[i] <- (const[2]-const[1]) * (par_u - par_t2) + (1-const[2]) * (tvec[2]-u[i]) +  
+            (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
+          
+        } else {
+          # u<t case
+          
+          # Set C to Inf because C is maximal cover amount
+          me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                        theta = MEfit$theta)
+          me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                        theta = MEfit$theta)
+          Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+          
+          e <- min(tvec[2],endpoint[1])
+          par_t <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[1])
+          par_t2 <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
+          
+          premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + 
+            (const[2]-const[1]) * (par_t - par_t2) + 
+            (1-const[2]) * (tvec[2]-tvec[1]) + 
+            (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
+        }
         
-        e <- min(tvec[2],endpoint[1])
-        
-        par_t2 <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
-        par_u <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=u)
-        
-        premium <- (const[2]-const[1]) * (par_u - par_t2) + (1-const[2]) * (tvec[2]-u) +  
-          (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
-     
       } else {
-        # u<t case
-        
-        # Set C to Inf because C is maximal cover amount
-        me_u <- ME_XL(R=u, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-        
-        e <- min(tvec[2],endpoint[1])
-        par_t <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[1])
-        par_t2 <- ExcessHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
-        
-        premium <- (me_u-me_t - (1-Ft) * (tvec[1]-u))/Ft * const[1] + (1-const[1]) * (tvec[1]-u) + 
-          (const[2]-const[1]) * (par_t - par_t2) + 
-          (1-const[2]) * (tvec[2]-tvec[1]) + 
-          (1-const[2]) * ExcessHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
+        premium[i] <- 0
       }
       
-    } else {
-      premium <- 0
-    }
-    
-    
-  } else {
-    # Single splicing
-    
-    if(u > tvec[l] & u<endpoint[l]) {
-      # u>t case
-      premium <- (1-const[l]) * ExcessHill_single(t=tvec[l], gamma=EVTfit$gamma, endpoint=endpoint, u=u)
-      
-    } else if(u<endpoint[l]) {
-      # u<t case
-      # Set C to Inf because C is maximal cover amount
-      me_u <- ME_XL(R=u, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                    theta = MEfit$theta)
-      me_t <- ME_XL(R=tvec[l], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                    theta = MEfit$theta)
-      Ft <- ME_cdf(tvec[l], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-      
-      premium <- (me_u-me_t - (1-Ft) * (tvec[l]-u))/Ft * const[l] + (1-const[l]) * (tvec[l]-u) + 
-        (1-const[l]) * ExcessHill_single(t=tvec[l], gamma=EVTfit$gamma, endpoint=endpoint[l], u=tvec[l])
       
     } else {
-      premium <- 0
+      # Single splicing
+      
+      if (u[i]>tvec[l] & u[i]<endpoint[l]) {
+        # u[i]>t case
+        premium[i] <- (1-const[l]) * ExcessHill_single(t=tvec[l], gamma=EVTfit$gamma, endpoint=endpoint, u=u[i])
+        
+      } else if (u[i]<endpoint[l]) {
+        # u[i]<t case
+        # Set C to Inf because C is maximal cover amount
+        me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                      theta = MEfit$theta)
+        me_t <- ME_XL(R=tvec[l], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                      theta = MEfit$theta)
+        Ft <- ME_cdf(tvec[l], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+        
+        premium[i] <- (me_u-me_t - (1-Ft) * (tvec[l]-u[i]))/Ft * const[l] + (1-const[l]) * (tvec[l]-u[i]) + 
+          (1-const[l]) * ExcessHill_single(t=tvec[l], gamma=EVTfit$gamma, endpoint=endpoint[l], u=tvec[l])
+        
+      } else {
+        premium[i] <- 0
+      }
     }
+    
   }
   
  
@@ -254,36 +258,37 @@ ExcessSpliceHill <- function(u, splicefit) {
 # using splicing of ME and (truncated) censored Pareto
 ExcessSplicecHill <- function(u, splicefit) {
   
-  if (length(u)>1) {
-    stop("u should be a numeric of length 1.")
-  }
-  
+
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
   
   endpoint <- Inf
   if(splicefit$type=="trcHill") endpoint <- EVTfit$endpoint
   
-  if(u > splicefit$t & u<endpoint) {
-    # u>t case
-    premium <- (1-splicefit$const) * ExcessHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=u)
-    
-  } else if(u<endpoint) {
-    # u<t case
-    # Set C to Inf because C is maximal cover amount
-    me_u <- ME_XL(R=u, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                  theta = MEfit$theta)
-    me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                  theta = MEfit$theta)
-    Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-    
-    premium <- (me_u-me_t - (1-Ft) * (splicefit$t-u))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u) + 
-      (1-splicefit$const) * ExcessHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=splicefit$t)
-    
-  } else {
-    premium <- 0
-  }
+  premium <- numeric(length(u))
   
+  for (i in 1:length(u)) {
+    
+    if (u[i]>splicefit$t & u[i]<endpoint) {
+      # u>t case
+      premium[i] <- (1-splicefit$const) * ExcessHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=u[i])
+      
+    } else if (u[i]<endpoint) {
+      # u<t case
+      # Set C to Inf because C is maximal cover amount
+      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+      
+      premium[i] <- (me_u-me_t - (1-Ft) * (splicefit$t-u[i]))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u[i]) + 
+        (1-splicefit$const) * ExcessHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=splicefit$t)
+      
+    } else {
+      premium[i] <- 0
+    }
+  }
   return(premium)
 }
 
@@ -293,30 +298,32 @@ ExcessSplicecHill <- function(u, splicefit) {
 ExcessSpliceGPD <- function(u, splicefit) {
   
   
-  if (length(u)>1) {
-    stop("u should be a numeric of length 1.")
-  }
-  
+
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
 
-  if(u > splicefit$t) {
-    # u>t case
-    premium <- (1-splicefit$const) *  EVTfit$sigma/(1-EVTfit$gamma) * (1 + EVTfit$gamma/EVTfit$sigma * (u-splicefit$t) )^(1-1/EVTfit$gamma)
-    
-  } else {
-    # u<t case
-    # Set C to Inf because C is maximal cover amount
-    me_u <- ME_XL(R=u, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                  theta = MEfit$theta)
-    me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                  theta = MEfit$theta)
-    Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-
-   premium <- (me_u-me_t - (1-Ft) * (splicefit$t-u))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u) + 
-     (1-splicefit$const) * EVTfit$sigma / (1-EVTfit$gamma)
-      
-  } 
+  premium <- numeric(length(u))
   
+  for (i in 1:length(u)) {
+    
+    if(u[i] > splicefit$t) {
+      # u>t case
+      premium[i] <- (1-splicefit$const) *  EVTfit$sigma/(1-EVTfit$gamma) * (1 + EVTfit$gamma/EVTfit$sigma * (u[i]-splicefit$t) )^(1-1/EVTfit$gamma)
+      
+    } else {
+      # u<t case
+      # Set C to Inf because C is maximal cover amount
+      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+  
+     premium[i] <- (me_u-me_t - (1-Ft) * (splicefit$t-u[i]))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u[i]) + 
+       (1-splicefit$const) * EVTfit$sigma / (1-EVTfit$gamma)
+        
+    } 
+  
+  }
   return(premium)
 }

@@ -13,7 +13,7 @@ ExcessSpliceHill(u, splicefit)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{u}{
-The retention level of the (re-)insurance.
+The retention level of the (re-)insurance or a vector of retention levels for the (re-)insurance.
 }
   \item{splicefit}{
 Output list from \code{\link{SpliceFitHill}}.
@@ -25,7 +25,7 @@ This function is does also work for double splicing as described in \code{\link{
 See Beirlant et al. (2015) and Verbelen et al. (2014) for details.
 }
 \value{
-An estimate for the premium is returned.
+An estimate for the premium is returned (for every value of \code{u}).
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
