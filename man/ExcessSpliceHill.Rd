@@ -8,15 +8,15 @@ Estimates for excess-loss premiums using splicing of mixed Erlang and Pareto
 Estimate premiums of excess-loss reinsurance with retention \eqn{u} using splicing of mixed Erlang and (truncated) Pareto distributions.
 }
 \usage{
-ExcessSpliceHill(splicefit, u)
+ExcessSpliceHill(u, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}.
-}
   \item{u}{
 The retention level of the (re-)insurance.
+}
+  \item{splicefit}{
+Output list from \code{\link{SpliceFitHill}}.
 }
 }
 \details{
@@ -53,7 +53,7 @@ X <- rpareto(1000, shape = 2)
 splicefit <- SpliceFitHill(X, 0.8)
 
 # Excess-loss premium 
-ExcessSpliceHill(splicefit, 2)
+ExcessSpliceHill(2, splicefit)
 
 }
 }
