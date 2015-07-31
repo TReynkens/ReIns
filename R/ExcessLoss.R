@@ -154,7 +154,7 @@ ExcessGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add =
 
 # Premium for excess loss insurance with retention u 
 # using splicing of ME and (truncated) Pareto
-ExcessSpliceHill <- function(splicefit, u) {
+ExcessSpliceHill <- function(u, splicefit) {
   
 
   if (length(u)>1) {
@@ -252,7 +252,7 @@ ExcessSpliceHill <- function(splicefit, u) {
 
 # Premium for excess loss insurance with retention u 
 # using splicing of ME and (truncated) censored Pareto
-ExcessSplicecHill <- function(splicefit, u) {
+ExcessSplicecHill <- function(u, splicefit) {
   
   if (length(u)>1) {
     stop("u should be a numeric of length 1.")
@@ -290,7 +290,7 @@ ExcessSplicecHill <- function(splicefit, u) {
 
 # Premium for excess loss insurance with retention u 
 # using splicing of ME and GPD
-ExcessSpliceGPD <- function(splicefit, u) {
+ExcessSpliceGPD <- function(u, splicefit) {
   
   
   if (length(u)>1) {

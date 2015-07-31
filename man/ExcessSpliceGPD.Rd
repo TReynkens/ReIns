@@ -8,15 +8,15 @@ Estimates for excess-loss premiums using splicing of mixed Erlang and GPD
 Estimate premiums of excess-loss reinsurance with retention \eqn{u} using splicing of mixed Erlang and generalised Pareto distributions.
 }
 \usage{
-ExcessSpliceGPD(splicefit, u)
+ExcessSpliceGPD(u, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{splicefit}{
-Output list from \code{\link{SpliceFitGPD}}.
-}
   \item{u}{
 The retention level of the (re-)insurance.
+}
+  \item{splicefit}{
+Output list from \code{\link{SpliceFitGPD}}.
 }
 }
 \details{
