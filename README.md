@@ -10,7 +10,7 @@ ReIns contains functions and datasets of the book "Reinsurance: Actuarial and St
 
 -   Splicing of mixed Erlang distributions with EVT distributions (Pareto, GPD).
 
--   Excess-loss premium estimates.
+-   VaR and excess-loss premium estimates.
 
 All code is written in plain R but optimised by applying vectorisation when possible.
 
