@@ -353,3 +353,26 @@ ExcessSpliceGPD <- function(u, splicefit) {
 }
 
 
+
+# Expected Shortfall (ES)
+ES <- function(p, splicefit) {
+  
+  # Check input
+  if (!is.numeric(p)) {
+    stop("p should be numeric.")
+  }
+  
+  if (any(p<=0) | any(p>1)) {
+    stop("All elements of p should be in (0,1].")
+  }
+  
+  # VaR
+  VaR <- SpliceQuant(p=p, splicefit=splicefit)
+
+  # Conditional tail expectation 
+  es <-  VaR + 1/p * ExcessSplice(VaR, splicefit=splicefit)
+    
+  return(es)
+}
+
+

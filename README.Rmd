@@ -26,7 +26,7 @@ It contains implementations of
 * Splicing of mixed Erlang distributions with EVT distributions (Pareto, GPD).
 
 
-* VaR and excess-loss premium estimates.
+* VaR, expected shortfall and excess-loss premium estimates.
 
 All code is written in plain R but optimised by applying vectorisation when possible. 
 

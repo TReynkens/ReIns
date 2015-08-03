@@ -1,31 +1,36 @@
-\name{SpliceQuant}
-\alias{SpliceQuant}
+\name{ES}
+\alias{ES}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Quantiles of splicing fit
+Expected Shortfall
 }
 \description{
-Compute quantiles (Value at Risk) of the fitted splicing distribution.
+Expected Shortfall (ES) \eqn{ES_p} of the fitted splicing distribution.
 }
 \usage{
-SpliceQuant(p, splicefit)
+ES(p, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p}{
-The probability of the quantile (we estimate \eqn{Q(p)}).
+The probability associated with the ES (we estimate  \eqn{ES_p}).
 }
   \item{splicefit}{
 Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
 }
 }
-\details{ 
-See Section 3.3 of Albrecher et al. (2015) for details.
+\details{
+The Expected Shortfall is defined as
+\deqn{ES_p = E(X | X>Q(1-p)) = E(X | X>VaR_p) = VaR_p + 1/p I(VaR_p),}
+where \eqn{I(u)=E((X-u)_+)} is the premium of an excess-loss insurance with retention u.
 
-Note that \eqn{p} is not the exceedance probability of the quantile!
+If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
+\eqn{TVaR} the Tail Value-at-Risk
+
+See Section 3.3 of Albrecher et al. (2015) for details.
 }
 \value{
-Vector of quantiles \eqn{Q(p)}.
+Vector with the ES associated with each element of p.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
@@ -38,9 +43,8 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceCDF}}, \code{\link{SplicePDF}}, \code{\link{ES}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}}
+\code{\link{SpliceQuant}}, \code{\link{ExcessSplice}}
 }
-
 \examples{
 \dontrun{
 
@@ -50,12 +54,8 @@ X <- rpareto(1000, shape = 2)
 # Splice ME and Pareto
 splicefit <- SpliceFitHill(X, 0.6)
 
-p <- seq(0,1,0.01)
-# Plot of quantiles
-plot(p, SpliceQuant(p, splicefit), type="l", xlab="p", ylab="Q(p)")
+p <- seq(0.01, 0.99, 0.01)
+# Plot of expected shortfall
+plot(p, ES(p, splicefit), type="l", xlab="p", ylab=bquote(ES[p]))
 }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ distribution }
-

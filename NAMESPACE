@@ -103,3 +103,4 @@ export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB"
 
 export("ExcessHill","ExcessEPD","ExcessGPD")
 export("ExcessSplice","ExcessSpliceHill","ExcessSpliceGPD","ExcessSplicecHill")
+export("ES")

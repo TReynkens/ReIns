@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for package "ReIns"}
 
-\section{Changes in version 0.3-00 (2015-07-31)}{
+\section{Changes in version 0.3-00 (2015-08-03)}{
 
   \itemize{
     \item Changes in \code{R} code:
@@ -10,12 +10,14 @@
         \item Include truncated GPD: \code{dtgpd}, \code{ptgpd}, \code{qtgpd} and \code{rtgpd}.
         \item Added functions for splicing of mixed Erlang and EVT distributions.
         \item Added functions for excess-loss of spliced distributions.
+        \item Added \code{ES} function to compute expected shortfall.
       }
          
     \item Documentation changes:
       \itemize{
         \item Added documentation for GPD functions.
         \item Added documentation for new splicing functions (including excess-loss).
+        \item Added documentation of \code{ES}.
       }
     \item Misscelaneous changes:
       \itemize{
