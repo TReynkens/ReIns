@@ -39,7 +39,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 
 
 \seealso{
-\code{\link{SpliceFitGPD}}, \code{\link{ExcessGPD}}
+\code{\link{SpliceFitGPD}},\code{\link{ExcessSplice}}, \code{\link{ExcessGPD}}
 }
 \examples{
 \dontrun{

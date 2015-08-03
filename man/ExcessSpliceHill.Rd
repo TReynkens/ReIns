@@ -41,7 +41,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 
 
 \seealso{
-\code{\link{SpliceFitHill}}, \code{\link{ExcessHill}}
+\code{\link{SpliceFitHill}}, \code{\link{ExcessSplice}}, \code{\link{ExcessHill}}
 }
 \examples{
 \dontrun{

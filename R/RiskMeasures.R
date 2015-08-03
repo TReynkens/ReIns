@@ -1,5 +1,7 @@
 
 
+
+
 # Premium for excess loss insurance with retention u 
 # using Hill estimates
 ExcessHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
@@ -153,6 +155,28 @@ ExcessGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add =
   
 }
 
+#######################################################
+
+ExcessSplice <- function(u, splicefit) {
+  
+  
+  type <- splicefit$type
+  
+  if(type[1]=="GPD") {
+    excess <- ExcessSpliceGPD(u=u, splicefit=splicefit)
+      
+  } else if(type[1] %in% c("Hill", "trHill")) {
+    excess <- ExcessSpliceHill(u=u, splicefit=splicefit)
+    
+  } else if(type[1] %in% c("cHill", "ciHill", "trciHill")) {
+    excess <- ExcessSplicecHill(u=u, splicefit=splicefit)
+    
+  } else {
+    stop("Invalid type.")
+  }
+  
+  return(excess)
+}
 
 # Premium for excess loss insurance with retention u 
 # using splicing of ME and (truncated) Pareto
@@ -327,3 +351,5 @@ ExcessSpliceGPD <- function(u, splicefit) {
   }
   return(premium)
 }
+
+

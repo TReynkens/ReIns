@@ -99,7 +99,7 @@ export("SplicePDF","SpliceCDF","SpliceQuant")
 export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB")
 
 #####################################
-# Excess loss premiums
+# Risk measures
 
 export("ExcessHill","ExcessEPD","ExcessGPD")
-export("ExcessSpliceHill","ExcessSpliceGPD","ExcessSplicecHill")
+export("ExcessSplice","ExcessSpliceHill","ExcessSpliceGPD","ExcessSplicecHill")

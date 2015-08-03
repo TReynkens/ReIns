@@ -1,14 +1,15 @@
-\name{ExcessSplicecHill}
-\alias{ExcessSplicecHill}
+\name{ExcessSplice}
+\alias{ExcessSplice}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Estimates for excess-loss premiums using splicing of mixed Erlang and Pareto adapted for censoring
+Estimates for excess-loss premiums using splicing
 }
 \description{
-Estimate premiums of excess-loss reinsurance with retention \eqn{u} using splicing of mixed Erlang and (truncated) Pareto distributions, adapted for censoring.
+Estimate premiums of excess-loss reinsurance with retention \eqn{u} using splicing of mixed Erlang and GPD or Pareto distribution(s).
 }
 \usage{
-ExcessSplicecHill(u, splicefit)
+ExcessSplice(u, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,11 +17,14 @@ ExcessSplicecHill(u, splicefit)
 The retention level of the (re-)insurance or a vector of retention levels for the (re-)insurance.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitcHill}}.
+Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
 }
 }
-\details{
-See Beirlant et al. (2015) and Verbelen et al. (2014) for details.
+\details{ 
+See Section 3.3 of Albrecher et al. (2015) for details.
+
+This function calls \code{\link{ExcessSplicecHill}}, \code{\link{ExcessSpliceGPD}} or \code{\link{ExcessSpliceHill}}
+for the actual calculations.
 }
 \value{
 An estimate for the premium is returned (for every value of \code{u}).
@@ -34,10 +38,11 @@ Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2014). "Fitting Mi
 Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mixed Erlang distribution.
 }
 
+
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitcHill}},  \code{\link{ExcessSplice}}, \code{\link{ExcessHill}}, \code{\link{ExcessSpliceHill}}
+\code{\link{ExcessSplicecHill}}, \code{\link{ExcessSpliceGPD}}, \code{\link{ExcessSpliceHill}}, \code{\link{SpliceFitcHill}},  \code{\link{SpliceFitGPD}},  \code{\link{SpliceFitHill}}
 }
 \examples{
 \dontrun{
@@ -45,17 +50,12 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 # Pareto random sample
 X <- rpareto(1000, shape = 2)
 
-Y <- rpareto(1000, shape = 3)
-
-Z <- pmin(X,Y)
-
-censored <- X>Y
-
 # Splice ME and Pareto
-splicefit <- SpliceFitcHill(Z, censored=censored, const=0.8)
+splicefit <- SpliceFitHill(X, 0.8)
 
 # Excess-loss premium 
-ExcessSplicecHill(1, splicefit)
+ExcessSplice(2, splicefit)
 
 }
 }
+
