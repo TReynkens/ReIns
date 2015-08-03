@@ -354,6 +354,13 @@ ExcessSpliceGPD <- function(u, splicefit) {
 
 
 
+# Value-at-risk
+VaR <- function(p, splicefit) {
+  
+  return(SpliceQuant(p=1-p, splicefit=splicefit))
+}
+
+
 # Expected Shortfall (ES)
 ES <- function(p, splicefit) {
   
@@ -367,12 +374,14 @@ ES <- function(p, splicefit) {
   }
   
   # VaR
-  VaR <- SpliceQuant(p=p, splicefit=splicefit)
+  VaR <- VaR(p=p, splicefit=splicefit)
 
   # Conditional tail expectation 
   es <-  VaR + 1/p * ExcessSplice(VaR, splicefit=splicefit)
     
   return(es)
 }
+
+
 
 
