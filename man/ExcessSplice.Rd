@@ -6,25 +6,30 @@
 Estimates for excess-loss premiums using splicing
 }
 \description{
-Estimate premiums of excess-loss reinsurance with retention \eqn{u} using splicing of mixed Erlang and GPD or Pareto distribution(s).
+Estimate premiums of excess-loss reinsurance with retention \eqn{M} and limit \eqn{L} using splicing of mixed Erlang and GPD or Pareto distribution(s).
 }
 \usage{
-ExcessSplice(u, splicefit)
+ExcessSplice(M, L, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{u}{
+  \item{M}{
 The retention level of the (re-)insurance or a vector of retention levels for the (re-)insurance.
+}
+  \item{L}{
+The limit of the (re-)insurance or a vector of limits for the (re-)insurance.
 }
   \item{splicefit}{
 Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{ 
+The premium for the excess-loss insurance with retentation \eqn{M} and limit \eqn{L} is given by
+\deqn{E(\min{(X-M)_+, L}) = I(M) - I(M+L)}
+where \eqn{I(u)=\int_u^{\infty} (1-F(z)dz)} is the integrated tail function.
+
 See Section 3.3 of Albrecher et al. (2015) for details.
 
-This function calls \code{\link{ExcessSplicecHill}}, \code{\link{ExcessSpliceGPD}} or \code{\link{ExcessSpliceHill}}
-for the actual calculations.
 }
 \value{
 An estimate for the premium is returned (for every value of \code{u}).
@@ -42,7 +47,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ExcessSplicecHill}}, \code{\link{ExcessSpliceGPD}}, \code{\link{ExcessSpliceHill}}, \code{\link{SpliceFitcHill}},  \code{\link{SpliceFitGPD}},  \code{\link{SpliceFitHill}}
+\code{\link{SpliceFitcHill}},  \code{\link{SpliceFitGPD}},  \code{\link{SpliceFitHill}}
 }
 \examples{
 \dontrun{
@@ -54,7 +59,7 @@ X <- rpareto(1000, shape = 2)
 splicefit <- SpliceFitHill(X, 0.8)
 
 # Excess-loss premium 
-ExcessSplice(2, splicefit)
+ExcessSplice(M=2, L=Inf, splicefit=splicefit)
 
 }
 }

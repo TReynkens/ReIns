@@ -102,5 +102,5 @@ export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB"
 # Risk measures
 
 export("ExcessHill","ExcessEPD","ExcessGPD")
-export("ExcessSplice","ExcessSpliceHill","ExcessSpliceGPD","ExcessSplicecHill")
+export("ExcessSplice")
 export("VaR","ES")
