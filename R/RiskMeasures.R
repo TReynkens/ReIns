@@ -157,11 +157,11 @@ IntTailGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add 
 ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                         main="Estimates for premium of excess-loss insurance", ...) {
   
-  if (M<0) {
+  if (any(M<0)) {
     stop("M should be positive.")
   }
   
-  if (L<0) {
+  if (any(L<0)) {
     stop("L should be positive.")
   }
   
@@ -199,11 +199,11 @@ ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE,
 ExcessGPD <- function(data, gamma, sigma, M, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                        main="Estimates for premium of excess-loss insurance", ...) {
   
-  if (M<0) {
+  if (any(M<0)) {
     stop("M should be positive.")
   }
   
-  if (L<0) {
+  if (any(L<0)) {
     stop("L should be positive.")
   }
   
@@ -235,11 +235,11 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
                       main="Estimates for premium of excess-loss insurance", ...) {
   
   
-  if (M<0) {
+  if (any(M<0)) {
     stop("M should be positive.")
   }
   
-  if (L<0) {
+  if (any(L<0)) {
     stop("L should be positive.")
   }
   
@@ -442,12 +442,18 @@ IntTailSpliceGPD <- function(u, splicefit) {
 # Premium of excess-loss insurance with retention M and limit L
 ExcessSplice <- function(M, L=Inf, splicefit) {
   
-  if (M<0) {
+  if (any(M<0)) {
     stop("M should be positive.")
   }
   
-  if (L<0) {
+  if (any(L<0)) {
     stop("L should be positive.")
+  }
+  
+  if (length(L)!=length(M)) {
+    if(length(L)!=1 & length(M)!=1) {
+      stop("M and L should have equal length or at least one of them should have length 1.")
+    }
   }
   
   
