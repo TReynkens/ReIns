@@ -3,7 +3,7 @@
 # for a numeric vector of observations (data) and as a
 # function of k
 #
-# K indicates if the estimates are plot as a function of k or log(X[n-k])
+# K indicates if the estimates are plotted as a function of k or log(X[n-k])
 # If plot=TRUE then the estimates are plotted as a
 # function of k
 #
