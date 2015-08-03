@@ -25,7 +25,7 @@ The Expected Shortfall is defined as
 where \eqn{I(u)=E((X-u)_+)} is the premium of an excess-loss insurance with retention u.
 
 If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
-\eqn{TVaR} the Tail Value-at-Risk
+\eqn{TVaR} the Tail Value-at-Risk.
 
 See Section 3.3 of Albrecher et al. (2015) for details.
 }
