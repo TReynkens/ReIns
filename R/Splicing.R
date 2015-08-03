@@ -365,6 +365,15 @@ SpliceCDF <- function(x, splicefit) {
 # Splicing quantiles
 SpliceQuant <- function(p, splicefit) {
   
+  # Check input
+  if (!is.numeric(p)) {
+    stop("p should be numeric.")
+  }
+  
+  if (any(p<0) | any(p>1)) {
+    stop("All elements of p should be in [0,1].")
+  }
+  
   q <- numeric(length(p))
   
   MEfit <- splicefit$MEfit
