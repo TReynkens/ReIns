@@ -2,7 +2,7 @@ Package: ReIns
 Type: Package
 Title: Functions and Datasets from "Reinsurance: Actuarial and Statistical Aspects"
 Version: 0.3-00
-Date: 2015-08-03
+Date: 2015-08-05
 Authors@R: c(person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = c("aut", "cre")),
           person("Anastasios", "Bardoutsos",role = c("ctb")),
           person("Dries", "Cornilly",role = c("ctb")),

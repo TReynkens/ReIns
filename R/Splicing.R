@@ -8,8 +8,8 @@ SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
   n <- length(X)
   
   # Check input for const
-  if (any(const<0) | any(const>=1)) {
-    stop("const should be a vector of numbers between 0 and 1.")
+  if (any(const<=0) | any(const>=1)) {
+    stop("const should be a vector of numbers in (0,1).")
   }
 
   if (is.unsorted(const, strictly=TRUE)) {
@@ -17,10 +17,6 @@ SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
   }
   
   l <- length(const)
-  
-  if (l>1 & any(const==0)) {
-    stop("const cannnot have a zero-element.")
-  }
   
 
   if (length(EVTtruncation)!=l & length(EVTtruncation)!=1) {
@@ -211,8 +207,8 @@ SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NU
   n <- length(X)
   
   # Check input for const
-  if (any(const<0) | any(const>=1)) {
-    stop("const should be a vector of numbers between 0 and 1.")
+  if (any(const<=0) | any(const>=1)) {
+    stop("const should be a vector of numbers in (0,1).")
   }
   
   if (is.unsorted(const, strictly=TRUE)) {
@@ -220,11 +216,6 @@ SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NU
   }
   
   l <- length(const)
-  
-  if (l>1 & any(const==0)) {
-    stop("const cannnot have a zero-element.")
-  }
-  
   
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
