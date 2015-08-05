@@ -17,7 +17,7 @@ SpliceFitHill(X, const, M = 10, s = 1:10, trunclower = 0,
 Data used for fitting the distribution.
 }
   \item{const}{
-Vector of length \eqn{l} containing the probabilities of the quantiles where the distributions will be spliced (splicing point). The ME distribution will be spliced with \code{l} Pareto distributions.
+Vector of length \eqn{l} containing the probabilities of the quantiles where the distributions will be spliced (splicing points). The ME distribution will be spliced with \eqn{l} Pareto distributions.
 }
 
   \item{M}{
