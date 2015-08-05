@@ -155,7 +155,7 @@ dgpd <- function(x, gamma, mu = 0, sigma) {
   }
  
   if(gamma < -eps) {
-    d[x>-sigma/gamma] <- 0
+    d[x>mu-sigma/gamma] <- 0
   } 
   
   return(d)
@@ -174,7 +174,7 @@ pgpd <- function(x, gamma, mu = 0, sigma) {
   }
   
   if(gamma < -eps) {
-    p[x>-sigma/gamma] <- 1
+    p[x>=mu-sigma/gamma] <- 1
   }
   
   return(p)
@@ -196,7 +196,7 @@ qgpd <- function(p, gamma, mu = 0, sigma) {
   } else {
     q <- mu + sigma/gamma * ((1-p)^(-gamma) - 1)
   }
-
+  
   return(q)
 }
 
