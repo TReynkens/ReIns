@@ -5,7 +5,7 @@
 Splicing of mixed Erlang and GPD using POT-MLE
 }
 \description{
-Fit spliced distribution of a mixed Erlang and a Generalised Pareto Distribution (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
+Fit spliced distribution of a mixed Erlang and Generalised Pareto Distributions (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
 }
 \usage{
 SpliceFitGPD(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NULL)
@@ -16,7 +16,7 @@ SpliceFitGPD(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NULL)
 Data used for fitting the distribution.
 }
   \item{const}{
-Probability of quantile where the distributions will be spliced (splicing point). For double splicing, this quantile is the first splicing point.
+Vector of length \eqn{l} containing the probabilities of the quantiles where the distributions will be spliced (splicing points). The ME distribution will be spliced with \eqn{l} GPD distributions.
 }
   \item{M}{
 Initial number of Erlang mixtures, default is 10. This number can change when determining
@@ -41,10 +41,10 @@ See Beirlant et al. (2015) and Verbelen et al. (2014) for details. The code foll
 A list with components:
 \item{MEfit}{List with details on the mixed Erlang fit.}
 \item{EVTfit}{List with details on the EVT fit (GPD).}
-\item{t}{Splicing point.}
+\item{t}{Vector of splicing points.}
 \item{trunclower}{Lower truncation point as given by the user.}
-\item{const}{The splicing constant, it can differ slightly from the input argument \code{const}.}
-\item{type}{Type of the EVT fit, here \code{"GPD"}.}
+\item{const}{Vector of splicing constants, it can differ slightly from the input argument \code{const}.}
+\item{type}{Vector containing the types of the distributions in the EVT fit: \code{"GPD"} for each GPD distribution that is used.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.

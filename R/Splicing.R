@@ -208,41 +208,91 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
 # Fit splicing of mixed Erlang and GPD (POT)
 SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NULL) {
 
+  n <- length(X)
+  
+  # Check input for const
+  if (any(const<0) | any(const>=1)) {
+    stop("const should be a vector of numbers between 0 and 1.")
+  }
+  
+  if (is.unsorted(const, strictly=TRUE)) {
+    stop("const should be a strictly increasing vector.")
+  }
+  
+  l <- length(const)
+  
+  if (l>1 & any(const==0)) {
+    stop("const cannnot have a zero-element.")
+  }
+  
+  
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
   if (is.na(ncores)) ncores <- 1
   
-  # Check input for const
-  if (const<=0 | const>=1) {
-    stop("const should be a number strictly between zero and 1.")
-  }
   
-  if (length(const)>1) {
-    stop("const should be a single number.")
-  }
-  
-  n <- length(X)
-  k <- floor((1-const)*n)
+  # Determine values of splicing points
   
   Xsort <- sort(X)
-  t <- Xsort[length(X)-k]
+  
+  # Number of points larger than splicing points
+  k_init <- floor((1-const)*n)
+  
+  # Splicing points
+  tvec <- numeric(l)
+  tvec <-  Xsort[n-k_init]
+  
+  
+  # Update const
+  const <- 1-k_init/n
+  
+  # Number of points in splicing part larger than splicing point
+  kvec <- k_init
+  
+  if (l>1) {
+    for(i in (l-1):1) {
+      kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
+    } 
+  }
+  t1 <- tvec[1]
+  
   
   # Mixing Erlang part
-  MEdata <- X[X<=t]
-  #Upper truncated at threshold t
-  fit_tune <- MEtune(lower=MEdata, upper=MEdata, trunclower=trunclower, truncupper=t,
-                      M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
+  MEind <- (X<=t1) 
+  
+  # Upper truncated at threshold t
+  fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
+                     M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
   MEfit <- fit_tune$best_model
   
-  # POT part
+  # EVT part
+  EVTfit <- list()
   
-  POTdata <- X[X>t]-t
-  res <- GPDfit(POTdata)
-  POTfit <- list()
-  POTfit$gamma <- res[1]
-  POTfit$sigma <- res[2]
+  type <- rep("GPD", l)
   
-  return( list(MEfit=MEfit, EVTfit=POTfit, t=t, trunclower=trunclower, const=1-k/n, type="GPD"))
+  EVTfit$gamma <- numeric(l)
+  EVTfit$sigma <- numeric(l)
+  EVTfit$endpoint <- rep(Inf, l)
+  
+  
+  # Splice parts
+  for (i in 1:l) {
+    
+    # Endpoint for last splicing is Inf
+    if (i==l) {
+      tt <- Inf
+    } else {
+      tt <- tvec[i+1]
+    }
+    
+    POTdata <- X[X>tvec[i] & X<=tt]-tvec[i]
+    res <- GPDfit(POTdata)
+    EVTfit$gamma[i] <- res[1]
+    EVTfit$sigma[i] <- res[2]
+    
+  }
+
+  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=type))
 }
 
 ########################################################################
@@ -275,7 +325,7 @@ SplicePDF <- function(x, splicefit) {
     # Next splicing point (Inf for last part)
     tt <- ifelse(i==l, Inf, tvec[i+1])
     
-    # Index for all observations in ith EVTpart
+    # Index for all observations in i-th EVTpart
     ind <- x>tvec[i] & x<=tt
     
     # Constant corresponding to next splicing part
@@ -287,10 +337,10 @@ SplicePDF <- function(x, splicefit) {
     e <- min(tt, EVTfit$endpoint[i])
 
     if (splicefit$type[i]=="GPD") {
-      d[ind] <- dtgpd(x[ind],gamma=EVTfit$gamma,mu=tvec[i],sigma=EVTfit$sigma,endpoint=e) * (cconst-const[i])
+      d[ind] <- dtgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
       
     } else if (type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
-      d[ind] <- dtpareto(x[ind],shape=1/EVTfit$gamma[i],scale=tvec[i],endpoint=e) * (cconst-const[i])
+      d[ind] <- dtpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
       
     } else {
       stop("Invalid type.")
@@ -331,7 +381,7 @@ SpliceCDF <- function(x, splicefit) {
     # Next splicing point (Inf for last part)
     tt <- ifelse(i==l, Inf, tvec[i+1])
     
-    # Index for all observations in ith EVTpart
+    # Index for all observations in i-th EVTpart
     ind <- x>tvec[i] & x<=tt
     
     # Constant corresponding to next splicing part
@@ -344,10 +394,10 @@ SpliceCDF <- function(x, splicefit) {
     
     if (splicefit$type[i]=="GPD") {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
-      p[ind] <- const[i] + ptgpd(x[ind],gamma=EVTfit$gamma,mu=tvec[i],sigma=EVTfit$sigma,endpoint=e) * (cconst-const[i])
+      p[ind] <- const[i] + ptgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
     
     } else if (type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
-      p[ind] <- const[i] + ptpareto(x[ind],shape=1/EVTfit$gamma[i],scale=tvec[i],endpoint=e) * (cconst-const[i])
+      p[ind] <- const[i] + ptpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
     
     } else {
       stop("Invalid type.")
@@ -402,16 +452,20 @@ SpliceQuant <- function(p, splicefit) {
     # Next splicing point (Inf for last part)
     cconst <- ifelse(i==l, 1, const[i+1])
     
-    # Index for all observations in ith EVTpart
+    # Index for all probabilities in i-th EVTpart
     ind <- p>=const[i] & p<cconst
     
     tt <- ifelse(i==l, Inf, tvec[i+1])
     e <- min(EVTfit$endpoint[i], tt)
     
     if (splicefit$type[i]=="GPD") {
-      q[ind] <- tvec[i] + EVTfit$sigma/EVTfit$gamma * ( ((1-p[ind])/(1-const[i]))^(-EVTfit$gamma) - 1 )
+      q[ind] <- qtgpd((p[ind]-const[i])/(cconst-const[i]), mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e)
+      
     } else if (splicefit$type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
-      q[ind] <-  tvec[i] * (1-(p[ind]-const[i])/(cconst-const[i]) * (1-(e/tvec[i])^(-1/EVTfit$gamma[i])))^(-EVTfit$gamma[i])
+      q[ind] <- qtpareto((p[ind]-const[i])/(cconst-const[i]), shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e)
+      
+    } else {
+      stop("Invalid type.")
     }
   }
   
