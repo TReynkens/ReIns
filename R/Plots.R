@@ -108,7 +108,7 @@ ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
 }
 
 #Derivative plot of Pareto QQ-plot
-ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of Pareto QQplot", ...) {
+ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of Pareto QQ-plot", ...) {
   
   # Check input arguments
   checkInput(data)
@@ -167,7 +167,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
 }
 
 #Derivative plot of log-normal QQ plot
-LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of log-normal QQplot", ...) {
+LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of log-normal QQ-plot", ...) {
   
   # Check input arguments
   checkInput(data)
@@ -390,7 +390,7 @@ cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...)
 # Generalised QQplot for censored data
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 indicates that non of the data points is censored
-cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised quantile plot", ...) {
+cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised QQ-plot", ...) {
   
   
   # Check input arguments
