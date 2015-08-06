@@ -26,7 +26,7 @@ Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \c
 \details{ 
 The premium for the excess-loss insurance with retentation \eqn{M} and limit \eqn{L} is given by
 \deqn{E(\min{(X-M)_+, L}) = I(M) - I(M+L)}
-where \eqn{I(u)=\int_u^{\infty} (1-F(z)dz)} is the integrated tail function.
+where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function.  When \eqn{L=\infty}, the premium is equal to \eqn{I(M)}.
 
 See Section 3.3 of Albrecher et al. (2015) for details.
 

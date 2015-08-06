@@ -54,7 +54,7 @@ that case if \code{warnings=TRUE}.
 
 The premium for the excess-loss insurance with retentation \eqn{M} and limit \eqn{L} is given by
 \deqn{E(\min{(X-M)_+, L}) = I(M) - I(M+L)}
-where \eqn{I(u)=\int_u^{\infty} (1-F(z)dz)} is the integrated tail function. When \eqn{L=\infty}, the premium is equal to \eqn{I(M)}.
+where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function. When \eqn{L=\infty}, the premium is equal to \eqn{I(M)}.
 
 We estimate the integrated tail function by
 \deqn{ \hat{I}(u) = (k+1)/(n+1) * (X_{n-k,n})^{1/\hat{\gamma}} * ((1-\hat{\delta}/\hat{\gamma})(1/\hat{\gamma}-1)^{-1}u^{1/\hat{\gamma}} + 
