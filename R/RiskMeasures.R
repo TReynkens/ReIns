@@ -189,7 +189,7 @@ IntTailGPD_single <- function(t, gamma, sigma, u, endpoint = Inf) {
 
 
 
-# Premium of excess-loss insurance with retentation M and limit L using Hill estimates
+# Premium of excess-loss insurance with retention M and limit L using Hill estimates
 ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                         main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -231,7 +231,7 @@ ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE,
 }
 
 
-# Premium of excess-loss insurance with retentation M and limit L using GPD-MLE estimates
+# Premium of excess-loss insurance with retention M and limit L using GPD-MLE estimates
 ExcessGPD <- function(data, gamma, sigma, M, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                        main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -266,7 +266,7 @@ ExcessGPD <- function(data, gamma, sigma, M, L = Inf, warnings = TRUE, plot = TR
   
 }
 
-# Premium of excess-loss insurance with retentation M and limit L using EPD estimates
+# Premium of excess-loss insurance with retention M and limit L using EPD estimates
 ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                       main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -317,85 +317,84 @@ IntTailSpliceHill <- function(u, splicefit) {
   
   tvec <- splicefit$t
   
-  if(l>2) {
-    stop("Splicing of ME with 3 or more Pareto distributions is not supported.")
-  }
   
   premium <- numeric(length(u))
   
   for (i in 1:length(u)) {
     
-    if (l>1) {
-      # l-splicing
+    # Logical indicating if final premium is calculated
+    end <- FALSE
+    
+    if (u[i] > tvec[l]) {
+      # u[i]>tvec[l] case
+      premium[i] <- (1-const[l]) * IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=u[i])
       
-      if (u[i]<endpoint[2]) {
-        
-        if (u[i] > tvec[2]) {
-          # u[i]>t2 case
-          premium[i] <- (1-const[2]) * IntTailHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=u[i])
-          
-        } else if (u[i]<tvec[2] & u[i]>tvec[1]) {
-          # t<u[i]<t2 case
-          
-          e <- min(tvec[2],endpoint[1])
-          
-          par_t2 <- IntTailHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
-          par_u <- IntTailHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=u[i])
-          
-          premium[i] <- (const[2]-const[1]) * (par_u - par_t2) + (1-const[2]) * (tvec[2]-u[i]) +  
-            (1-const[2]) * IntTailHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
-          
-        } else {
-          # u<t case
-          
-          # Set C to Inf because C is maximal cover amount
-          me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                        theta = MEfit$theta)
-          me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                        theta = MEfit$theta)
-          Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-          
-          e <- min(tvec[2],endpoint[1])
-          par_t <- IntTailHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[1])
-          par_t2 <- IntTailHill_single(t=tvec[1], gamma=EVTfit$gamma[1], endpoint=e, u=tvec[2])
-          
-          premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + 
-            (const[2]-const[1]) * (par_t - par_t2) + 
-            (1-const[2]) * (tvec[2]-tvec[1]) + 
-            (1-const[2]) * IntTailHill_single(t=tvec[2], gamma=EVTfit$gamma[2], endpoint=endpoint[2], u=tvec[2])
-        }
-        
-      } else {
-        premium[i] <- 0
-      }
-      
+      end <- TRUE 
       
     } else {
-      # Single splicing
+      # Integrate from tvec[l] to endpoint[l]
+      premium[i] <- (1-const[l]) * IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=tvec[l])
+    } 
       
-      if (u[i]>tvec[l] & u[i]<endpoint[l]) {
-        # u[i]>t case
-        premium[i] <- (1-const[l]) * IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=u[i])
-        
-      } else if (u[i]<endpoint[l]) {
-        # u[i]<t case
-        # Set C to Inf because C is maximal cover amount
-        me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        me_t <- ME_XL(R=tvec[l], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        Ft <- ME_cdf(tvec[l], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-        
-        premium[i] <- (me_u-me_t - (1-Ft) * (tvec[l]-u[i]))/Ft * const[l] + (1-const[l]) * (tvec[l]-u[i]) + 
-          (1-const[l]) * IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=tvec[l])
-        
-      } else {
-        premium[i] <- 0
-      }
-    }
     
+    # Only necessary if more than 2 EVT parts in splicing
+    if (l>1 & !end) {  
+      
+      for (j in (l-1):1)  {
+
+        if (u[i]>tvec[j] & u[i]<=tvec[j+1]) {
+          # tvec[j]<u[i]<tvec[j+1] case
+        
+          # Actual endpoint of splicing part
+          e <- min(tvec[j+1], endpoint[j])
+          
+          par_tt <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
+          par_u <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=u[i])
+          
+          # Integrate from u[i] to tvec[j+1] and add to premium
+          premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-u[i]) + premium[i]
+          
+          
+          # Stop for-loop
+          break
+          
+          # Final premium obtained
+          end <- TRUE
+          
+          
+        } else {
+          
+          # Actual endpoint of splicing part
+          e <- min(tvec[j+1], endpoint[j])
+          
+          par_tt <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
+          par_t <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j])
+          
+          # Integrate from tvec[j+1] to tvec[j+1] and add to premium
+          premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]
+          
+        }
+         
+      }
+      
+    }
+          
+    if (u[i] <= tvec[1]) {
+      # u[i]<tvec[1] case
+
+      # Set C to Inf because C is maximal cover amount
+      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+      
+      # Integrate from u[i] to tvec[1] and add to premium
+      # Take truncation at tvec[1] into account!
+      premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
+    }
+      
   }
-  
   
   return(premium)
 }
@@ -453,79 +452,82 @@ IntTailSpliceGPD <- function(u, splicefit) {
   
   tvec <- splicefit$t
   
-  if(l>2) {
-    stop("Splicing of ME with 3 or more GPDs is not supported.")
-  }
-
   premium <- numeric(length(u))
   
   for (i in 1:length(u)) {
     
-    if (l>1) {
-      
-      if (u[i] > tvec[2]) {
-        # u[i]>t2 case
-        premium[i] <- (1-const[2]) * IntTailGPD_single(t=tvec[2], gamma=EVTfit$gamma[2], sigma=EVTfit$sigma[2], 
-                                                       endpoint=endpoint[2], u=u[i])
-        
-      } else if (u[i]<tvec[2] & u[i]>tvec[1]) {
-        # t<u[i]<t2 case
-        
-        e <- min(tvec[2],endpoint[1])
-        
-        par_t2 <- IntTailGPD_single(t=tvec[1], gamma=EVTfit$gamma[1], sigma=EVTfit$sigma[1], endpoint=e, u=tvec[2])
-        par_u <- IntTailGPD_single(t=tvec[1], gamma=EVTfit$gamma[1], sigma=EVTfit$sigma[1], endpoint=e, u=u[i])
-        
-        premium[i] <- (const[2]-const[1]) * (par_u - par_t2) + (1-const[2]) * (tvec[2]-u[i]) +  
-          (1-const[2]) * IntTailGPD_single(t=tvec[2], gamma=EVTfit$gamma[2], sigma=EVTfit$sigma[2], 
-                                            endpoint=endpoint[2], u=tvec[2])
-        
-      } else {
-        # u<t case
-        
-        # Set C to Inf because C is maximal cover amount
-        me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-        
-        e <- min(tvec[2],endpoint[1])
-        par_t <- IntTailGPD_single(t=tvec[1], gamma=EVTfit$gamma[1], sigma=EVTfit$sigma[1], endpoint=e, u=tvec[1])
-        par_t2 <- IntTailGPD_single(t=tvec[1], gamma=EVTfit$gamma[1], sigma=EVTfit$sigma[1], endpoint=e, u=tvec[2])
-        
-        premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + 
-          (const[2]-const[1]) * (par_t - par_t2) + 
-          (1-const[2]) * (tvec[2]-tvec[1]) + 
-          (1-const[2]) * IntTailGPD_single(t=tvec[2], gamma=EVTfit$gamma[2], sigma=EVTfit$sigma[2], 
-                                            endpoint=endpoint[2], u=tvec[2])
-      }
+    # Logical indicating if final premium is calculated
+    end <- FALSE
+    
+    if (u[i] > tvec[l]) {
+      # u[i]>tvec[l] case
+      premium[i] <- (1-const[l]) * IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+                                                     endpoint=endpoint[l], u=u[i])
+      end <- TRUE 
       
     } else {
+      # Integrate from tvec[l] to endpoint[l]
+      premium[i] <-  (1-const[l]) * IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+                                                      endpoint=endpoint[l], u=tvec[l])
+    }  
+    
+    # Only necessary if more than 2 EVT parts in splicing
+    if (l>1 & !end) {
       
-      if(u[i] > tvec[1]) {
-        # u>t case
-        premium[i] <- (1-splicefit$const) * IntTailGPD_single(t=tvec[1], u=u[i], gamma=EVTfit$gamma[1], 
-                                                              sigma=EVTfit$sigma[1], endpoint=endpoint[1])
+      for (j in (l-1):1)  {
+       
+        if (u[i]>tvec[j] & u[i]<=tvec[j+1]) {
+		      # tvec[j]<u[i]<tvec[j+1] case 
+		
+		      # Actual endpoint of splicing part
+          e <- min(tvec[j+1], endpoint[j])
+          
+          par_tt <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j+1])
+          par_u <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=u[i])
+          
+          # Integrate from u[i] to tvec[j+1] and add to premium
+          premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-u[i]) + premium[i]  
+          
+          # Stop for-loop
+          break
+          
+          # Final premium obtained
+          end <- TRUE
+          
+          
+        } else {
+          
+          # Actual endpoint of splicing part
+          e <- min(tvec[j+1], endpoint[j])
+          
+          par_tt <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j+1])
+          par_t <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j])
+          
+          # Integrate from tvec[j] to tvec[j+1] and add to premium
+          premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]  
+        }
         
-      } else {
-        # u<t case
-        # Set C to Inf because C is maximal cover amount
-        me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                      theta = MEfit$theta)
-        Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-        
-        premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + 
-          (1-splicefit$const) * IntTailGPD_single(t=tvec[1], u=tvec[1], gamma=EVTfit$gamma[1], sigma=EVTfit$sigma[1],
-                                                  endpoint=endpoint[1])
-        
-      } 
+      }
+      
     }
-   
-  
+    
+    if (u[i] <= tvec[1]) {
+      # u[i]<tvec[1] case
+      
+      # Set C to Inf because C is maximal cover amount
+      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+                    theta = MEfit$theta)
+      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+      
+      # Integrate from u[i] to tvec[1] and add to premium
+      # Take truncation at tvec[1] into account!
+      premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
+    }
+    
   }
+  
   return(premium)
 }
 
