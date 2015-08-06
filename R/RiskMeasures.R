@@ -22,11 +22,17 @@ IntTailHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = 
   
   # Premium
   if (is.finite(endpoint)) {
-    # Truncated Pareto model
-    #beta <- X[n]/X[n-K]
-    beta <- endpoint/X[n-K]
-    premium[K] <- (K+1) / (n+1) / (1-beta^(-1/gamma[K])) * ( X[n-K]^(1/gamma[K]) / (1/gamma[K]-1) * 
-                  (u^(1-1/gamma[K]) - endpoint^(1-1/gamma[K])) + beta^(-1/gamma[K]) * (u - endpoint) )
+    
+    if (u>=endpoint) {
+      premium <- 0
+      
+    } else {
+      # Truncated Pareto model
+      #beta <- X[n]/X[n-K]
+      beta <- endpoint/X[n-K]
+      premium[K] <- (K+1) / (n+1) / (1-beta^(-1/gamma[K])) * ( X[n-K]^(1/gamma[K]) / (1/gamma[K]-1) * 
+                    (u^(1-1/gamma[K]) - endpoint^(1-1/gamma[K])) + beta^(-1/gamma[K]) * (u - endpoint) )
+    }
   } else {
     # Pareto model
     premium[K] <- (K+1) / (n+1) / (1/gamma[K]-1) * X[n-K]^(1/gamma[K]) * u^(1-1/gamma[K])
@@ -55,10 +61,17 @@ IntTailHill_single <- function(t, gamma, u, endpoint = Inf) {
   
   # Premium
   if (is.finite(endpoint)) {
-    # Truncated Pareto model
-    beta <- endpoint/t
-    premium <- 1 / (1-beta^(-1/gamma)) * ( t^(1/gamma) / (1/gamma-1) * 
-                                                               (u^(1-1/gamma) - endpoint^(1-1/gamma)) + beta^(-1/gamma) * (u - endpoint) )
+    
+    if (u>=endpoint) {
+      premium <- 0
+      
+    } else {
+      # Truncated Pareto model
+      beta <- endpoint/t
+      premium <- 1 / (1-beta^(-1/gamma)) * ( t^(1/gamma) / (1/gamma-1) * 
+                                               (u^(1-1/gamma) - endpoint^(1-1/gamma)) + beta^(-1/gamma) * (u - endpoint) )
+    }
+    
   } else {
     # Pareto model
     premium <- 1 / (1/gamma-1) * t^(1/gamma) * u^(1-1/gamma)
@@ -157,8 +170,14 @@ IntTailGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add 
 IntTailGPD_single <- function(t, gamma, sigma, u, endpoint = Inf) {
   
   if (is.finite(endpoint)) {
-    pT <- pgpd(endpoint, mu=t, gamma=gamma, sigma=sigma)
-    premium <- ( sigma/(1-gamma) * ( (1 + gamma/sigma * (u-t) )^(1-1/gamma) - (1 + gamma/sigma * (endpoint-t) )^(1-1/gamma) ) + (1-pT)*(u-endpoint)) / pT
+    
+    if (u>=endpoint) {
+      premium <- 0
+      
+    } else {
+      pT <- pgpd(endpoint, mu=t, gamma=gamma, sigma=sigma)
+      premium <- ( sigma/(1-gamma) * ( (1 + gamma/sigma * (u-t) )^(1-1/gamma) - (1 + gamma/sigma * (endpoint-t) )^(1-1/gamma) ) + (1-pT)*(u-endpoint)) / pT
+    }
     
   } else {
     premium <- sigma/(1-gamma) * (1 + gamma/sigma * (u-t) )^(1-1/gamma)
