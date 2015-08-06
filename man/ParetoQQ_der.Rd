@@ -9,7 +9,7 @@ Computes the derivative plot of the Pareto QQplot. These values can be plotted a
 }
 \usage{
 ParetoQQ_der(data, k = FALSE, plot = TRUE, 
-            main = "Derivative plot of Pareto QQplot", ...)
+            main = "Derivative plot of Pareto QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

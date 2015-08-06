@@ -8,7 +8,7 @@ Generalised QQplot for right censored data
 Generalised QQplot adapted for right censored data.
 }
 \usage{
-cgenQQ(data, censored, plot = TRUE, main = "Generalised quantile plot", ...)
+cgenQQ(data, censored, plot = TRUE, main = "Generalised QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
