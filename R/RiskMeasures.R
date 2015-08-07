@@ -400,45 +400,6 @@ IntTailSpliceHill <- function(u, splicefit) {
 }
 
 
-
-# Integrated tail function of splicing of ME and (truncated) censored Pareto
-IntTailSplicecHill <- function(u, splicefit) {
-  
-
-  MEfit <- splicefit$MEfit
-  EVTfit <- splicefit$EVTfit
-  
-  endpoint <- Inf
-  if(splicefit$type=="trcHill") endpoint <- EVTfit$endpoint
-  
-  premium <- numeric(length(u))
-  
-  for (i in 1:length(u)) {
-    
-    if (u[i]>splicefit$t & u[i]<endpoint) {
-      # u>t case
-      premium[i] <- (1-splicefit$const) * IntTailHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=u[i])
-      
-    } else if (u[i]<endpoint) {
-      # u<t case
-      # Set C to Inf because C is maximal cover amount
-      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                    theta = MEfit$theta)
-      me_t <- ME_XL(R=splicefit$t, C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
-                    theta = MEfit$theta)
-      Ft <- ME_cdf(splicefit$t, shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
-      
-      premium[i] <- (me_u-me_t - (1-Ft) * (splicefit$t-u[i]))/Ft * splicefit$const + (1-splicefit$const) * (splicefit$t-u[i]) + 
-        (1-splicefit$const) * IntTailHill_single(t=splicefit$t, gamma=EVTfit$gamma, endpoint=endpoint, u=splicefit$t)
-      
-    } else {
-      premium[i] <- 0
-    }
-  }
-  return(premium)
-}
-
-
 # Integrated tail function of splicing of ME and GPD
 IntTailSpliceGPD <- function(u, splicefit) {
   
