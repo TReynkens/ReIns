@@ -306,7 +306,7 @@ SplicePDF <- function(x, splicefit) {
   
   type <- splicefit$type
   
-  ind <- (x<=tvec[1])
+  ind <- (x<tvec[1])
   
   # Case x<=t
   d[ind] <- const[1] * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
@@ -319,7 +319,7 @@ SplicePDF <- function(x, splicefit) {
     tt <- ifelse(i==l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>tvec[i] & x<=tt
+    ind <- x>=tvec[i] & x<tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -340,7 +340,7 @@ SplicePDF <- function(x, splicefit) {
       stop("Invalid type.")
     }
     # PDF is 0 after endpoint
-    d[x>EVTfit$endpoint[i]] <- 0
+    d[x>=EVTfit$endpoint[i]] <- 0
   }
   
   return(d)
@@ -363,9 +363,9 @@ SpliceCDF <- function(x, splicefit) {
   
   type <- splicefit$type
   
-  ind <- (x<=tvec[1])
+  ind <- (x<tvec[1])
   
-  # Case x<=t
+  # Case x<t
   p[ind] <- const[1] * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
                 theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
 
@@ -376,7 +376,7 @@ SpliceCDF <- function(x, splicefit) {
     tt <- ifelse(i==l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>tvec[i] & x<=tt
+    ind <- x>=tvec[i] & x<tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -399,7 +399,7 @@ SpliceCDF <- function(x, splicefit) {
     }
     
     # CDF is 1 after endpoint
-    p[x>EVTfit$endpoint[i]] <- 1
+    p[x>=EVTfit$endpoint[i]] <- 1
   }
   
   return(p)
