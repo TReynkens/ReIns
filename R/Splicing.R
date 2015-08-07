@@ -89,12 +89,12 @@ SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
       resEndpoint <- trEndpoint(X[X<=tt], gamma=res$gamma, DT=resDT$DT)
       EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
       EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
-      type[i] <- "trHill"
+      type[i] <- "tPa"
       
     } else {
       res <- Hill(X[X<=tt])
       EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
-      type[i] <- "Hill"
+      type[i] <- "Pa"
     }
     
   }
@@ -139,6 +139,8 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     stop("Z and censored should have the same length.")
   }
   
+  EVTfit$endpoint <- Inf
+  
   if (interval) {
     # Interval censoring
     
@@ -162,11 +164,11 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
       resEndpoint <- trciEndpoint(Z, I, censored=censored, gamma1=res$gamma1, DT=resDT$DT)
       EVTfit$gamma1 <- res$gamma1[res$k==k]
       EVTfit$endpoint <- resEndpoint$Tk[resEndpoint$k==k]
-      type <- "trciHill"
+      type <- "tciPa"
     } else {
       res <- ciHill(Z, I=I, censored=censored)
       EVTfit$gamma1 <- res$gamma1[res$k==k]
-      type <- "ciHill"
+      type <- "ciPa"
     }
     
     # const is 1-k/n but use Turnbull for interval censored data
@@ -193,7 +195,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     # const is k/n but use Kaplan-Meier for right censored data
     const <- KaplanMeier(t,Z,censored)
     
-    type <- "cHill"
+    type <- "cPa"
   }
   
    return( list(MEfit=MEfit, EVTfit=EVTfit, t=t, trunclower=trunclower, const=const, type=type) )
@@ -330,7 +332,7 @@ SplicePDF <- function(x, splicefit) {
     if (splicefit$type[i]=="GPD") {
       d[ind] <- dtgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
       
-    } else if (type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+    } else if (type[i] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
       d[ind] <- dtpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
       
     } else {
@@ -387,7 +389,7 @@ SpliceCDF <- function(x, splicefit) {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
       p[ind] <- const[i] + ptgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
     
-    } else if (type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+    } else if (type[i] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
       p[ind] <- const[i] + ptpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
     
     } else {
@@ -452,7 +454,7 @@ SpliceQuant <- function(p, splicefit) {
     if (splicefit$type[i]=="GPD") {
       q[ind] <- qtgpd((p[ind]-const[i])/(cconst-const[i]), mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e)
       
-    } else if (splicefit$type[i] %in% c("Hill","cHill","ciHill","trHill","trciHill")) {
+    } else if (splicefit$type[i] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
       q[ind] <- qtpareto((p[ind]-const[i])/(cconst-const[i]), shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e)
       
     } else {

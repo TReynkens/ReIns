@@ -50,7 +50,7 @@ A list with components:
 \item{t}{Vector of splicing points.}
 \item{trunclower}{Lower truncation point as given by the user.}
 \item{const}{Vector of splicing constants, it can differ slightly from the input argument \code{const}.}
-\item{type}{Vector containing the types of the distributions in the EVT fit: \code{"Hill"} for a Pareto distribution and \code{"trHill"} for a truncated Pareto distribution.}
+\item{type}{Vector containing the types of the distributions in the EVT fit: \code{"Pa"} for a Pareto distribution and \code{"tPa"} for a truncated Pareto distribution.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
