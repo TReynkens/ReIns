@@ -45,12 +45,12 @@ See Beirlant et al. (2015) and Verbelen et al. (2014) for details. The code foll
 }
 \value{
 A list with components:
+\item{const}{Vector of splicing constants, it can differ slightly from the input argument \code{const}.}
+\item{trunclower}{Lower truncation point as given by the user.}
+\item{t}{Vector of splicing points.}
+\item{type}{Vector of types of the distributions, here \code{"ME"} and then \code{"Pa"} for a Pareto distribution and \code{"tPa"} for a truncated Pareto distribution.}
 \item{MEfit}{List with details on the mixed Erlang fit.}
 \item{EVTfit}{List with details on the EVT fit (Pareto distribution(s)).}
-\item{t}{Vector of splicing points.}
-\item{trunclower}{Lower truncation point as given by the user.}
-\item{const}{Vector of splicing constants, it can differ slightly from the input argument \code{const}.}
-\item{type}{Vector of types of the distributions, here \code{"ME"} and then \code{"Pa"} for a Pareto distribution and \code{"tPa"} for a truncated Pareto distribution.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.

@@ -99,7 +99,7 @@ SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
     
   }
   
-  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=c("ME",type)) )
+  return( list(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
   
 }
 
@@ -198,7 +198,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     type <- "cPa"
   }
   
-   return( list(MEfit=MEfit, EVTfit=EVTfit, t=t, trunclower=trunclower, const=const, type=c("ME",type)) )
+  return( list(const=const, trunclower=trunclower, t=t,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
 
 
@@ -285,7 +285,7 @@ SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NU
     
   }
 
-  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=c("ME",type)))
+  return( list(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
 
 ########################################################################
