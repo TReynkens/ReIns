@@ -139,8 +139,6 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     stop("Z and censored should have the same length.")
   }
   
-  EVTfit$endpoint <- Inf
-  
   if (interval) {
     # Interval censoring
     
@@ -168,6 +166,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     } else {
       res <- ciHill(Z, I=I, censored=censored)
       EVTfit$gamma1 <- res$gamma1[res$k==k]
+      EVTfit$endpoint <- Inf
       type <- "ciPa"
     }
     
@@ -191,6 +190,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     res <- cHill(Z, censored=censored)
     EVTfit <- list()
     EVTfit$gamma1 <- res$gamma1[res$k==k]
+    EVTfit$endpoint <- Inf
     
     # const is k/n but use Kaplan-Meier for right censored data
     const <- KaplanMeier(t,Z,censored)
@@ -385,11 +385,12 @@ SpliceCDF <- function(x, splicefit) {
     # endpoint from Pareto
     e <- min(tt, EVTfit$endpoint[i])
     
-    if (splicefit$type[i]=="GPD") {
+    # i+1 since type[1]="ME"
+    if (splicefit$type[i+1]=="GPD") {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
       p[ind] <- const[i] + ptgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
     
-    } else if (type[i] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
+    } else if (type[i+1] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
       p[ind] <- const[i] + ptpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
     
     } else {
@@ -510,8 +511,14 @@ SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(Z==I, "right", "interval")
-  fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
+  type <- ifelse(all.equal(Z,I), "right", "interval")
+
+  if (type=="interval") {
+    fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
+  } else {
+    fit  <- survfit(Surv(time=L, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
+  }
+  
   f = stepfun(fit$time,c(1,fit$surv))
   est <- f(x)
   
@@ -559,8 +566,14 @@ SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE,
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(Z==I, "right", "interval")
-  fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
+  type <- ifelse(all.equal(Z,I), "right", "interval")
+  
+  if (type=="interval") {
+    fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
+  } else {
+    fit  <- survfit(Surv(time=L, event=event, type=type) ~1, conf.type="plain")
+  }
+  
   f = stepfun(fit$time, c(1,fit$surv))
   est <- f(x)
   
@@ -601,8 +614,13 @@ SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(Z==I, "right", "interval")
-  fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
+  type <- ifelse(all.equal(Z,I), "right", "interval")
+  
+  if (type=="interval") {
+    fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
+  } else {
+    fit  <- survfit(Surv(time=L, event=event, type=type) ~1, conf.type="plain")
+  }
   f = stepfun(fit$time, c(1,fit$surv))
 
   Z <- sort(Z)
