@@ -552,10 +552,11 @@ ExcessSplice <- function(M, L=Inf, splicefit) {
   
   type <- splicefit$type
   
-  if (type[1]=="GPD") {
+  # 2 since type[1]="ME"
+  if (type[2]=="GPD") {
     f <- function(u) IntTailSpliceGPD(u, splicefit=splicefit)
     
-  } else if (type[1] %in% c("Pa", "tPa", "cPa", "ciPa", "trciPa")) {
+  } else if (type[2] %in% c("Pa", "tPa", "cPa", "ciPa", "trciPa")) {
     f <- function(u) IntTailSpliceHill(u, splicefit=splicefit)
 
   } else {

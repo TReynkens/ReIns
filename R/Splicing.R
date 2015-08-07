@@ -99,7 +99,7 @@ SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
     
   }
   
-  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=type) )
+  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=c("ME",type)) )
   
 }
 
@@ -198,7 +198,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
     type <- "cPa"
   }
   
-   return( list(MEfit=MEfit, EVTfit=EVTfit, t=t, trunclower=trunclower, const=const, type=type) )
+   return( list(MEfit=MEfit, EVTfit=EVTfit, t=t, trunclower=trunclower, const=const, type=c("ME",type)) )
 }
 
 
@@ -285,7 +285,7 @@ SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NU
     
   }
 
-  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=type))
+  return( list(MEfit=MEfit, EVTfit=EVTfit, t=tvec, trunclower=trunclower, const=const, type=c("ME",type)))
 }
 
 ########################################################################
@@ -329,10 +329,11 @@ SplicePDF <- function(x, splicefit) {
     # endpoint from Pareto
     e <- min(tt, EVTfit$endpoint[i])
 
-    if (splicefit$type[i]=="GPD") {
+    # i+1 since type[1]="ME"
+    if (splicefit$type[i+1]=="GPD") {
       d[ind] <- dtgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
       
-    } else if (type[i] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
+    } else if (type[i+1] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
       d[ind] <- dtpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
       
     } else {
@@ -452,10 +453,11 @@ SpliceQuant <- function(p, splicefit) {
     tt <- ifelse(i==l, Inf, tvec[i+1])
     e <- min(EVTfit$endpoint[i], tt)
     
-    if (splicefit$type[i]=="GPD") {
+    # i+1 since type[1]="ME"
+    if (splicefit$type[i+1]=="GPD") {
       q[ind] <- qtgpd((p[ind]-const[i])/(cconst-const[i]), mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e)
       
-    } else if (splicefit$type[i] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
+    } else if (splicefit$type[i+1] %in% c("Pa","cPa","ciPa","tPa","tciPa")) {
       q[ind] <- qtpareto((p[ind]-const[i])/(cconst-const[i]), shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e)
       
     } else {

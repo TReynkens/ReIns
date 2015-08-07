@@ -55,7 +55,7 @@ A list with components:
 \item{t}{Splicing point.}
 \item{trunclower}{Lower truncation point as given by the user.}
 \item{const}{The splicing constant, it can differ slightly from the input argument \code{const}.}
-\item{type}{Type of the EVT fit, here \code{"cPa"}, \code{"ciPa"} or \code{"tciPa"}.}
+\item{type}{Type of the distributions, here \code{"ME"} and then \code{"cPa"} (right censoring), \code{"ciPa"} (interval censoring) or \code{"tciPa"} (truncation and interval censoring).}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
