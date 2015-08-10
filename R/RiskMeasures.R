@@ -527,11 +527,7 @@ ExcessSplice <- function(M, L=Inf, splicefit) {
   
   Im <- f(M)
   
-  if(is.finite(L)) {
-    Il <- f(M+L)
-  } else {
-    Il <- 0
-  }
+  Il <- ifelse(is.finite(L), f(M+L), 0)
   
   premium <- Im - Il
   
