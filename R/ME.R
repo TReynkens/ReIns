@@ -389,19 +389,32 @@ MEtune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 1
   
   ME_checkInput(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper)
  
-  #######
-  # Original code
-  
   tuning_parameters = expand.grid(M, s)
-  cl <- makePSOCKcluster(nCores)
-  registerDoParallel(cl)  
-  if(print) writeLines(c(""), file)
-  i <- 1
-  all_model <- foreach(i = 1:nrow(tuning_parameters), .export=c("ME_initial", "ME_loglikelihood", "ME_u_z", "ME_c_z", "ME_expected_c", "ME_T", "theta_nlm_u_c", "theta_nlm_u", "theta_nlm_c", "ME_em", "ME_shape_adj", "ME_shape_red", "ME_fit"), .errorhandling = 'remove') %dopar% {
-    if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
-    ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE)
+  
+  if(nCores==1) {
+    
+    i <- 1
+    all_model <- foreach(i = 1:nrow(tuning_parameters), .export=c("ME_initial", "ME_loglikelihood", "ME_u_z", "ME_c_z", "ME_expected_c", "ME_T", "theta_nlm_u_c", "theta_nlm_u", "theta_nlm_c", "ME_em", "ME_shape_adj", "ME_shape_red", "ME_fit"), .errorhandling = 'remove') %dopar% {
+      if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
+      ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE)
+    }
+    
+  } else {
+    #######
+    # Original code
+    
+    
+    cl <- makePSOCKcluster(nCores)
+    registerDoParallel(cl)  
+    if(print) writeLines(c(""), file)
+    i <- 1
+    all_model <- foreach(i = 1:nrow(tuning_parameters), .export=c("ME_initial", "ME_loglikelihood", "ME_u_z", "ME_c_z", "ME_expected_c", "ME_T", "theta_nlm_u_c", "theta_nlm_u", "theta_nlm_c", "ME_em", "ME_shape_adj", "ME_shape_red", "ME_fit"), .errorhandling = 'remove') %dopar% {
+      if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
+      ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE)
+    }
+    stopCluster(cl) 
   }
-  stopCluster(cl)
+
   performances <- data.frame(tuning_parameters[,1], tuning_parameters[,2], sapply(all_model, function(x) with(x, get(criterium))), sapply(all_model, with, M))
   colnames(performances) = c('M_initial', 's', criterium, 'M')
   best_index <- which.min(performances[, criterium])
