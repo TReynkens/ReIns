@@ -12,11 +12,13 @@
         \item Display less results of ME fit in the \code{SpliceFit}-functions.
         \item Add extra options for distributions (\code{d.}, \code{p.} and \code{q.}):
         \code{log}, \code{log.p} and \code{lower.tail}.
+        \item Add approximations for CDF using orthogonal polynomials.
       }
       
           \item Documentation changes:
       \itemize{
          \item Update documentation for distributions (\code{d.}, \code{p.} and \code{q.}).
+         \item Add documentation for approximations for CDF using orthogonal polynomials.
       }
   }
 }
