@@ -525,11 +525,28 @@ ExcessSplice <- function(M, L=Inf, splicefit) {
   }
   
   
+  
+  # First premium
   Im <- f(M)
   
+  
+  
+  # Length of premium vector
+  le <- max(length(L), length(M))
+  
+  # Make L vector of length le
+  L <- rep(L, length.out=le)
+  
+  # Second premium
   Il <- f(M+L)
+  
+  # Numerical issues can arrise when L=Inf
   Il[!is.finite(L)] <- 0
   
+  
+  
+  
+  # Final premium
   premium <- Im - Il
   
   return(premium)
