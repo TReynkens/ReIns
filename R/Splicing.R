@@ -1,5 +1,20 @@
 
-
+# Only keep necessary parts from MEtune output
+MEoutput <- function(fit_tune) {
+  
+  # Obtain best model
+  MEfit_old <- fit_tune$best_model
+  
+  # Make output list
+  MEfit <- list()
+  MEfit$beta <- MEfit_old$beta
+  MEfit$shape <- MEfit_old$shape
+  MEfit$theta <- MEfit_old$theta
+  MEfit$M <- MEfit_old$M
+  MEfit$M_initial <- MEfit_old$M_initial
+  
+  return(MEfit)
+}
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
 SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
@@ -63,7 +78,8 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Upper truncated at threshold t
   fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                       M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-  MEfit <- fit_tune$best_model
+  # Output in a list
+  MEfit <- MEoutput(fit_tune)
   
   # EVT part
   EVTfit <- list()
@@ -152,7 +168,8 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     # Upper truncated at threshold t
     fit_tune <- MEtune(lower=Z[MEind], upper=pmin(I[MEind],t), trunclower=trunclower, truncupper=t,
                        M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-    MEfit <- fit_tune$best_model
+    # Output in a list
+    MEfit <- MEoutput(fit_tune)
     
     # EVT part
     EVTfit <- list()
@@ -256,7 +273,8 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   # Upper truncated at threshold t
   fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                      M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-  MEfit <- fit_tune$best_model
+  # Output in a list
+  MEfit <- MEoutput(fit_tune)
   
   # EVT part
   EVTfit <- list()
