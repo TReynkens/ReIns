@@ -2,7 +2,7 @@
 
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
-SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
+SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
                           EVTtruncation = FALSE, ncores = NULL) {
   
   n <- length(X)
@@ -109,7 +109,7 @@ SpliceFitHill <- function(X, const, M = 10, s = 1:10, trunclower = 0,
 
 
 # Fit splicing of mixed Erlang and Pareto for right or interval censoring
-SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclower = 0,
+SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclower = 0,
                             EVTtruncation = FALSE, ncores = NULL) {
   
   # Check if interval censoring is present
@@ -204,7 +204,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 10, s = 1:10, trunclow
 
 
 # Fit splicing of mixed Erlang and GPD (POT)
-SpliceFitGPD <- function(X, const, M = 10, s = 1:10, trunclower = 0, ncores = NULL) {
+SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL) {
 
   n <- length(X)
   
