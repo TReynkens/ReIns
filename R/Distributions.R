@@ -2,7 +2,7 @@
 ###############################################################
 #Pareto
 
-dpareto = function(x, shape, scale = 1) {
+dpareto = function(x, shape, scale = 1, log = FALSE) {
   if (shape<=0) {
     stop("shape should be strictly positive.")
   }
@@ -11,11 +11,15 @@ dpareto = function(x, shape, scale = 1) {
     stop("scale should be strictly positive.")
   }
   
-  return(ifelse(x>=scale,shape/scale*(scale/x)^(shape+1),0))
+  d <- ifelse(x>=scale, shape/scale*(scale/x)^(shape+1), 0)
+  
+  if (log) d <- log(d)
+  
+  return(d)
   
 }
 
-ppareto = function(x, shape, scale = 1) {
+ppareto = function(x, shape, scale = 1, lower.tail = TRUE, log.p = FALSE) {
   if (shape<=0) {
     stop("shape should be strictly positive.")
   }
@@ -24,11 +28,18 @@ ppareto = function(x, shape, scale = 1) {
     stop("scale should be strictly positive.")
   }
   
-  return(ifelse(x>=scale,1-(scale/x)^shape,0))
+  p <- ifelse(x>=scale, 1-(scale/x)^shape, 0)
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  
+  return(p)
   
 }
 
-qpareto = function(p, shape, scale = 1) {
+qpareto = function(p, shape, scale = 1, lower.tail = TRUE, log.p = FALSE) {
   if (shape<=0) {
     stop("shape should be strictly positive.")
   }
@@ -36,9 +47,17 @@ qpareto = function(p, shape, scale = 1) {
   if (scale<=0) {
     stop("scale should be strictly positive.")
   }
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   
   if (all(p>=0 & p<=1)) {
+    
     return(scale*(1-p)^(-1/shape))
+    
   } else {
     stop("p should be between 0 and 1.")
   }
@@ -61,7 +80,7 @@ rpareto = function(n, shape, scale = 1) {
 ###############################################################
 #Truncated Pareto
 
-dtpareto = function(x, shape, scale=1, endpoint=Inf) {
+dtpareto = function(x, shape, scale=1, endpoint=Inf, log = FALSE) {
   if (shape<=0) {
     stop("shape should be strictly positive.")
   }
@@ -74,12 +93,15 @@ dtpareto = function(x, shape, scale=1, endpoint=Inf) {
     stop("endpoint should be strictly larger than scale.")
   }
   
-  return( ifelse(x<=endpoint, 
-                 dpareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale),
-                 0) )
+  d <- ifelse(x<=endpoint, 
+              dpareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale),
+              0)
+  if (log) d <- log(d)
+  
+  return(d)
 }
 
-ptpareto = function(x, shape, scale=1, endpoint=Inf) {
+ptpareto = function(x, shape, scale=1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   if (shape<=0) {
     stop("shape should be strictly positive.")
   }
@@ -92,14 +114,20 @@ ptpareto = function(x, shape, scale=1, endpoint=Inf) {
     stop("endpoint should be strictly larger than scale.")
   }
  
-  return(ifelse(x<=endpoint, 
-                ppareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale),
-                1) )
+  p <- ifelse(x<=endpoint, 
+              ppareto(x,shape=shape,scale=scale)/ppareto(endpoint,shape=shape,scale=scale),
+              1)
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
   
   #return(ifelse(x>=scale,(1-(scale/x)^shape)/(1-(scale/endpoint)^shape),0))
 }
 
-qtpareto = function(p, shape, scale=1, endpoint=Inf) {
+qtpareto = function(p, shape, scale=1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   if (shape<=0) {
     stop("shape should be strictly positive.")
   }
@@ -112,7 +140,14 @@ qtpareto = function(p, shape, scale=1, endpoint=Inf) {
     stop("endpoint should be strictly larger than scale.")
   }
   
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
+  
   if (all(p>=0 & p<=1)) {
+
     return(qpareto(p*ppareto(endpoint,shape=shape,scale=scale),shape=shape,scale=scale))
     #return(scale*(1-p*(1-(scale/endpoint)^shape))^(-1/shape))
   } else {
@@ -142,7 +177,9 @@ rtpareto = function(n, shape, scale=1, endpoint=Inf) {
 # Generalised Pareto distribution
 
 eps <- 10^(-14)
-dgpd <- function(x, gamma, mu = 0, sigma) {
+
+
+dgpd <- function(x, gamma, mu = 0, sigma, log = FALSE) {
   
   if (sigma<0) {
     stop("sigma should be strictly positive.")
@@ -158,10 +195,12 @@ dgpd <- function(x, gamma, mu = 0, sigma) {
     d[x>mu-sigma/gamma] <- 0
   } 
   
+  if (log) d <- log(d)
+  
   return(d)
 }
 
-pgpd <- function(x, gamma, mu = 0, sigma) {
+pgpd <- function(x, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE) {
   
   if (sigma<0) {
     stop("sigma should be strictly positive.")
@@ -177,11 +216,22 @@ pgpd <- function(x, gamma, mu = 0, sigma) {
     p[x>=mu-sigma/gamma] <- 1
   }
   
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  
   return(p)
 }
 
 
-qgpd <- function(p, gamma, mu = 0, sigma) {
+qgpd <- function(p, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE) {
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   
   if (!all(p>=0 & p<=1)) {
     stop("p should be between 0 and 1.")
@@ -191,6 +241,7 @@ qgpd <- function(p, gamma, mu = 0, sigma) {
     stop("sigma should be strictly positive.")
   }
   
+
   if (abs(gamma)<eps) {
     q <- mu - sigma * log(1-p)
   } else {
@@ -211,15 +262,19 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
 }
 
 
-dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
+dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, log = FALSE) {
   
-  return( ifelse(x<=endpoint, 
-                 dgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
-                 0) )
+  d <- ifelse(x<=endpoint, 
+              dgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
+              0)
+  
+  if (log) d <- log(d)
+  
+  return(d)
   
 }
 
-ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
+ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (sigma<0) {
     stop("sigma should be strictly positive.")
@@ -229,13 +284,27 @@ ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf) {
     stop("endpoint should be strictly larger than mu.")
   }
   
-  return( ifelse(x<=endpoint, 
-                 pgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
-                 1) )
+  p <- ifelse(x<=endpoint, 
+              pgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
+              1)
+  
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  
+  return(p)
 }
 
 
-qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf) {
+qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   
   if (!all(p>=0 & p<=1)) {
     stop("p should be between 0 and 1.")
@@ -248,8 +317,10 @@ qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf) {
   if(endpoint<=mu) {
     stop("endpoint should be strictly larger than mu.")
   }
+
+  q <- qgpd(p*pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),gamma=gamma,mu=mu,sigma=sigma)
   
-  return(qgpd(p*pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),gamma=gamma,mu=mu,sigma=sigma))
+  return(q)
    
 }
 
@@ -272,33 +343,48 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 ###############################################################
 #Truncated log-normal
 
-dtlnorm = function(x, meanlog, sdlog, endpoint=Inf) {
+dtlnorm = function(x, meanlog, sdlog, endpoint=Inf, log = FALSE) {
   
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
-  return(dlnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog))
+  d <- dlnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog)
+  
+  if (log) d <- log(d)
+  
+  return(d)
   #return(dnorm((log(x)-meanlog)/sdlog)/pnorm((log(endpoint)-meanlog)/sdlog))
 }
 
-ptlnorm = function(x, meanlog, sdlog, endpoint=Inf) {
+ptlnorm = function(x, meanlog, sdlog, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
 
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
-  return(plnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog))
+  p <- plnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog)
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
   #ifelse(x<=0, 0, pnorm((log(x)-meanlog)/sdlog)/pnorm((log(endpoint)-meanlog)/sdlog))
 }
 
-qtlnorm = function(p, meanlog, sdlog, endpoint=Inf)  {
+qtlnorm = function(p, meanlog, sdlog, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)  {
   
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   if (all(p>=0 & p<=1)) {
+
     return(qlnorm(p*plnorm(endpoint,meanlog=meanlog,sdlog=sdlog),meanlog=meanlog,sdlog=sdlog))
 #     A = pnorm((log(endpoint)-meanlog)/sdlog)
 #     return(exp(meanlog+sdlog*qnorm(p*A)))
@@ -320,7 +406,7 @@ rtlnorm = function(n, meanlog, sdlog, endpoint=Inf) {
 ###############################################################
 # Weibull (gamma=0)
 
-dweibull = function(x, lambda, tau) {
+dweibull = function(x, lambda, tau, log = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -331,11 +417,15 @@ dweibull = function(x, lambda, tau) {
   }
   
 
-  ifelse(x<=0, 0, lambda*tau*x^(tau-1)*exp(-lambda*x^tau))
+  d <- ifelse(x<=0, 0, lambda*tau*x^(tau-1)*exp(-lambda*x^tau))
+  
+  if (log) d <- log(d)
+  
+  return(d)
 }
 
 
-pweibull = function(x, lambda, tau) {
+pweibull = function(x, lambda, tau, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -346,11 +436,17 @@ pweibull = function(x, lambda, tau) {
   }
   
   
-  ifelse(x<=0, 0, 1-exp(-lambda*x^tau))
+  p <- ifelse(x<=0, 0, 1-exp(-lambda*x^tau))
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
 }
 
 
-qweibull = function(p, lambda, tau) {
+qweibull = function(p, lambda, tau, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -359,8 +455,14 @@ qweibull = function(p, lambda, tau) {
   if (tau<=0) {
    stop("tau should be strictly positive.")
   }
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   
   if (all(p>=0 & p<=1)) {
+
     return((-log(1-p)/lambda)^(1/tau))
   } else {
     stop("p should be between 0 and 1.")
@@ -385,7 +487,7 @@ rweibull = function(n, lambda, tau) {
 ###############################################################
 #Truncated Weibull
 
-dtweibull = function(x, lambda, tau, endpoint=Inf) {
+dtweibull = function(x, lambda, tau, endpoint=Inf, log = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -401,10 +503,14 @@ dtweibull = function(x, lambda, tau, endpoint=Inf) {
   }
   
   
-  ifelse(x<=0, 0, dweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau))
+  d <- ifelse(x<=0, 0, dweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau))
+  
+  if (log) d <- log(d)
+  
+  return(d)
 }
 
-ptweibull = function(x, lambda, tau, endpoint=Inf) {
+ptweibull = function(x, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -420,11 +526,17 @@ ptweibull = function(x, lambda, tau, endpoint=Inf) {
   }
   
   
-  ifelse(x<=0, 0, pweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau))
+  p <- ifelse(x<=0, 0, pweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau))
   #ifelse(x<=0, 0, (1-exp(-(x/beta)^alpha))/1-exp(-(endpoint/beta)^alpha))
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
 }
 
-qtweibull = function(p, lambda, tau, endpoint=Inf) {
+qtweibull = function(p, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -438,8 +550,14 @@ qtweibull = function(p, lambda, tau, endpoint=Inf) {
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   
   if (all(p>=0 & p<=1)) {
+
     return(qweibull(p*pweibull(endpoint,lambda=lambda,tau=tau),lambda=lambda,tau=tau))
   } else {
     stop("p should be between 0 and 1.")
@@ -467,12 +585,11 @@ rtweibull = function(n, lambda, tau, endpoint=Inf) {
 ###############################################################
 #Truncated Exponential
 
-dtexp = function(x, rate, endpoint=Inf) {
+dtexp = function(x, rate, endpoint=Inf, log = FALSE) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
   }
-  
   
   
   if(endpoint<=0) {
@@ -480,11 +597,13 @@ dtexp = function(x, rate, endpoint=Inf) {
   }
   
   
-  ifelse(x<=0, 0, dexp(x,rate=rate)/pexp(endpoint,rate=rate))
+  d <- ifelse(x<=0, 0, dexp(x,rate=rate)/pexp(endpoint,rate=rate))
+  
+  if (log) d <- log(d)
 }
 
 
-ptexp = function(x, rate, endpoint=Inf) {
+ptexp = function(x, rate, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
@@ -497,22 +616,34 @@ ptexp = function(x, rate, endpoint=Inf) {
   }
   
   
-  ifelse(x<=0, 0, pexp(x,rate=rate)/pexp(endpoint,rate=rate))
+  p <- ifelse(x<=0, 0, pexp(x,rate=rate)/pexp(endpoint,rate=rate))
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
 }
 
-qtexp = function(p, rate, endpoint=Inf) {
+qtexp = function(p, rate, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
   }
   
   
-  
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
 
   if (all(p>=0 & p<=1)) {
+    
     return( qexp(p*pexp(endpoint,rate=rate),endpoint,rate=rate))
   } else {
     stop("p should be between 0 and 1.")

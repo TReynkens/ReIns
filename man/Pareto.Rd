@@ -11,9 +11,9 @@ The Pareto distribution
 Density, distribution function, quantile function and random generation for the Pareto distribution (type I).
 }
 \usage{
-dpareto(x, shape, scale = 1)
-ppareto(x, shape, scale = 1)
-qpareto(p, shape, scale = 1)
+dpareto(x, shape, scale = 1, log = FALSE)
+ppareto(x, shape, scale = 1, lower.tail = TRUE, log.p = FALSE)
+qpareto(p, shape, scale = 1, lower.tail = TRUE, log.p = FALSE)
 rpareto(n, shape, scale = 1)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -33,6 +33,15 @@ The shape parameter of the Pareto distribution, a strictly positive number.
   \item{scale}{
 The scale parameter of the Pareto distribution, a strictly positive number. Its default value is \code{1}.
 }
+ \item{log}{
+  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+ }
+ \item{lower.tail}{
+ Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
+ }
+  \item{log.p}{
+  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+ }
 }
 \details{
 The Cumulative Distribution Function (CDF) of the Pareto distribution is equal to

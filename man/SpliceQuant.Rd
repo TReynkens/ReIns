@@ -9,7 +9,7 @@ Quantiles of splicing fit
 Compute quantiles (Value-at-Risk) of the fitted splicing distribution.
 }
 \usage{
-SpliceQuant(p, splicefit)
+SpliceQuant(p, splicefit, lower.tail = TRUE, log.p = FALSE)
 
 VaR(p, splicefit)
 }
@@ -21,9 +21,17 @@ The probability of the quantile for \code{SpliceQuant} (we estimate \eqn{Q(p)}) 
   \item{splicefit}{
 Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
 }
+ \item{lower.tail}{
+ Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
+ }
+  \item{log.p}{
+  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+ }
 }
 \details{ 
 See Section 3.3 of Albrecher et al. (2015) for details.
+
+Note that \code{VaR(p, splicefit)} corresponds to \code{SpliceQuant(p, splicefit, log = FALSE, lower.tail = FALSE)}.
 }
 \value{
 Vector of quantiles \eqn{Q(p)} for \code{SpliceQuant} and vector of quantiles \eqn{VaR_p=Q(1-p)} for \code{VaR}.

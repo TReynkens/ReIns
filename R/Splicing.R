@@ -309,7 +309,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
 ########################################################################
 
 # Splicing PDF
-SplicePDF <- function(x, splicefit) {
+SplicePDF <- function(x, splicefit, log = FALSE) {
   
   d <- numeric(length(x))
   
@@ -361,12 +361,14 @@ SplicePDF <- function(x, splicefit) {
     d[x>=EVTfit$endpoint[i]] <- 0
   }
   
+  if (log) d <- log(d)
+  
   return(d)
 }
 
 
 # Splicing CDF 
-SpliceCDF <- function(x, splicefit) {
+SpliceCDF <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   p <- numeric(length(x))
   
@@ -420,22 +422,32 @@ SpliceCDF <- function(x, splicefit) {
     p[x>=EVTfit$endpoint[i]] <- 1
   }
   
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  
   return(p)
 }
 
 
 
 # Splicing quantiles
-SpliceQuant <- function(p, splicefit) {
+SpliceQuant <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
   if (!is.numeric(p)) {
     stop("p should be numeric.")
   }
   
+  if (log.p) p <- exp(p)
+  
+  
   if (any(p<0) | any(p>1)) {
     stop("All elements of p should be in [0,1].")
   }
+  
+  if (!lower.tail) p <- 1-p
   
   q <- numeric(length(p))
   

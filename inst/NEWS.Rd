@@ -1,6 +1,27 @@
 \name{NEWS}
 \title{News for package "ReIns"}
 
+
+\section{Changes in version 0.3-01 (2015-08-17)}{
+
+  \itemize{
+    \item Changes in \code{R} code:
+      \itemize{
+        \item Fix bug with limit \code{L} in \code{ExcessSplice}.
+        \item Change default value for \code{M} in the \code{SpliceFit}-functions to 3.
+        \item Display less results of ME fit in the \code{SpliceFit}-functions.
+        \item Add extra options for distributions (\code{d.}, \code{p.} and \code{q.}):
+        \code{log}, \code{log.p} and \code{lower.tail}.
+      }
+      
+          \item Documentation changes:
+      \itemize{
+         \item Update documentation for distributions (\code{d.}, \code{p.} and \code{q.}).
+      }
+  }
+}
+
+
 \section{Changes in version 0.3-00 (2015-08-07)}{
 
   \itemize{

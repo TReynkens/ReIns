@@ -11,9 +11,9 @@ The truncated generalised Pareto distribution
 Density, distribution function, quantile function and random generation for the truncated Generalised Pareto Distribution (GPD).
 }
 \usage{
-dtgpd(x, gamma, mu = 0, sigma, endpoint = Inf)
-ptgpd(x, gamma, mu = 0, sigma, endpoint = Inf)
-qtgpd(p, gamma, mu = 0, sigma, endpoint = Inf)
+dtgpd(x, gamma, mu = 0, sigma, endpoint = Inf, log = FALSE)
+ptgpd(x, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
+qtgpd(p, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
 rtgpd(n, gamma, mu = 0, sigma, endpoint = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -39,6 +39,15 @@ The \eqn{\sigma} parameter of the GPD, a strictly positive number.
   \item{endpoint}{
 Endpoint of the truncated GPD. The default value is \code{Inf} for which the truncated GPD corresponds to the ordinary GPD.
 }
+ \item{log}{
+  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+ }
+ \item{lower.tail}{
+ Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
+ }
+  \item{log.p}{
+  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+ }
 }
 \details{
 The Cumulative Distribution Function (CDF) of the truncated GPD is equal to

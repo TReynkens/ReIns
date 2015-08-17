@@ -11,9 +11,9 @@ The truncated Pareto distribution
 Density, distribution function, quantile function and random generation for the truncated Pareto distribution.
 }
 \usage{
-dtpareto(x, shape, scale = 1, endpoint = Inf)
-ptpareto(x, shape, scale = 1, endpoint = Inf)
-qtpareto(p, shape, scale = 1, endpoint = Inf)
+dtpareto(x, shape, scale = 1, endpoint = Inf, log = FALSE)
+ptpareto(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
+qtpareto(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
 rtpareto(n, shape, scale = 1, endpoint = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -36,6 +36,15 @@ The scale parameter of the truncated Pareto distribution, a strictly positive nu
   \item{endpoint}{
 Endpoint of the truncated Pareto distribution. The default value is \code{Inf} for which the truncated Pareto distribution corresponds to the ordinary Pareto distribution.
 }
+ \item{log}{
+  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+ }
+ \item{lower.tail}{
+ Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
+ }
+  \item{log.p}{
+  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+ }
 }
 \details{
 The Cumulative Distribution Function (CDF) of the truncated Pareto distribution is equal to

@@ -11,9 +11,9 @@ The generalised Pareto distribution
 Density, distribution function, quantile function and random generation for the Generalised Pareto Distribution (GPD).
 }
 \usage{
-dgpd(x, gamma, mu = 0, sigma)
-pgpd(x, gamma, mu = 0, sigma)
-qgpd(p, gamma, mu = 0, sigma)
+dgpd(x, gamma, mu = 0, sigma, log = FALSE)
+pgpd(x, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE)
+qgpd(p, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE)
 rgpd(n, gamma, mu = 0, sigma)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -37,6 +37,15 @@ The \eqn{\mu} parameter of the GPD, a strictly positive number. Default is 0.
   \item{sigma}{
 The \eqn{\sigma} parameter of the GPD, a strictly positive number.
 }
+ \item{log}{
+  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+ }
+ \item{lower.tail}{
+ Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
+ }
+  \item{log.p}{
+  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+ }
 }
 \details{
 The Cumulative Distribution Function (CDF) of the GPD for \eqn{\gamma != 0} is equal to

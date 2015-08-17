@@ -9,9 +9,9 @@ CDF and PDF of splicing fit
 Compute the Cumulative Distribution Function (CDF) and Probability Density Function (PDF) of the fitted splicing distribution.
 }
 \usage{
-SpliceCDF(x, splicefit)
+SpliceCDF(x, splicefit, lower.tail = TRUE, log.p = FALSE)
 
-SplicePDF(x, splicefit)
+SplicePDF(x, splicefit, log = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,6 +21,15 @@ Vector of points to evaluate the CDF or PDF in.
   \item{splicefit}{
 Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
 }
+ \item{log}{
+  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+ }
+ \item{lower.tail}{
+ Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
+ }
+  \item{log.p}{
+  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+ }
 }
 \details{ 
 See Section 3.3 of Albrecher et al. (2015) for details.
