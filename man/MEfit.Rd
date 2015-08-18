@@ -62,8 +62,8 @@ evtfit <- EVTfit(gamma=c(0.76,0.64))
 splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","Pa","Pa"),
                        MEfit=mefit, EVTfit=evtfit)
 
-# Show object
-splicefit
+# Show summary
+summary(splicefit)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

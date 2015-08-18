@@ -157,6 +157,60 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   structure(L, class = "SpliceFit")
 }
 
+# Auxiliary function for summary.SpliceFit
+pasteVec <- function(s, name, vec, digits) {
+  
+  # Take no digits when vec is large
+  digits <- ifelse(min(vec)<=1000,digits,0)
+  
+  if(length(vec)==1) {
+    paste0(s, name," = ",round(vec,digits),"\n\n")
+  } else {
+    paste0(s, name," = (",paste(round(vec,digits), collapse=","),")","\n\n")
+  }
+  
+}
+
+
+
+# summary method for SpliceFit class
+# Needs to have same input name as generic one
+summary.SpliceFit <- function(object, digits = 3, ...) {
+  
+  splicefit <- object
+  mefit <- splicefit$MEfit
+  evtfit <- splicefit$EVTfit
+  
+  # General splicing part
+  s <- pasteVec("","const", splicefit$const, digits)
+  s <- pasteVec(s,"pi", splicefit$pi, digits)
+  s <- pasteVec(s,"t0", splicefit$trunclower, digits)
+  s <- pasteVec(s,"t", splicefit$t, digits)
+  s <- paste0(s, "type = (",paste(splicefit$type, collapse=","),")","\n\n")
+  
+  s <- paste0(s,"*\n\n")
+  
+  # ME part
+  s <- pasteVec(s,"p", mefit$p, digits)
+  s <- pasteVec(s,"r", mefit$shape, digits)
+  s <- pasteVec(s,"theta", mefit$theta, digits)
+  s <- pasteVec(s,"M", mefit$M, digits)
+  if (exists("M_initial", where=splicefit$MEfit)) {
+    s <- pasteVec(s,"M_initial", mefit$M_initial, digits)
+  }
+  
+  s <- paste0(s,"*\n\n")
+  
+  # EVT part
+  s <- pasteVec(s,"gamma", evtfit$gamma, digits)
+  if (exists("sigma", where=splicefit$EVTfit)) {
+    s <- pasteVec(s,"sigma", evtfit$sigma, digits)
+  }
+  s <- pasteVec(s,"endpoint", evtfit$endpoint, digits)
+  
+  cat(s)
+}
+
 
 # Only keep necessary parts from MEtune output
 MEoutput <- function(fit_tune) {
