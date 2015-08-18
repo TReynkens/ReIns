@@ -383,11 +383,11 @@ IntTailSpliceHill <- function(u, splicefit) {
       # u[i]<tvec[1] case
 
       # Set C to Inf because C is maximal cover amount
-      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
       # Integrate from u[i] to tvec[1] and add to premium
       # Take truncation at tvec[1] into account!
@@ -476,11 +476,11 @@ IntTailSpliceGPD <- function(u, splicefit) {
       # u[i]<tvec[1] case
       
       # Set C to Inf because C is maximal cover amount
-      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$beta, 
+      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$beta, theta = MEfit$theta)
+      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
       # Integrate from u[i] to tvec[1] and add to premium
       # Take truncation at tvec[1] into account!

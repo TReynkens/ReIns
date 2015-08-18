@@ -16,6 +16,146 @@ constCheck <- function(const) {
 }
 
 
+#########################################################
+# S3 classes
+
+
+# Check if x is an integer
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
+  abs(x - round(x)) < tol
+} 
+
+
+# MEfit class
+MEfit <- function(p, shape, theta, M, M_initial = NULL) {
+  
+  # Check if arguments are numeric
+  if (!is.numeric(p)) stop("p must be numeric.")
+  if (!is.numeric(shape)) stop("shape must be numeric.")
+  if (!is.numeric(theta)) stop("theta must be numeric.")
+  if (!is.numeric(M)) stop("M must be numeric.")
+  
+  # Check length of M and if it is an integer
+  if (length(M)!=1) stop("M must have length 1.")
+  if (!is.wholenumber(M) | M<=0) stop("M must be a strictly positive integer.")
+  
+  # Check length of arguments
+  if (length(p)!=M) stop("p must have length M.")
+  if (length(shape)!=M) stop("shape must have length M.")
+  if (length(theta)!=1) stop("theta must have length 1")
+  
+  # Check if p is a vector of probabilities that sums to one.
+  if (any(p<0)) stop("p must contain positive numbers.")
+  if (abs(sum(p)-1)>10^(-16)) stop("p must have sum 1.")
+  
+  # Make first list
+  L <- list(p=p, shape=shape, theta=theta, M=M)
+  
+  # Optional argument M_initial
+  if (!is.null(M_initial)) {
+    
+    if (!is.numeric(M_initial)) stop("M_initial must be numeric.")
+    
+    if (length(M_initial)!=1) stop("M_initial must have length 1.")
+    
+    if (!is.wholenumber(M_initial) | M_initial<=0) {
+      stop("M_initial must be a strictly positive integer.")
+    }
+    
+    L$M_initial <- M_initial
+  }
+  
+  # Return final structure of class MEfit
+  structure(L, class = "MEfit")
+}
+
+
+# EVTfit class
+EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
+  
+  # Default value
+  if (is.null(endpoint)) endpoint <- rep(Inf, length(gamma))
+  
+  # Check if arguments are numeric
+  if (!is.numeric(gamma)) stop("gamma must be numeric.")
+  if (!is.numeric(endpoint)) stop("endpoint must be numeric.")
+  
+  
+  # Check length of gamma and endpoint
+  if (length(gamma)!=length(endpoint)) stop("gamma and endpoint should have equal length.")
+  
+  # Make first list
+  L <- list(gamma=gamma)
+  
+  # Optional argument sigma
+  if (!is.null(sigma)) {
+    
+    if (!is.numeric(sigma)) stop("sigma must be numeric.")
+    
+    if (length(sigma)!=length(gamma)) stop("gamma and sigma should have equal length.")
+    
+    if (any(sigma<=0)) {
+      stop("sigma should be strictly positive.")
+    }
+    
+    L$sigma <- sigma
+  }
+  
+  # Add endpoint to list
+  L$endpoint <- endpoint
+  
+  # Return final structure of class EVTfit
+  structure(L, class = "EVTfit")
+}
+
+
+
+# SpliceFit class
+SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
+  
+  # Check input for const
+  constCheck(const)
+  
+  l <- length(const)
+  
+  
+  # Compute pi
+  pi <- c(const[1], diff(const), 1-const[l])
+
+  
+  # Check t and trunclower
+  if (!is.numeric(trunclower)) stop("trunclower should be numeric.")
+  if (length(trunclower)!=1) stop("trunclower should have length 1.")
+  
+  if(length(t)!=l) stop("const and t should have equal length.")
+  
+  if (is.unsorted(t, strictly=TRUE)) {
+    stop("t should be a strictly increasing vector.")
+  }
+  
+  if (t[1]<=trunclower) stop("trunclower should be strictly smaller than the elements of t.")
+  
+  
+  # Check type
+  if (length(type)!=l+1) stop("type should have one element more than const.")
+  
+  if (!type[1]=="ME") stop("The first argument of type is \"ME\".")
+  if (!all(type[-1] %in% c("Pa", "GPD", "tPa", "cPa", "ciPa", "tciPa"))) stop("Invalid type.")
+  
+  
+  # Check MEfit and EVTfit
+  if (class(MEfit)!="MEfit") stop("MEfit should be of class MEfit.")
+  if (class(EVTfit)!="EVTfit") stop("EVTfit should be of class EVTfit.")
+  
+  if (length(EVTfit$gamma)!=l) stop("gamma should have the same length as const.")
+  
+  
+  # Make list
+  L <- list(const=const, pi=pi, trunclower=trunclower, t=t, type=type, MEfit=MEfit, EVTfit=EVTfit)
+  
+  # Return final structure of class Splicefit
+  structure(L, class = "SpliceFit")
+}
 
 
 # Only keep necessary parts from MEtune output
@@ -24,14 +164,10 @@ MEoutput <- function(fit_tune) {
   # Obtain best model
   MEfit_old <- fit_tune$best_model
   
-  # Make output list
-  MEfit <- list()
-  MEfit$beta <- MEfit_old$beta
-  MEfit$shape <- MEfit_old$shape
-  MEfit$theta <- MEfit_old$theta
-  MEfit$M <- MEfit_old$M
-  MEfit$M_initial <- MEfit_old$M_initial
-  
+  # Make MEfit object
+  MEfit <- MEfit(p=MEfit_old$beta, shape=MEfit_old$shape, theta=MEfit_old$theta, 
+                 M=MEfit_old$M, M_initial=MEfit_old$M_initial)
+
   return(MEfit)
 }
 
@@ -105,7 +241,7 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Upper truncated at threshold t
   fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                       M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-  # Output in a list
+  # Output as MEfit object
   MEfit <- MEoutput(fit_tune)
   
   # EVT part
@@ -142,8 +278,11 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
     
   }
   
-  return( list(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
+  # Convert to object of class EVTfit
+  EVTfit <- structure(EVTfit, class="EVTfit")
   
+  # Return SpliceFit object
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
 
 
@@ -206,9 +345,9 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     # Upper truncated at threshold t
     fit_tune <- MEtune(lower=Z[MEind], upper=pmin(I[MEind],t), trunclower=trunclower, truncupper=t,
                        M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-    # Output in a list
+    # Output as MEfit object
     MEfit <- MEoutput(fit_tune)
-    
+
     # EVT part
     EVTfit <- list()
     if (EVTtruncation) {
@@ -239,7 +378,8 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     # Upper truncated at threshold t
     fit_tune <- MEtune(lower=Z[MEind], upper=upper[MEind], trunclower=trunclower, truncupper=t,
                        M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-    MEfit <- fit_tune$best_model
+    # Output as MEfit object
+    MEfit <- MEoutput(fit_tune)
     
     # cHill part
     res <- cHill(Z, censored=censored)
@@ -253,7 +393,11 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     type <- "cPa"
   }
   
-  return( list(const=const, trunclower=trunclower, t=t,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
+  # Convert to object of class EVTfit
+  EVTfit <- structure(EVTfit, class="EVTfit")
+  
+  # Return SpliceFit object
+  return( SpliceFit(const=const, trunclower=trunclower, t=t,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
 
 
@@ -317,7 +461,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   # Upper truncated at threshold t
   fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                      M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
-  # Output in a list
+  # Output as MEfit object
   MEfit <- MEoutput(fit_tune)
   
   # EVT part
@@ -347,8 +491,14 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
     
   }
 
-  return( list(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
+  # Convert to object of class EVTfit
+  EVTfit <- structure(EVTfit, class="EVTfit")
+  
+  # Return SpliceFit object
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
+
+
 
 ########################################################################
 
@@ -371,7 +521,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
   ind <- (x<tvec[1])
   
   # Case x<=t
-  d[ind] <- const[1] * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
+  d[ind] <- const[1] * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
                        theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
   
   # Case x>t
@@ -430,7 +580,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   ind <- (x<tvec[1])
   
   # Case x<t
-  p[ind] <- const[1] * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$beta, 
+  p[ind] <- const[1] * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
                 theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
 
   # Case x>t
@@ -508,7 +658,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   if (any(ind)) {
     # Quantiles of ME part
-    q[ind] <- ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$beta, 
+    q[ind] <- ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$p, 
                      theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
                      interval=c(trunclower,tvec[1])) 
   }
