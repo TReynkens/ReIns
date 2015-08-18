@@ -1,4 +1,23 @@
 
+
+# Check input for const
+constCheck <- function(const) {
+ 
+  if (!is.numeric(const)) stop("const should be numeric.")
+  
+  if (any(const<=0) | any(const>=1)) {
+    stop("const should be a vector of numbers in (0,1).")
+  }
+  
+  if (is.unsorted(const, strictly=TRUE)) {
+    stop("const should be a strictly increasing vector.")
+  }
+  
+}
+
+
+
+
 # Only keep necessary parts from MEtune output
 MEoutput <- function(fit_tune) {
   
@@ -16,20 +35,19 @@ MEoutput <- function(fit_tune) {
   return(MEfit)
 }
 
+
+###############################################################################
+
 # Fit splicing of mixed Erlang and (truncated) Pareto
 SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
                           EVTtruncation = FALSE, ncores = NULL) {
-  
+ 
+  # Check if X is numeric
+  if (!is.numeric(X)) stop("X should be a numeric vector.")
   n <- length(X)
   
   # Check input for const
-  if (any(const<=0) | any(const>=1)) {
-    stop("const should be a vector of numbers in (0,1).")
-  }
-
-  if (is.unsorted(const, strictly=TRUE)) {
-    stop("const should be a strictly increasing vector.")
-  }
+  constCheck(const)
   
   l <- length(const)
   
@@ -57,6 +75,15 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   tvec <- numeric(l)
   tvec <-  Xsort[n-k_init]
 
+  # Problem when first splicing point smaller than trunclower
+  if (trunclower>=tvec[1]) {
+    stop("trunclower should be strictly smaller than the first splicing point.")
+  }
+  
+  if (trunclower>min(X)) {
+    stop("trunclower should be strictly smaller than all data points.")
+  }
+  
   
   # Update const
   const <- 1-k_init/n
@@ -128,17 +155,16 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
 SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclower = 0,
                             EVTtruncation = FALSE, ncores = NULL) {
   
+  # Check if Z and I are numeric
+  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
+  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  
+  
   # Check if interval censoring is present
   interval <- !(all(Z==I))
   
   # Check input for const
-  if (const<=0 | const>=1) {
-    stop("const should be a number strictly between zero and 1.")
-  }
-  
-  if (length(const)>1) {
-    stop("const should be a single number.")
-  }
+  constCheck(const)
   
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
@@ -150,6 +176,18 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
 
   Zsort <- sort(Z)
   t <- Zsort[n-k]
+  
+  # Problem when splicing point smaller than trunclower
+  if (trunclower>=t) {
+    stop("trunclower should be strictly smaller than the splicing point.")
+  }
+  
+  if (trunclower>min(Z)) {
+    stop("trunclower should be strictly smaller than all data points.")
+  }
+  
+  
+  
   
   if (length(censored)!=n) {
     stop("Z and censored should have the same length.")
@@ -223,16 +261,13 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
 # Fit splicing of mixed Erlang and GPD (POT)
 SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL) {
 
+  # Check if X is numeric
+  if (!is.numeric(X)) stop("X should be a numeric vector.")
   n <- length(X)
   
-  # Check input for const
-  if (any(const<=0) | any(const>=1)) {
-    stop("const should be a vector of numbers in (0,1).")
-  }
   
-  if (is.unsorted(const, strictly=TRUE)) {
-    stop("const should be a strictly increasing vector.")
-  }
+  # Check input for const
+  constCheck(const)
   
   l <- length(const)
   
@@ -251,6 +286,15 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   # Splicing points
   tvec <- numeric(l)
   tvec <-  Xsort[n-k_init]
+  
+  # Problem when first splicing point smaller than trunclower
+  if (trunclower>=tvec[1]) {
+    stop("trunclower should be strictly smaller than the first splicing point.")
+  }
+  
+  if (trunclower>min(X)) {
+    stop("trunclower should be strictly smaller than all data points.")
+  }
   
   
   # Update const
