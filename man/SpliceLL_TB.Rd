@@ -69,6 +69,8 @@ censored <- (X>Y)
 # Splice ME and Pareto
 splicefit <- SpliceFitcHill(Z=Z, censored=censored, const=0.9)
 
+
+
 x <- seq(0,10^2,0.1)
 
 # Plot of splicing CDF
@@ -90,5 +92,6 @@ SplicePP_TB(x, Z, censored=censored, splicefit=splicefit)
 # PP-plot of Turnbull survival function and 
 # fitted survival function with log-scales
 SplicePP_TB(x, Z, censored=censored, splicefit=splicefit, log=TRUE)
+
 }
 }

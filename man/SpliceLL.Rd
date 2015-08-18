@@ -50,6 +50,8 @@ X <- rpareto(1000, shape = 2)
 # Splice ME and Pareto
 splicefit <- SpliceFitHill(X, 0.6)
 
+
+
 x <- seq(0,20,0.01)
 
 # Plot of splicing CDF

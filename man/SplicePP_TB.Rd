@@ -71,6 +71,8 @@ censored <- (X>Y)
 # Splice ME and Pareto
 splicefit <- SpliceFitcHill(Z=Z, censored=censored, const=0.9)
 
+
+
 x <- seq(0,10^2,0.1)
 
 # Plot of splicing CDF
