@@ -309,7 +309,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
 ########################################################################
 
 # Splicing PDF
-SplicePDF <- function(x, splicefit, log = FALSE) {
+dSplice <- function(x, splicefit, log = FALSE) {
   
   d <- numeric(length(x))
   
@@ -368,7 +368,7 @@ SplicePDF <- function(x, splicefit, log = FALSE) {
 
 
 # Splicing CDF 
-SpliceCDF <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
+pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   p <- numeric(length(x))
   
@@ -433,7 +433,7 @@ SpliceCDF <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
 
 
 # Splicing quantiles
-SpliceQuant <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
+qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
   if (!is.numeric(p)) {
@@ -501,6 +501,11 @@ SpliceQuant <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   return(q)
 }
 
+# Random numbers from splicing distribution
+rSplice <- function(n, splicefit) {
+  
+  return(qSplice(runif(n), splicefit=splicefit))
+}
 
 ###########################################################################
 
@@ -509,7 +514,7 @@ SpliceQuant <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
 # Plot of fitted survival function and ECDF estimator + bounds
 SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   
-  plot(x, 1-SpliceCDF(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
+  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
 
   # ECDF estimator
   fit  <- ecdf(X)
@@ -530,7 +535,7 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
 # Plot of fitted survival function and Turnbull estimator + bounds
 SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   
-  plot(x, 1-SpliceCDF(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
+  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
   # Sort the data with index return
   s <- sort(Z, index.return = TRUE)
@@ -574,11 +579,11 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   
   if (log) {
     ind <- est>0
-    plot(-log(est[ind]), -log(1-SpliceCDF(x[ind],splicefit=splicefit)), type="l",
+    plot(-log(est[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l",
          xlab="-log(Empirical survival probability)",
          ylab="-log(Fitted survival probability)", ...)
   } else {
-    plot(est, 1-SpliceCDF(x,splicefit=splicefit), type="l", xlab="Empirical survival probability",
+    plot(est, 1-pSplice(x,splicefit=splicefit), type="l", xlab="Empirical survival probability",
          ylab="Fitted survival probability", ...)
   }
   abline(a=0, b=1)
@@ -611,10 +616,10 @@ SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE,
   
   
   if (log) {
-    plot(-log(est), -log(1-SpliceCDF(x,splicefit=splicefit)), type="l", xlab="-log(Empirical surv. probs)",
+    plot(-log(est), -log(1-pSplice(x,splicefit=splicefit)), type="l", xlab="-log(Empirical surv. probs)",
          ylab="-log(Fitted surv. probs)", ...)
   } else {
-    plot(est, 1-SpliceCDF(x, splicefit=splicefit), type="l",
+    plot(est, 1-pSplice(x, splicefit=splicefit), type="l",
          xlab="Empirical survival probability", ylab="Fitted probability", ...)
   }
   abline(a=0,b=1)
@@ -629,7 +634,7 @@ SpliceLL <- function(x = sort(X), X, splicefit, ...) {
 
   X <- sort(X)
   plot(log(X), log(1-fit(X)), ylab="log(emp. surv.)", xlab="log(X)", type="p", ...)
-  lines(log(x), log(1-SpliceCDF(x, splicefit=splicefit)))
+  lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
 }
 
 
@@ -657,6 +662,6 @@ SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
 
   Z <- sort(Z)
   plot(log(Z), log(f(Z)), ylab="log(Turnbull surv.)", xlab="log(X)", type="p", ...)
-  lines(log(x), log(1-SpliceCDF(x, splicefit=splicefit)))
+  lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
 }
 

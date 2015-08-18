@@ -43,7 +43,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceQuant}}, \code{\link{ExcessSplice}}
+\code{\link{qSplice}}, \code{\link{ExcessSplice}}
 }
 \examples{
 \dontrun{

@@ -1,5 +1,5 @@
-\name{SpliceQuant}
-\alias{SpliceQuant}
+\name{qSplice}
+\alias{qSplice}
 \alias{VaR}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -9,7 +9,7 @@ Quantiles of splicing fit
 Compute quantiles (Value-at-Risk) of the fitted splicing distribution.
 }
 \usage{
-SpliceQuant(p, splicefit, lower.tail = TRUE, log.p = FALSE)
+qSplice(p, splicefit, lower.tail = TRUE, log.p = FALSE)
 
 VaR(p, splicefit)
 }
@@ -31,7 +31,7 @@ Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \c
 \details{ 
 See Section 3.3 of Albrecher et al. (2015) for details.
 
-Note that \code{VaR(p, splicefit)} corresponds to \code{SpliceQuant(p, splicefit, log = FALSE, lower.tail = FALSE)}.
+Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, log = FALSE, lower.tail = FALSE)}.
 }
 \value{
 Vector of quantiles \eqn{Q(p)} for \code{SpliceQuant} and vector of quantiles \eqn{VaR_p=Q(1-p)} for \code{VaR}.
@@ -47,7 +47,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceCDF}}, \code{\link{SplicePDF}}, \code{\link{ES}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}}
+\code{\link{rSplice}}, \code{\link{pSplice}}, \code{\link{dSplice}}, \code{\link{ES}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}}
 }
 
 \examples{
@@ -62,7 +62,7 @@ splicefit <- SpliceFitHill(X, 0.6)
 p <- seq(0,1,0.01)
 
 # Plot of quantiles
-plot(p, SpliceQuant(p, splicefit), type="l", xlab="p", ylab="Q(p)")
+plot(p, qSplice(p, splicefit), type="l", xlab="p", ylab="Q(p)")
 
 # Plot of VaR
 plot(p, VaR(p, splicefit), type="l", xlab="p", ylab=bquote(VaR[p]))

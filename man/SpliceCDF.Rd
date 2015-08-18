@@ -1,6 +1,6 @@
-\name{SpliceCDF}
-\alias{SpliceCDF}
-\alias{SplicePDF}
+\name{pSplice}
+\alias{pSplice}
+\alias{dSplice}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 CDF and PDF of splicing fit
@@ -9,9 +9,9 @@ CDF and PDF of splicing fit
 Compute the Cumulative Distribution Function (CDF) and Probability Density Function (PDF) of the fitted splicing distribution.
 }
 \usage{
-SpliceCDF(x, splicefit, lower.tail = TRUE, log.p = FALSE)
+pSplice(x, splicefit, lower.tail = TRUE, log.p = FALSE)
 
-SplicePDF(x, splicefit, log = FALSE)
+dSplice(x, splicefit, log = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -50,7 +50,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF and 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceQuant}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
+\code{\link{qSplice}}, \code{\link{rSplice}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
 \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 
@@ -64,10 +64,14 @@ X <- rpareto(1000, shape = 2)
 splicefit <- SpliceFitHill(X, 0.6)
 
 x <- seq(0,20,0.01)
+
 # Plot of splicing CDF
-plot(x, SpliceCDF(x, splicefit), type="l", xlab="x", ylab="F(x)")
+plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
+
 # Plot of splicing PDF
-plot(x, SplicePDF(x, splicefit), type="l", xlab="x", ylab="f(x)")
+plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
+
+
 
 # Fitted survival function and empirical survival function 
 SpliceECDF(x, X, splicefit)

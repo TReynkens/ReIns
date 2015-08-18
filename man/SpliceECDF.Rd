@@ -42,7 +42,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{SpliceTB}}, \code{\link{SpliceCDF}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
+\code{\link{SpliceTB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 \examples{
 \dontrun{
@@ -54,10 +54,14 @@ X <- rpareto(1000, shape = 2)
 splicefit <- SpliceFitHill(X, 0.6)
 
 x <- seq(0,20,0.01)
+
 # Plot of splicing CDF
-plot(x, SpliceCDF(x, splicefit), type="l", xlab="x", ylab="F(x)")
+plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
+
 # Plot of splicing PDF
-plot(x, SplicePDF(x, splicefit), type="l", xlab="x", ylab="f(x)")
+plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
+
+
 
 # Fitted survival function and empirical survival function 
 SpliceECDF(x, X, splicefit)

@@ -13,12 +13,17 @@
         \item Add extra options for distributions (\code{d.}, \code{p.} and \code{q.}):
         \code{log}, \code{log.p} and \code{lower.tail}.
         \item Add approximations for CDF using orthogonal polynomials.
+        \item Improve \code{MEfit}.
+        \item Add function to generate random samples from splicing distribution: \code{SpliceRandom}.
+        \item Rename \code{SpliceCDF}, \code{SplicePDF}, \code{SpliceQuant} and \code{SpliceRandom} to
+        \code{pSplice}, \code{dSplice}, \code{qSplice} and \code{rSplice}. 
       }
       
           \item Documentation changes:
       \itemize{
          \item Update documentation for distributions (\code{d.}, \code{p.} and \code{q.}).
          \item Add documentation for approximations for CDF using orthogonal polynomials.
+         \item Add documentation for \code{SpliceRandom}.
       }
   }
 }

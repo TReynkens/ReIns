@@ -95,7 +95,7 @@ export("trcProb","trciProb")
 # Splicing
 
 export("SpliceFitHill","SpliceFitcHill","SpliceFitGPD")
-export("SplicePDF","SpliceCDF","SpliceQuant")
+export("dSplice","pSplice","qSplice","rSplice")
 export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB")
 
 #####################################

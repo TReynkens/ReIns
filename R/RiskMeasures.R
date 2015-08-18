@@ -560,7 +560,7 @@ ExcessSplice <- function(M, L=Inf, splicefit) {
 # Value-at-risk
 VaR <- function(p, splicefit) {
   
-  return(SpliceQuant(p=1-p, splicefit=splicefit))
+  return(qSplice(p=1-p, splicefit=splicefit))
 }
 
 
