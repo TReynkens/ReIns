@@ -20,7 +20,7 @@ Vector of points to plot the fitted survival function at. By default we plot it 
 Data used for fitting the distribution.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

@@ -49,13 +49,7 @@ When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the numbe
 See Beirlant et al. (2015) and Verbelen et al. (2014) for details. The code follows the notation of the latter.
 }
 \value{
-A list with components:
-\item{const}{The splicing constant, it can differ slightly from the input argument \code{const}.}
-\item{trunclower}{Lower truncation point as given by the user.}
-\item{t}{Splicing point.}
-\item{type}{Type of the distributions, here \code{"ME"} and then \code{"cPa"} (right censoring), \code{"ciPa"} (interval censoring) or \code{"tciPa"} (truncation and interval censoring).}
-\item{MEfit}{List with details on the mixed Erlang fit.}
-\item{EVTfit}{List with details on the EVT fit (Pareto distribution).}
+A \code{\link{SpliceFit}} object.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.

@@ -26,7 +26,7 @@ insurance context, these are the incurred values. By default, they are equal to 
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitcHill}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitcHill}}.
 }
   \item{log}{
 Logical indicating if the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.

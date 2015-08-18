@@ -20,7 +20,7 @@ Vector of points to plot the functions at.
 Data used for fitting the distribution.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
 }
   \item{alpha}{
 \eqn{100\alpha\%} is the confidence level for the confidence bounds.  Default is \eqn{\alpha=0.05}.

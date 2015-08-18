@@ -20,7 +20,7 @@ Vector of points to plot the functions at. By default we plot them at the data p
 Data used for fitting the distribution.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
 }
   \item{log}{
 Logical indicating if the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.

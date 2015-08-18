@@ -27,7 +27,7 @@ insurance context, these are the incurred values. By default, they are equal to 
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitcHill}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitcHill}}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

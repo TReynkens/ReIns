@@ -27,7 +27,7 @@ insurance context, these are the incurred values. By default, they are equal to 
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitcHill}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitcHill}}.
 }
   \item{alpha}{
 \eqn{100\alpha\%} is the confidence level for the confidence bounds. Default is \eqn{\alpha=0.05}.
