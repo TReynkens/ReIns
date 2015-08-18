@@ -91,11 +91,16 @@ censored <- (X>Y)
 # Splice ME and Pareto
 splicefit <- SpliceFitcHill(Z=Z, censored=censored, const=0.9)
 
+
+
 x <- seq(0,10^2,0.1)
+
 # Plot of splicing CDF
-plot(x, SpliceCDF(x, splicefit), type="l", xlab="x", ylab="F(x)")
+plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
+
 # Plot of splicing PDF
-plot(x, SplicePDF(x, splicefit), type="l", xlab="x", ylab="f(x)")
+plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
+
 
 # Fitted survival function and Turnbull survival function 
 SpliceTB(x, Z, censored=censored, splicefit=splicefit)
