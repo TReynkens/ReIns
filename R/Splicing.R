@@ -505,6 +505,12 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
 # Splicing PDF
 dSplice <- function(x, splicefit, log = FALSE) {
   
+  # Check input
+  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
+  
+  
   d <- numeric(length(x))
   
   MEfit <- splicefit$MEfit
@@ -563,6 +569,12 @@ dSplice <- function(x, splicefit, log = FALSE) {
 
 # Splicing CDF 
 pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
+  
+  # Check input
+  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
+  
   
   p <- numeric(length(x))
   
@@ -629,7 +641,10 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
 # Splicing quantiles
 qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
+  
   # Check input
+  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+
   if (!is.numeric(p)) {
     stop("p should be numeric.")
   }
@@ -708,6 +723,10 @@ rSplice <- function(n, splicefit) {
 # Plot of fitted survival function and ECDF estimator + bounds
 SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   
+  # Check if X and x are numeric
+  if (!is.numeric(X)) stop("X should be a numeric vector.")
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
+  
   plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
 
   # ECDF estimator
@@ -728,6 +747,13 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
 
 # Plot of fitted survival function and Turnbull estimator + bounds
 SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
+  
+  # Check if Z and I are numeric
+  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
+  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  
+  # Check if x is numeric
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
   
   plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
@@ -767,6 +793,10 @@ SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
 # Probability - probability plot with ECDF
 SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   
+  # Check if X and x are numeric
+  if (!is.numeric(X)) stop("X should be a numeric vector.")
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
+  
   # ECDF estimator
   fit  <- ecdf(X)
   est <- 1-fit(x)
@@ -785,6 +815,13 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
 
 # Probability - probability plot with Turnbull estimator
 SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE, ...) {
+  
+  # Check if Z and I are numeric
+  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
+  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  
+  # Check if x is numeric
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
   
   # Sort the data with index return
   s <- sort(Z, index.return = TRUE)
@@ -823,6 +860,10 @@ SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE,
 # Log-log plot with empirical survival function and fitted survival function
 SpliceLL <- function(x = sort(X), X, splicefit, ...) {
   
+  # Check if X and x are numeric
+  if (!is.numeric(X)) stop("X should be a numeric vector.")
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
+  
   # ECDF estimator
   fit  <- ecdf(X)
 
@@ -834,6 +875,13 @@ SpliceLL <- function(x = sort(X), X, splicefit, ...) {
 
 # Log-log plot with Turnbull survival function and fitted survival function
 SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
+  
+  # Check if Z and I are numeric
+  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
+  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  
+  # Check if x is numeric
+  if (!is.numeric(x)) stop("x should be a numeric vector.")
   
   # Sort the data with index return
   s <- sort(Z, index.return = TRUE)

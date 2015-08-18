@@ -2,7 +2,7 @@
 \title{News for package "ReIns"}
 
 
-\section{Changes in version 0.3-01 (2015-08-17)}{
+\section{Changes in version 0.4-00 (2015-08-18)}{
 
   \itemize{
     \item Changes in \code{R} code:
@@ -17,6 +17,8 @@
         \item Add function to generate random samples from splicing distribution: \code{SpliceRandom}.
         \item Rename \code{SpliceCDF}, \code{SplicePDF}, \code{SpliceQuant} and \code{SpliceRandom} to
         \code{pSplice}, \code{dSplice}, \code{qSplice} and \code{rSplice}. 
+        \item Improve input checking of \code{SpliceFit} functions.
+        \item Add S3 classes \code{SpliceFit}, \code{MEfit}, \code{EVTfit}.
       }
       
           \item Documentation changes:
@@ -25,6 +27,7 @@
          \item Add documentation for approximations for CDF using orthogonal polynomials.
          \item Add documentation for \code{SpliceRandom}.
          \item Combine documentation for \code{pqrSplice} in one file and make separate file for \code{VaR}.
+         \item Update documentation for new S3 classes in splicing.
       }
   }
 }
