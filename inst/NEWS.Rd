@@ -24,6 +24,7 @@
          \item Update documentation for distributions (\code{d.}, \code{p.} and \code{q.}).
          \item Add documentation for approximations for CDF using orthogonal polynomials.
          \item Add documentation for \code{SpliceRandom}.
+         \item Combine documentation for \code{pqrSplice} in one file and make separate file for \code{VaR}.
       }
   }
 }

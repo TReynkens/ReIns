@@ -1,22 +1,34 @@
-\name{pSplice}
-\alias{pSplice}
+\name{Splice}
 \alias{dSplice}
+\alias{pSplice}
+\alias{qSplice}
+\alias{rSplice}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-CDF and PDF of splicing fit
+Splicing distribution
 }
 \description{
-Compute the Cumulative Distribution Function (CDF) and Probability Density Function (PDF) of the fitted splicing distribution.
+Density, distribution function, quantile function and random generation for the fitted splicing distribution.
 }
 \usage{
+dSplice(x, splicefit, log = FALSE)
+
 pSplice(x, splicefit, lower.tail = TRUE, log.p = FALSE)
 
-dSplice(x, splicefit, log = FALSE)
+qSplice(p, splicefit, lower.tail = TRUE, log.p = FALSE)
+
+rSplice(n, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
 Vector of points to evaluate the CDF or PDF in.
+}
+  \item{p}{
+Vector of probabilities.
+}
+  \item{n}{
+Number of observations.
 }
   \item{splicefit}{
 Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
@@ -35,7 +47,7 @@ Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \c
 See Section 3.3 of Albrecher et al. (2015) for details.
 }
 \value{
-Vector of probabilities \eqn{F(x)=P(X\le x)} for \code{SpliceCDF} and vector of densities \eqn{f(x)} for \code{SplicePDF}.
+Vector of densities \eqn{f(x)} for \code{dSplice}, vector of probabilities \eqn{F(x)=P(X\le x)} for \code{pSplice},  vector of quantiles \eqn{Q(p)} for \code{qSplice} and a random sample of length \eqn{n} for \code{rSplice}.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
@@ -43,14 +55,14 @@ Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuaria
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2014). "Fitting Mixtures of Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{FEB Research Report KBI_1401A}.
 }
 \author{
-Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF and PDF.
+Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF, PDF and quantiles.
 }
 
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{rSplice}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
+\code{\link{VaR}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
 \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 
@@ -63,6 +75,8 @@ X <- rpareto(1000, shape = 2)
 # Splice ME and Pareto
 splicefit <- SpliceFitHill(X, 0.6)
 
+
+
 x <- seq(0,20,0.01)
 
 # Plot of splicing CDF
@@ -73,18 +87,18 @@ plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 
 
-# Fitted survival function and empirical survival function 
-SpliceECDF(x, X, splicefit)
+p <- seq(0,1,0.01)
 
-# Log-log plot with empirical survival function and fitted survival function
-SpliceLL(x, X, splicefit)
+# Plot of splicing quantiles
+plot(p, qSplice(p, splicefit), type="l", xlab="p", ylab="Q(p)")
 
-# PP-plot of empirical survival function and fitted survival function
-SplicePP(x, X, splicefit)
+# Plot of VaR
+plot(p, VaR(p, splicefit), type="l", xlab="p", ylab=bquote(VaR[p]))
 
-# PP-plot of empirical survival function and 
-# fitted survival function with log-scales
-SplicePP(x, X, splicefit,log=TRUE)
+
+
+# Random sample from splicing distribution
+x <- rSplice(1000, splicefit)
 
 }
 }
