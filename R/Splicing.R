@@ -177,12 +177,12 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
       res <- trciHill(Z, I=I, censored=censored)
       resDT <- trciDT(Z, I, censored=censored, gamma1=res$gamma1)
       resEndpoint <- trciEndpoint(Z, I, censored=censored, gamma1=res$gamma1, DT=resDT$DT)
-      EVTfit$gamma1 <- res$gamma1[res$k==k]
+      EVTfit$gamma <- res$gamma1[res$k==k]
       EVTfit$endpoint <- resEndpoint$Tk[resEndpoint$k==k]
       type <- "tciPa"
     } else {
       res <- ciHill(Z, I=I, censored=censored)
-      EVTfit$gamma1 <- res$gamma1[res$k==k]
+      EVTfit$gamma <- res$gamma1[res$k==k]
       EVTfit$endpoint <- Inf
       type <- "ciPa"
     }
@@ -206,7 +206,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     # cHill part
     res <- cHill(Z, censored=censored)
     EVTfit <- list()
-    EVTfit$gamma1 <- res$gamma1[res$k==k]
+    EVTfit$gamma <- res$gamma1[res$k==k]
     EVTfit$endpoint <- Inf
     
     # const is k/n but use Kaplan-Meier for right censored data
