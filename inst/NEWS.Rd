@@ -2,7 +2,7 @@
 \title{News for package "ReIns"}
 
 
-\section{Changes in version 0.4-00 (2015-08-18)}{
+\section{Changes in version 0.4-00 (2015-xx-yy)}{
 
   \itemize{
     \item Changes in \code{R} code:

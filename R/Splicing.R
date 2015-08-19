@@ -140,7 +140,15 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   if (length(type)!=l+1) stop("type should have one element more than const.")
   
   if (!type[1]=="ME") stop("The first argument of type is \"ME\".")
+  
   if (!all(type[-1] %in% c("Pa", "GPD", "tPa", "cPa", "ciPa", "tciPa"))) stop("Invalid type.")
+  
+  if (any(type[-1]=="GPD") & any(type[-1]!="GPD")) stop("GPD cannot be combined with other EVT distributions.")
+  
+  if (any(type[-1] %in% c("cPa", "ciPa", "tciPa")) & 
+      !all(type[-1] %in% c("cPa", "ciPa", "tciPa"))) {
+    stop("The (interval-)censored Pareto distribtion cannot be combined with uncensored EVT distributions.")
+  } 
   
   
   # Check MEfit and EVTfit
@@ -149,6 +157,9 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   
   if (length(EVTfit$gamma)!=l) stop("gamma should have the same length as const.")
   
+  if (type[2]=="GPD" & !exists("sigma", where=EVTfit)) {
+    stop("sigma should be included when GPD is used.")
+  }
   
   # Make list
   L <- list(const=const, pi=pi, trunclower=trunclower, t=t, type=type, MEfit=MEfit, EVTfit=EVTfit)
