@@ -19,6 +19,7 @@
         \code{pSplice}, \code{dSplice}, \code{qSplice} and \code{rSplice}. 
         \item Improve input checking of \code{SpliceFit} functions.
         \item Add S3 classes \code{SpliceFit}, \code{MEfit}, \code{EVTfit}.
+        \item Fixed bug in computation of ME quantiles.
       }
       
           \item Documentation changes:
