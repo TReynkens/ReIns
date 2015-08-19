@@ -483,12 +483,13 @@ ME_VaR <- function(p, theta, shape, alpha, trunclower = 0, truncupper = Inf, int
   }
   
   if(p==1){
-    return(Inf) 
+    # Fixed for truncation case
+    return(truncupper) 
   }    
   if(length(shape) == 1 & trunclower == 0 & truncupper == Inf){
     VaR <- stats::qgamma(p, shape = shape, scale = theta)
-  }
-  else{
+    return(VaR)
+  } else{
     objective <- function(x){return(10000000*(ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p)^2)}    
     VaR_nlm <- nlm(f = objective, p = start)
     VaR_optimize <- optimize(f = objective, interval = interval)
@@ -499,7 +500,8 @@ ME_VaR <- function(p, theta, shape, alpha, trunclower = 0, truncupper = Inf, int
     shape <- shape[order(shape)]
     VaR_nlm <-  vector("list", length(shape))
     VaR_optimize <-  vector("list", length(shape))
-    interval <- c(0, stats::qgamma(p, shape, scale = theta))
+    # Fixed for truncation case
+    interval <- c(trunclower, pmin(truncupper, trunclower + stats::qgamma(p, shape, scale = theta)))
     for(i in 1:length(shape)){
       VaR_nlm[[i]] <- nlm(f = objective, p = stats::qgamma(p, shape = shape[i], scale = theta))    
       VaR_optimize[[i]] <- optimize(f = objective, interval = interval[c(i, i+1)])
