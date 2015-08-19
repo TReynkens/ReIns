@@ -30,6 +30,11 @@
          \item Combine documentation for \code{pqrSplice} in one file and make separate file for \code{VaR}.
          \item Update documentation for new S3 classes in splicing.
       }
+      
+            \item Changes in testing:
+         \itemize{
+            \item Included test for \code{pSplice} and \code{qSplice}.
+            }
   }
 }
 
