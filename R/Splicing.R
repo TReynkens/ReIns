@@ -371,6 +371,8 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
   # Check input for const
   constCheck(const)
   
+  if (length(const)>1) stop("Only single splicing is supported.")
+  
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
   if (is.na(ncores)) ncores <- 1
@@ -743,7 +745,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
                      theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
                      interval=c(trunclower,tvec[1])) 
   }
-
+  
   
   # Quantiles of EVT part
   
