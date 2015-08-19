@@ -46,7 +46,8 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
   
   # Check if p is a vector of probabilities that sums to one.
   if (any(p<0)) stop("p must contain positive numbers.")
-  if (abs(sum(p)-1)>10^(-16)) stop("p must have sum 1.")
+  tol <- .Machine$double.eps^0.5
+  if (abs(sum(p)-1)>tol) stop("p must have sum 1.")
   
   # Make first list
   L <- list(p=p, shape=shape, theta=theta, M=M)
