@@ -193,25 +193,36 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   mefit <- splicefit$MEfit
   evtfit <- splicefit$EVTfit
   
+  # Length of dashes and stars
+  l <- 20
+  
+  # Title
+  s <- "\n"
+  s <- paste0(s, paste0(rep("--",l),collapse=""), "\n")
+  s <- paste0(s, "Summary of splicing fit", "\n")
+  s <- paste0(s, paste0(rep("--",l),collapse=""), "\n\n")
+  
+  
   # General splicing part
-  s <- pasteVec("","const", splicefit$const, digits)
-  s <- pasteVec(s,"pi", splicefit$pi, digits)
-  s <- pasteVec(s,"t0", splicefit$trunclower, digits)
-  s <- pasteVec(s,"t", splicefit$t, digits)
+  s <- pasteVec(s, "const", splicefit$const, digits)
+  s <- pasteVec(s, "pi", splicefit$pi, digits)
+  s <- pasteVec(s, "t0", splicefit$trunclower, digits)
+  s <- pasteVec(s, "t", splicefit$t, digits)
   s <- paste0(s, "type = (",paste(splicefit$type, collapse=","),")","\n\n")
   
-  s <- paste0(s,"*\n\n")
+  s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
+  
   
   # ME part
-  s <- pasteVec(s,"p", mefit$p, digits)
-  s <- pasteVec(s,"r", mefit$shape, digits)
-  s <- pasteVec(s,"theta", mefit$theta, digits)
-  s <- pasteVec(s,"M", mefit$M, digits)
+  s <- pasteVec(s, "p", mefit$p, digits)
+  s <- pasteVec(s, "r", mefit$shape, digits)
+  s <- pasteVec(s, "theta", mefit$theta, digits)
+  s <- pasteVec(s, "M", mefit$M, digits)
   if (exists("M_initial", where=splicefit$MEfit)) {
-    s <- pasteVec(s,"M_initial", mefit$M_initial, digits)
+    s <- pasteVec(s, "M_initial", mefit$M_initial, digits)
   }
   
-  s <- paste0(s,"*\n\n")
+  s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
   
   # EVT part
   s <- pasteVec(s,"gamma", evtfit$gamma, digits)
