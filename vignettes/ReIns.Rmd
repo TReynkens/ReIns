@@ -1,5 +1,5 @@
 ---
-title: "ReIns"
+title: "Using the ReIns package"
 author: "Tom Reynkens"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -8,3 +8,105 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+# Introduction
+
+
+The ReIns package contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2015) of Albrecher, Beirlant and Teugels.
+
+It contains implementations of
+
+* Basic extreme value theory (EVT) estimators and graphical methods as described in "Statistics of Extremes: Theory and Applications" (2004) of Beirlant, Goegebeur, Segers and Teugels.
+
+* EVT estimators and graphical methods adapted for censored and/or truncated data.
+
+* Splicing of mixed Erlang distributions with EVT distributions (Pareto, GPD).
+
+* VaR, expected shortfall and excess-loss premium estimates.
+
+This vignette describes how to use the most important functions of the package.
+We split this in several sections: *datasets, graphical methods, estimators for the extreme value index,
+estimators for quantiles and return periods, splicing* and *risk measures*.
+
+
+# Datasets
+
+Three datasets are available: Norwegian fire insurance data (`norwegianfire`), SOA group medical insurance data (`soa`) and Secura RE automobile reinsurance data (`secura`). These datasets were already discussed in Beirlant et al. (2004).
+
+The illustrations will be done using the Norwegian Fire insurance dataset which contains fire insurance claims for a Norwegian insurance company for the period 1972 to 1992. The sizes of the fire insurance claims are expressed in 1000 NOK.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+library("ReIns")
+
+data("norwegianfire")
+
+# Claim year
+year <- norwegianfire$year+1900
+
+# Claim size
+size <- norwegianfire$size
+
+# Plot norwegian fire insurance data per year
+plot(year, size, xlab="Year", ylab="Size")
+```
+
+# Graphical methods
+
+QQ-plots and their derivative plots are an essential part of extreme value theory. We focus on three important types: the Exponential QQ-plot, Pareto QQ-plot and log-normal QQ-plot.
+
+## Exponential QQ-plot
+
+The exponential QQ-plot can be easily drawn using `ExpQQ`. Its derivative plot, also dubbed mean excess plot is key in determining what type of distribution the data comes from. The mean excess values $e_{k,n}$ are plotted using `MeanExcess` and one has the choice to plot them versus the order statistics $X_{n-k,n}$ (`k=FALSE`) or versus the number of exceedances $k$ (`k=TRUE`).
+
+In this case we see that the mean-excess plot is more or less linearly increasing as a function of  $X_{n-k,n}$ which indicates that the data may come from a Pareto distribution. The exponential QQ-plot is not linear at all but concave which reinforces the conclusion drawn from the mean excess plot.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Exponential QQ-plot
+ExpQQ(size)
+
+
+# Mean excess plot with X_{n-k,n}
+MeanExcess(size)
+
+# Mean excess plot with k
+MeanExcess(size, k=TRUE)
+```
+
+## Pareto QQ-plot
+Taking the logarithm of Pareto distributed data gives exponentially distributed data, so the Pareto QQ-plot and
+the exponential QQ-plot are closely related. Using the commands `ParetoQQ` and `ParetoQQ_der`, the Pareto QQ-plot and its derivative plot can be drawn. Note that these derivatives are nothing more than the Hill estimates.
+
+The Pareto QQ-plot is now linear which indicates that the Pareto distribution is suitable. The derivative plots can be used to estimate the tail index $\gamma=1/\alpha$ of the Pareto distribution (cf. Hill estimator).
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Pareto QQ-plot
+ParetoQQ(size)
+
+
+# Derivative plot with log X_{n-k,n}
+ParetoQQ_der(size)
+
+# Derivative plot with k
+ParetoQQ_der(size, k=TRUE)
+```
+
+
+## Log-normal QQ-plot
+Finally, one can also consider the log-normal QQ-plot (`LognormalQQ`) and its derivative plot (`LognormalQQ_der`).
+It is clear that a log-normal distribution is not suitable for this data.
+
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Log-normal QQ-plot
+LognormalQQ(size)
+
+
+# Derivative plot with log X_{n-k,n}
+LognormalQQ_der(size)
+
+# Derivative plot with k
+LognormalQQ_der(size, k=TRUE)
+```
+
