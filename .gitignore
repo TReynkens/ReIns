@@ -4,7 +4,6 @@
 .RData
 =======
 # History files
-.Rhistory
 .Rapp.history
 # Example code in package build process
 *-Ex.R
@@ -15,3 +14,4 @@ ReIns.Rproj
 vignettes/*.html
 vignettes/*.pdf
 >>>>>>> f88277f2f35786c5ee5a9202c0ad3e8ce917a15e
+inst/doc
