@@ -151,13 +151,56 @@ The generalised QQ-plot and the moment estimator indicate that values for $\gamm
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
 # Generalised Hill estimator
-genHill(size, gamma=H$gamma, plot=TRUE, col="blue", ylim=c(0.5,0.8))
+GH <- genHill(size, gamma=H$gamma, plot=TRUE, col="blue", ylim=c(0.5,0.8))
 
 # Moment estimator
-Moment(size, add=TRUE, lty=2)
+M <- Moment(size, add=TRUE, lty=2)
 
 legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ```
+
+# Estimators of quantiles and return periods
+The previously discussed estimators can be used to estimate large quantiles or small exceedance probabilities and corresponding high return periods.
+
+We can for example estimate the 99.5% quantile using Hill estimates (`Quant`) or using generalised Hill estimates (`QuantGH`), GPD estimates (`QuantGPD`) and moment estimates (`QuantMOM`).
+
+All three estimators (we exclude the GPD estimator again) suggest a 99.5\% VaR value around 6 000 000 NOK.
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+p <- 0.05
+
+# Estimates for 99.5% VaR
+Quant(size, gamma=H$gamma, p=p, plot=TRUE, col="blue", ylim=c(0,10^4))
+
+
+
+# Estimates for 99.5% VaR
+QuantGH(size, gamma=GH$gamma, p=p, plot=TRUE, col="blue", ylim=c(0,10^4))
+
+QuantMOM(size, gamma=M$gamma, p=p, add=TRUE, lty=2)
+
+legend("topright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
+```
+
+Estimating the return period of the value 100 000 000 NOK using the same three estimators (using `Return`, `ReturnGH` and `returnMOM`) gives an estimate around 800 (claims).
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+q <- 10^5
+
+# Estimates for return period
+Return(size, gamma=H$gamma, q=q, plot=TRUE, col="blue", ylim=c(0,1200))
+
+
+
+# Estimates for return period
+ReturnGH(size, gamma=GH$gamma, q=q, plot=TRUE, col="blue", ylim=c(0,1200))
+
+ReturnMOM(size, gamma=M$gamma, q=q, add=TRUE, lty=2)
+
+legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
+```
+
 
 
 
