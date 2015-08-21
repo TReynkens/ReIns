@@ -110,3 +110,54 @@ LognormalQQ_der(size)
 LognormalQQ_der(size, k=TRUE)
 ```
 
+# Estimators for the EVI
+
+## Estimators for $\gamma>0$
+The most famous estimator for the EVI $\gamma$ is the Hill estimator which can be obtained by fitting the Pareto distribution to the relative excesses $x/x_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
+
+The bias of the Hill estimator can be problematic so one can consider a bias-reduced estimator which uses a regression type approach `Hill.2oQV`. An other solution is to use the EPD estimator (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
+
+Using these bias-reduced estimators can give an idea about a good choice for $k$. Suitable choices of $k$ are values where the two plots intersect and which are not too low (otherwise the variance is too high). This yields an estimate for $\gamma$ around 0.75 (and $k$ around 3000).
+
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Hill plot
+H <- Hill(size, plot=TRUE, col="blue")
+
+# Add EPD estimator
+EPD(size, add=TRUE, col="orange", lty=2)
+
+legend("bottomright",c("Hill","EPD"), col=c("blue","orange"), lty=1:2)
+```
+
+## General estimators
+The previous estimators can only be used when $\gamma$ is strictly positive. Therefore, the generalised QQ-plot was proposed. This QQ-plot is a generalisation of the Pareto QQ-plot and can also have negative slopes. The function `genQQ` needs the Hill estimates as input.
+
+We see that the generalised QQ-plot is strictly increasing which indicates a strictly positive $\gamma$.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Generalised QQ-plot
+genQQ(size, gamma=H$gamma)
+```
+
+
+A generalised Hill estimator can then be defined which is an estimator for the slope of the generalised QQ-plot.
+Alternatively, one can also consider the moment estimator `Moment` and the Peaks-Over-Threshold estimator (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $x-x_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
+
+The generalised QQ-plot and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Generalised Hill estimator
+genHill(size, gamma=H$gamma, plot=TRUE, col="blue", ylim=c(0.5,0.8))
+
+# Moment estimator
+Moment(size, add=TRUE, lty=2)
+
+legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
+```
+
+
+

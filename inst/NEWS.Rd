@@ -22,19 +22,20 @@
         \item Fixed bug in computation of ME quantiles.
       }
       
-          \item Documentation changes:
+    \item Documentation changes:
       \itemize{
          \item Update documentation for distributions (\code{d.}, \code{p.} and \code{q.}).
          \item Add documentation for approximations for CDF using orthogonal polynomials.
          \item Add documentation for \code{SpliceRandom}.
          \item Combine documentation for \code{pqrSplice} in one file and make separate file for \code{VaR}.
          \item Update documentation for new S3 classes in splicing.
+         \item Add vignette.
       }
       
-            \item Changes in testing:
-         \itemize{
+   \item Changes in testing:
+      \itemize{
             \item Included test for \code{pSplice} and \code{qSplice}.
-            }
+    }
   }
 }
 
