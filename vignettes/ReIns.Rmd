@@ -25,7 +25,7 @@ It contains implementations of
 * VaR, expected shortfall and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
-We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators for the extreme value index](#estimators-for-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [splicing](#splicing)* and *[risk measures](#risk-measures)*.
+We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [splicing](#splicing)* and *[risk measures](#risk-measures)*.
 
 
 # Datasets
@@ -109,9 +109,9 @@ LognormalQQ_der(size)
 LognormalQQ_der(size, k=TRUE)
 ```
 
-# Estimators for the EVI
+# Estimators of the EVI
 
-## Estimators for $\gamma>0$
+## Estimators of $\gamma>0$
 The most famous estimator for the EVI $\gamma$ is the Hill estimator which can be obtained by fitting the Pareto distribution to the relative excesses $x/x_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
 
 The bias of the Hill estimator can be problematic so one can consider a bias-reduced estimator which uses a regression type approach `Hill.2oQV`. An other solution is to use the EPD estimator (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
