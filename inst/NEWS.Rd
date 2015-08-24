@@ -34,7 +34,13 @@
       
    \item Changes in testing:
       \itemize{
-            \item Included test for \code{pSplice} and \code{qSplice}.
+          \item Included test for \code{pSplice} and \code{qSplice}.
+    }
+    
+  \item Miscelaneous changes:
+      \itemize{
+          \item Remove \pkg{MASS} from imports.
+          \item Change \code{import} to \code{importFrom} in NAMESPACE.
     }
   }
 }

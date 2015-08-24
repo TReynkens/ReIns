@@ -1,13 +1,15 @@
 
-import("stats")
-import("graphics")
-import("survival")
-import("MASS")
-importFrom("utils","tail")
+importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "ecdf",
+             "nlm", "optim", "pexp", "pgamma", "plnorm", "pnorm", "qexp",
+             "qlnorm", "qnorm", "runif", "stepfun", "uniroot", "var")
+importFrom("graphics", "abline", "legend", "lines", "par", "plot")
+importFrom("survival", "Surv", "survfit")
+importFrom("utils", "tail")
 
 # Splicing part
-import("doParallel","parallel")
-import("foreach")
+importFrom("parallel", "detectCores", "makePSOCKcluster", "stopCluster")
+importFrom("doParallel", "registerDoParallel")
+importFrom("foreach", "%do%", "%dopar%", "foreach")
 
 #########################
 # Random
