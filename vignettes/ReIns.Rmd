@@ -201,6 +201,133 @@ ReturnMOM(size, gamma=M$gamma, q=q, add=TRUE, lty=2)
 legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ```
 
+# Splicing
 
+## Fitting a splicing distribution
+
+The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
+wants a fit for the whole distribution. We therefore propose the splicing of a Mixed Erlang (ME) distribution (body)
+and an extreme value distribution, Pareto or GPD, for the tail. The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
+1. `SpliceFitHill`: splicing of ME and Pareto distribution(s), possibly adapted for (upper) truncation.  
+2. `SpliceFitGPD`: splicing of ME and GPD's, this cannot handle (upper) truncation.   
+3. `SpliceFitcHill`: splicing of ME and a Pareto distribution adapted for right- or interval-censoring.  
+
+
+At first, one has to determine (a) suitable splicing point(s).
+We do this using the mean excess plot. Linear upward pieces indicate that the Pareto distribution is suitable, linear downward pieces suggest a truncated Pareto distribution.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+# Mean-excess plot
+MeanExcess(size)
+
+# Add vertical line at 50% and 99.6% quantiles of the data
+abline(v=quantile(size, c(0.5,0.996)))
+```
+
+For the Norwegian fire insurance data, we choose splicing points at the 50\% and 99.6\% quantile.
+This means that we the spliced distribution is a ME distribution between 0 and the first splicing point, a Pareto distribution between the first and second splicing point and another Pareto distribution after the second splicing point.
+
+Using `SpliceFitHill` we can fit this splicing distribution. This can take some time so we create a `SpliceFit` object using the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the splicing distribution.
+
+```{r, eval=FALSE}
+
+# Splicing of Mixed Erlang (ME) and 2 Pareto pieces
+# Use 3 as initial value for M
+spliceFit <- SpliceFitHill(size, const=c(0.5,0.996), M=3)
+```
+
+```{r}
+# Create MEfit object
+mefit <- MEfit(p=c(0.65,0.35), shape=c(39,58), theta=16.19, M=2)
+
+# Create EVTfit object
+evtfit <- EVTfit(gamma=c(0.76,0.64))
+
+# Create SpliceFit object
+splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","Pa","Pa"),
+                       MEfit=mefit, EVTfit=evtfit)
+
+# Show summary
+summary(splicefit)
+```
+
+## Checking adequacy of fitted splicing distribution
+
+To see how well the splicing distribution fits the data, we use 2 tools:  
+1. `SpliceECDF`: plot of the fitted survival function and the empirical survival function with confidence bounds.  
+2. `SplicePP`: plot of fitted survival function vs. empirical survival function. The plot with minus-log scales is most informative for the tails.
+
+We see that the fitted splicing distribution approximates the empirical distribution quite well.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+# Points to look at
+x <- seq(0, 5*10^5, 10^2)
+
+# Plot of fitted survival function
+# and empirical survival function
+SpliceECDF(x, size, splicefit, ylim=c(0,0.1))
+
+# PP-plot with fitted survival function
+# and empirical survival function 
+SplicePP(x, size, splicefit)
+
+# PP-plot with log-scales
+SplicePP(x, size, splicefit, log=TRUE)
+```
+
+# Risk measures
+
+Using the fitted splicing distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
+Expected Shortfall (ES). 
+
+
+## Excess-loss premiums
+To estimate the premiums of an excess-loss insurance (with retentation), one can use `ExcessSplice`. It is also possible to add a limit (e.g. $L=2*M$).
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+# Sequence of retentions
+M <- seq(0, 10^6, 10^2)
+
+# Premiums
+e <- ExcessSplice(M, splicefit=splicefit)
+
+# Compute premiums of excess-loss insurance min{(X-M)+,L}
+e2 <- ExcessSplice(M, L=2*M, splicefit=splicefit)
+
+
+# Plot premiums
+plot(M, e, type="l", xlab="M", ylab="I(M)-I(M+L)", ylim=c(0,10^3))
+lines(M, e2, lty=2)
+legend("topright",c(expression("L"==infinity),expression("L"==2*"M")), lty=1:2, lwd=2)
+```
+
+
+## Value-at-Risk
+A commonly used risk measure is the Value-at-Risk (`VaR`). This is nothing more than the quantiles $Q(1-p)$ of a distribution.
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Take small values for p
+p <- seq(0, 0.01, 0.0001)
+
+# VaR
+VaR <- VaR(p, splicefit)
+
+# Plot VaR
+plot(p, VaR, xlab="p", ylab="VaR", type="l")
+```
+
+
+## Expected shortfall
+In recent years, the Expected Shortfall (`ES`) is gaining importance. It is the conditional expectation of the data
+above a certain VaR. It is therefore always a larger than the corresponding VaR.
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+# Small values for p
+p <- seq(0.0001, 0.01, 0.0001)
+
+# ES
+es <- ES(p, splicefit)
+
+# Plot ES
+plot(p, es, xlab="p", ylab=expression(ES[p]), type="l")
+```
 
 
