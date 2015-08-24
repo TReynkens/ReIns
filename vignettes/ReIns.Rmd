@@ -25,8 +25,7 @@ It contains implementations of
 * VaR, expected shortfall and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
-We split this in several sections: *datasets, graphical methods, estimators for the extreme value index,
-estimators for quantiles and return periods, splicing* and *risk measures*.
+We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators for the extreme value index](#estimators-for-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [splicing](#splicing)* and *[risk measures](#risk-measures)*.
 
 
 # Datasets
