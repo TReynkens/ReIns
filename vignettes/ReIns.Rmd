@@ -284,7 +284,7 @@ Expected Shortfall (ES).
 
 
 ## Excess-loss premiums
-To estimate the premiums of an excess-loss insurance (with retentation), one can use `ExcessSplice`. It is also possible to add a limit (e.g. $L=2*M$).
+To estimate the premiums of an excess-loss insurance (with retention), one can use `ExcessSplice`. It is also possible to add a limit (e.g. $L=2*M$).
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Sequence of retentions
 M <- seq(0, 10^6, 10^2)
