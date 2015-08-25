@@ -595,6 +595,10 @@ dSplice <- function(x, splicefit, log = FALSE) {
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
   
+  if (any(is.na(EVTfit$gamma))) {
+    stop("One of the estimates for gamma is not available.")
+  }
+  
   tvec <- splicefit$t
   trunclower <- splicefit$trunclower
   
@@ -659,6 +663,10 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
+  
+  if (any(is.na(EVTfit$gamma))) {
+    stop("One of the estimates for gamma is not available.")
+  }
   
   tvec <- splicefit$t
   trunclower <- splicefit$trunclower
@@ -741,6 +749,10 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
+  
+  if (any(is.na(EVTfit$gamma))) {
+    stop("One of the estimates for gamma is not available.")
+  }
   
   tvec <- splicefit$t
   trunclower <- splicefit$trunclower
