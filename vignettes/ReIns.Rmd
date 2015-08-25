@@ -30,7 +30,7 @@ We split this in several sections: *[datasets](#datasets), [graphical methods](#
 
 # Datasets
 
-Three datasets are available: Norwegian fire insurance data (`norwegianfire`), SOA group medical insurance data (`soa`) and Secura RE automobile reinsurance data (`secura`). These datasets were already discussed in Beirlant et al. (2004).
+Three datasets are available: **Norwegian fire insurance data** (`norwegianfire`), **SOA group medical insurance data** (`soa`) and **Secura RE automobile reinsurance data** (`secura`). These datasets were already discussed in Beirlant et al. (2004).
 
 The illustrations will be done using the Norwegian Fire insurance dataset which contains fire insurance claims for a Norwegian insurance company for the period 1972 to 1992. The sizes of the fire insurance claims are expressed in 1000 NOK.
 
@@ -55,7 +55,7 @@ QQ-plots and their derivative plots are an essential part of extreme value theor
 
 ## Exponential QQ-plot
 
-The exponential QQ-plot can be easily drawn using `ExpQQ`. Its derivative plot, also dubbed mean excess plot is key in determining what type of distribution the data comes from. The mean excess values $e_{k,n}$ are plotted using `MeanExcess` and one has the choice to plot them versus the order statistics $X_{n-k,n}$ (`k=FALSE`) or versus the number of exceedances $k$ (`k=TRUE`).
+The **exponential QQ-plot** can be easily drawn using `ExpQQ`. Its derivative plot, also dubbed **mean excess plot** is key in determining what type of distribution the data comes from. The mean excess values $e_{k,n}$ are plotted using `MeanExcess` and one has the choice to plot them versus the order statistics $X_{n-k,n}$ (`k=FALSE`) or versus the number of exceedances $k$ (`k=TRUE`).
 
 In this case we see that the mean-excess plot is more or less linearly increasing as a function of  $X_{n-k,n}$ which indicates that the data may come from a Pareto distribution. The exponential QQ-plot is not linear at all but concave which reinforces the conclusion drawn from the mean excess plot.
 
@@ -73,7 +73,7 @@ MeanExcess(size, k=TRUE)
 ```
 
 ## Pareto QQ-plot
-Taking the logarithm of Pareto distributed data gives exponentially distributed data, so the Pareto QQ-plot and
+Taking the logarithm of Pareto distributed data gives exponentially distributed data, so the **Pareto QQ-plot** and
 the exponential QQ-plot are closely related. Using the commands `ParetoQQ` and `ParetoQQ_der`, the Pareto QQ-plot and its derivative plot can be drawn. Note that these derivatives are nothing more than the Hill estimates.
 
 The Pareto QQ-plot is now linear which indicates that the Pareto distribution is suitable. The derivative plots can be used to estimate the tail index $\gamma=1/\alpha$ of the Pareto distribution (cf. Hill estimator).
@@ -92,7 +92,7 @@ ParetoQQ_der(size, k=TRUE)
 
 
 ## Log-normal QQ-plot
-Finally, one can also consider the log-normal QQ-plot (`LognormalQQ`) and its derivative plot (`LognormalQQ_der`).
+Finally, one can also consider the **log-normal QQ-plot** (`LognormalQQ`) and its derivative plot (`LognormalQQ_der`).
 It is clear that a log-normal distribution is not suitable for this data.
 
 
@@ -112,9 +112,9 @@ LognormalQQ_der(size, k=TRUE)
 # Estimators of the EVI
 
 ## Estimators of $\gamma>0$
-The most famous estimator for the EVI $\gamma$ is the Hill estimator which can be obtained by fitting the Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
+The most famous estimator for the EVI $\gamma$ is the **Hill estimator** which can be obtained by fitting the Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
 
-The bias of the Hill estimator can be problematic so one can consider a bias-reduced estimator which uses a regression type approach `Hill.2oQV`. An other solution is to use the EPD estimator (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
+The bias of the Hill estimator can be problematic so one can consider a **bias-reduced estimator** which uses a regression type approach (`Hill.2oQV`). An other solution is to use the **EPD estimator** (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
 
 Using these bias-reduced estimators can give an idea about a good choice for $k$. Suitable choices of $k$ are values where the two plots intersect and which are not too low (otherwise the variance is too high). This yields an estimate for $\gamma$ around 0.75 (and $k$ around 3000).
 
@@ -131,7 +131,7 @@ legend("bottomright",c("Hill","EPD"), col=c("blue","orange"), lty=1:2)
 ```
 
 ## General estimators
-The previous estimators can only be used when $\gamma$ is strictly positive. Therefore, the generalised QQ-plot was proposed. This QQ-plot is a generalisation of the Pareto QQ-plot and can also have negative slopes. The function `genQQ` needs the Hill estimates as input.
+The previous estimators can only be used when $\gamma$ is strictly positive. Therefore, the **generalised QQ-plot** was proposed. This QQ-plot is a generalisation of the Pareto QQ-plot and can also have negative slopes. The function `genQQ` needs the Hill estimates as input.
 
 We see that the generalised QQ-plot is strictly increasing which indicates a strictly positive $\gamma$.
 
@@ -142,8 +142,8 @@ genQQ(size, gamma=H$gamma)
 ```
 
 
-A generalised Hill estimator can then be defined which is an estimator for the slope of the generalised QQ-plot.
-Alternatively, one can also consider the moment estimator `Moment` and the Peaks-Over-Threshold estimator (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
+The **generalised Hill estimator** (`genHill`) can then be defined which is an estimator for the slope of the generalised QQ-plot.
+Alternatively, one can also consider the **moment estimator** (`Moment`) and the **Peaks-Over-Threshold estimator** (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
 
 The generalised Hill estimator and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
 
@@ -207,7 +207,7 @@ legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ## Fitting a splicing distribution
 
 The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
-wants a fit for the whole distribution. We therefore propose the splicing of a Mixed Erlang (ME) distribution (body)
+wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution (body)
 and an extreme value distribution, Pareto or GPD, for the tail. The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
 1. `SpliceFitHill`: splicing of ME and Pareto distribution(s), possibly adapted for (upper) truncation.  
 2. `SpliceFitGPD`: splicing of ME and GPD's, this cannot handle (upper) truncation.   
@@ -283,7 +283,7 @@ Expected Shortfall (ES).
 
 
 ## Excess-loss premiums
-To estimate the premiums of an excess-loss insurance (with retention $M$), one can use `ExcessSplice`. It is also possible to add a limit to the insurance (e.g. $L=2M$).
+To estimate the **premiums of an excess-loss insurance** (with retention $M$), one can use `ExcessSplice`. It is also possible to add a limit to the insurance (e.g. $L=2M$).
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Sequence of retentions
 M <- seq(0, 10^6, 10^2)
@@ -303,7 +303,7 @@ legend("topright",c(expression("L"==infinity),expression("L"==2*"M")), lty=1:2, 
 
 
 ## Value-at-Risk
-A commonly used risk measure is the Value-at-Risk (`VaR`). This is nothing more than the quantiles $Q(1-p)$ of a distribution.
+A commonly used risk measure is the **Value-at-Risk** (`VaR`). This is nothing more than the quantiles $Q(1-p)$ of a distribution.
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
 # Take small values for p
@@ -318,7 +318,7 @@ plot(p, VaR, xlab="p", ylab="VaR", type="l")
 
 
 ## Expected shortfall
-In recent years, the Expected Shortfall (`ES`) is gaining importance. It is the conditional expectation of the data
+In recent years, the **Expected Shortfall** (`ES`) is gaining importance. It is the conditional expectation of the data
 above a certain VaR. It is therefore always a larger than the corresponding VaR.
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Small values for p
