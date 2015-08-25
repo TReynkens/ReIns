@@ -112,7 +112,7 @@ LognormalQQ_der(size, k=TRUE)
 # Estimators of the EVI
 
 ## Estimators of $\gamma>0$
-The most famous estimator for the EVI $\gamma$ is the Hill estimator which can be obtained by fitting the Pareto distribution to the relative excesses $x/x_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
+The most famous estimator for the EVI $\gamma$ is the Hill estimator which can be obtained by fitting the Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
 
 The bias of the Hill estimator can be problematic so one can consider a bias-reduced estimator which uses a regression type approach `Hill.2oQV`. An other solution is to use the EPD estimator (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
 
@@ -143,9 +143,9 @@ genQQ(size, gamma=H$gamma)
 
 
 A generalised Hill estimator can then be defined which is an estimator for the slope of the generalised QQ-plot.
-Alternatively, one can also consider the moment estimator `Moment` and the Peaks-Over-Threshold estimator (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $x-x_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
+Alternatively, one can also consider the moment estimator `Moment` and the Peaks-Over-Threshold estimator (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
 
-The generalised QQ-plot and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
+The generalised Hill estimator and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
@@ -164,18 +164,18 @@ The previously discussed estimators can be used to estimate large quantiles or s
 ## Estimators of quantiles
 We can for example estimate the 99.5% quantile using Hill estimates (`Quant`) or using generalised Hill estimates (`QuantGH`), GPD estimates (`QuantGPD`) and moment estimates (`QuantMOM`).
 
-All three estimators (we exclude the GPD estimator again) suggest a 99.5\% VaR value around 6 000 000 NOK.
+All three estimators (we exclude the GPD estimator again) suggest a 99.5\% VaR value around 35 000 000 NOK.
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
-p <- 0.05
+p <- 0.005
 
 # Estimates for 99.5% VaR
-Quant(size, gamma=H$gamma, p=p, plot=TRUE, col="blue", ylim=c(0,10^4))
+Quant(size, gamma=H$gamma, p=p, plot=TRUE, col="blue", ylim=c(0,10^5))
 
 
 
 # Estimates for 99.5% VaR
-QuantGH(size, gamma=GH$gamma, p=p, plot=TRUE, col="blue", ylim=c(0,10^4))
+QuantGH(size, gamma=GH$gamma, p=p, plot=TRUE, col="blue", ylim=c(0,10^5))
 
 QuantMOM(size, gamma=M$gamma, p=p, add=TRUE, lty=2)
 
@@ -283,7 +283,7 @@ Expected Shortfall (ES).
 
 
 ## Excess-loss premiums
-To estimate the premiums of an excess-loss insurance (with retention), one can use `ExcessSplice`. It is also possible to add a limit (e.g. $L=2*M$).
+To estimate the premiums of an excess-loss insurance (with retention $M$), one can use `ExcessSplice`. It is also possible to add a limit to the insurance (e.g. $L=2M$).
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Sequence of retentions
 M <- seq(0, 10^6, 10^2)
