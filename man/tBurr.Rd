@@ -34,7 +34,7 @@ The \eqn{\alpha} parameter of the Burr distribution, a strictly positive number.
 The \eqn{\rho} parameter of the Burr distribution, a strictly negative number.
 }
   \item{endpoint}{
-Endpoint of the truncated Burr. The default value is \code{Inf} for which the truncated Burr corresponds to the ordinary Burr distribution.
+Endpoint of the truncated Burr distribution. The default value is \code{Inf} for which the truncated Burr corresponds to the ordinary Burr distribution.
 }
  \item{log}{
   Logical indicating if the densities are given as log(f), default is \code{FALSE}.
