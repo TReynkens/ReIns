@@ -343,7 +343,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 ###############################################################
 # Burr (type XII)
 
-dburr = function(x, alpha, rho) {
+dburr = function(x, alpha, rho, log = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -355,12 +355,14 @@ dburr = function(x, alpha, rho) {
   
   d <- ifelse(x>0, alpha * (1+x^(-rho*alpha))^(1/rho-1) * x^(-rho*alpha-1), 0)
   
+  if (log) d <- log(d)
+  
   return(d)
   
 }
 
 
-pburr = function(x, alpha, rho) {
+pburr = function(x, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -372,11 +374,19 @@ pburr = function(x, alpha, rho) {
   
   p <- ifelse(x>0, 1-(1+x^(-rho*alpha))^(1/rho), 0)
   
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
   return(p)
   
 }
 
-qburr = function(p, alpha, rho) {
+qburr = function(p, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -413,7 +423,7 @@ rburr = function(n, alpha, rho) {
 # Truncated Burr
 
 
-dtburr = function(x, alpha, rho, endpoint=Inf) {
+dtburr = function(x, alpha, rho, endpoint=Inf, log = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -429,12 +439,14 @@ dtburr = function(x, alpha, rho, endpoint=Inf) {
   
   d <- ifelse(x>0, dburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 0)
   
+  if (log) d <- log(d)
+  
   return(d)
   
 }
 
 
-ptburr = function(x, alpha, rho, endpoint=Inf) {
+ptburr = function(x, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -454,12 +466,21 @@ ptburr = function(x, alpha, rho, endpoint=Inf) {
   
   p <- pburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho)
   
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
   return(p)
   
 }
 
 
-qtburr = function(p, alpha, rho, endpoint=Inf) {
+qtburr = function(p, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")

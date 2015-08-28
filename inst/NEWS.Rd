@@ -20,6 +20,7 @@
         \item Improve input checking of \code{SpliceFit} functions.
         \item Add S3 classes \code{SpliceFit}, \code{MEfit}, \code{EVTfit}.
         \item Fixed bug in computation of ME quantiles.
+        \item Add Burr and truncated Burr distribution (type XII).
       }
       
     \item Documentation changes:
@@ -30,6 +31,7 @@
          \item Combine documentation for \code{pqrSplice} in one file and make separate file for \code{VaR}.
          \item Update documentation for new S3 classes in splicing.
          \item Add vignette.
+         \item Add documentation for Burr and truncated Burr distribution (type XII).
       }
       
    \item Changes in testing:

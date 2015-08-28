@@ -17,7 +17,9 @@ importFrom("foreach", "%do%", "%dopar%", "foreach")
 export("dpareto","ppareto","qpareto","rpareto") 
 export("dtpareto","ptpareto","qtpareto","rtpareto") 
 export("dgpd","pgpd","qgpd","rgpd") 
-export("dtgpd","ptgpd","qtgpd","rtgpd") 
+export("dtgpd","ptgpd","qtgpd","rtgpd")
+export("dburr","pburr", "qburr", "rburr")
+export("dtburr","ptburr", "qtburr", "rtburr")
 
 #########################
 # Plots
