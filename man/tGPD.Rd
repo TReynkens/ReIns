@@ -74,11 +74,11 @@ Tom Reynkens
 \examples{
 # Plot of the PDF
 x = seq(1,10,0.01)
-plot(x, dtgpd(x, gamma=1/2, sigma=5, endpoint=8), ylab="PDF", type="l")
+plot(x, dtgpd(x, gamma=1/2, sigma=5, endpoint=8), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
 x = seq(1,10,0.01)
-plot(x, ptgpd(x, gamma=1/2, sigma=5, endpoint=8), ylab="CDF", type="l")
+plot(x, ptgpd(x, gamma=1/2, sigma=5, endpoint=8), xlab="x", ylab="CDF", type="l")
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

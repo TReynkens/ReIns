@@ -34,7 +34,7 @@ The \eqn{\alpha} parameter of the Burr distribution, a strictly positive number.
 The \eqn{\rho} parameter of the Burr distribution, a strictly negative number.
 }
   \item{endpoint}{
-Endpoint of the truncated Burr distribution. The default value is \code{Inf} for which the truncated Burr corresponds to the ordinary Burr distribution.
+Endpoint of the truncated Burr distribution. The default value is \code{Inf} for which the truncated Burr distribution corresponds to the ordinary Burr distribution.
 }
  \item{log}{
   Logical indicating if the densities are given as log(f), default is \code{FALSE}.
@@ -69,11 +69,11 @@ Tom Reynkens.
 
 # Plot of the PDF
 x = seq(1,10,0.01)
-plot(x, dtburr(x, alpha=2, rho=-1, endpoint=9), ylab="PDF", type="l")
+plot(x, dtburr(x, alpha=2, rho=-1, endpoint=9), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
 x = seq(1,10,0.01)
-plot(x, ptburr(x, alpha=2, rho=-1, endpoint=9), ylab="CDF", type="l")
+plot(x, ptburr(x, alpha=2, rho=-1, endpoint=9), xlab="x", ylab="CDF", type="l")
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -67,11 +67,11 @@ Tom Reynkens
 \examples{
 # Plot of the PDF
 x = seq(1,10,0.01)
-plot(x, dtpareto(x, shape=2, endpoint=10), ylab="PDF", type="l")
+plot(x, dtpareto(x, shape=2, endpoint=10), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
 x = seq(1,10,0.01)
-plot(x, ptpareto(x, shape=2, endpoint=10), ylab="CDF", type="l")
+plot(x, ptpareto(x, shape=2, endpoint=10), xlab="x", ylab="CDF", type="l")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

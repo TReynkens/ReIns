@@ -78,11 +78,11 @@ Tom Reynkens.
 \examples{
 # Plot of the PDF
 x = seq(1,10,0.01)
-plot(x, dgpd(x, gamma=1/2, sigma=5), ylab="PDF", type="l")
+plot(x, dgpd(x, gamma=1/2, sigma=5), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
 x = seq(1,10,0.01)
-plot(x, pgpd(x, gamma=1/2, sigma=5), ylab="CDF", type="l")
+plot(x, pgpd(x, gamma=1/2, sigma=5), xlab="x", ylab="CDF", type="l")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
