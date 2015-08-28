@@ -767,7 +767,7 @@ rtweibull <- function(n, lambda, tau, endpoint=Inf) {
 ###############################################################
 #Truncated Exponential
 
-dtexp <- function(x, rate, endpoint=Inf, log = FALSE) {
+dtexp <- function(x, rate = 1, endpoint=Inf, log = FALSE) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
@@ -785,7 +785,7 @@ dtexp <- function(x, rate, endpoint=Inf, log = FALSE) {
 }
 
 
-ptexp <- function(x, rate, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+ptexp <- function(x, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
@@ -807,7 +807,7 @@ ptexp <- function(x, rate, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   return(p)
 }
 
-qtexp <- function(p, rate, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+qtexp <- function(p, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
@@ -832,7 +832,7 @@ qtexp <- function(p, rate, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   }
 }
 
-rtexp <- function(n, rate, endpoint=Inf) {
+rtexp <- function(n, rate = 1, endpoint=Inf) {
   
   if (rate<=0) {
     stop("rate should be strictly positive.")
