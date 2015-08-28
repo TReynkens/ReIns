@@ -174,7 +174,7 @@ rtpareto <- function(n, shape, scale=1, endpoint=Inf) {
 
 
 ######################
-# Generalised Pareto distribution
+# Generalised Pareto distribution (GPD)
 
 eps <- 10^(-14)
 
@@ -261,6 +261,8 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
   qgpd(runif(n), gamma=gamma, mu=mu, sigma=sigma)
 }
 
+######################
+# Truncated GPD
 
 dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, log = FALSE) {
   
