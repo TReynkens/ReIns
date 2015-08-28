@@ -1,6 +1,6 @@
 
 ###############################################################
-#Pareto
+# Pareto
 
 dpareto <- function(x, shape, scale = 1, log = FALSE) {
   if (shape<=0) {
@@ -78,7 +78,7 @@ rpareto <- function(n, shape, scale = 1) {
 
 
 ###############################################################
-#Truncated Pareto
+# Truncated Pareto
 
 dtpareto <- function(x, shape, scale=1, endpoint=Inf, log = FALSE) {
   if (shape<=0) {
@@ -341,7 +341,168 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 
 
 ###############################################################
-#Truncated log-normal
+# Burr (type XII)
+
+dburr = function(x, alpha, rho) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  d <- ifelse(x>0, alpha * (1+x^(-rho*alpha))^(1/rho-1) * x^(-rho*alpha-1), 0)
+  
+  return(d)
+  
+}
+
+
+pburr = function(x, alpha, rho) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  p <- ifelse(x>0, 1-(1+x^(-rho*alpha))^(1/rho), 0)
+  
+  return(p)
+  
+}
+
+qburr = function(p, alpha, rho) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  if (all(p>=0 & p<=1)) {
+    return( ((1-p)^rho-1)^(-1/(rho*alpha)) )
+    
+  } else {
+    stop("p should be between 0 and 1.")
+  }
+  
+}
+
+rburr = function(n, alpha, rho) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  return(qburr(runif(n), rho=rho, alpha=alpha))
+}
+
+
+###############################################################
+# Truncated Burr
+
+
+dtburr = function(x, alpha, rho, endpoint=Inf) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  if(endpoint<=0) {
+    stop("endpoint should be strictly positive.")
+  }
+  
+  d <- ifelse(x>0, dburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 0)
+  
+  return(d)
+  
+}
+
+
+ptburr = function(x, alpha, rho, endpoint=Inf) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  if(endpoint<=0) {
+    stop("endpoint should be strictly positive.")
+  }
+  
+  
+  #   A = 1-(1+endpoint^(-rho*alpha))^(1/rho)
+  #   return(ifelse(x>0 & x<endpoint,(1-(1+x^(-rho*alpha))^(1/rho))/A,0))
+  
+  p <- pburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho)
+  
+  return(p)
+  
+}
+
+
+qtburr = function(p, alpha, rho, endpoint=Inf) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  if(endpoint<=0) {
+    stop("endpoint should be strictly positive.")
+  }
+  
+  if (all(p>=0 & p<=1)) {
+    #     A = 1-(1+endpoint^(-rho*alpha))^(1/rho)
+    #     return(((1-p*A)^rho-1)^(-1/(rho*alpha)))
+    return( qburr(p*pburr(endpoint, alpha=alpha, rho=rho), alpha=alpha, rho=rho) )
+    
+  } else {
+    stop("p should be between 0 and 1.")
+  }
+  
+}
+
+rtburr = function(n, alpha, rho, endpoint=Inf) {
+  
+  if (alpha<=0) {
+    stop("alpha should be strictly positive.")
+  }
+  
+  if (rho>=0) {
+    stop("rho should be strictly negative")
+  }
+  
+  if(endpoint<=0) {
+    stop("endpoint should be strictly larger than 0.")
+  }
+  
+  return(qtburr(runif(n),alpha=alpha,rho=rho,endpoint=endpoint))
+}
+
+###############################################################
+# Truncated log-normal
 
 dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, log = FALSE) {
   
@@ -404,7 +565,7 @@ rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint=Inf) {
 }
 
 ###############################################################
-# Weibull (gamma=0)
+# Weibull 
 
 dweibull <- function(x, lambda, tau, log = FALSE) {
   
