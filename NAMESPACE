@@ -21,6 +21,12 @@ export("dtgpd","ptgpd","qtgpd","rtgpd")
 export("dburr","pburr", "qburr", "rburr")
 export("dtburr","ptburr", "qtburr", "rtburr")
 
+export("dtexp","ptexp", "qtexp", "rtexp")
+export("dtlnorm","ptlnorm", "qtlnorm", "rtlnorm")
+
+export("dweibull","pweibull", "qweibull", "rweibull")
+export("dtweibull","ptweibull", "qtweibull", "rtweibull")
+
 #########################
 # Plots
 
