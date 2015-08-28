@@ -11,10 +11,10 @@ The truncated Weibull distribution
 Density, distribution function, quantile function and random generation for the truncated Weibull distribution.
 }
 \usage{
-dtweibull(x, lambda, tau = 1, endpoint = Inf, log = FALSE)
-ptweibull(x, lambda, tau = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
-qtweibull(p, lambda, tau = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
-rtweibull(n, lambda, tau = 1, endpoint = Inf)
+dtweibull(x, shape, scale = 1, endpoint = Inf, log = FALSE)
+ptweibull(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
+qtweibull(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
+rtweibull(n, shape, scale = 1, endpoint = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,11 +27,11 @@ Vector of probabilities.
   \item{n}{
 Number of observations.
 }
-  \item{lambda}{
-The \eqn{\lambda} parameter of the Weibull distribution, a strictly positive number.
+  \item{shape}{
+The shape parameter of the Weibull distribution, a strictly positive number.
 }
-  \item{tau}{
-The \eqn{\tau} parameter of the Weibull distribution, a strictly positive number, default is 1.
+  \item{scale}{
+The scale parameter of the Weibull distribution, a strictly positive number, default is 1.
 }
   \item{endpoint}{
 Endpoint of the truncated Weibull distribution. The default value is \code{Inf} for which the truncated Weibull distribution corresponds to the ordinary Weibull distribution.
@@ -63,17 +63,17 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{Weibull}},  \code{\link[stats]{Distributions}}
+\code{\link[stats]{Weibull}},  \code{\link[stats]{Distributions}}
 }
 \examples{
 
 # Plot of the PDF
 x = seq(0,10,0.01)
-plot(x, dtweibull(x, lambda=2, tau=0.5, endpoint=3), xlab="x", ylab="PDF", type="l")
+plot(x, dtweibull(x, shape=2, scale=0.5, endpoint=1), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
 x = seq(0,10,0.01)
-plot(x, ptweibull(x, lambda=2, tau=0.5, endpoint=3), xlab="x", ylab="CDF", type="l")
+plot(x, ptweibull(x, shape=2, scale=0.5, endpoint=1), xlab="x", ylab="CDF", type="l")
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
