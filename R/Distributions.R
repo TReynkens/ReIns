@@ -592,7 +592,7 @@ rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint=Inf) {
 ###############################################################
 # Weibull 
 
-dweibull <- function(x, lambda, tau, log = FALSE) {
+dweibull <- function(x, lambda, tau = 1, log = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -611,7 +611,7 @@ dweibull <- function(x, lambda, tau, log = FALSE) {
 }
 
 
-pweibull <- function(x, lambda, tau, lower.tail = TRUE, log.p = FALSE) {
+pweibull <- function(x, lambda, tau = 1, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -632,7 +632,7 @@ pweibull <- function(x, lambda, tau, lower.tail = TRUE, log.p = FALSE) {
 }
 
 
-qweibull <- function(p, lambda, tau, lower.tail = TRUE, log.p = FALSE) {
+qweibull <- function(p, lambda, tau = 1, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -656,7 +656,7 @@ qweibull <- function(p, lambda, tau, lower.tail = TRUE, log.p = FALSE) {
 
 }
 
-rweibull <- function(n, lambda, tau) {
+rweibull <- function(n, lambda, tau = 1) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -673,7 +673,7 @@ rweibull <- function(n, lambda, tau) {
 ###############################################################
 #Truncated Weibull
 
-dtweibull <- function(x, lambda, tau, endpoint=Inf, log = FALSE) {
+dtweibull <- function(x, lambda, tau = 1, endpoint=Inf, log = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -698,7 +698,7 @@ dtweibull <- function(x, lambda, tau, endpoint=Inf, log = FALSE) {
   return(d)
 }
 
-ptweibull <- function(x, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+ptweibull <- function(x, lambda, tau = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -726,7 +726,7 @@ ptweibull <- function(x, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = F
   return(p)
 }
 
-qtweibull <- function(p, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+qtweibull <- function(p, lambda, tau = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -754,7 +754,7 @@ qtweibull <- function(p, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = F
   }
 }
 
-rtweibull <- function(n, lambda, tau, endpoint=Inf) {
+rtweibull <- function(n, lambda, tau = 1, endpoint=Inf) {
   
   if (lambda<=0) {
    stop("lambda should be strictly positive.")
@@ -787,7 +787,7 @@ dtexp <- function(x, rate = 1, endpoint=Inf, log = FALSE) {
   }
   
   
-  d <- ifelse(x>=endpoint, dexp(x,rate=rate)/pexp(endpoint,rate=rate), 0)
+  d <- ifelse(x<=endpoint, dexp(x,rate=rate)/pexp(endpoint,rate=rate), 0)
   
   if (log) d <- log(d)
   
