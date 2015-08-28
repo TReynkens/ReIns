@@ -21,8 +21,7 @@
         \item Add S3 classes \code{SpliceFit}, \code{MEfit}, \code{EVTfit}.
         \item Fixed bug in computation of ME quantiles.
         \item Add Burr and truncated Burr distribution (type XII).
-        \item Add truncated exponential and truncated log-normal distribution.
-        \item Add Weibull and truncated Weibull distribution.
+        \item Add truncated exponential, truncated Weibull and truncated log-normal distribution.
       }
       
     \item Documentation changes:
@@ -34,8 +33,7 @@
          \item Update documentation for new S3 classes in splicing.
          \item Add vignette.
          \item Add documentation for Burr and truncated Burr distribution (type XII).
-         \item Add documentation for truncated exponential and truncated log-normal distribution.
-         \item Add documentation for Weibull and truncated Weibull distribution.
+         \item Add documentation for truncated exponential, truncated Weibull and truncated log-normal distribution.
       }
       
    \item Changes in testing:
