@@ -437,7 +437,7 @@ dtburr = function(x, alpha, rho, endpoint=Inf, log = FALSE) {
     stop("endpoint should be strictly positive.")
   }
   
-  d <- ifelse(x>0, dburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 0)
+  d <- ifelse(x<=endpoint, dburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 0)
   
   if (log) d <- log(d)
   
@@ -464,7 +464,7 @@ ptburr = function(x, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
   #   A = 1-(1+endpoint^(-rho*alpha))^(1/rho)
   #   return(ifelse(x>0 & x<endpoint,(1-(1+x^(-rho*alpha))^(1/rho))/A,0))
   
-  p <- pburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho)
+  p <- ifelse(x<=endpoint, pburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 1)
   
   if (!lower.tail) p <- 1-p
   
@@ -531,7 +531,9 @@ dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, log = FALSE) {
     stop("endpoint should be strictly positive.")
   }
   
-  d <- dlnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog)
+  d <- ifelse(x<=endpoint, 
+              dlnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog), 
+              0)
   
   if (log) d <- log(d)
   
@@ -545,8 +547,10 @@ ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, 
     stop("endpoint should be strictly positive.")
   }
   
-  p <- plnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog)
-  
+  p <- ifelse(x<=endpoint, 
+              plnorm(x,meanlog=meanlog,sdlog=sdlog)/plnorm(endpoint,meanlog=meanlog,sdlog=sdlog), 
+              1)
+
   if (!lower.tail) p <- 1-p
   
   if (log.p) p <- log(p)
@@ -685,7 +689,9 @@ dtweibull <- function(x, lambda, tau, endpoint=Inf, log = FALSE) {
   }
   
   
-  d <- ifelse(x<=0, 0, dweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau))
+  d <- ifelse(x<=endpoint,
+              dweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau), 
+              0)
   
   if (log) d <- log(d)
   
@@ -708,9 +714,11 @@ ptweibull <- function(x, lambda, tau, endpoint=Inf, lower.tail = TRUE, log.p = F
   }
   
   
-  p <- ifelse(x<=0, 0, pweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau))
+  p <- ifelse(x<=endpoint, 
+              pweibull(x,lambda=lambda,tau=tau)/pweibull(endpoint,lambda=lambda,tau=tau), 
+              1)
   #ifelse(x<=0, 0, (1-exp(-(x/beta)^alpha))/1-exp(-(endpoint/beta)^alpha))
-  
+
   if (!lower.tail) p <- 1-p
   
   if (log.p) p <- log(p)
@@ -779,9 +787,11 @@ dtexp <- function(x, rate = 1, endpoint=Inf, log = FALSE) {
   }
   
   
-  d <- ifelse(x<=0, 0, dexp(x,rate=rate)/pexp(endpoint,rate=rate))
+  d <- ifelse(x>=endpoint, dexp(x,rate=rate)/pexp(endpoint,rate=rate), 0)
   
   if (log) d <- log(d)
+  
+  return(d)
 }
 
 
@@ -798,8 +808,8 @@ ptexp <- function(x, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   }
   
   
-  p <- ifelse(x<=0, 0, pexp(x,rate=rate)/pexp(endpoint,rate=rate))
-  
+  p <- ifelse(x<=endpoint, pexp(x,rate=rate)/pexp(endpoint,rate=rate), 1)
+
   if (!lower.tail) p <- 1-p
   
   if (log.p) p <- log(p)
@@ -827,6 +837,7 @@ qtexp <- function(p, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   if (all(p>=0 & p<=1)) {
     
     return( qexp(p*pexp(endpoint,rate=rate),endpoint,rate=rate))
+    
   } else {
     stop("p should be between 0 and 1.")
   }
