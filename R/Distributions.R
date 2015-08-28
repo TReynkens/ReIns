@@ -343,7 +343,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 ###############################################################
 #Truncated log-normal
 
-dtlnorm <- function(x, meanlog, sdlog, endpoint=Inf, log = FALSE) {
+dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, log = FALSE) {
   
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
@@ -357,7 +357,7 @@ dtlnorm <- function(x, meanlog, sdlog, endpoint=Inf, log = FALSE) {
   #return(dnorm((log(x)-meanlog)/sdlog)/pnorm((log(endpoint)-meanlog)/sdlog))
 }
 
-ptlnorm <- function(x, meanlog, sdlog, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
 
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
@@ -373,7 +373,7 @@ ptlnorm <- function(x, meanlog, sdlog, endpoint=Inf, lower.tail = TRUE, log.p = 
   #ifelse(x<=0, 0, pnorm((log(x)-meanlog)/sdlog)/pnorm((log(endpoint)-meanlog)/sdlog))
 }
 
-qtlnorm <- function(p, meanlog, sdlog, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)  {
+qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)  {
   
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
@@ -394,7 +394,7 @@ qtlnorm <- function(p, meanlog, sdlog, endpoint=Inf, lower.tail = TRUE, log.p = 
   
 }
 
-rtlnorm <- function(n, meanlog, sdlog, endpoint=Inf) {
+rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint=Inf) {
   
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
