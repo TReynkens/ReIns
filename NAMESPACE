@@ -1,7 +1,7 @@
 
-importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "ecdf",
-             "nlm", "optim", "pexp", "pgamma", "plnorm", "pnorm", "qexp",
-             "qlnorm", "qnorm", "runif", "stepfun", "uniroot", "var")
+importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecdf",
+             "nlm", "optim", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", "qexp",
+             "qlnorm", "qnorm", "qweibull", "runif", "stepfun", "uniroot", "var")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot")
 importFrom("survival", "Surv", "survfit")
 importFrom("utils", "tail")
