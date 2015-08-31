@@ -838,7 +838,7 @@ qtexp <- function(p, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
 
   if (all(p>=0 & p<=1)) {
     
-    return( qexp(p*pexp(endpoint,rate=rate),endpoint,rate=rate))
+    return( qexp(p*pexp(endpoint,rate=rate),rate=rate))
     
   } else {
     stop("p should be between 0 and 1.")
