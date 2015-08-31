@@ -11,10 +11,10 @@ The truncated Burr distribution
 Density, distribution function, quantile function and random generation for the truncated Burr distribution (type XII).
 }
 \usage{
-dtburr(x, alpha, rho, endpoint = Inf, log = FALSE)
-ptburr(x, alpha, rho, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
-qtburr(p, alpha, rho, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
-rtburr(n, alpha, rho, endpoint = Inf)
+dtburr(x, alpha, rho, eta = 1, endpoint = Inf, log = FALSE)
+ptburr(x, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
+qtburr(p, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
+rtburr(n, alpha, rho, eta = 1, endpoint = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,10 +28,14 @@ Vector of probabilities.
 Number of observations.
 }
   \item{alpha}{
-The \eqn{\alpha} parameter of the Burr distribution, a strictly positive number.
+The \eqn{\alpha} parameter of the truncated Burr distribution, a strictly positive number.
 }
   \item{rho}{
-The \eqn{\rho} parameter of the Burr distribution, a strictly negative number.
+The \eqn{\rho} parameter of the truncated Burr distribution, a strictly negative number.
+}
+  \item{eta}{
+The \eqn{\eta} parameter of the truncated Burr distribution, a strictly positive number.
+The default value is \code{1}.
 }
   \item{endpoint}{
 Endpoint of the truncated Burr distribution. The default value is \code{Inf} for which the truncated Burr distribution corresponds to the ordinary Burr distribution.

@@ -11,10 +11,10 @@ The Burr distribution
 Density, distribution function, quantile function and random generation for the Burr distribution (type XII).
 }
 \usage{
-dburr(x, alpha, rho, log = FALSE)
-pburr(x, alpha, rho, lower.tail = TRUE, log.p = FALSE)
-qburr(p, alpha, rho, lower.tail = TRUE, log.p = FALSE)
-rburr(n, alpha, rho)
+dburr(x, alpha, rho, eta = 1, log = FALSE)
+pburr(x, alpha, rho, eta = 1, lower.tail = TRUE, log.p = FALSE)
+qburr(p, alpha, rho, eta = 1, lower.tail = TRUE, log.p = FALSE)
+rburr(n, alpha, rho, eta = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,10 @@ The \eqn{\alpha} parameter of the Burr distribution, a strictly positive number.
   \item{rho}{
 The \eqn{\rho} parameter of the Burr distribution, a strictly negative number.
 }
+  \item{eta}{
+The \eqn{\eta} parameter of the Burr distribution, a strictly positive number.
+The default value is \code{1}.
+}
  \item{log}{
   Logical indicating if the densities are given as log(f), default is \code{FALSE}.
  }
@@ -45,9 +49,9 @@ The \eqn{\rho} parameter of the Burr distribution, a strictly negative number.
 }
 \details{
 The Cumulative Distribution Function (CDF) of the Burr distribution is equal to
-\eqn{F(x) = 1-(1+x^{-\rho*\alpha})^{1/\rho}} for all \eqn{x \ge 0} and \eqn{F(x)=0} otherwise. We need that \eqn{\alpha>0} and \eqn{\rho<0}.
+\eqn{F(x) = 1-((\eta+x^{-\rho*\alpha})/\eta)^{1/\rho}} for all \eqn{x \ge 0} and \eqn{F(x)=0} otherwise. We need that \eqn{\alpha>0}, \eqn{\rho<0} and \eqn{\eta>0}.
 
-In Beirlant et al. (2004), one used parameters \eqn{\eta, \tau, \lambda}. They correspond to \eqn{\eta=1},  \eqn{\tau=\rho*\alpha} and \eqn{\lambda=-1/\rho}.
+Beirlant et al. (2004) uses parameters \eqn{\eta, \tau, \lambda} which correspond to \eqn{\eta},  \eqn{\tau=\rho*\alpha} and \eqn{\lambda=-1/\rho}.
 }
 \value{
 \code{dburr} gives the density function evaluated in \eqn{x}, \code{pburr} the CDF evaluated in \code{x} and \code{qburr} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.

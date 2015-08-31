@@ -345,7 +345,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 ###############################################################
 # Burr (type XII)
 
-dburr = function(x, alpha, rho, log = FALSE) {
+dburr = function(x, alpha, rho, eta = 1, log = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -355,7 +355,11 @@ dburr = function(x, alpha, rho, log = FALSE) {
     stop("rho should be strictly negative")
   }
   
-  d <- ifelse(x>0, alpha * (1+x^(-rho*alpha))^(1/rho-1) * x^(-rho*alpha-1), 0)
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
+  d <- ifelse(x>0, alpha / eta * ((eta+x^(-rho*alpha))/eta)^(1/rho-1) * x^(-rho*alpha-1), 0)
   
   if (log) d <- log(d)
   
@@ -364,7 +368,7 @@ dburr = function(x, alpha, rho, log = FALSE) {
 }
 
 
-pburr = function(x, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
+pburr = function(x, alpha, rho, eta = 1, lower.tail = TRUE, log.p = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -374,7 +378,11 @@ pburr = function(x, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
     stop("rho should be strictly negative")
   }
   
-  p <- ifelse(x>0, 1-(1+x^(-rho*alpha))^(1/rho), 0)
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
+  p <- ifelse(x>0, 1-((eta+x^(-rho*alpha))/eta)^(1/rho), 0)
   
   if (!lower.tail) p <- 1-p
   
@@ -384,7 +392,7 @@ pburr = function(x, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
   
 }
 
-qburr = function(p, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
+qburr = function(p, alpha, rho, eta = 1, lower.tail = TRUE, log.p = FALSE) {
   
   if (log.p) p <- exp(p)
   
@@ -398,8 +406,12 @@ qburr = function(p, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
     stop("rho should be strictly negative")
   }
   
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
   if (all(p>=0 & p<=1)) {
-    return( ((1-p)^rho-1)^(-1/(rho*alpha)) )
+    return( (eta*((1-p)^rho-1))^(-1/(rho*alpha)) )
     
   } else {
     stop("p should be between 0 and 1.")
@@ -407,7 +419,7 @@ qburr = function(p, alpha, rho, lower.tail = TRUE, log.p = FALSE) {
   
 }
 
-rburr = function(n, alpha, rho) {
+rburr = function(n, alpha, rho, eta = 1) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -417,7 +429,11 @@ rburr = function(n, alpha, rho) {
     stop("rho should be strictly negative")
   }
   
-  return(qburr(runif(n), rho=rho, alpha=alpha))
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
+  return(qburr(runif(n), rho=rho, alpha=alpha, eta=eta))
 }
 
 
@@ -425,7 +441,7 @@ rburr = function(n, alpha, rho) {
 # Truncated Burr
 
 
-dtburr = function(x, alpha, rho, endpoint=Inf, log = FALSE) {
+dtburr = function(x, alpha, rho, eta = 1, endpoint=Inf, log = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -435,11 +451,17 @@ dtburr = function(x, alpha, rho, endpoint=Inf, log = FALSE) {
     stop("rho should be strictly negative")
   }
   
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
-  d <- ifelse(x<=endpoint, dburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 0)
+  d <- ifelse(x<=endpoint, 
+              dburr(x, alpha=alpha, rho=rho, eta=eta)/pburr(endpoint, alpha=alpha, rho=rho, eta=eta), 
+              0)
   
   if (log) d <- log(d)
   
@@ -448,7 +470,7 @@ dtburr = function(x, alpha, rho, endpoint=Inf, log = FALSE) {
 }
 
 
-ptburr = function(x, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+ptburr = function(x, alpha, rho, eta = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -456,6 +478,10 @@ ptburr = function(x, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
   
   if (rho>=0) {
     stop("rho should be strictly negative")
+  }
+  
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
   }
   
   if(endpoint<=0) {
@@ -466,7 +492,9 @@ ptburr = function(x, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
   #   A = 1-(1+endpoint^(-rho*alpha))^(1/rho)
   #   return(ifelse(x>0 & x<endpoint,(1-(1+x^(-rho*alpha))^(1/rho))/A,0))
   
-  p <- ifelse(x<=endpoint, pburr(x, alpha=alpha, rho=rho)/pburr(endpoint, alpha=alpha, rho=rho), 1)
+  p <- ifelse(x<=endpoint, 
+              pburr(x, alpha=alpha, rho=rho, eta=eta)/pburr(endpoint, alpha=alpha, rho=rho, eta=eta), 
+              1)
   
   if (!lower.tail) p <- 1-p
   
@@ -477,7 +505,7 @@ ptburr = function(x, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
 }
 
 
-qtburr = function(p, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+qtburr = function(p, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (log.p) p <- exp(p)
   
@@ -492,6 +520,10 @@ qtburr = function(p, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
     stop("rho should be strictly negative")
   }
   
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
   if(endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
@@ -499,7 +531,7 @@ qtburr = function(p, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
   if (all(p>=0 & p<=1)) {
     #     A = 1-(1+endpoint^(-rho*alpha))^(1/rho)
     #     return(((1-p*A)^rho-1)^(-1/(rho*alpha)))
-    return( qburr(p*pburr(endpoint, alpha=alpha, rho=rho), alpha=alpha, rho=rho) )
+    return( qburr(p*pburr(endpoint, alpha=alpha, rho=rho, eta=eta), alpha=alpha, rho=rho, eta=eta) )
     
   } else {
     stop("p should be between 0 and 1.")
@@ -507,7 +539,7 @@ qtburr = function(p, alpha, rho, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)
   
 }
 
-rtburr = function(n, alpha, rho, endpoint=Inf) {
+rtburr = function(n, alpha, rho, eta=1, endpoint=Inf) {
   
   if (alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -517,11 +549,15 @@ rtburr = function(n, alpha, rho, endpoint=Inf) {
     stop("rho should be strictly negative")
   }
   
+  if (eta<=0) {
+    stop("eta should be strictly positive.")
+  }
+  
   if(endpoint<=0) {
     stop("endpoint should be strictly larger than 0.")
   }
   
-  return(qtburr(runif(n),alpha=alpha,rho=rho,endpoint=endpoint))
+  return(qtburr(runif(n), alpha=alpha, rho=rho, eta=eta, endpoint=endpoint))
 }
 
 ###############################################################
