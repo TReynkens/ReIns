@@ -1,5 +1,5 @@
 
-context("Splicing")
+context("Distributions")
 
 
 test_that("pqSplice", {
