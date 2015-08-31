@@ -39,6 +39,7 @@
    \item Changes in testing:
       \itemize{
           \item Included test for \code{pSplice} and \code{qSplice}.
+          \item Included test for truncated Distributions.
     }
     
   \item Miscelaneous changes:
