@@ -317,7 +317,7 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   
   # Upper truncated at threshold t
   fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
-                      M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
+                      M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
   # Output as MEfit object
   MEfit <- MEoutput(fit_tune)
   
@@ -423,7 +423,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     
     # Upper truncated at threshold t
     fit_tune <- MEtune(lower=Z[MEind], upper=pmin(I[MEind],t), trunclower=trunclower, truncupper=t,
-                       M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
+                       M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
     # Output as MEfit object
     MEfit <- MEoutput(fit_tune)
 
@@ -456,7 +456,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     
     # Upper truncated at threshold t
     fit_tune <- MEtune(lower=Z[MEind], upper=upper[MEind], trunclower=trunclower, truncupper=t,
-                       M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
+                       M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
     # Output as MEfit object
     MEfit <- MEoutput(fit_tune)
     
@@ -539,7 +539,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   
   # Upper truncated at threshold t
   fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
-                     M=M, s=s, nCores = ncores, criterium="AIC", eps=1e-03, print=FALSE)
+                     M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
   # Output as MEfit object
   MEfit <- MEoutput(fit_tune)
   
