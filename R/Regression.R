@@ -4,7 +4,7 @@
 ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE, 
                      main = "Estimates of small exceedance probability", ...) {
   # Check input arguments
-  checkInput(Z,scale=A)
+  .checkInput(Z,scale=A)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -24,13 +24,13 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
 }
 
 
@@ -40,9 +40,9 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
                        main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(Z,scale=A)
+  .checkInput(Z,scale=A)
   
-  checkProb(p)
+  .checkProb(p)
   
   Zsort <- as.numeric(sort(Z))
   n <- length(Z)
@@ -56,12 +56,12 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
   Q[K] <- A^hill[K] * Zsort[n-K] * ((K+1)/((n+1)*p))^(hill[K])
   
   # plots if TRUE
-  plotfun(K, Q[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Q[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=Q[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=Q[K], p=p),plot=plot,add=add)
 }
 
 
@@ -81,7 +81,7 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
                  main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
-  checkInput(Z)
+  .checkInput(Z)
   
   # Sort data
   Zsort <- as.numeric(sort(Z))
@@ -100,9 +100,9 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
   }
   
   # plots if TRUE
-  plotfun(K, A[K], type="l", xlab="k", ylab="Scale", main=main, plot=plot, add=add, ...)
+  .plotfun(K, A[K], type="l", xlab="k", ylab="Scale", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K,A=A[K]), plot=plot, add=add)
+  .output(list(k=K,A=A[K]), plot=plot, add=add)
 }
 
 #Estimator for A_{1-F_i}(s)
@@ -120,7 +120,7 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
                           main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
-  checkInput(Z)
+  .checkInput(Z)
   
   # Sort data
   Zsort <- as.numeric(sort(Z))
@@ -142,9 +142,9 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
   }
   
   # plots if TRUE
-  plotfun(K, A[K], type="l", xlab="k", ylab="Scale", main=main, plot=plot, add=add, ...)
+  .plotfun(K, A[K], type="l", xlab="k", ylab="Scale", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K,A=A[K]), plot=plot, add=add)
+  .output(list(k=K,A=A[K]), plot=plot, add=add)
   
 }
 
@@ -162,9 +162,9 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
   A <- c(s$A,0)
   
   # plots if TRUE
-  plotfun(K, A[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, A[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, A=A[K]), plot=plot, add=add)
+  .output(list(k=K, A=A[K]), plot=plot, add=add)
   
 }
 

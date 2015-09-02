@@ -6,7 +6,7 @@ trcHill <- function(data, censored, r = 1, threshold = NULL, lower = 0.01, upper
                      main = "Estimates for the EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if(length(censored)!=1) {
     if(length(data) != length(censored)) {
@@ -95,20 +95,20 @@ trcHill <- function(data, censored, r = 1, threshold = NULL, lower = 0.01, upper
     # No threshold provided so order statistics are used.
     # Plots and output similar to other estimators
     
-    plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+    .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
     
-    output(list(k=K, threshold=threshold, gamma1=gamma1), plot=plot, add=add)
+    .output(list(k=K, threshold=threshold, gamma1=gamma1), plot=plot, add=add)
     
   } else {
     # Threshold provided, only plots if more than 1 threshold is given
     
     if(length(threshold)>1 & (plot|add)) {
       # plots if TRUE
-      plotfun(threshold, gamma1, type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
+      .plotfun(threshold, gamma1, type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
     } else {
       plot <- add <- FALSE
     }
-    output(list(threshold=threshold, gamma1=gamma1), plot=plot, add=add)
+    .output(list(threshold=threshold, gamma1=gamma1), plot=plot, add=add)
   }
   
 }
@@ -124,7 +124,7 @@ trciHill <- function(Z, I, censored, r = 1, threshold = NULL, lower = 0.01, uppe
                       main = "Estimates for the EVI", ...) {
   
   # Check input arguments
-  checkInput(Z)
+  .checkInput(Z)
   
   if(length(censored)!=1) {
     if(length(Z) != length(censored)) {
@@ -207,20 +207,20 @@ trciHill <- function(Z, I, censored, r = 1, threshold = NULL, lower = 0.01, uppe
     # No threshold provided so order statistics are used.
     # Plots and output similar to other estimators
     
-    plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+    .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
     
-    output(list(k=K, threshold=threshold, gamma1=gamma1), plot=plot, add=add)
+    .output(list(k=K, threshold=threshold, gamma1=gamma1), plot=plot, add=add)
     
   } else {
     # Threshold provided, only plots if more than 1 threshold is given
     
     if(length(threshold)>1 & (plot|add)) {
       # plots if TRUE
-      plotfun(threshold, gamma1, type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
+      .plotfun(threshold, gamma1, type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
     } else {
       plot <- add <- FALSE
     }
-    output(list(threshold=threshold, gamma1=gamma1), plot=plot, add=add)
+    .output(list(threshold=threshold, gamma1=gamma1), plot=plot, add=add)
   }
   
 }
@@ -231,8 +231,8 @@ trcProb <- function(data, censored, gamma1, q, r = 1, plot = FALSE, add = FALSE,
                         main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -253,13 +253,13 @@ trcProb <- function(data, censored, gamma1, q, r = 1, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
 }
 
 
@@ -268,8 +268,8 @@ trciProb <- function(Z, I, censored, gamma1, q, r = 1, plot = FALSE, add = FALSE
                            main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -294,21 +294,21 @@ trciProb <- function(Z, I, censored, gamma1, q, r = 1, plot = FALSE, add = FALSE
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
 }
 
 
 trciDT <- function(Z, I, censored, gamma1, r = 1, plot=FALSE, add=FALSE, main="Estimates of DT", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   Zsort <- as.numeric(sort(Z))
   n <- length(Z)
@@ -330,13 +330,13 @@ trciDT <- function(Z, I, censored, gamma1, r = 1, plot=FALSE, add=FALSE, main="E
   DT[K] <-  pmax( (1-tu) * (R^A-r/(K+1)) / (1-R^A), 0)
   
   ### plots if TRUE  
-  plotfun(K, DT[K], type="l", xlab="k", ylab="DT", main=main, plot=plot, add=add, ...)
+  .plotfun(K, DT[K], type="l", xlab="k", ylab="DT", main=main, plot=plot, add=add, ...)
   
   
   ### output list with values of k and
   ### corresponding estimates for DT
   
-  output(list(k=K, DT=DT[K]),plot=plot,add=add)
+  .output(list(k=K, DT=DT[K]),plot=plot,add=add)
   
 }
 
@@ -345,8 +345,8 @@ trciEndpoint <- function(Z, I, censored, gamma1, DT, r = 1, plot = FALSE, add = 
                        main = "Estimates of Endpoint", ...) {
   
   # Check input arguments
-  checkInput(Z,gamma=gamma1,DT=DT,r=r)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z,gamma=gamma1,DT=DT,r=r)
+  censored <- .checkCensored(censored, length(Z))
   
   Zsort <- as.numeric(sort(Z))
   n <- length(Z)
@@ -371,11 +371,11 @@ trciEndpoint <- function(Z, I, censored, gamma1, DT, r = 1, plot = FALSE, add = 
   Tk[K] <-  exp( pmax( log(Zsort[n-K]) + gamma1 * log(1+(1-tu)/DT), log(Zsort[n])) )
   
   ### plots if TRUE  
-  plotfun(K, Tk[K], type="l", xlab="k", ylab="Tk", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Tk[K], type="l", xlab="k", ylab="Tk", main=main, plot=plot, add=add, ...)
   
   ### output list with values of k and
   ### corresponding estimates for DT
   
-  output(list(k=K, Tk=Tk[K]),plot=plot,add=add)
+  .output(list(k=K, Tk=Tk[K]),plot=plot,add=add)
   
 }

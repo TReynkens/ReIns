@@ -23,7 +23,7 @@ Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, ad
                       main = "Estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -94,9 +94,9 @@ Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, ad
   }
   
   # plots if TRUE
-  plotfun(K, H[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, H[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, gamma=H[K,1], b=H[K,2], beta=H[K,3]),plot=plot,add=add)
+  .output(list(k=K, gamma=H[K,1], b=H[K,2], beta=H[K,3]),plot=plot,add=add)
 
 }
 
@@ -124,9 +124,9 @@ Quant.2oQV <- function(data, gamma, b, beta, p, plot = FALSE, add = FALSE,
                        main="Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data,gamma)
+  .checkInput(data,gamma)
   
-  checkProb(p)
+  .checkProb(p)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -140,11 +140,11 @@ Quant.2oQV <- function(data, gamma, b, beta, p, plot = FALSE, add = FALSE,
   ### plots if TRUE
   
   # plots if TRUE
-  plotfun(K, wq[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wq[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   ### output list with values of k, corresponding quantile estimates 
   ### and the considered small tail probability p
-  output(list(k=K, Q=wq[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=wq[K], p=p),plot=plot,add=add)
 }
 
 Weissman.q.2oQV <- Quant.2oQV 

@@ -14,7 +14,7 @@ genHill <- function(data, gamma, plot = FALSE, add = FALSE,
                     main = "Generalised Hill estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data,gamma)
+  .checkInput(data,gamma)
   
   n <- length(data)
   UH.scores <- numeric(n)
@@ -36,10 +36,10 @@ genHill <- function(data, gamma, plot = FALSE, add = FALSE,
   ######################
   
   # plots if TRUE
-  plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
   # output list with values of k and corresponding Hill estimates
-  output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
   
 }
 
@@ -50,8 +50,8 @@ QuantGH <- function(data, gamma, p, plot = FALSE, add = FALSE,
                     main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data,gamma,gammapos=FALSE)
-  checkProb(p)
+  .checkInput(data,gamma,gammapos=FALSE)
+  .checkProb(p)
   
   
   X <- sort(data)
@@ -68,12 +68,12 @@ QuantGH <- function(data, gamma, p, plot = FALSE, add = FALSE,
   quant[K] <- X[n-K] + a/gamma[K]*( ((K+1)/((n+1)*p))^gamma[K] - 1 )
   
   # plots if TRUE
-  plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
   
 }
 
@@ -82,7 +82,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
                    main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data,gamma,gammapos=FALSE)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -102,12 +102,12 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding probability estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
   
 }
 
@@ -116,7 +116,7 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
                      main = "Estimates of return period", ...) {
   
   # Check input arguments
-  checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data,gamma,gammapos=FALSE)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -136,11 +136,11 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   r[r<0] <- NA
   
   # plots if TRUE
-  plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=r[K], q=q),plot=plot,add=add)
+  .output(list(k=K, R=r[K], q=q),plot=plot,add=add)
   
 }

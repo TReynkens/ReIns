@@ -1,10 +1,10 @@
 
 ###################################
-#Several auxliary functions
+#Several auxiliary functions
 ###################################
 
 # Auxiliary function to handle plots for all estimators
-plotfun <- function(x, y, type, xlab, ylab, main, plot, add, ... ){
+.plotfun <- function(x, y, type, xlab, ylab, main, plot, add, ... ){
   
   # Handle the case that both plot and add are TRUE
   if (plot & add) {
@@ -51,7 +51,7 @@ plotfun <- function(x, y, type, xlab, ylab, main, plot, add, ... ){
 # DTpos indicates if it should be checked that all elements of DT
 #     are positive
 # r is a parameter for truncation
-checkInput <- function (data, gamma, scale, DT, pos = TRUE, gammapos = TRUE,
+.checkInput <- function (data, gamma, scale, DT, pos = TRUE, gammapos = TRUE,
                         scalepos = TRUE, DTpos = TRUE, r = 1){
   
   ##################
@@ -148,7 +148,7 @@ checkInput <- function (data, gamma, scale, DT, pos = TRUE, gammapos = TRUE,
 }
 
 # Check if p is a vector of probabilities of length l
-checkProb <- function(p, l = 1) {
+.checkProb <- function(p, l = 1) {
   
   # Check length
   if (length(p)!=l) {
@@ -168,7 +168,7 @@ checkProb <- function(p, l = 1) {
 
 # Check if censored is a logical of the right length
 # n is the length of the data
-checkCensored <- function(censored, n) {
+.checkCensored <- function(censored, n) {
   
   if (length(censored)!=1) {
     if (n != length(censored)) {
@@ -202,7 +202,7 @@ checkCensored <- function(censored, n) {
 
 # If a plot is made or results are added to a plot, x is not printed
 # but x can still be assigned!
-output <- function(x, plot, add) {
+.output <- function(x, plot, add) {
   
   if (plot || add) {
     return(invisible(x))

@@ -53,8 +53,8 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
                  main = "EPD estimates of EVI", ...){
   
   # Check input
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   n <- length(data)
   k <- n-1 
@@ -151,7 +151,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
   
   
   # plots if TRUE
-  plotfun(K, gamma1[,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, gamma1[,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
   # Transform to vectors if rho is a single value
   if(nrho==1) {
@@ -166,7 +166,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
     }
   }
   
-  output(list(k=K, gamma1=gamma1, kappa1=kappa1, beta=beta, Delta=Delta), plot=plot, add=add)
+  .output(list(k=K, gamma1=gamma1, kappa1=kappa1, beta=beta, Delta=Delta), plot=plot, add=add)
 }
 
 
@@ -177,8 +177,8 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
                     main = "Estimates of small exceedance probability",...) {
 
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -200,13 +200,13 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -217,8 +217,8 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
                      main = "Estimates of return period",...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -240,12 +240,12 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   R[R<1] <- NA
   
   # plots if TRUE
-  plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=R[K], q=q), plot=plot, add=add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
   
 }

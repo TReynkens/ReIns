@@ -19,8 +19,8 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                         main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data,gamma1)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data,gamma1)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -43,13 +43,13 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
 }
 
 
@@ -57,8 +57,8 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                   main = "Estimates of return period", ...) {
   
   # Check input arguments
-  checkInput(data,gamma1)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data,gamma1)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -81,13 +81,13 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   R[R<1] <- NA
   
   # plots if TRUE
-  plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=R[K], q=q),plot=plot,add=add)
+  .output(list(k=K, R=R[K], q=q),plot=plot,add=add)
 }
 
 
@@ -114,9 +114,9 @@ cQuant <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   
   
   # Check input arguments
-  checkInput(data,gamma1)
-  censored <- checkCensored(censored, length(data))
-  checkProb(p)
+  .checkInput(data,gamma1)
+  censored <- .checkCensored(censored, length(data))
+  .checkProb(p)
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -134,12 +134,12 @@ cQuant <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   quant[K] <- X[n-K] * ((1-km)/p)^(gamma1[K])
   
   # plots if TRUE
-  plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
 }
 
 
@@ -150,9 +150,9 @@ cQuantGH <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
                      main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data,gamma1,gammapos=FALSE)
-  censored <- checkCensored(censored, length(data))
-  checkProb(p)
+  .checkInput(data,gamma1,gammapos=FALSE)
+  censored <- .checkCensored(censored, length(data))
+  .checkProb(p)
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -180,12 +180,12 @@ cQuantGH <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   quant[K] <- X[n-K] + a/gamma1[K] * ( ((1-km)/p)^gamma1[K] - 1 )
   
   # plots if TRUE
-  plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
   
 }
 
@@ -196,8 +196,8 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data,gamma1,gammapos=FALSE)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data,gamma1,gammapos=FALSE)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -228,12 +228,12 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding probability estimates
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -243,8 +243,8 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                     main = "Estimates of return period", ...) {
   
   # Check input arguments
-  checkInput(data,gamma1,gammapos=FALSE)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data,gamma1,gammapos=FALSE)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -275,12 +275,12 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   R[R<1] <- NA
   
   # plots if TRUE
-  plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=R[K], q=q), plot=plot, add=add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
   
 }
 
@@ -296,9 +296,9 @@ cQuantGPD <- function(data, censored, gamma1, sigma1, p, plot = FALSE, add = FAL
                       main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
-  censored <- checkCensored(censored, length(data))
-  checkProb(p)
+  .checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
+  censored <- .checkCensored(censored, length(data))
+  .checkProb(p)
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -323,12 +323,12 @@ cQuantGPD <- function(data, censored, gamma1, sigma1, p, plot = FALSE, add = FAL
   quant[K] <- X[n-K] + a/gamma1[K] * ( ((1-km)/p)^gamma1[K] - 1 )
   
   # plots if TRUE
-  plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
   
 }
 
@@ -337,8 +337,8 @@ cProbGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALS
                      main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -367,12 +367,12 @@ cProbGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALS
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding probabilities
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -382,8 +382,8 @@ cReturnGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FA
                      main = "Estimates of return period", ...) {
   
   # Check input arguments
-  checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
+  censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -412,11 +412,11 @@ cReturnGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FA
   R[R<1] <- NA
   
   # plots if TRUE
-  plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=R[K], q=q), plot=plot, add=add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
   
 }

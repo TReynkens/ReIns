@@ -11,7 +11,7 @@ LStail <- function(data, rho = -1, lambda = 0.5, plot = FALSE, add = FALSE,
                        main = "LS estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -111,12 +111,12 @@ LStail <- function(data, rho = -1, lambda = 0.5, plot = FALSE, add = FALSE,
 
   
   ######################
-  plotfun(K, par[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, par[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
   # output list with values of k and
   # corresponding estimates for gamma, b and rho
   
-  output(list(k=K, gamma=par[K,1], b=par[K,2], rho=par[K,3]),plot=plot,add=add)
+  .output(list(k=K, gamma=par[K,1], b=par[K,2], rho=par[K,3]),plot=plot,add=add)
 
 }
 

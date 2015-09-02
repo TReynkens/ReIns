@@ -14,7 +14,7 @@
   if (!is.numeric(x)) {
     stop("x should be a numeric.")
   }
-  censored <- checkCensored(censored, length(data))
+  censored <- .checkCensored(censored, length(data))
   
   
   # Sort the data with index return
@@ -50,7 +50,7 @@
   if (!is.numeric(x)) {
     stop("x should be a numeric.")
   }
-  censored <- checkCensored(censored, length(data))
+  censored <- .checkCensored(censored, length(data))
   
   
   # Sort the data with index return
@@ -129,7 +129,7 @@ Turnbull <- function(x, L, R, censored) {
   if (!is.numeric(x)) {
     stop("x should be numeric.")
   }
-  censored <- checkCensored(censored, length(L))
+  censored <- .checkCensored(censored, length(L))
   
   
   f <- .Turnbull_internal(L=L, R=R, censored=censored)

@@ -11,7 +11,7 @@ ciHill <- function(Z, I, censored, threshold = NULL, lower = 0.01, upper = 2,
                    add = FALSE, main = "Estimates for the EVI", ...) {
   
   # Check input arguments
-  checkInput(Z)
+  .checkInput(Z)
   
   if(length(censored)!=1) {
     if(length(Z) != length(censored)) {
@@ -91,20 +91,20 @@ ciHill <- function(Z, I, censored, threshold = NULL, lower = 0.01, upper = 2,
     # No threshold provided so order statistics are used.
     # Plots and output similar to other estimators
 
-    plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+    .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
     
-    output(list(k=K, threshold=threshold, gamma1=gamma1), plot=plot, add=add)
+    .output(list(k=K, threshold=threshold, gamma1=gamma1), plot=plot, add=add)
     
   } else {
     # Threshold provided, only plots if more than 1 threshold is given
     
     if(length(threshold)>1 & (plot|add)) {
       # plots if TRUE
-      plotfun(threshold, gamma1, type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
+      .plotfun(threshold, gamma1, type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
     } else {
       plot <- add <- FALSE
     }
-    output(list(threshold=threshold, gamma1=gamma1), plot=plot, add=add)
+    .output(list(threshold=threshold, gamma1=gamma1), plot=plot, add=add)
   }
   
 }
@@ -115,8 +115,8 @@ ciProb <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
                       main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -135,13 +135,13 @@ ciProb <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
 }
 
 
@@ -150,8 +150,8 @@ ciReturn <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
                    main = "Estimates of return period", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -170,13 +170,13 @@ ciReturn <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
   R[R<1] <- NA
   
   # plots if TRUE
-  plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=R[K], q=q), plot=plot, add=add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
 }
 
 
@@ -263,7 +263,7 @@ ciEPD <- function(Z, I, censored, threshold = NULL, rho = -1, beta = NULL, start
                     
     
     # Check input arguments
-    checkInput(Z)
+    .checkInput(Z)
     
     if(length(censored)!=1) {
       if(length(Z) != length(censored)) {
@@ -384,7 +384,7 @@ ciEPD <- function(Z, I, censored, threshold = NULL, rho = -1, beta = NULL, start
       # No threshold provided so order statistics are used.
       # Plots and output similar to other estimators
       
-      plotfun(K, gamma1[K,1], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+      .plotfun(K, gamma1[K,1], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
       if(length(rho)>1 & (plot | add)) {
         # Add lines
         for(j in 2:length(rho)) {
@@ -397,7 +397,7 @@ ciEPD <- function(Z, I, censored, threshold = NULL, rho = -1, beta = NULL, start
       
       if(length(threshold)>1 & (plot|add)) {
         # plots if TRUE
-        plotfun(threshold, gamma1[,1], type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
+        .plotfun(threshold, gamma1[,1], type="l", xlab="Threshold", ylab="gamma1", main=main, plot=plot, add=add, ...)
         if(length(rho)>1 & (plot | add)) {
           # Add lines
           for(j in 2:length(rho)) {
@@ -423,7 +423,7 @@ ciEPD <- function(Z, I, censored, threshold = NULL, rho = -1, beta = NULL, start
       L$k <- K
     }
    
-    output(L, plot=plot, add=add)
+    .output(L, plot=plot, add=add)
 }
 
 
@@ -433,8 +433,8 @@ ciProbEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, add
                       main = "Estimates of small exceedance probability",...) {
              
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -454,13 +454,13 @@ ciProbEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, add
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -470,8 +470,8 @@ ciReturnEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, a
                       main = "Estimates of return period",...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -491,13 +491,13 @@ ciReturnEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, a
   R[R<1] <- NA
   
   # plots if TRUE
-  plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=R[K], q=q), plot=plot, add=add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
   
 }
 

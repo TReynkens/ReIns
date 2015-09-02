@@ -4,7 +4,7 @@ Scale <- function(data, gamma = NULL, plot = FALSE, add = FALSE,
                     main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if(is.null(gamma)) {
     gamma <- Hill(data)$gamma
@@ -21,9 +21,9 @@ Scale <- function(data, gamma = NULL, plot = FALSE, add = FALSE,
   C[K] <- A[K]^gamma[K]
   
   # plots if TRUE
-  plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
+  .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
   
 }
 
@@ -33,7 +33,7 @@ Scale.2o <- function(data, gamma, b, beta, plot = FALSE, add = FALSE,
                        main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
 
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -46,7 +46,7 @@ Scale.2o <- function(data, gamma, b, beta, plot = FALSE, add = FALSE,
   C[K] <- A[K]^gamma[K]
   
   # plots if TRUE
-  plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
+  .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
 }

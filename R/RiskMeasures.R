@@ -7,7 +7,7 @@
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
-  checkInput(data,gamma)
+  .checkInput(data,gamma)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -50,9 +50,9 @@
   }
   
   # plots if TRUE 
-  plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, u=u), plot=plot, add=add)
+  .output(list(k=K, premium=premium, u=u), plot=plot, add=add)
   
 }
 
@@ -85,7 +85,7 @@
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if (length(u)>1) {
     stop("u should be a numeric of length 1.")
@@ -116,9 +116,9 @@
   }
   
   # plots if TRUE 
-  plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, u=u), plot=plot, add=add)
+  .output(list(k=K, premium=premium, u=u), plot=plot, add=add)
   
 }
 
@@ -129,7 +129,7 @@
                       main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if (length(u)>1) {
     stop("u should be a numeric of length 1.")
@@ -159,9 +159,9 @@
   
   
   # plots if TRUE 
-  plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, u=u), plot=plot, add=add)
+  .output(list(k=K, premium=premium, u=u), plot=plot, add=add)
   
 }
 
@@ -224,9 +224,9 @@ ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE,
   
   
   # plots if TRUE 
-  plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, M=M, L=L), plot=plot, add=add)
+  .output(list(k=K, premium=premium, M=M, L=L), plot=plot, add=add)
   
 }
 
@@ -260,9 +260,9 @@ ExcessGPD <- function(data, gamma, sigma, M, L = Inf, warnings = TRUE, plot = TR
   
   
   # plots if TRUE 
-  plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, M=M, L=L), plot=plot, add=add)
+  .output(list(k=K, premium=premium, M=M, L=L), plot=plot, add=add)
   
 }
 
@@ -296,9 +296,9 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
   
   
   # plots if TRUE 
-  plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, premium=premium, M=M, L=L), plot=plot, add=add)
+  .output(list(k=K, premium=premium, M=M, L=L), plot=plot, add=add)
   
 }
 

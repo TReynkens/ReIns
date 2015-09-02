@@ -13,7 +13,7 @@
 Hill <- function(data, k = TRUE, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
 	
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   n <- length(data)
   Hill <- numeric(n)
@@ -31,16 +31,16 @@ Hill <- function(data, k = TRUE, plot = FALSE, add = FALSE, main = "Hill estimat
   # plots if TRUE
   
   if (k) {
-    plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    plotfun(log(X[n-K]), Hill[K], type="l", xlab=bquote(log(X["n-k,n"])), 
+    .plotfun(log(X[n-K]), Hill[K], type="l", xlab=bquote(log(X["n-k,n"])), 
             ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
   
   # output list with values of k and corresponding Hill estimates
   
-  output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
 
 }
 
@@ -63,7 +63,7 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
                  main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data,gamma)
+  .checkInput(data,gamma)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -80,13 +80,13 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
   wp[wp<0 | wp>1] <- NA
   
   # plots if TRUE
-  plotfun(K, wp[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wp[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=wp[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=wp[K], q=q),plot=plot,add=add)
 }
 
 Weissman.p <- Prob
@@ -96,7 +96,7 @@ Weissman.p <- Prob
 Return <- function(data, gamma, q, plot = FALSE, add = FALSE, 
                    main = "Estimates of return period", ...) {
   # Check input arguments
-  checkInput(data,gamma)
+  .checkInput(data,gamma)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -113,13 +113,13 @@ Return <- function(data, gamma, q, plot = FALSE, add = FALSE,
   wr[wr<1] <- NA
   
   # plots if TRUE
-  plotfun(K, wr[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wr[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=wr[K], q=q),plot=plot,add=add)
+  .output(list(k=K, R=wr[K], q=q),plot=plot,add=add)
 }
 
 Weissman.r <- Return 
@@ -143,9 +143,9 @@ Quant <- function(data, gamma, p, plot = FALSE, add = FALSE,
                   main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data,gamma)
+  .checkInput(data,gamma)
   
-  checkProb(p)
+  .checkProb(p)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -157,12 +157,12 @@ Quant <- function(data, gamma, p, plot = FALSE, add = FALSE,
   wq[K] <- X[n-K] * ((K+1)/((n+1)*p))^(gamma[K])
   
   # plots if TRUE
-  plotfun(K, wq[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wq[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=wq[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=wq[K], p=p),plot=plot,add=add)
 }
 
 Weissman.q <- Quant

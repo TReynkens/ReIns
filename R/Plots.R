@@ -12,7 +12,7 @@
 ExpQQ <- function(data, plot = TRUE, main = "Exponential QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data, pos=FALSE)
+  .checkInput(data, pos=FALSE)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -24,7 +24,7 @@ ExpQQ <- function(data, plot = TRUE, main = "Exponential QQ-plot", ...) {
   
   # plots if TRUE
   
-  plotfun(eqq.the, eqq.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="X", 
+  .plotfun(eqq.the, eqq.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="X", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
@@ -46,7 +46,7 @@ ExpQQ <- function(data, plot = TRUE, main = "Exponential QQ-plot", ...) {
 MeanExcess <- function(data, plot = TRUE, k = FALSE, main = "Mean excess plot", ...) {
   
   # Check input arguments
-  checkInput(data, pos=FALSE)
+  .checkInput(data, pos=FALSE)
   
   
   X <- as.numeric(sort(data))
@@ -62,9 +62,9 @@ MeanExcess <- function(data, plot = TRUE, k = FALSE, main = "Mean excess plot", 
   
   if (plot) {
     if (k) {  	# as function of k
-      plotfun(K, e[K], type="p", xlab="k", ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
+      .plotfun(K, e[K], type="p", xlab="k", ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
     } else { 	   	# as function of order statistics X_n-k,n
-      plotfun(X[n-K], e[K], type="p", xlab=bquote(X["n-k,n"]), ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
+      .plotfun(X[n-K], e[K], type="p", xlab=bquote(X["n-k,n"]), ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
     }
   }
   
@@ -87,7 +87,7 @@ MeanExcess <- function(data, plot = TRUE, k = FALSE, main = "Mean excess plot", 
 ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
 	
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
 	X <- as.numeric(sort(data))
 	n <- length(X)
@@ -98,7 +98,7 @@ ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
   pqq.emp <- log(X)
   
   # plots if TRUE
-	plotfun(pqq.the, pqq.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="log(X)", 
+	.plotfun(pqq.the, pqq.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="log(X)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
@@ -111,7 +111,7 @@ ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
 ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of Pareto QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -130,7 +130,7 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
   yval <- Hill(X)$gamma
   
   # plots if TRUE
-  plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
+  .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
@@ -146,7 +146,7 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
 LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -157,7 +157,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   lnqq.emp <- log(X)
   
   # plots if TRUE
-  plotfun(lnqq.the, lnqq.emp, type="p", xlab="Quantiles of Standard Normal", ylab="log(X)", 
+  .plotfun(lnqq.the, lnqq.emp, type="p", xlab="Quantiles of Standard Normal", ylab="log(X)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
@@ -170,7 +170,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
 LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of log-normal QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -190,7 +190,7 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
   yval <- H/N
   
   # plots if TRUE
-  plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
+  .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
@@ -214,7 +214,7 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
 genQQ <- function(data, gamma, plot = TRUE, main = "Generalised QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data, gamma)
+  .checkInput(data, gamma)
   
   
   X <- as.numeric(sort(data))
@@ -229,7 +229,7 @@ genQQ <- function(data, gamma, plot = TRUE, main = "Generalised QQ-plot", ...) {
   
   
   # plots if TRUE
-  plotfun(gqq.the[K], gqq.emp[K], type="p", xlab="Quantiles of Standard Exponential", ylab="log(UH)", 
+  .plotfun(gqq.the[K], gqq.emp[K], type="p", xlab="Quantiles of Standard Exponential", ylab="log(UH)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles gqq.the
@@ -249,7 +249,7 @@ generalizedQQ <- genQQ
 GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residual plot", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   
   if (length(gamma)!=1 | length(sigma)!=1) {
@@ -271,7 +271,7 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
   
   
   # plots if TRUE
-  plotfun(res.the, res.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="R", 
+  .plotfun(res.the, res.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="R", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles gqq.the
@@ -293,8 +293,8 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
 cExpQQ <- function(data, censored, plot = TRUE, main = "Exponential QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -313,7 +313,7 @@ cExpQQ <- function(data, censored, plot = TRUE, main = "Exponential QQ-plot", ..
   
   
   # plots if TRUE
-  plotfun(eqq.the, eqq.emp, type="p", xlab="-log of Kaplan-Meier estimator", ylab="Z", 
+  .plotfun(eqq.the, eqq.emp, type="p", xlab="-log of Kaplan-Meier estimator", ylab="Z", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
@@ -326,8 +326,8 @@ cExpQQ <- function(data, censored, plot = TRUE, main = "Exponential QQ-plot", ..
 cLognormalQQ <- function(data, censored, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   
   s <- sort(data, index.return = TRUE)
@@ -342,7 +342,7 @@ cLognormalQQ <- function(data, censored, plot = TRUE, main = "Log-normal QQ-plot
   lnqq.emp <- log(X)
   
   # plots if TRUE
-  plotfun(lnqq.the, lnqq.emp, type="p", xlab="Normal quantile of Kaplan-Meier estimator", ylab="log(Z)", 
+  .plotfun(lnqq.the, lnqq.emp, type="p", xlab="Normal quantile of Kaplan-Meier estimator", ylab="log(Z)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
@@ -357,8 +357,8 @@ cLognormalQQ <- function(data, censored, plot = TRUE, main = "Log-normal QQ-plot
 cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -377,7 +377,7 @@ cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...)
   
   
   # plots if TRUE
-  plotfun(pqq.the, pqq.emp, type="p", xlab="-log of Kaplan-Meier estimator", ylab="log(Z)", 
+  .plotfun(pqq.the, pqq.emp, type="p", xlab="-log of Kaplan-Meier estimator", ylab="log(Z)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
@@ -394,8 +394,8 @@ cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised QQ-plot", ..
   
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   
   s <- sort(data, index.return = TRUE)
@@ -434,7 +434,7 @@ cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised QQ-plot", ..
   
   
   # plots if TRUE
-  plotfun(gqq.the[K], gqq.emp[K], type="p", xlab="-log of Kaplan-Meier estimator", ylab="log(X)", 
+  .plotfun(gqq.the[K], gqq.emp[K], type="p", xlab="-log of Kaplan-Meier estimator", ylab="log(X)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles gqq.the
@@ -455,8 +455,8 @@ cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised QQ-plot", ..
 ciParetoQQ <- function(Z, I, censored, plot = TRUE, main = "Pareto QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   s <- sort(Z, index.return = TRUE)
   X <- s$x
@@ -475,7 +475,7 @@ ciParetoQQ <- function(Z, I, censored, plot = TRUE, main = "Pareto QQ-plot", ...
   
   
   # plots if TRUE
-  plotfun(pqq.the, pqq.emp, type="p", xlab="-log of Turnbull estimator", ylab="log(Z)", 
+  .plotfun(pqq.the, pqq.emp, type="p", xlab="-log of Turnbull estimator", ylab="log(Z)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
@@ -491,8 +491,8 @@ ciParetoQQ <- function(Z, I, censored, plot = TRUE, main = "Pareto QQ-plot", ...
 ciExpQQ <- function(Z, I, censored, plot = TRUE, main = "Exponential QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   s <- sort(Z, index.return = TRUE)
   X <- s$x
@@ -511,7 +511,7 @@ ciExpQQ <- function(Z, I, censored, plot = TRUE, main = "Exponential QQ-plot", .
   
   
   # plots if TRUE
-  plotfun(eqq.the, eqq.emp, type="p", xlab="-log of Turnbull estimator", ylab="Z", 
+  .plotfun(eqq.the, eqq.emp, type="p", xlab="-log of Turnbull estimator", ylab="Z", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
@@ -526,8 +526,8 @@ ciExpQQ <- function(Z, I, censored, plot = TRUE, main = "Exponential QQ-plot", .
 ciLognormalQQ <- function(Z, I, censored, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   
   # Check input arguments
-  checkInput(Z)
-  censored <- checkCensored(censored, length(Z))
+  .checkInput(Z)
+  censored <- .checkCensored(censored, length(Z))
   
   s <- sort(Z, index.return = TRUE)
   X <- s$x
@@ -546,7 +546,7 @@ ciLognormalQQ <- function(Z, I, censored, plot = TRUE, main = "Log-normal QQ-plo
   
   
   # plots if TRUE
-  plotfun(lqq.the, lqq.emp, type="p", xlab="Normal quantile of Turnbull estimator", ylab="log(Z)", 
+  .plotfun(lqq.the, lqq.emp, type="p", xlab="Normal quantile of Turnbull estimator", ylab="log(Z)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp

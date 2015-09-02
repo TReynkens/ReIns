@@ -7,8 +7,8 @@
 cHill <- function(data, censored, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   if(length(censored)!=1) {
     if(length(data) != length(censored)) {
@@ -40,11 +40,11 @@ cHill <- function(data, censored, plot = FALSE, add = FALSE, main = "Hill estima
   
 
   # plots if TRUE
-  plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   
   # output list with values of k and corresponding Hill estimates
   
-  output(list(k=K, gamma1=Hill[K]),plot=plot,add=add)
+  .output(list(k=K, gamma1=Hill[K]),plot=plot,add=add)
   
 }
 
@@ -56,8 +56,8 @@ cgenHill <- function(data, censored, plot = FALSE, add = FALSE,
          main = "Generalised Hill estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -95,12 +95,12 @@ cgenHill <- function(data, censored, plot = FALSE, add = FALSE,
   
 
   # plots if TRUE
-  plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   
   # output list with values of k and
   # corresponding Zipf estimates
   
-  output(list(k=K, gamma1=Hill[K]), plot=plot, add=add)
+  .output(list(k=K, gamma1=Hill[K]), plot=plot, add=add)
   
 }
 
@@ -110,8 +110,8 @@ cgenHill <- function(data, censored, plot = FALSE, add = FALSE,
 cMoment <- function(data, censored, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- censored <- .checkCensored(censored, length(data))
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -146,11 +146,11 @@ cMoment <- function(data, censored, plot = FALSE, add = FALSE, main = "Moment es
   ######################
   
   # plots if TRUE
-  plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   
   # output list with values of k and
   # corresponding estimates for gamma1, b and beta
-  output(list(k=K, gamma1=Mom[K]),plot=plot,add=add)
+  .output(list(k=K, gamma1=Mom[K]),plot=plot,add=add)
   
 }
 
@@ -159,8 +159,8 @@ cGPDmle <- function(data, censored, start = c(0.1,1), warnings = FALSE,
                  plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
-  censored <- checkCensored(censored, length(data))
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
   
   s <- sort(data, index.return = TRUE)
   X <- s$x
@@ -185,9 +185,9 @@ cGPDmle <- function(data, censored, start = c(0.1,1), warnings = FALSE,
   gamma1 <- gamma1 / pk
     
   # plots if TRUE
-  plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, gamma1=gamma1[K], sigma1=sigma1[K]), plot=plot, add=add)
+  .output(list(k=K, gamma1=gamma1[K], sigma1=sigma1[K]), plot=plot, add=add)
 }
 
 cPOT <- cGPDmle

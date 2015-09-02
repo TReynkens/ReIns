@@ -69,7 +69,7 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
 GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -92,9 +92,9 @@ GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, plot = FALSE, add =
   }
 
   # plots if TRUE
-  plotfun(K, POT[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, POT[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
-  output(list(k=K, gamma=POT[K,1], sigma=POT[K,2]),plot=plot,add=add)
+  .output(list(k=K, gamma=POT[K,1], sigma=POT[K,2]),plot=plot,add=add)
 }
 
 
@@ -116,7 +116,7 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data,gamma,gammapos=FALSE)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -134,12 +134,12 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
   
 }
 
@@ -148,7 +148,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
                     main = "Estimates of return period", ...) {
                       
     # Check input arguments
-    checkInput(data,gamma,gammapos=FALSE)
+    .checkInput(data,gamma,gammapos=FALSE)
     
     if (length(q)>1) {
       stop("q should be a numeric of length 1.")
@@ -166,12 +166,12 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
     r[r<=0] <- NA
     
     # plots if TRUE
-    plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+    .plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
     
     # output list with values of k, corresponding return period estimates 
     # and the considered large quantile q
     
-    output(list(k=K, R=r[K], q=q),plot=plot,add=add)
+    .output(list(k=K, R=r[K], q=q),plot=plot,add=add)
     
   }
 
@@ -198,9 +198,9 @@ QuantGPD <- function(data, gamma, sigma, p, plot = FALSE, add = FALSE,
                      main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data,gamma,gammapos=FALSE)
   
-  checkProb(p)
+  .checkProb(p)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -213,10 +213,10 @@ QuantGPD <- function(data, gamma, sigma, p, plot = FALSE, add = FALSE,
   quant[K] <- X[n-K] + sigma[K] / gamma[K] * ( ((K+1)/((n+1)*p))^gamma[K] -1)
   
   # plots if TRUE
-  plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
 }

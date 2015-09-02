@@ -15,7 +15,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, plot = FALSE, add = F
                          main="Estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -58,12 +58,12 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, plot = FALSE, add = F
   gamma[gamma<=0] <- NA
   
   ### plots if TRUE  
-  plotfun(K, gamma[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, gamma[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
   ### output list with values of k and
   ### corresponding estimates for gamma
   
-  output(list(k=K, gamma=gamma[K], H=H[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=gamma[K], H=H[K]),plot=plot,add=add)
   
 }
 
@@ -74,7 +74,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
                       main="Estimates of DT", ...) {
   
   # Check input arguments
-  checkInput(data,gamma=gamma,r=r)
+  .checkInput(data,gamma=gamma,r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -92,13 +92,13 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
   DT[K] <-  pmax( (K+1)/(n+1) * (R^A-r/(K+1)) / (1-R^A), 0)
   
   ### plots if TRUE  
-  plotfun(K, DT[K], type="l", xlab="k", ylab="DT", main=main, plot=plot, add=add, ...)
+  .plotfun(K, DT[K], type="l", xlab="k", ylab="DT", main=main, plot=plot, add=add, ...)
   
   
   ### output list with values of k and
   ### corresponding estimates for DT
   
-  output(list(k=K, DT=DT[K]),plot=plot,add=add)
+  .output(list(k=K, DT=DT[K]),plot=plot,add=add)
   
 }
 
@@ -106,7 +106,7 @@ trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE,
                       main = "Estimates of Endpoint", ...) {
   
   # Check input arguments
-  checkInput(data,gamma=gamma,DT=DT,r=r)
+  .checkInput(data,gamma=gamma,DT=DT,r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -127,12 +127,12 @@ trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE,
   Tk[K] <-  exp( pmax( log(X[n-K]) + gamma * log(1+(K+1)/((n+1)*DT)), log(X[n])) )
   
   ### plots if TRUE  
-  plotfun(K, Tk[K], type="l", xlab="k", ylab="Tk", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Tk[K], type="l", xlab="k", ylab="Tk", main=main, plot=plot, add=add, ...)
   
   ### output list with values of k and
   ### corresponding estimates for DT
   
-  output(list(k=K, Tk=Tk[K]),plot=plot,add=add)
+  .output(list(k=K, Tk=Tk[K]),plot=plot,add=add)
   
 }
 
@@ -142,8 +142,8 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
                          main="Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  checkInput(data,gamma=gamma,DT=DT,r=r)
-  checkProb(p)
+  .checkInput(data,gamma=gamma,DT=DT,r=r)
+  .checkProb(p)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -163,12 +163,12 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
   
   ### plots if TRUE
   
-  plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   ### output list with values of k, corresponding quantile estimates 
   ### and the considered small tail probability p
   
-  output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
   
 }
 
@@ -179,7 +179,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
                          main="Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  checkInput(data,gamma=gamma,r=r)
+  .checkInput(data,gamma=gamma,r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -201,14 +201,14 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
   ### plots if TRUE
   
   if( !all(is.na(prob[K])) ) {
-    plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+    .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   }
   
   
   ### output list with values of k, exceedance probabilitye estimates 
   ### and the considered high quantile q
   
-  output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
   
 }
 
@@ -216,7 +216,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
 trParetoQQ <- function(data, r = 1, DT, kstar = NULL, main = "TPa QQ-plot") {
   
   # Check input arguments
-  checkInput(data,DT=DT)
+  .checkInput(data,DT=DT)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -271,7 +271,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, main = "TPa QQ-plot") {
 trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -303,10 +303,10 @@ trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation"
   
   #Plot P-values 
   
-  plotfun(K, Pval[K], ylim=c(0,1), type="l", xlab="k", ylab="P-value", main=main, plot=plot, add=FALSE, ...)
+  .plotfun(K, Pval[K], ylim=c(0,1), type="l", xlab="k", ylab="P-value", main=main, plot=plot, add=FALSE, ...)
   if (plot) abline(h=alpha, col="blue", ...)
   
-  output(list(k=K, testVal=tv, critVal=cv, Pval=Pval, reject=reject), 
+  .output(list(k=K, testVal=tv, critVal=cv, Pval=Pval, reject=reject), 
          plot=plot, add=FALSE)
   
 }

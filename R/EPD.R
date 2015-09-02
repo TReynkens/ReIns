@@ -55,7 +55,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
                 plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -74,7 +74,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   }
   
   # plots if TRUE
-  plotfun(K, EPD$gamma[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, EPD$gamma[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
   # Transform to vectors if rho is a single value
   if(length(rho)==1) {
@@ -90,9 +90,9 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   }
   
   if(length(rho)==1) {
-    output(list(k=K, gamma=EPD$gamma[K], kappa=EPD$kappa[K], tau=EPD$tau[K]), plot=plot, add=add)
+    .output(list(k=K, gamma=EPD$gamma[K], kappa=EPD$kappa[K], tau=EPD$tau[K]), plot=plot, add=add)
   } else {
-    output(list(k=K, gamma=EPD$gamma[K,], kappa=EPD$kappa[K,], tau=EPD$tau[K,]), plot=plot, add=add)
+    .output(list(k=K, gamma=EPD$gamma[K,], kappa=EPD$kappa[K,], tau=EPD$tau[K,]), plot=plot, add=add)
   }
 }
 
@@ -101,7 +101,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
 .EPDredMLE <- function(data, rho = -1) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -179,7 +179,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
 .EPDdirectMLE <- function(data, rho = -1, start = NULL,  warnings = FALSE) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -316,7 +316,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
 .rhoEst <- function(data, alpha = 1, theta1 = 2, theta2 = 3, tau = 1) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if(alpha<=0) {
     stop("alpha should be strictly positive.")
@@ -360,7 +360,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
 ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability",...) {
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
@@ -377,13 +377,13 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
-  plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -392,7 +392,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
 ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE, 
                       main = "Estimates of return period", ...) {
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   if( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
@@ -414,13 +414,13 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   
   # plots if TRUE
-  plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  output(list(k=K, R=r[K], q=q), plot=plot, add=add)
+  .output(list(k=K, R=r[K], q=q), plot=plot, add=add)
   
 }
 

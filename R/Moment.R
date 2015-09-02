@@ -16,7 +16,7 @@
 Moment <- function(data, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
   
   # Check input arguments
-  checkInput(data)
+  .checkInput(data)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -45,11 +45,11 @@ Moment <- function(data, plot = FALSE, add = FALSE, main = "Moment estimates of 
   ######################
   
   # plots if TRUE
-  plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   
   # output list with values of k and
   # corresponding estimates for gamma, b and beta
-  output(list(k=K, gamma=Mom[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=Mom[K]),plot=plot,add=add)
   
   
 }
@@ -65,8 +65,8 @@ ReturnMOM <- ReturnGH
 #                       main = "Estimates of extreme quantile", ...) {
 #   
 #   # Check input arguments
-#   checkInput(data,gamma,gammapos=FALSE)
-#   checkProb(p)
+#   .checkInput(data,gamma,gammapos=FALSE)
+#   .checkProb(p)
 #   
 #   
 #   X <- sort(data)
@@ -83,12 +83,12 @@ ReturnMOM <- ReturnGH
 #   quant[K] <- X[n-K] + a/gamma[K] * ( ((K+1)/((n+1)*p))^gamma[K] - 1 )
 #     
 #   # plots if TRUE
-#   plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+#   .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
 #   
 #   # output list with values of k, corresponding quantile estimates 
 #   # and the considered small tail probability p
 #   
-#   output(list(k=K, Q=quant[K], p=p))
+#   .output(list(k=K, Q=quant[K], p=p))
 #   
 # }
 # 
@@ -97,7 +97,7 @@ ReturnMOM <- ReturnGH
 #                     main = "Estimates of small exceedance probability", ...) {
 #   
 #   # Check input arguments
-#   checkInput(data,gamma,gammapos=FALSE)
+#   .checkInput(data,gamma,gammapos=FALSE)
 #   
 #   if (length(q)>1) {
 #     stop("q should be a numeric of length 1.")
@@ -117,12 +117,12 @@ ReturnMOM <- ReturnGH
 #   prob[prob<0 | prob>1] <- NA
 #   
 #   # plots if TRUE
-#   plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+#   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
 #   
 #   # output list with values of k, corresponding return period estimates 
 #   # and the considered large quantile q
 #   
-#   output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+#   .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
 #   
 # }
 
