@@ -22,6 +22,8 @@
         \item Fixed bug in computation of ME quantiles.
         \item Add Burr and truncated Burr distribution (type XII).
         \item Add truncated exponential, truncated Weibull and truncated log-normal distribution.
+        \item Use BIC instead of AIC in \code{MEtune}.
+        \item Remove \code{stats::} in calls to \code{qgamma} in \code{ME_VaR}.
       }
       
     \item Documentation changes:
