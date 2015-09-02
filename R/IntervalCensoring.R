@@ -187,7 +187,7 @@ ciReturn <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
 # delta is the non-censoring indicator
 # notdelta is the censoring indicator, when NULL we set it to !delta
 
-ciEPDfit <- function(Zt, It, delta, notdelta = NULL, tau, start = c(0.1,1), warnings = FALSE) {
+.ciEPDfit <- function(Zt, It, delta, notdelta = NULL, tau, start = c(0.1,1), warnings = FALSE) {
   
   if (is.numeric(start) & length(start)==2) {
     gamma_start <- start[1]
@@ -206,7 +206,7 @@ ciEPDfit <- function(Zt, It, delta, notdelta = NULL, tau, start = c(0.1,1), warn
     sg <- c(NA,NA)
   } else {
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit = optim(par=c(gamma_start,kappa_start), fn=ciEPDneglogL, Zt=Zt, It=It, delta=delta, notdelta=notdelta, tau=tau)
+    fit = optim(par=c(gamma_start,kappa_start), fn=.ciEPDneglogL, Zt=Zt, It=It, delta=delta, notdelta=notdelta, tau=tau)
     sg = fit$par
     
     if (fit$convergence>0 & warnings) {
@@ -224,7 +224,7 @@ ciEPDfit <- function(Zt, It, delta, notdelta = NULL, tau, start = c(0.1,1), warn
 # Minus log-likelihood for iid interval censored EPD random variables
 # delta is the non-censoring indicator, make sure that delta
 # and notdelta are logical!
-ciEPDneglogL <- function(theta, tau, Zt, It, delta, notdelta) {
+.ciEPDneglogL <- function(theta, tau, Zt, It, delta, notdelta) {
   
   gamma <- theta[1]
   kappa <- theta[2]
@@ -233,14 +233,14 @@ ciEPDneglogL <- function(theta, tau, Zt, It, delta, notdelta) {
     logL <- -10^6
   } else {
 
-#     logL <- sum(delta * log(dEPD(Zt, gamma=gamma, kappa=kappa, tau=tau)) ) +
-#       sum( (1-delta) *  log(pEPD(It, gamma=gamma, kappa=kappa, tau=tau) -  
-#                   pEPD(Zt, gamma=gamma, kappa=kappa, tau=tau)) )
+#     logL <- sum(delta * log(.dEPD(Zt, gamma=gamma, kappa=kappa, tau=tau)) ) +
+#       sum( (1-delta) *  log(.pEPD(It, gamma=gamma, kappa=kappa, tau=tau) -  
+#                   .pEPD(Zt, gamma=gamma, kappa=kappa, tau=tau)) )
 
     # Use delta and notdelta as index for the vector to avoid numerical issues
-    logL <- sum(  log(dEPD(Zt[delta], gamma=gamma, kappa=kappa, tau=tau)) ) +
-            sum(  log(pEPD(It[notdelta], gamma=gamma, kappa=kappa, tau=tau) -  
-                             pEPD(Zt[notdelta], gamma=gamma, kappa=kappa, tau=tau)) )
+    logL <- sum(  log(.dEPD(Zt[delta], gamma=gamma, kappa=kappa, tau=tau)) ) +
+            sum(  log(.pEPD(It[notdelta], gamma=gamma, kappa=kappa, tau=tau) -  
+                             .pEPD(Zt[notdelta], gamma=gamma, kappa=kappa, tau=tau)) )
   }
   
   # minus log-likelihood for optimisation
@@ -306,7 +306,7 @@ ciEPD <- function(Z, I, censored, threshold = NULL, rho = -1, beta = NULL, start
       beta <- matrix(0,n-1,nrho)
       
       if (all(rho>0) & nrho==1) {
-        rho <- rhoEst(Z,alpha=1,tau=rho)$rho
+        rho <- .rhoEst(Z,alpha=1,tau=rho)$rho
         
         # Estimates for rho of Fraga Alves et al. (2003) used 
         # and hence a different value of beta for each k
@@ -366,7 +366,7 @@ ciEPD <- function(Z, I, censored, threshold = NULL, rho = -1, beta = NULL, start
         It <- I[ind]/threshold[i]
         
         # tau is -beta
-        res <- ciEPDfit(Zt=Zt, It=It, tau=-beta[j], start=start2, delta=delta[ind],
+        res <- .ciEPDfit(Zt=Zt, It=It, tau=-beta[j], start=start2, delta=delta[ind],
                         notdelta=censored[ind], warnings=warnings)
         
         gamma1[i,j] <- res[1]
@@ -450,7 +450,7 @@ ciProbEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, add
 
   K2 <- K[!is.na(gamma1[K])]
   
-  prob[K2] <- (1-tu) * (1-pEPD(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta))
+  prob[K2] <- (1-tu) * (1-.pEPD(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -487,7 +487,7 @@ ciReturnEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, a
   
   K2 <- K[!is.na(gamma1[K])]
   
-  R[K2] <- 1 / ((1-tu) * (1-pEPD(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta)) )
+  R[K2] <- 1 / ((1-tu) * (1-.pEPD(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta)) )
   R[R<1] <- NA
   
   # plots if TRUE

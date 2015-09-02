@@ -134,7 +134,7 @@ test_that("Censored estimators for-loops", {
   }
   
   
-  expect_true(max(abs(p.hat - p.hat.fun(delta.n))/ p.hat,
+  expect_true(max(abs(p.hat - .p.hat.fun(delta.n))/ p.hat,
                   na.rm=TRUE)<eps)
 
 })

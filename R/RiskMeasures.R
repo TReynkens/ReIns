@@ -3,7 +3,7 @@
 
 
 # Integrated tail function using Hill estimates
-IntTailHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
+.IntTailHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
@@ -57,7 +57,7 @@ IntTailHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = 
 }
 
 # Auxiliary function used in ExcessSplice
-IntTailHill_single <- function(t, gamma, u, endpoint = Inf) {
+.IntTailHill_single <- function(t, gamma, u, endpoint = Inf) {
   
   # Premium
   if (is.finite(endpoint)) {
@@ -81,7 +81,7 @@ IntTailHill_single <- function(t, gamma, u, endpoint = Inf) {
 
 
 # Integrated tail function using EPD estimates
-IntTailEPD <- function(data, gamma, delta, tau, u, warnings = TRUE, plot = TRUE, add = FALSE,
+.IntTailEPD <- function(data, gamma, delta, tau, u, warnings = TRUE, plot = TRUE, add = FALSE,
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
@@ -125,7 +125,7 @@ IntTailEPD <- function(data, gamma, delta, tau, u, warnings = TRUE, plot = TRUE,
 
 
 # Integrated tail function using GPD-MLE estimates
-IntTailGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add = FALSE,
+.IntTailGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add = FALSE,
                       main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
@@ -167,7 +167,7 @@ IntTailGPD <- function(data, gamma, sigma, u, warnings = TRUE, plot = TRUE, add 
 
 
 # Auxiliary function used in ExcessSplice
-IntTailGPD_single <- function(t, gamma, sigma, u, endpoint = Inf) {
+.IntTailGPD_single <- function(t, gamma, sigma, u, endpoint = Inf) {
   
   if (is.finite(endpoint)) {
     
@@ -207,7 +207,7 @@ ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE,
     }
   }
   
-  f <- function(u) IntTailHill(u=u, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
+  f <- function(u) .IntTailHill(u=u, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
                                plot=FALSE, add=FALSE) 
   
   res <- f(M)
@@ -243,7 +243,7 @@ ExcessGPD <- function(data, gamma, sigma, M, L = Inf, warnings = TRUE, plot = TR
     stop("L should be positive.")
   }
   
-  f <- function(u) IntTailGPD(u=u, data=data, gamma=gamma, sigma=sigma, warnings=warnings, 
+  f <- function(u) .IntTailGPD(u=u, data=data, gamma=gamma, sigma=sigma, warnings=warnings, 
                                plot=FALSE, add=FALSE) 
   
   res <- f(M)
@@ -279,7 +279,7 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
     stop("L should be positive.")
   }
   
-  f <- function(u) IntTailEPD(u=u, data=data, gamma=gamma, delta=delta, tau=tau, warnings=warnings, 
+  f <- function(u) .IntTailEPD(u=u, data=data, gamma=gamma, delta=delta, tau=tau, warnings=warnings, 
                               plot=FALSE, add=FALSE) 
   
   res <- f(M)
@@ -306,7 +306,7 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
 #######################################################
 
 # Integrated tail function of splicing of ME and (truncated) Pareto
-IntTailSpliceHill <- function(u, splicefit) {
+.IntTailSpliceHill <- function(u, splicefit) {
   
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
@@ -327,13 +327,13 @@ IntTailSpliceHill <- function(u, splicefit) {
     
     if (u[i] > tvec[l]) {
       # u[i]>tvec[l] case
-      premium[i] <- (1-const[l]) * IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=u[i])
+      premium[i] <- (1-const[l]) * .IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=u[i])
       
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <- (1-const[l]) * IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=tvec[l])
+      premium[i] <- (1-const[l]) * .IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=tvec[l])
     } 
       
     
@@ -348,8 +348,8 @@ IntTailSpliceHill <- function(u, splicefit) {
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
-          par_u <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=u[i])
+          par_tt <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
+          par_u <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=u[i])
           
           # Integrate from u[i] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-u[i]) + premium[i]
@@ -367,8 +367,8 @@ IntTailSpliceHill <- function(u, splicefit) {
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
-          par_t <- IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j])
+          par_tt <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
+          par_t <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j])
           
           # Integrate from tvec[j+1] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]
@@ -383,11 +383,11 @@ IntTailSpliceHill <- function(u, splicefit) {
       # u[i]<tvec[1] case
 
       # Set C to Inf because C is maximal cover amount
-      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
+      me_u <- .ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
+      me_t <- .ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
+      Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
       # Integrate from u[i] to tvec[1] and add to premium
       # Take truncation at tvec[1] into account!
@@ -401,7 +401,7 @@ IntTailSpliceHill <- function(u, splicefit) {
 
 
 # Integrated tail function of splicing of ME and GPD
-IntTailSpliceGPD <- function(u, splicefit) {
+.IntTailSpliceGPD <- function(u, splicefit) {
   
   
   MEfit <- splicefit$MEfit
@@ -422,13 +422,13 @@ IntTailSpliceGPD <- function(u, splicefit) {
     
     if (u[i] > tvec[l]) {
       # u[i]>tvec[l] case
-      premium[i] <- (1-const[l]) * IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+      premium[i] <- (1-const[l]) * .IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
                                                      endpoint=endpoint[l], u=u[i])
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <-  (1-const[l]) * IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+      premium[i] <-  (1-const[l]) * .IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
                                                       endpoint=endpoint[l], u=tvec[l])
     }  
     
@@ -443,8 +443,8 @@ IntTailSpliceGPD <- function(u, splicefit) {
 		      # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j+1])
-          par_u <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=u[i])
+          par_tt <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j+1])
+          par_u <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=u[i])
           
           # Integrate from u[i] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-u[i]) + premium[i]  
@@ -461,8 +461,8 @@ IntTailSpliceGPD <- function(u, splicefit) {
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j+1])
-          par_t <- IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j])
+          par_tt <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j+1])
+          par_t <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, u=tvec[j])
           
           # Integrate from tvec[j] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]  
@@ -476,11 +476,11 @@ IntTailSpliceGPD <- function(u, splicefit) {
       # u[i]<tvec[1] case
       
       # Set C to Inf because C is maximal cover amount
-      me_u <- ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
+      me_u <- .ME_XL(R=u[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      me_t <- ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
+      me_t <- .ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
-      Ft <- ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
+      Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
       # Integrate from u[i] to tvec[1] and add to premium
       # Take truncation at tvec[1] into account!
@@ -515,10 +515,10 @@ ExcessSplice <- function(M, L=Inf, splicefit) {
   
   # 2 since type[1]="ME"
   if (type[2]=="GPD") {
-    f <- function(u) IntTailSpliceGPD(u, splicefit=splicefit)
+    f <- function(u) .IntTailSpliceGPD(u, splicefit=splicefit)
     
   } else if (type[2] %in% c("Pa", "tPa", "cPa", "ciPa", "trciPa")) {
-    f <- function(u) IntTailSpliceHill(u, splicefit=splicefit)
+    f <- function(u) .IntTailSpliceHill(u, splicefit=splicefit)
 
   } else {
     stop("Invalid type.")

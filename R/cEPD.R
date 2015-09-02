@@ -1,6 +1,6 @@
 
 # Proportion of non-censored observations
-p.hat.fun <- function(delta.n){
+.p.hat.fun <- function(delta.n){
   
   n <- length(delta.n)
   K <- 1:(n-1)
@@ -15,7 +15,7 @@ p.hat.fun <- function(delta.n){
 
 
 # E_{Z,k}(s)
-Es <- function(s, Z.n){
+.ES <- function(s, Z.n){
   
   n <- length(Z.n)
   output <- numeric(n-1)
@@ -30,7 +30,7 @@ Es <- function(s, Z.n){
 
 
 # E^(c)_{Z,k}(s)
-cEs <- function(s, Z.n, delta.n){
+.cEs <- function(s, Z.n, delta.n){
   
   n <- length(Z.n)
   output <- numeric(n-1)
@@ -65,7 +65,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
   delta.n <- !(censored[s$ix])
   
   HillZ <- Hill(Z.n)$gamma
-  phat <- p.hat.fun(delta.n)
+  phat <- .p.hat.fun(delta.n)
   
   nrho <- length(rho)
 
@@ -75,7 +75,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
     beta <- matrix(0,n-1,nrho)
     
     if (all(rho>0) & nrho==1) {
-      rho <- rhoEst(data,alpha=1,tau=rho)$rho
+      rho <- .rhoEst(data,alpha=1,tau=rho)$rho
      
       # Estimates for rho of Fraga Alves et al. (2003) used 
       # and hence a different value of beta for each k
@@ -123,8 +123,8 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
     K <- 1:k
     D <- - (beta[K,j]^4 * HillZ[K]^3) / ( (1+HillZ[K]*beta[K,j])^2 * (1+2*HillZ[K]*beta[K,j]) )
     
-    Es <- Es(-beta[,j],Z.n)
-    cEs <- cEs(-beta[,j],Z.n,delta.n)
+    Es <- .ES(-beta[,j],Z.n)
+    cEs <- .cEs(-beta[,j],Z.n,delta.n)
 
     # Estimates for kappa1
     kappa1[,j] <- (1 - Es[K] - beta[K,j] * (HillZ[K] / phat[K]) * cEs[K]) / D[K]
@@ -196,7 +196,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   # Kaplan-Meier estimator for CDF in X[n-K]
   km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])
 
-  prob[K2] <- (1-km) * (1-pEPD(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2]))
+  prob[K2] <- (1-km) * (1-.pEPD(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2]))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -236,7 +236,7 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   # Kaplan-Meier estimator for CDF in X[n-K]
   km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])
   
-  R[K2] <- 1 / ((1-km) * (1-pEPD(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2])))
+  R[K2] <- 1 / ((1-km) * (1-.pEPD(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2])))
   R[R<1] <- NA
   
   # plots if TRUE

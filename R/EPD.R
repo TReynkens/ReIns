@@ -3,7 +3,7 @@
 # Distribution
 
 #Density of an extended Pareto distribution
-dEPD <- function(x, gamma, kappa, tau) {
+.dEPD <- function(x, gamma, kappa, tau) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -23,7 +23,7 @@ dEPD <- function(x, gamma, kappa, tau) {
 }
 
 #CDF of an extended Pareto distribution
-pEPD <- function(x, gamma, kappa, tau) {
+.pEPD <- function(x, gamma, kappa, tau) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -67,10 +67,10 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   if (direct) {
     # Select parameters by minimising MLE
-    EPD <- EPDdirectMLE(data=data, rho=rho, start=start, warnings=warnings)
+    EPD <- .EPDdirectMLE(data=data, rho=rho, start=start, warnings=warnings)
   } else {
     # Select parameter using approach of Beirlant, Joosens and Segers (2009). 
-    EPD <- EPDredMLE(data=data, rho=rho)
+    EPD <- .EPDredMLE(data=data, rho=rho)
   }
   
   # plots if TRUE
@@ -98,7 +98,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
 
 
 # Fit EPD using approach of Beirlant, Joosens and Segers (2009). 
-EPDredMLE <- function(data, rho = -1) {
+.EPDredMLE <- function(data, rho = -1) {
   
   # Check input arguments
   checkInput(data)
@@ -117,7 +117,7 @@ EPDredMLE <- function(data, rho = -1) {
   H <- Hill(data, plot=FALSE)$gamma
   
   if (all(rho>0) & nrho==1) {
-    rho <- rhoEst(data,alpha=1,tau=rho)$rho
+    rho <- .rhoEst(data,alpha=1,tau=rho)$rho
     beta <- -rho
 
   } else if(all(rho<0)) {
@@ -176,7 +176,7 @@ EPDredMLE <- function(data, rho = -1) {
 
 
 # Fit EPD by minimising MLE
-EPDdirectMLE <- function(data, rho = -1, start = NULL,  warnings = FALSE) {
+.EPDdirectMLE <- function(data, rho = -1, start = NULL,  warnings = FALSE) {
   
   # Check input arguments
   checkInput(data)
@@ -194,7 +194,7 @@ EPDdirectMLE <- function(data, rho = -1, start = NULL,  warnings = FALSE) {
   H <- Hill(data, plot=FALSE)$gamma
   
   if (all(rho>0) & nrho==1) {
-    rho <- rhoEst(data,alpha=1,tau=rho)$rho
+    rho <- .rhoEst(data,alpha=1,tau=rho)$rho
     beta <- -rho
     
   } else if(all(rho<0)) {
@@ -279,7 +279,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit = optim(par=c(gamma_start,kappa_start), fn=EPDneglogL, Y=data, tau=tau)
+    fit = optim(par=c(gamma_start,kappa_start), fn=.EPDneglogL, Y=data, tau=tau)
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg = fit$par
     
@@ -296,7 +296,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
 
 
 # Minus log-likelihood for a (univariate sample Y) of iid EPD random variables
-EPDneglogL <- function(theta, Y, tau) {
+.EPDneglogL <- function(theta, Y, tau) {
   
   gamma <- theta[1]
   # Makes sure that sigma is positive
@@ -305,7 +305,7 @@ EPDneglogL <- function(theta, Y, tau) {
   if (kappa<=max(-1,1/tau) | gamma<=0) {
     logL <- -10^6
   } else {
-    logL <- sum( log(dEPD(Y, gamma=gamma, kappa=kappa, tau=tau)) )
+    logL <- sum( log(.dEPD(Y, gamma=gamma, kappa=kappa, tau=tau)) )
   }
   
   # minus log-likelihood for optimisation
@@ -313,7 +313,7 @@ EPDneglogL <- function(theta, Y, tau) {
 }
 
 # Estimator for rho of Fraga Alves, Gomes and de Haan (2003)
-rhoEst <- function(data, alpha = 1, theta1 = 2, theta2 = 3, tau = 1) {
+.rhoEst <- function(data, alpha = 1, theta1 = 2, theta2 = 3, tau = 1) {
   
   # Check input arguments
   checkInput(data)
@@ -373,7 +373,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   K2 <- K[which(gamma[K]>0)]
   
-  prob[K2] <- (K2+1)/(n+1) * (1 - pEPD(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
+  prob[K2] <- (K2+1)/(n+1) * (1 - .pEPD(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -405,7 +405,7 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   K2 <- K[which(gamma[K]>0)]
   
-  r[K2] <- (n+1)/(K2+1) / (1 - pEPD(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
+  r[K2] <- (n+1)/(K2+1) / (1 - .pEPD(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   
   
   r[which(gamma[K]<=0)] <- NA

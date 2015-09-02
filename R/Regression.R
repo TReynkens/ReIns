@@ -90,7 +90,7 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
   
   # Select right kernel function with bandwidth h (K_h(x) = K(x/h)/h)
   kernel <- match.arg(kernel)
-  kernelh <- kernel_aux(kernel=kernel,h=h)
+  kernelh <- .kernel_aux(kernel=kernel,h=h)
   
   # Scale estimates in the point s for several values of k
   A <- numeric(n)
@@ -114,7 +114,7 @@ ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular"
 #kernel is the kernel function used and h is the bandwidth
 #If h is equal to NULL, a bandwidth will be selected (similar to density).
 
-ScaleReg_survi <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular",
+.ScaleReg_survi <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular",
                                             "triangular", "biweight", "cosine", "optcosine"), 
                           h = NULL, plot = TRUE, add = FALSE, 
                           main = "Estimates of scale parameter", ...) {
@@ -132,7 +132,7 @@ ScaleReg_survi <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectan
   
   # Select right kernel function with bandwidth h (K_h(x) = K(x/h)/h)
   kernel <- match.arg(kernel)
-  kernelh <- kernel_aux(kernel=kernel,h=h)
+  kernelh <- .kernel_aux(kernel=kernel,h=h)
   
   # Scale estimates in the point s for several values of k
   A <- numeric(n)
@@ -153,7 +153,7 @@ ScaleReg_survi <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectan
 #
 #Z is the response variable data
 
-ScaleReg_surv = function(Z, plot = TRUE, add = FALSE, main = "Estimates of scale parameter", ...) {
+.ScaleReg_surv = function(Z, plot = TRUE, add = FALSE, main = "Estimates of scale parameter", ...) {
   
   # Scale estimate of the response variable
   s <- Scale(Z,plot=FALSE)
@@ -172,7 +172,7 @@ ScaleReg_surv = function(Z, plot = TRUE, add = FALSE, main = "Estimates of scale
 #Auxiliary function to select kernel and returns K_h(x) = kernel(x/h)/h
 #h is the chosen bandwidth and if equal to NULL, a bandwidth will be selected
 #(similar to density)
-kernel_aux <- function(kernel =  c("gaussian", "epanechnikov", "rectangular",
+.kernel_aux <- function(kernel =  c("gaussian", "epanechnikov", "rectangular",
                                    "triangular", "biweight", "cosine", "optcosine"), h = NULL) {
   
   kernel <- match.arg(kernel)

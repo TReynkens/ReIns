@@ -4,7 +4,7 @@
 # giving censored=0 results in the ordinary sample CDF
 #
 # Pure R implementation
-KaplanMeier_R <- function(x, data, censored) {
+.KaplanMeier_R <- function(x, data, censored) {
   
   
   # Check input arguments
@@ -40,7 +40,7 @@ KaplanMeier_R <- function(x, data, censored) {
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary sample CDF
 #
-KaplanMeier_surv <- function(x, data, censored, conf.type = "plain") {
+.KaplanMeier_surv <- function(x, data, censored, conf.type = "plain") {
   
   
   # Check input arguments
@@ -94,9 +94,9 @@ KaplanMeier_surv <- function(x, data, censored, conf.type = "plain") {
 KaplanMeier <- function(x, data, censored) {
   
  if (length(x)<=1000) {
-   return(KaplanMeier_R(x, data, censored))
+   return(.KaplanMeier_R(x, data, censored))
  } else {
-   return(KaplanMeier_surv(x, data, censored)$km)
+   return(.KaplanMeier_surv(x, data, censored)$km)
  }
 }
 
@@ -132,7 +132,7 @@ Turnbull <- function(x, L, R, censored) {
   censored <- checkCensored(censored, length(L))
   
   
-  f <- Turnbull_internal(L=L, R=R, censored=censored)
+  f <- .Turnbull_internal(L=L, R=R, censored=censored)
   est <- f(x)
   
   # Turnbull estimator for the CDF
@@ -141,7 +141,7 @@ Turnbull <- function(x, L, R, censored) {
 
 
 # Function to return Turnbull stepfunction for survival function
-Turnbull_internal <- function(L, R, censored) {
+.Turnbull_internal <- function(L, R, censored) {
   
   # Sort the data with index return
   s <- sort(L, index.return = TRUE)

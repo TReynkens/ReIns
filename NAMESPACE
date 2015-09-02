@@ -61,7 +61,6 @@ export("ProbGPD", "QuantGPD","ReturnGPD")
 # Regression
 
 export("ScaleReg")
-#export("ScaleReg_surv","ScaleReg_survi")
 export("ProbReg","QuantReg")
 
 #########################

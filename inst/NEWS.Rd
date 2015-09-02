@@ -24,6 +24,7 @@
         \item Add truncated exponential, truncated Weibull and truncated log-normal distribution.
         \item Use BIC instead of AIC in \code{MEtune}.
         \item Remove \code{stats::} in calls to \code{qgamma} in \code{ME_VaR}.
+        \item Rename internal functions (starting with \code{.}).
       }
       
     \item Documentation changes:

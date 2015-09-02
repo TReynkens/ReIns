@@ -1,7 +1,7 @@
 
 
 # Check input for const
-constCheck <- function(const) {
+.constCheck <- function(const) {
  
   if (!is.numeric(const)) stop("const should be numeric.")
   
@@ -21,7 +21,7 @@ constCheck <- function(const) {
 
 
 # Check if x is an integer
-is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
+.is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
   abs(x - round(x)) < tol
 } 
 
@@ -37,7 +37,7 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
   
   # Check length of M and if it is an integer
   if (length(M)!=1) stop("M must have length 1.")
-  if (!is.wholenumber(M) | M<=0) stop("M must be a strictly positive integer.")
+  if (!.is.wholenumber(M) | M<=0) stop("M must be a strictly positive integer.")
   
   # Check length of arguments
   if (length(p)!=M) stop("p must have length M.")
@@ -59,7 +59,7 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
     
     if (length(M_initial)!=1) stop("M_initial must have length 1.")
     
-    if (!is.wholenumber(M_initial) | M_initial<=0) {
+    if (!.is.wholenumber(M_initial) | M_initial<=0) {
       stop("M_initial must be a strictly positive integer.")
     }
     
@@ -115,7 +115,7 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
 SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   
   # Check input for const
-  constCheck(const)
+  .constCheck(const)
   
   l <- length(const)
   
@@ -170,7 +170,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
 }
 
 # Auxiliary function for summary.SpliceFit
-pasteVec <- function(s, name, vec, digits) {
+.pasteVec <- function(s, name, vec, digits) {
   
   # Take no digits when vec is large
   digits <- ifelse(min(vec)<=1000,digits,0)
@@ -204,39 +204,39 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   
   
   # General splicing part
-  s <- pasteVec(s, "const", splicefit$const, digits)
-  s <- pasteVec(s, "pi", splicefit$pi, digits)
-  s <- pasteVec(s, "t0", splicefit$trunclower, digits)
-  s <- pasteVec(s, "t", splicefit$t, digits)
+  s <- .pasteVec(s, "const", splicefit$const, digits)
+  s <- .pasteVec(s, "pi", splicefit$pi, digits)
+  s <- .pasteVec(s, "t0", splicefit$trunclower, digits)
+  s <- .pasteVec(s, "t", splicefit$t, digits)
   s <- paste0(s, "type = (",paste(splicefit$type, collapse=","),")","\n\n")
   
   s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
   
   
   # ME part
-  s <- pasteVec(s, "p", mefit$p, digits)
-  s <- pasteVec(s, "r", mefit$shape, digits)
-  s <- pasteVec(s, "theta", mefit$theta, digits)
-  s <- pasteVec(s, "M", mefit$M, digits)
+  s <- .pasteVec(s, "p", mefit$p, digits)
+  s <- .pasteVec(s, "r", mefit$shape, digits)
+  s <- .pasteVec(s, "theta", mefit$theta, digits)
+  s <- .pasteVec(s, "M", mefit$M, digits)
   if (exists("M_initial", where=splicefit$MEfit)) {
-    s <- pasteVec(s, "M_initial", mefit$M_initial, digits)
+    s <- .pasteVec(s, "M_initial", mefit$M_initial, digits)
   }
   
   s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
   
   # EVT part
-  s <- pasteVec(s,"gamma", evtfit$gamma, digits)
+  s <- .pasteVec(s,"gamma", evtfit$gamma, digits)
   if (exists("sigma", where=splicefit$EVTfit)) {
-    s <- pasteVec(s,"sigma", evtfit$sigma, digits)
+    s <- .pasteVec(s,"sigma", evtfit$sigma, digits)
   }
-  s <- pasteVec(s,"endpoint", evtfit$endpoint, digits)
+  s <- .pasteVec(s,"endpoint", evtfit$endpoint, digits)
   
   cat(s)
 }
 
 
-# Only keep necessary parts from MEtune output
-MEoutput <- function(fit_tune) {
+# Only keep necessary parts from .MEtune output
+.MEoutput <- function(fit_tune) {
   
   # Obtain best model
   MEfit_old <- fit_tune$best_model
@@ -260,7 +260,7 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   n <- length(X)
   
   # Check input for const
-  constCheck(const)
+  .constCheck(const)
   
   l <- length(const)
   
@@ -316,10 +316,10 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   MEind <- (X<=t1) 
   
   # Upper truncated at threshold t
-  fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
+  fit_tune <- .MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                       M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
   # Output as MEfit object
-  MEfit <- MEoutput(fit_tune)
+  MEfit <- .MEoutput(fit_tune)
   
   # EVT part
   EVTfit <- list()
@@ -380,7 +380,7 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
   interval <- !(all(Z==I))
   
   # Check input for const
-  constCheck(const)
+  .constCheck(const)
   
   if (length(const)>1) stop("Only single splicing is supported.")
   
@@ -422,10 +422,10 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     MEind <- (Z<=t) 
     
     # Upper truncated at threshold t
-    fit_tune <- MEtune(lower=Z[MEind], upper=pmin(I[MEind],t), trunclower=trunclower, truncupper=t,
+    fit_tune <- .MEtune(lower=Z[MEind], upper=pmin(I[MEind],t), trunclower=trunclower, truncupper=t,
                        M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
     # Output as MEfit object
-    MEfit <- MEoutput(fit_tune)
+    MEfit <- .MEoutput(fit_tune)
 
     # EVT part
     EVTfit <- list()
@@ -455,10 +455,10 @@ SpliceFitcHill <- function(Z, I = Z, censored, const, M = 3, s = 1:10, trunclowe
     upper[censored] <- t
     
     # Upper truncated at threshold t
-    fit_tune <- MEtune(lower=Z[MEind], upper=upper[MEind], trunclower=trunclower, truncupper=t,
+    fit_tune <- .MEtune(lower=Z[MEind], upper=upper[MEind], trunclower=trunclower, truncupper=t,
                        M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
     # Output as MEfit object
-    MEfit <- MEoutput(fit_tune)
+    MEfit <- .MEoutput(fit_tune)
     
     # cHill part
     res <- cHill(Z, censored=censored)
@@ -490,7 +490,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   
   
   # Check input for const
-  constCheck(const)
+  .constCheck(const)
   
   l <- length(const)
   
@@ -538,10 +538,10 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   MEind <- (X<=t1) 
   
   # Upper truncated at threshold t
-  fit_tune <- MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
+  fit_tune <- .MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                      M=M, s=s, nCores = ncores, criterium="BIC", eps=1e-03, print=FALSE)
   # Output as MEfit object
-  MEfit <- MEoutput(fit_tune)
+  MEfit <- .MEoutput(fit_tune)
   
   # EVT part
   EVTfit <- list()
@@ -610,7 +610,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
   ind <- (x<tvec[1])
   
   # Case x<=t
-  d[ind] <- const[1] * ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
+  d[ind] <- const[1] * .ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
                        theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
   
   # Case x>t
@@ -679,7 +679,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   ind <- (x<tvec[1])
   
   # Case x<t
-  p[ind] <- const[1] * ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
+  p[ind] <- const[1] * .ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
                 theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
 
   # Case x>t
@@ -764,7 +764,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   if (any(ind)) {
     # Quantiles of ME part
-    q[ind] <- ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$p, 
+    q[ind] <- .ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$p, 
                      theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
                      interval=c(trunclower,tvec[1])) 
   }

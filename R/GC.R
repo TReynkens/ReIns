@@ -3,7 +3,7 @@
 # Gram-Charlier approximation for CDF
 pGC <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
   
-  L <- gcInput(moments)
+  L <- .gcInput(moments)
   
   average <- L$average
   variance <- L$variance
@@ -30,7 +30,7 @@ pGC <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
 # Edgeworth approximation for CDF
 pEdge <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
   
-  L <- gcInput(moments)
+  L <- .gcInput(moments)
   
   average <- L$average
   variance <- L$variance
@@ -55,7 +55,7 @@ pEdge <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
 
 
 # Check input and return (standardised) moments
-gcInput <- function(moments) {
+.gcInput <- function(moments) {
   
   if (length(moments)<4) {
     stop("Four moments should be provided.")
@@ -72,9 +72,9 @@ gcInput <- function(moments) {
   if (variance<=0) stop("Variance should be strictly positive.")
   
   # Standardised moment of order 3
-  EZ3 <- standMoment(order=3, moments=moments)
+  EZ3 <- .standMoment(order=3, moments=moments)
   # Standardised moment of order 4
-  EZ4 <- standMoment(order=4, moments=moments)
+  EZ4 <- .standMoment(order=4, moments=moments)
   
   if (EZ4<EZ3+1) {
     stop("The fourth standardised moments should be larger or equal to the 
@@ -85,7 +85,7 @@ gcInput <- function(moments) {
 }
 
 # Standardised (normalised) moment of order order
-standMoment <- function(order = 1, moments) {
+.standMoment <- function(order = 1, moments) {
   
   m <- length(moments)
   if(order > m) {

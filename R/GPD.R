@@ -2,7 +2,7 @@
 # Based on POT_KH.R (written by Klaus Herrmann) and POT.R.
 
 # minus log-likelihood for a (univariate sample Y) of iid GP random variables
-POTneglogL <- function(theta, Y) {
+.POTneglogL <- function(theta, Y) {
   
   gamma <- theta[1]
   # Makes sure that sigma is positive
@@ -47,7 +47,7 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit = optim(par=c(gamma_start,log(sigma_start)), fn=POTneglogL, Y=data)
+    fit = optim(par=c(gamma_start,log(sigma_start)), fn=.POTneglogL, Y=data)
    # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg = fit$par
     if (fit$convergence>0 & warnings) {
