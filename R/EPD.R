@@ -18,8 +18,11 @@
     stop("kappa should be larger than max(-1,1/tau).")
   }
   
-  return( 1 / (gamma*x^(1/gamma+1)) * (1+kappa*(1-x^tau))^(-1/gamma-1) * 
-    (1+kappa*(1-(1+tau)*x^tau)) )
+  d <- 1 / (gamma*x^(1/gamma+1)) * (1+kappa*(1-x^tau))^(-1/gamma-1) * 
+    (1+kappa*(1-(1+tau)*x^tau))
+  d[x<=1] <- 0
+  
+  return(d)
 }
 
 #CDF of an extended Pareto distribution
@@ -37,7 +40,10 @@
 #     stop("kappa should be larger than max(-1,1/tau).")
 #   }
   
-  return( 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma) )
+  p <- 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma) 
+  p[x<=1] <- 0
+  
+  return(p)
 }
 
 
