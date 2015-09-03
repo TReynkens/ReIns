@@ -47,6 +47,48 @@
 }
 
 
+.qEPD <-  function(p, gamma, kappa, tau) {
+  
+  if (any(tau>=0)) {
+    stop("tau should be negative.")
+  }
+  
+  if (any(gamma<=0)) {
+    stop("gamma should be strictly positive.")
+  }
+  
+  #   if (any(kappa<=pmax(-1,1/tau))) {
+  #     stop("kappa should be larger than max(-1,1/tau).")
+  #   }
+  
+  if (any(p<0 | p>1)) {
+    stop("p should be between 0 and 1.")
+  }
+  
+  l <- length(p)
+  Q <- numeric(l)
+  
+  endpoint <- ifelse(.pEPD(100,gamma,kappa,tau)>=max(p[p<1]), 100, 1000)
+  
+  for(i in 1:l) {
+    
+    if (p[i]<10^(-14)) {
+      Q[i] <- 1
+      
+    } else if (p[i]<1) {
+      f <- function(x) {
+        (1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau))
+      }
+      Q[i] <- tryCatch(uniroot(f,lower=1,upper=endpoint)$root, error=function(e) NA) 
+      
+    } else {
+      Q[i] <- Inf
+    }
+    
+  }
+  return(Q)
+}
+
 ########################################################
 # Estimation
 

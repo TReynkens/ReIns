@@ -25,6 +25,8 @@
         \item Use BIC instead of AIC in \code{MEtune}.
         \item Remove \code{stats::} in calls to \code{qgamma} in \code{ME_VaR}.
         \item Rename internal functions (starting with \code{.}).
+        \item Fix bug in \code{.dEPD} and \code{.pEPD}.
+        \item Add quantile function of EPD (\code{.qEPD}).
       }
       
     \item Documentation changes:
