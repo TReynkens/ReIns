@@ -342,6 +342,167 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 }
 
 
+
+
+###############################################################
+# Extended Pareto distribution
+
+# Check input for EPD distribution
+.EPDinput <- function(y, gamma, kappa, tau, kappaTau = TRUE) {
+  
+  # Check if arguments are numeric
+  if(!is.numeric(gamma)) {
+    stop("gamma should be numeric.")
+  }
+  
+  if (!is.numeric(kappa)) {
+    stop("kappa should be numeric.")
+  }
+  
+  if (!is.numeric(tau)) {
+    stop("tau should be numeric.")
+  }
+  
+  # Check if right sign
+  if (any(tau>=0)) {
+    stop("tau should be strictly negative.")
+  }
+  
+  if (any(gamma<=0)) {
+    stop("gamma should be strictly positive.")
+  }
+  
+  if (kappaTau) {
+    if (any(kappa<=pmax(-1,1/tau))) {
+      stop("kappa should be larger than max(-1,1/tau).")
+    }
+  }
+  
+  # Check if correct length
+  ly <- length(y)
+  lg <- length(gamma)
+  lk <- length(kappa)
+  lt <- length(tau)
+  
+  l <- c(ly, lg, lk, lt)
+  
+  # Indices of lengths larger than 1
+  ind <- which(l>1)
+  
+  if (length(ind)>1) {
+    # Check that lengths larger than 1 are equal
+    if(!length(unique(l[ind]))==1) {
+      stop("All input arguments should have length 1 or equal length.")
+    }
+  }
+  
+  
+}
+# Density of an extended Pareto distribution
+.dEPD <- function(x, gamma, kappa, tau = -1, log = FALSE) {
+  
+  # Check input
+  .EPDinput(x, gamma, kappa, tau, kappaTau = TRUE)
+  
+  # Compute density
+  d <- 1 / (gamma*x^(1/gamma+1)) * (1+kappa*(1-x^tau))^(-1/gamma-1) * 
+    (1+kappa*(1-(1+tau)*x^tau))
+  # Formula is not valid for values below 1
+  d[x<=1] <- 0
+  
+  if (log) d <- log(d)
+  
+  return(d)
+}
+
+# CDF of an extended Pareto distribution
+.pEPD <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
+  
+  # Check input
+  .EPDinput(x, gamma, kappa, tau, kappaTau = FALSE)
+  
+  # Compute probabilities
+  p <- 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma) 
+  # Formula is not valid for values below 1
+  p[x<=1] <- 0
+  
+  # Problems when condition not satisfied
+  if (any(kappa<=pmax(-1,1/tau))) {
+    if (length(kappa)>1 | length(tau)>1) {
+      p[kappa<=pmax(-1,1/tau)] <- NA
+    } else {
+      p <- NA
+    }
+  }
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
+}
+
+# Quantile function of EPD
+.qEPD <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
+  
+  # Check input
+  .EPDinput(p, gamma, kappa, tau, kappaTau = TRUE)
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (any(p<0 | p>1)) {
+    stop("p should be between 0 and 1.")
+  }
+  
+  # Compute quantiles numerically
+  l <- length(p)
+  Q <- numeric(l)
+  
+  # Take 100 as endpoint for interval to search over unless not large enough
+  endpoint <- ifelse(.pEPD(100,gamma,kappa,tau)>=max(p[p<1]), 100, 1000)
+  
+  for(i in 1:l) {
+    
+    
+    if (p[i]<10^(-14)) {
+      # p=0 case
+      Q[i] <- 1
+      
+    } else if (p[i]<1) {
+      # 0<p<1 case
+      
+      # Function to compute roots of
+      f <- function(x) {
+        (1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau))
+      }
+      # If root solving fails return NA
+      Q[i] <- tryCatch(uniroot(f,lower=1,upper=endpoint)$root, error=function(e) NA) 
+      
+    } else {
+      # p=1 case
+      Q[i] <- Inf
+    }
+    
+  }
+  
+  return(Q)
+}
+
+
+
+# Random number generation for EPD
+.rEPD <-  function(n, gamma, kappa, tau = -1) {
+  
+  # Rely on input checking in .qEPD
+  
+  # Generate random numbers
+  return(.qEPD(runif(n), gamma=gamma, kappa=kappa, tau=tau))
+}
+
+
 ###############################################################
 # Burr (type XII)
 
