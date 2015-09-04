@@ -43,10 +43,10 @@
   
   # Indices of lengths larger than 1
   ind <- which(l>1)
-  
+
   if (length(ind)>1) {
     # Check that lengths larger than 1 are equal
-    if(!all.equal(l[ind])) {
+    if(!length(unique(l[ind]))==1) {
       stop("All input arguments should have length 1 or equal length.")
     }
   }
