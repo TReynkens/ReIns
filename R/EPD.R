@@ -2,9 +2,10 @@
 ########################################################
 # Distribution
 
-#Density of an extended Pareto distribution
+# Density of an extended Pareto distribution
 .dEPD <- function(x, gamma, kappa, tau= -1, log = FALSE) {
   
+  # Check input
   if (any(tau>=0)) {
     stop("tau should be negative.")
   }
@@ -18,8 +19,10 @@
     stop("kappa should be larger than max(-1,1/tau).")
   }
   
+  # Compute density
   d <- 1 / (gamma*x^(1/gamma+1)) * (1+kappa*(1-x^tau))^(-1/gamma-1) * 
     (1+kappa*(1-(1+tau)*x^tau))
+  # Formula is not valid for values below 1
   d[x<=1] <- 0
   
   if (log) d <- log(d)
@@ -27,9 +30,10 @@
   return(d)
 }
 
-#CDF of an extended Pareto distribution
+# CDF of an extended Pareto distribution
 .pEPD <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
+  # Check input
   if (any(tau>=0)) {
     stop("tau should be negative.")
   }
@@ -42,7 +46,9 @@
 #     stop("kappa should be larger than max(-1,1/tau).")
 #   }
   
+  # Compute probabilities
   p <- 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma) 
+  # Formula is not valid for values below 1
   p[x<=1] <- 0
   
   if (!lower.tail) p <- 1-p
@@ -55,6 +61,7 @@
 # Quantile function of EPD
 .qEPD <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
+  # Check input
   if (any(tau>=0)) {
     stop("tau should be negative.")
   }
@@ -63,9 +70,9 @@
     stop("gamma should be strictly positive.")
   }
   
-  #   if (any(kappa<=pmax(-1,1/tau))) {
-  #     stop("kappa should be larger than max(-1,1/tau).")
-  #   }
+  if (any(kappa<=pmax(-1,1/tau))) {
+    stop("kappa should be larger than max(-1,1/tau).")
+  }
   
   if (log.p) p <- exp(p)
   
@@ -75,29 +82,40 @@
     stop("p should be between 0 and 1.")
   }
   
+  # Compute quantiles numerically
   l <- length(p)
   Q <- numeric(l)
   
+  # Take 100 as endpoint for interval to search over unless not large enough
   endpoint <- ifelse(.pEPD(100,gamma,kappa,tau)>=max(p[p<1]), 100, 1000)
   
   for(i in 1:l) {
     
+    
     if (p[i]<10^(-14)) {
+      # p=0 case
       Q[i] <- 1
       
     } else if (p[i]<1) {
+      # 0<p<1 case
+      
+      # Function to compute roots of
       f <- function(x) {
         (1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau))
       }
+      # If root solving fails return NA
       Q[i] <- tryCatch(uniroot(f,lower=1,upper=endpoint)$root, error=function(e) NA) 
       
     } else {
+      # p=1 case
       Q[i] <- Inf
     }
     
   }
+  
   return(Q)
 }
+
 
 
 ########################################################
