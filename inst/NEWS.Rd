@@ -26,7 +26,7 @@
         \item Remove \code{stats::} in calls to \code{qgamma} in \code{ME_VaR}.
         \item Rename internal functions (starting with \code{.}).
         \item Fix bug in \code{.dEPD} and \code{.pEPD}.
-        \item Add quantile function of EPD (\code{.qEPD}).
+        \item Add quantile function and random number generation for EPD (\code{.qEPD} and \code{.rEPD}).
       }
       
     \item Documentation changes:

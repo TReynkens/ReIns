@@ -118,6 +118,26 @@
 
 
 
+# Random number generation for EPD
+.rEPD <-  function(n, gamma, kappa, tau = -1) {
+  
+  # Check input
+  if (any(tau>=0)) {
+    stop("tau should be negative.")
+  }
+  
+  if (any(gamma<=0)) {
+    stop("gamma should be strictly positive.")
+  }
+  
+  if (any(kappa<=pmax(-1,1/tau))) {
+    stop("kappa should be larger than max(-1,1/tau).")
+  }
+  
+  # Generate random numbers
+  return(.qEPD(runif(n), gamma=gamma, kappa=kappa, tau=tau))
+}
+
 ########################################################
 # Estimation
 
