@@ -173,12 +173,17 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
 .pasteVec <- function(s, name, vec, digits) {
   
   # Take no digits when vec is large
-  digits <- ifelse(min(vec)<=1000,digits,0)
+  digits <- ifelse(min(vec)<=1000, digits, 0)
+  
+  # Format output in right style (after rounding): add blank spaces, remove scientific notation and
+  # remove leading whitespace, remove trailing zeros
+  res <- format(round(vec,digits), big.mark=" ", scientific=FALSE, trim=TRUE,
+                drop0trailing=TRUE)
   
   if(length(vec)==1) {
-    paste0(s, name," = ",round(vec,digits),"\n\n")
+    paste0(s, name," = ",res,"\n\n")
   } else {
-    paste0(s, name," = (",paste(round(vec,digits), collapse=","),")","\n\n")
+    paste0(s, name," = (",paste(res, collapse=", "),")","\n\n")
   }
   
 }
@@ -208,7 +213,7 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   s <- .pasteVec(s, "pi", splicefit$pi, digits)
   s <- .pasteVec(s, "t0", splicefit$trunclower, digits)
   s <- .pasteVec(s, "t", splicefit$t, digits)
-  s <- paste0(s, "type = (",paste(splicefit$type, collapse=","),")","\n\n")
+  s <- paste0(s, "type = (",paste(splicefit$type, collapse=", "),")","\n\n")
   
   s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
   
