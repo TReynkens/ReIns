@@ -2,22 +2,62 @@
 ########################################################
 # Distribution
 
-# Density of an extended Pareto distribution
-.dEPD <- function(x, gamma, kappa, tau= -1, log = FALSE) {
+# Check input for EPD distribution
+.EPDinput <- function(y, gamma, kappa, tau, kappaTau = TRUE) {
   
-  # Check input
+  # Check if arguments are numeric
+  if(!is.numeric(gamma)) {
+    stop("gamma should be numeric.")
+  }
+  
+  if (!is.numeric(kappa)) {
+    stop("kappa should be numeric.")
+  }
+  
+  if (!is.numeric(tau)) {
+    stop("tau should be numeric.")
+  }
+  
+  # Check if right sign
   if (any(tau>=0)) {
-    stop("tau should be negative.")
+    stop("tau should be strictly negative.")
   }
   
   if (any(gamma<=0)) {
     stop("gamma should be strictly positive.")
   }
   
-  
-  if (any(kappa<=pmax(-1,1/tau))) {
-    stop("kappa should be larger than max(-1,1/tau).")
+  if (kappaTau) {
+    if (any(kappa<=pmax(-1,1/tau))) {
+      stop("kappa should be larger than max(-1,1/tau).")
+    }
   }
+  
+  # Check if correct length
+  ly <- length(y)
+  lg <- length(gamma)
+  lk <- length(kappa)
+  lt <- length(tau)
+  
+  l <- c(ly, lg, lk, lt)
+  
+  # Indices of lengths larger than 1
+  ind <- which(l>1)
+  
+  if (length(ind)>1) {
+    # Check that lengths larger than 1 are equal
+    if(!all.equal(l[ind])) {
+      stop("All input arguments should have length 1 or equal length.")
+    }
+  }
+  
+
+}
+# Density of an extended Pareto distribution
+.dEPD <- function(x, gamma, kappa, tau = -1, log = FALSE) {
+  
+  # Check input
+  .EPDinput(x, gamma, kappa, tau, kappaTau = TRUE)
   
   # Compute density
   d <- 1 / (gamma*x^(1/gamma+1)) * (1+kappa*(1-x^tau))^(-1/gamma-1) * 
@@ -34,22 +74,21 @@
 .pEPD <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
-  if (any(tau>=0)) {
-    stop("tau should be negative.")
-  }
-  
-  if (any(gamma<=0)) {
-    stop("gamma should be strictly positive.")
-  }
+  .EPDinput(x, gamma, kappa, tau, kappaTau = FALSE)
 
-#   if (any(kappa<=pmax(-1,1/tau))) {
-#     stop("kappa should be larger than max(-1,1/tau).")
-#   }
-  
   # Compute probabilities
   p <- 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma) 
   # Formula is not valid for values below 1
   p[x<=1] <- 0
+  
+  # Problems when condition not satisfied
+  if (any(kappa<=pmax(-1,1/tau))) {
+    if (length(kappa)>1 | length(tau)>1) {
+      p[kappa<=pmax(-1,1/tau)] <- NA
+    } else {
+      p <- NA
+    }
+  }
   
   if (!lower.tail) p <- 1-p
   
@@ -62,18 +101,9 @@
 .qEPD <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
-  if (any(tau>=0)) {
-    stop("tau should be negative.")
-  }
+  .EPDinput(p, gamma, kappa, tau, kappaTau = TRUE)
   
-  if (any(gamma<=0)) {
-    stop("gamma should be strictly positive.")
-  }
-  
-  if (any(kappa<=pmax(-1,1/tau))) {
-    stop("kappa should be larger than max(-1,1/tau).")
-  }
-  
+
   if (log.p) p <- exp(p)
   
   if (!lower.tail) p <- 1-p
@@ -120,19 +150,8 @@
 
 # Random number generation for EPD
 .rEPD <-  function(n, gamma, kappa, tau = -1) {
-  
-  # Check input
-  if (any(tau>=0)) {
-    stop("tau should be negative.")
-  }
-  
-  if (any(gamma<=0)) {
-    stop("gamma should be strictly positive.")
-  }
-  
-  if (any(kappa<=pmax(-1,1/tau))) {
-    stop("kappa should be larger than max(-1,1/tau).")
-  }
+
+  # Rely on input checking in .qEPD
   
   # Generate random numbers
   return(.qEPD(runif(n), gamma=gamma, kappa=kappa, tau=tau))
