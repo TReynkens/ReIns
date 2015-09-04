@@ -3,7 +3,7 @@
 # Distribution
 
 #Density of an extended Pareto distribution
-.dEPD <- function(x, gamma, kappa, tau) {
+.dEPD <- function(x, gamma, kappa, tau= -1) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -26,7 +26,7 @@
 }
 
 #CDF of an extended Pareto distribution
-.pEPD <- function(x, gamma, kappa, tau) {
+.pEPD <- function(x, gamma, kappa, tau = -1) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -47,7 +47,7 @@
 }
 
 
-.qEPD <-  function(p, gamma, kappa, tau) {
+.qEPD <-  function(p, gamma, kappa, tau = -1) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
