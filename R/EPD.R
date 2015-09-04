@@ -3,7 +3,7 @@
 # Distribution
 
 #Density of an extended Pareto distribution
-.dEPD <- function(x, gamma, kappa, tau= -1) {
+.dEPD <- function(x, gamma, kappa, tau= -1, log = FALSE) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -22,11 +22,13 @@
     (1+kappa*(1-(1+tau)*x^tau))
   d[x<=1] <- 0
   
+  if (log) d <- log(d)
+  
   return(d)
 }
 
 #CDF of an extended Pareto distribution
-.pEPD <- function(x, gamma, kappa, tau = -1) {
+.pEPD <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -43,11 +45,15 @@
   p <- 1 - (x * (1+kappa*(1-x^tau)))^(-1/gamma) 
   p[x<=1] <- 0
   
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
   return(p)
 }
 
-
-.qEPD <-  function(p, gamma, kappa, tau = -1) {
+# Quantile function of EPD
+.qEPD <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
   if (any(tau>=0)) {
     stop("tau should be negative.")
@@ -60,6 +66,10 @@
   #   if (any(kappa<=pmax(-1,1/tau))) {
   #     stop("kappa should be larger than max(-1,1/tau).")
   #   }
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
   
   if (any(p<0 | p>1)) {
     stop("p should be between 0 and 1.")
@@ -88,6 +98,7 @@
   }
   return(Q)
 }
+
 
 ########################################################
 # Estimation
