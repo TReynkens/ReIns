@@ -1,6 +1,6 @@
 
 importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecdf",
-             "nlm", "optim", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", "qexp",
+             "nlm", "optim", "optimise", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", "qexp",
              "qlnorm", "qnorm", "qweibull", "runif", "stepfun", "uniroot", "var")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot")
 importFrom("survival", "Surv", "survfit")
@@ -18,6 +18,7 @@ export("dpareto","ppareto","qpareto","rpareto")
 export("dtpareto","ptpareto","qtpareto","rtpareto") 
 export("dgpd","pgpd","qgpd","rgpd") 
 export("dtgpd","ptgpd","qtgpd","rtgpd")
+export("depd","pepd","qepd","repd")
 export("dburr","pburr", "qburr", "rburr")
 export("dtburr","ptburr", "qtburr", "rtburr")
 

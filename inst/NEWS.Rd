@@ -27,6 +27,7 @@
         \item Rename internal functions (starting with \code{.}).
         \item Fix bug in \code{.dEPD} and \code{.pEPD}.
         \item Add quantile function and random number generation for EPD (\code{.qEPD} and \code{.rEPD}).
+        \item Export [dpqr]EPD.
       }
       
     \item Documentation changes:
@@ -39,6 +40,7 @@
          \item Add vignette.
          \item Add documentation for Burr and truncated Burr distribution (type XII).
          \item Add documentation for truncated exponential, truncated Weibull and truncated log-normal distribution.
+        \item Add documentation for [dpqr]EPD.
       }
       
    \item Changes in testing:

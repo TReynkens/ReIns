@@ -399,7 +399,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
   
 }
 # Density of an extended Pareto distribution
-.dEPD <- function(x, gamma, kappa, tau = -1, log = FALSE) {
+depd <- function(x, gamma, kappa, tau = -1, log = FALSE) {
   
   # Check input
   .EPDinput(x, gamma, kappa, tau, kappaTau = TRUE)
@@ -416,7 +416,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 }
 
 # CDF of an extended Pareto distribution
-.pEPD <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
+pepd <- function(x, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
   .EPDinput(x, gamma, kappa, tau, kappaTau = FALSE)
@@ -443,7 +443,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 }
 
 # Quantile function of EPD
-.qEPD <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
+qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
   .EPDinput(p, gamma, kappa, tau, kappaTau = TRUE)
@@ -461,11 +461,22 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
   l <- length(p)
   Q <- numeric(l)
   
-  # Take 100 as endpoint for interval to search over unless not large enough
-  endpoint <- ifelse(.pEPD(100,gamma,kappa,tau)>=max(p[p<1]), 100, 1000)
+  # Take 10 as endpoint for interval to search over unless not large enough
+  endpoint <- 10
+  
+  if (any(p<1)) {
+    
+    mx <- max(p[p<1])
+    
+    while (pepd(endpoint,gamma,kappa,tau)<=mx) {
+      endpoint <- endpoint*10
+    }
+    
+  }
+ 
+
   
   for(i in 1:l) {
-    
     
     if (p[i]<10^(-14)) {
       # p=0 case
@@ -473,14 +484,14 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
       
     } else if (p[i]<1) {
       # 0<p<1 case
-      
-      # Function to compute roots of
-      f <- function(x) {
-        (1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau))
+       
+      # Function to minimise
+      f <- function(x){
+        ((1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau)))^2
       }
-      # If root solving fails return NA
-      Q[i] <- tryCatch(uniroot(f,lower=1,upper=endpoint)$root, error=function(e) NA) 
-      
+      # If minimising fails return NA
+      Q[i] <- tryCatch(optimise(f, lower=1, upper=endpoint)$minimum, error=function(e) NA) 
+
     } else {
       # p=1 case
       Q[i] <- Inf
@@ -494,12 +505,12 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 
 
 # Random number generation for EPD
-.rEPD <-  function(n, gamma, kappa, tau = -1) {
+repd <-  function(n, gamma, kappa, tau = -1) {
   
-  # Rely on input checking in .qEPD
+  # Rely on input checking in qepd
   
   # Generate random numbers
-  return(.qEPD(runif(n), gamma=gamma, kappa=kappa, tau=tau))
+  return(qepd(runif(n), gamma=gamma, kappa=kappa, tau=tau))
 }
 
 

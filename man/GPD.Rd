@@ -71,7 +71,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[=ptgpd]{tGPD}}, \code{\link[=ppareto]{Pareto}}, \code{\link[stats]{Distributions}}
+\code{\link[=ptgpd]{tGPD}}, \code{\link[=ppareto]{Pareto}}, \code{\link[=pepd]{EPD}}, \code{\link[stats]{Distributions}}
 }
 
 

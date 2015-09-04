@@ -266,7 +266,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   if (kappa<=max(-1,1/tau) | gamma<=0) {
     logL <- -10^6
   } else {
-    logL <- sum( log(.dEPD(Y, gamma=gamma, kappa=kappa, tau=tau)) )
+    logL <- sum( log(depd(Y, gamma=gamma, kappa=kappa, tau=tau)) )
   }
   
   # minus log-likelihood for optimisation
@@ -334,7 +334,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   K2 <- K[which(gamma[K]>0)]
   
-  prob[K2] <- (K2+1)/(n+1) * (1 - .pEPD(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
+  prob[K2] <- (K2+1)/(n+1) * (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -366,7 +366,7 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   K2 <- K[which(gamma[K]>0)]
   
-  r[K2] <- (n+1)/(K2+1) / (1 - .pEPD(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
+  r[K2] <- (n+1)/(K2+1) / (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   
   
   r[which(gamma[K]<=0)] <- NA

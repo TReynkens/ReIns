@@ -233,14 +233,14 @@ ciReturn <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
     logL <- -10^6
   } else {
 
-#     logL <- sum(delta * log(.dEPD(Zt, gamma=gamma, kappa=kappa, tau=tau)) ) +
-#       sum( (1-delta) *  log(.pEPD(It, gamma=gamma, kappa=kappa, tau=tau) -  
-#                   .pEPD(Zt, gamma=gamma, kappa=kappa, tau=tau)) )
+#     logL <- sum(delta * log(depd(Zt, gamma=gamma, kappa=kappa, tau=tau)) ) +
+#       sum( (1-delta) *  log(pepd(It, gamma=gamma, kappa=kappa, tau=tau) -  
+#                   pepd(Zt, gamma=gamma, kappa=kappa, tau=tau)) )
 
     # Use delta and notdelta as index for the vector to avoid numerical issues
-    logL <- sum(  log(.dEPD(Zt[delta], gamma=gamma, kappa=kappa, tau=tau)) ) +
-            sum(  log(.pEPD(It[notdelta], gamma=gamma, kappa=kappa, tau=tau) -  
-                             .pEPD(Zt[notdelta], gamma=gamma, kappa=kappa, tau=tau)) )
+    logL <- sum(  log(depd(Zt[delta], gamma=gamma, kappa=kappa, tau=tau)) ) +
+            sum(  log(pepd(It[notdelta], gamma=gamma, kappa=kappa, tau=tau) -  
+                             pepd(Zt[notdelta], gamma=gamma, kappa=kappa, tau=tau)) )
   }
   
   # minus log-likelihood for optimisation
@@ -450,7 +450,7 @@ ciProbEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, add
 
   K2 <- K[!is.na(gamma1[K])]
   
-  prob[K2] <- (1-tu) * (1-.pEPD(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta))
+  prob[K2] <- (1-tu) * (1-pepd(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -487,7 +487,7 @@ ciReturnEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, a
   
   K2 <- K[!is.na(gamma1[K])]
   
-  R[K2] <- 1 / ((1-tu) * (1-.pEPD(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta)) )
+  R[K2] <- 1 / ((1-tu) * (1-pepd(q/Zsort[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta)) )
   R[R<1] <- NA
   
   # plots if TRUE
