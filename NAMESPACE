@@ -85,10 +85,9 @@ export("ciEPD","ciProbEPD","ciReturnEPD")
 #########################
 # Truncation estimators
 
-export("trHill","trDT","trEndpoint","trQuant",
-       "trProb")
+export("trHill","trDT","trEndpoint","trQuant","trProb")
 export("trTest")
-#export("tr.DT","tr.beta")
+export("trParetoQQ")
 
 
 #####################################

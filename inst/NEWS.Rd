@@ -6,11 +6,13 @@
     \item Changes in \code{R} code:
       \itemize{
         \item Add new scale estimator \code{ScaleEPD}.
+        \item Add truncated Pareto QQ-plot \code{trParetoQQ}.
       }
 
       \item Documentation changes:
         \itemize{
           \item Add documentation for \code{ScaleEPD}.
+          \item Add documentation for \code{trParetoQQ}.
         }
       }
 

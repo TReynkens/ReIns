@@ -213,10 +213,10 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
 }
 
 
-trParetoQQ <- function(data, r = 1, DT, kstar = NULL, main = "TPa QQ-plot") {
+trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "tPa QQ-plot", ...) {
   
   # Check input arguments
-  .checkInput(data,DT=DT)
+  .checkInput(data, DT=DT)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -225,45 +225,67 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, main = "TPa QQ-plot") {
   K <- r:(n-1) 
   
   if(length(DT)==1) {
-    DT = rep(0,length(K))
+    DT <- rep(DT,length(K))
   }
   
-
-  
   # calculate theoretical and empirical quantiles
-    
-
   pqq.emp <- log(X[n-j+1])
   
   # Select kstar based on maximising correlation
   if(is.null(kstar)) {
-    k = ifelse(length(K)>10,10,1):length(K)
-    cors <- numeric(length(k)) 
-    for(i in 1:length(k)) {
-      cors[i] <- abs(cor(log(X[n-(1:k[i])+1]),log(DT[K==k[i]]+(1:k[i])/n)))
-    }
-    kstar <- k[which.max(cors)]
-  } 
-  pqq.the <- log(DT[K==kstar]+j/n)
+    
+    # Ignore first values for k if K is large
+    k <- ifelse(length(K)>10, 11, 1):length(K)
 
-  #Old margins
+    # Compute correlation between log(X[n-j+1]) and DT[i]+j/n
+    cors <- numeric(length(k)) 
+    
+    for(i in 1:length(k)) {
+      cors[i] <- abs( cor(log(X[n-(1:k[i])+1]), log(DT[K==k[i]]+(1:k[i])/n)) )
+    }
+    # Value for k which maximises correlation
+    kstar <- k[which.max(cors)]
+    
+  } else {
+    
+    # Check if input for kstar is valid
+    if (!is.numeric(kstar) | length(kstar)>1) {
+      stop("kstar should be a numeric of length 1.")
+    }
+    
+    if (kstar<=0 | !.is.wholenumber(kstar)) {
+      stop("kstar should be a strictly positive integer.")
+    }
+    
+    if (kstar>n-1) {
+      stop(paste0("kstar should be strictly smaller than ",n,"."))
+    }
+    
+    if (kstar<=10) {
+      warning("kstar should be strictly larger than 10.")
+    }
+    
+  }
+  
+  pqq.the <- -log(DT[K==kstar]+j/(n+1))
+
+  # Old margins
   oldmar <-  par("mar")
   
-  #Increase margins to the left
+  # Increase margins to the left
   par(mar=c(5.1, 4.6, 4.1, 2.1))
   
   # plots if TRUE
-  plot(pqq.emp, pqq.the, type="p", xlab=bquote(log(X["n-j+1,n"])), 
-       ylab=bquote(log(hat(D)[.(paste0("T,",r,",",kstar))]+j/n)), 
-          main=main)
+  xlab <- bquote(-log(hat(D)[.(paste0("T,",r,",",kstar))]+j/(n+1)))
+  ylab <- bquote(log(X["n-j+1,n"]))
+  .plotfun(pqq.the, pqq.emp, type="p", xlab=xlab, ylab=ylab, 
+          main=main, plot=plot, add=FALSE, ...)
   
-  #Reset margins
+  # Reset margins
   par(mar=oldmar)
   
   
-  # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(pqq.the=pqq.the, pqq.emp=pqq.emp, DT_opt = DT[K==kstar],kstar=kstar))
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp, kstar=kstar, DTstar = DT[K==kstar]), plot=plot, add=FALSE)
 }
 
 
