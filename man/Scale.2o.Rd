@@ -2,10 +2,10 @@
 \alias{Scale.2o}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Bias-reduced scale estimator
+Bias-reduced scale estimator using second order Hill estimator
 }
 \description{
-Computes the bias-reduced estimator for the scale parameter as described in Beirlant et al. (201x).
+Computes the bias-reduced estimator for the scale parameter using the second order Hill estimator.
 }
 \usage{
 Scale.2o(data, gamma, b, beta, plot = FALSE, add = FALSE, 
@@ -40,7 +40,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The scale estimates are computed based on the following model for the CDF:
-\eqn{1-F(x) = A x^{-1/\gamma} ( 1+ Bx^{-\beta}(1+o(1)) )}, where \eqn{A:= C^{1/\gamma}} is the scale parameter.
+\eqn{1-F(x) = A x^{-1/\gamma} ( 1+ bx^{-\beta}(1+o(1)) )}, where \eqn{A:= C^{1/\gamma}} is the scale parameter.
 }
 \value{
 A list with following components:
@@ -59,7 +59,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{Scale}}, \code{\link{Hill.2oQV}}
+\code{\link{Scale}}, \code{\link{ScaleEPD}}, \code{\link{Hill.2oQV}}
 }
 \examples{
 data(secura)
