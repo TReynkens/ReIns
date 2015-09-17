@@ -61,7 +61,7 @@ Aban, I.B., Meerschaert, M.M. and Panorska, A.K. (2006). "Parameter Estimation f
 Pareto Distribution." \emph{Journal of the American Statistical Association}, 101, 270--277.
 
 Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
-Pareto-type Distributions". \emph{Journal of the Royal Statistical Society}.
+Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
 }
 \author{
 Tom Reynkens based on \code{R} code of Dries Cornilly.

@@ -63,7 +63,7 @@ A list with following components:
 }
 \references{
 Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
-Pareto-type Distributions". \emph{Journal of the Royal Statistical Society}.
+Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
 }
 \author{
 Tom Reynkens based on \code{R} code of Dries Cornilly.
