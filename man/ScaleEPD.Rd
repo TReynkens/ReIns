@@ -1,15 +1,15 @@
-\name{Scale}
-\alias{Scale}
+\name{ScaleEPD}
+\alias{ScaleEPD}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Scale estimator
+Bias-reduced scale estimator using EPD estimator
 }
 \description{
-Computes the estimator for the scale parameter as described in Beirlant et al. (201x).
+Computes the bias-reduced estimator for the scale parameter using the EPD estimator (Beirlant et al., 201x).
 }
 \usage{
-Scale(data, gamma = NULL, plot = FALSE, add = FALSE, 
-      main = "Estimates of scale parameter", ...)
+ScaleEPD(data, gamma, kappa, plot = FALSE, add = FALSE, 
+          main = "Estimates of scale parameter", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,7 +17,10 @@ Scale(data, gamma = NULL, plot = FALSE, add = FALSE,
 Vector of \eqn{n} observations. 
 }
   \item{gamma}{
-Vector of \eqn{n-1} estimates for the EVI. When \code{NULL} (the default value), Hill estimates are computed.
+Vector of \eqn{n-1} estimates for the EVI obtained from \code{EPD}.
+}
+  \item{kappa}{
+Vector of \eqn{n-1} estimates for \eqn{\kappa} obtained from \code{EPD}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.
@@ -34,7 +37,9 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The scale estimates are computed based on the following model for the CDF:
-\eqn{1-F(x) = A x^{-1/\gamma}}, where \eqn{A:= C^{1/\gamma}} is the scale parameter.
+\eqn{1-F(x) = A x^{-1/\gamma} ( 1+ bx^{-\beta}(1+o(1)) )}, where \eqn{A:= C^{1/\gamma}} is the scale parameter.
+Using the EPD approach we replace \eqn{bx^{-\beta}} by \eqn{\kappa/\xi}.
+
 }
 \value{
 A list with following components:
@@ -52,24 +57,24 @@ Beirlant, J., De Spiegeleer, J., Herrmann, K., Reynkens, T. and Schoutens, W. (2
 Tom Reynkens
 }
 
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-\code{\link{ScaleEPD}}, \code{\link{Scale.2o}}, \code{\link{Hill}}
+\code{\link{Scale}}, \code{\link{Scale.2o}}, \code{\link{EPD}}
 }
 \examples{
 data(secura)
 
 # Hill estimator
 H <- Hill(secura$size)
+# EPD estimator
+epd <- EPD(secura$size)
 
 # Scale estimator
 S <- Scale(secura$size, gamma=H$gamma, plot=FALSE)
+# Bias-reduced scale estimator
+Sepd <- ScaleEPD(secura$size, gamma=epd$gamma, kappa=epd$kappa, plot=FALSE)
 
-# Plot logarithm of scale          
+# Plot logarithm of scale             
 plot(S$k,log(S$A), xlab="k", ylab="log(Scale)", type="l")
+lines(Sepd$k,log(Sepd$A), lty=2)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 

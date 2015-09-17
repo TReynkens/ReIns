@@ -50,3 +50,29 @@ Scale.2o <- function(data, gamma, b, beta, plot = FALSE, add = FALSE,
   
   .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
 }
+
+
+ScaleEPD <- function (data, gamma, kappa, plot = FALSE, add = FALSE, 
+                      main = "Estimates of scale parameter", ...) {
+  
+  # Check input arguments
+  .checkInput(data)
+  
+  X <- as.numeric(sort(data))
+  n <- length(X)
+  K <- 1:(n-1)
+  A <- numeric(n)
+  C <- numeric(n)
+  
+  #   kappa[kappa<pmax(-1,-1/gamma[K])] <- NA
+  gamma[gamma<=0] <- NA
+  
+  A[K] <- (K + 1)/(n + 1) * X[n - K]^(1/gamma[K]) * (1-kappa[K]/gamma[K])
+  C[K] <- A[K]^gamma[K]
+  
+  # plots if TRUE
+  .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  
+  .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
+}
+

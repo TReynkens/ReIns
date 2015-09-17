@@ -1,7 +1,20 @@
 \name{NEWS}
 \title{News for package "ReIns"}
 
+\section{Changes in version 0.4-01 (2015-xx-yy)}{
+  \itemize{
+    \item Changes in \code{R} code:
+      \itemize{
+        \item Add new scale estimator \code{ScaleEPD}.
+      }
 
+      \item Documentation changes:
+        \itemize{
+          \item Add documentation for \code{ScaleEPD}.
+        }
+      }
+
+}
 \section{Changes in version 0.4-00 (2015-09-08)}{
 
   \itemize{
