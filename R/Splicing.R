@@ -909,6 +909,28 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   abline(a=0, b=1)
 }
 
+
+# Probability - probability plot with ECDF
+SpliceQQ <- function(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
+  
+  # Check input arguments
+  .checkInput(X, pos=FALSE)
+  
+  X <- as.numeric(sort(X))
+  n <- length(X)
+  
+  # ECDF estimator
+  sqq.emp <- sort(X)
+  sqq.the <- qSplice(p=(1:n)/(n+1), splicefit=splicefit)
+  
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
+  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
+}
+
+
 # Probability - probability plot with Turnbull estimator
 SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE, ...) {
   

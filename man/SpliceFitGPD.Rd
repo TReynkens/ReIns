@@ -87,7 +87,10 @@ SplicePP(x, X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit,log=TRUE)
+SplicePP(x, X, splicefit, log=TRUE)
+
+# Splicing QQ-plot
+SpliceQQ(X, splicefit)
 
 }
 }

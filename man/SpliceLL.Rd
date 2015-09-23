@@ -39,10 +39,11 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{SpliceLL_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SplicePP}}
+\code{\link{SpliceLL_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SplicePP}}, \code{\link{SpliceQQ}}
 }
 \examples{
 \dontrun{
+
 
 # Pareto random sample
 X <- rpareto(1000, shape = 2)
@@ -73,7 +74,10 @@ SplicePP(x, X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit,log=TRUE)
+SplicePP(x, X, splicefit, log=TRUE)
+
+# Splicing QQ-plot
+SpliceQQ(X, splicefit)
 
 }
 }

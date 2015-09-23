@@ -1,36 +1,32 @@
-\name{SplicePP}
-\alias{SplicePP}
+\name{SpliceQQ}
+\alias{SpliceQQ}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-PP-plot with fitted and empirical survival function
+Splicing quantile plot
 }
 \description{
-This function plots the fitted survival function of the splicing distribution versus the
-empirical survival function (determined using the Empirical CDF (ECDF)). 
+Computes the empirical quantiles of a data vector and the theoretical quantiles of the fitted splicing distribution. These quantiles are then plotted in a splicing QQ-plot with the theoretical quantiles on the \eqn{x}-axis and the empirical quantiles on the \eqn{y}-axis.
 }
 \usage{
-SplicePP(x = sort(X), X, splicefit, log = FALSE, ...)
+SpliceQQ(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-Vector of points to plot the functions at. By default we plot them at the data points.
-}
   \item{X}{
-Data used for fitting the distribution.
+  Vector of \eqn{n} observations. 
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
 }
-  \item{log}{
-Logical indicating if the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
+  \item{plot}{
+Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
+}
+  \item{main}{
+Title for the plot, default is \code{"Pareto QQ-plot"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
-}
-\details{
-Use \code{\link{SplicePP_TB}} for censored data. 
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
@@ -42,7 +38,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{SplicePP_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SpliceQQ}}
+\code{\link{qSplice}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 \examples{
 \dontrun{

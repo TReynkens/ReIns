@@ -103,7 +103,7 @@ export("trcProb","trciProb")
 
 export("SpliceFitHill","SpliceFitcHill","SpliceFitGPD")
 export("dSplice","pSplice","qSplice","rSplice")
-export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB")
+export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB","SpliceQQ")
 # S3
 export("MEfit", "EVTfit", "SpliceFit")
 S3method(summary, SpliceFit)

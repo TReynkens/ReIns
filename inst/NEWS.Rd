@@ -8,12 +8,14 @@
         \item Add new scale estimator \code{ScaleEPD}.
         \item Add truncated Pareto QQ-plot \code{trParetoQQ}.
         \item Improve output of QQ-plots.
+        \item Add splicing QQ-plot \code{SpliceQQ}.
       }
 
       \item Documentation changes:
         \itemize{
           \item Add documentation for \code{ScaleEPD}.
           \item Add documentation for \code{trParetoQQ}.
+          \item Add documentation for \code{SpliceQQ}.
         }
       }
 
