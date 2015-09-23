@@ -7,6 +7,7 @@
       \itemize{
         \item Add new scale estimator \code{ScaleEPD}.
         \item Add truncated Pareto QQ-plot \code{trParetoQQ}.
+        \item Improve output of QQ-plots.
       }
 
       \item Documentation changes:

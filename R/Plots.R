@@ -28,8 +28,7 @@ ExpQQ <- function(data, plot = TRUE, main = "Exponential QQ-plot", ...) {
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(eqq.the=eqq.the, eqq.emp=eqq.emp))
+  .output(list(eqq.the=eqq.the, eqq.emp=eqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -70,8 +69,7 @@ MeanExcess <- function(data, plot = TRUE, k = FALSE, main = "Mean excess plot", 
   
   # output list with values of k, order statistics X_n-k,n 
   # and mean excess scores e_k,n
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(k=K, X=X[n-K], e=e[K]))
+  .output(list(k=K, X=X[n-K], e=e[K]), plot=plot, add=FALSE)
   
 }
 
@@ -102,8 +100,7 @@ ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-	# invisible makes sure that the returned list is not printed, but can still be assigned
-	invisible(list(pqq.the=pqq.the, pqq.emp=pqq.emp))
+	.output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=FALSE)
 
 }
 
@@ -134,8 +131,7 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(xval=xval, yval=yval))
+  .output(list(xval=xval, yval=yval), plot=plot, add=FALSE)
   
 }
 
@@ -161,8 +157,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(lnqq.the=lnqq.the, lnqq.emp=lnqq.emp))
+  .output(list(lnqq.the=lnqq.the, lnqq.emp=lnqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -194,8 +189,7 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(xval=xval, yval=yval))
+  .output(list(xval=xval, yval=yval), plot=plot, add=FALSE)
   
 }
 
@@ -234,8 +228,7 @@ genQQ <- function(data, gamma, plot = TRUE, main = "Generalised QQ-plot", ...) {
   
   # output list with theoretical quantiles gqq.the
   # and empirical quantiles gqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(gqq.the=gqq.the, gqq.emp=gqq.emp))
+  .output(list(gqq.the=gqq.the, gqq.emp=gqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -276,8 +269,7 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
   
   # output list with theoretical quantiles gqq.the
   # and empirical quantiles gqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(res.the=res.the, res.emp=res.emp))
+  .output(list(res.the=res.the, res.emp=res.emp), plot=plot, add=FALSE)
   
   
 }
@@ -317,8 +309,7 @@ cExpQQ <- function(data, censored, plot = TRUE, main = "Exponential QQ-plot", ..
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(eqq.the=eqq.the, eqq.emp=eqq.emp))
+  .output(list(eqq.the=eqq.the, eqq.emp=eqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -346,8 +337,7 @@ cLognormalQQ <- function(data, censored, plot = TRUE, main = "Log-normal QQ-plot
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(lnqq.the=lnqq.the, lnqq.emp=lnqq.emp))
+  .output(list(lnqq.the=lnqq.the, lnqq.emp=lnqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -381,8 +371,7 @@ cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...)
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(pqq.the=pqq.the, pqq.emp=pqq.emp))
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -439,8 +428,7 @@ cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised QQ-plot", ..
   
   # output list with theoretical quantiles gqq.the
   # and empirical quantiles gqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(gqq.the=gqq.the, gqq.emp=gqq.emp))
+  .output(list(gqq.the=gqq.the, gqq.emp=gqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -479,8 +467,7 @@ ciParetoQQ <- function(Z, I, censored, plot = TRUE, main = "Pareto QQ-plot", ...
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(pqq.the=pqq.the, pqq.emp=pqq.emp))
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -515,8 +502,7 @@ ciExpQQ <- function(Z, I, censored, plot = TRUE, main = "Exponential QQ-plot", .
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(eqq.the=eqq.the, eqq.emp=eqq.emp))
+  .output(list(eqq.the=eqq.the, eqq.emp=eqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -550,8 +536,7 @@ ciLognormalQQ <- function(Z, I, censored, plot = TRUE, main = "Log-normal QQ-plo
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
-  # invisible makes sure that the returned list is not printed, but can still be assigned
-  invisible(list(lqq.the=lqq.the, lqq.emp=lqq.emp))
+  .output(list(lqq.the=lqq.the, lqq.emp=lqq.emp), plot=plot, add=FALSE)
   
 }
 
