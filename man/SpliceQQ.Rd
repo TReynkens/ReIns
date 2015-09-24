@@ -28,6 +28,11 @@ Title for the plot, default is \code{"Pareto QQ-plot"}.
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
+\value{
+A list with following components:
+\item{sqq.the}{Vector of the theoretical quantiles of the fitted splicing distribution.}
+\item{sqq.emp}{Vector of the empirical quantiles from the data.}
+}
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
