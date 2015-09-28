@@ -8,7 +8,8 @@ Splicing of mixed Erlang and GPD using POT-MLE
 Fit spliced distribution of a mixed Erlang and Generalised Pareto Distributions (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
 }
 \usage{
-SpliceFitGPD(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL)
+SpliceFitGPD(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
+            criterium = c("BIC","AIC"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,6 +33,9 @@ Lower truncation point. Default is 0.
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
 When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
+}
+\item{criterium}{
+Information criterion used to select the number of components of the ME fit. One of \code{"AIC"} and \code{"BIC"} (default).
 }
 }
 \details{

@@ -10,6 +10,7 @@
         \item Improve output of QQ-plots.
         \item Add splicing QQ-plot \code{SpliceQQ}.
         \item Improve input checking of \code{MEfit}.
+        \item Add input argument "criterium" for the \code{SpliceFit}-functions. 
       }
 
       \item Documentation changes:
@@ -17,6 +18,7 @@
           \item Add documentation for \code{ScaleEPD}.
           \item Add documentation for \code{trParetoQQ}.
           \item Add documentation for \code{SpliceQQ}.
+          \item Update documentation for the \code{SpliceFit}-functions. 
         }
       }
 
