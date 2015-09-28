@@ -44,10 +44,25 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
   if (length(shape)!=M) stop("shape must have length M.")
   if (length(theta)!=1) stop("theta must have length 1")
   
+  eps <- .Machine$double.eps
+  
   # Check if p is a vector of probabilities that sums to one.
-  if (any(p<0)) stop("p must contain positive numbers.")
+  if (any(p<=eps)) stop("p must contain strictly positive numbers.")
   tol <- .Machine$double.eps^0.5
   if (abs(sum(p)-1)>tol) stop("p must have sum 1.")
+  
+  # Check if shape is a strictly increasing vector of positive integers.
+  if (any(shape<=eps) | any(!.is.wholenumber(shape))) {
+    stop("shape must contain strictly positive integers.")
+  }  
+  if (is.unsorted(shape, strictly=TRUE)) {
+    stop("shape must be a strictly increasing vector.")
+  }
+  
+  # Check if theta is strictly positive
+  if (theta<=eps) {
+    stop("theta must be a strictly positive number.")
+  }
   
   # Make first list
   L <- list(p=p, shape=shape, theta=theta, M=M)
@@ -95,7 +110,8 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
     
     if (length(sigma)!=length(gamma)) stop("gamma and sigma should have equal length.")
     
-    if (any(sigma<=0)) {
+    eps <- .Machine$double.eps
+    if (any(sigma<=eps)) {
       stop("sigma should be strictly positive.")
     }
     

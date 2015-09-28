@@ -9,6 +9,7 @@
         \item Add truncated Pareto QQ-plot \code{trParetoQQ}.
         \item Improve output of QQ-plots.
         \item Add splicing QQ-plot \code{SpliceQQ}.
+        \item Improve input checking of \code{MEfit}.
       }
 
       \item Documentation changes:
