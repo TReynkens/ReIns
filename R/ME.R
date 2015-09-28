@@ -504,7 +504,7 @@
     interval <- c(trunclower, pmin(truncupper, trunclower + qgamma(p, shape, scale = theta)))
     for(i in 1:length(shape)){
       VaR_nlm[[i]] <- nlm(f = objective, p = qgamma(p, shape = shape[i], scale = theta))    
-      VaR_optimize[[i]] <- optimize(f = objective, interval = interval[c(i, i+1)])
+      VaR_optimize[[i]] <- optimize(f = objective, interval = interval[c(1, i+1)])
     }
     VaR_nlm <- sapply(VaR_nlm, with, estimate)[which.min(sapply(VaR_nlm, with, minimum))]
     VaR_optimize <- sapply(VaR_optimize, with, minimum)[which.min(sapply(VaR_optimize, with, objective))]
