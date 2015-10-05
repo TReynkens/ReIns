@@ -11,6 +11,7 @@
         \item Add splicing QQ-plot \code{SpliceQQ}.
         \item Improve input checking of \code{MEfit}.
         \item Add input argument "criterium" for the \code{SpliceFit}-functions. 
+        \item Add AMSE selection of threshold: \code{Hill.kopt}.
       }
 
       \item Documentation changes:
@@ -18,7 +19,8 @@
           \item Add documentation for \code{ScaleEPD}.
           \item Add documentation for \code{trParetoQQ}.
           \item Add documentation for \code{SpliceQQ}.
-          \item Update documentation for the \code{SpliceFit}-functions. 
+          \item Update documentation for the \code{SpliceFit}-functions.
+          \item Add documentation for \code{Hill.kopt}. 
         }
       }
 

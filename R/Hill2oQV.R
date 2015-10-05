@@ -149,3 +149,63 @@ Quant.2oQV <- function(data, gamma, b, beta, p, plot = FALSE, add = FALSE,
 
 Weissman.q.2oQV <- Quant.2oQV 
 
+
+############################################################################
+
+# Computes a possible choice for the optimal k value
+# of the Hill estimator by minimizing estimates of 
+# the asumptotic mean squared error (Section 4.7ii)
+#
+# Estimates can be based on the estimates of the second
+# order parameters gamma, b and beta obtained with the
+# function Hill.2oQV
+#
+# If add=TRUE, the optimal k value is added to
+# the plot of the Hill estimates (given the plot is available)
+#
+# If plot=TRUE then the estimates of the AMSE are plotted
+# as a function of k and the optimal k value is added to it
+Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, add = FALSE, 
+                     main = "AMSE plot", ...) {
+  
+  # Check input arguments
+  .checkInput(data)
+  
+  n <- length(data)
+  K <- 1:(n-1)
+  
+  if (n==1) {
+    stop("We need at least two data points.")
+  }
+  
+  # Estimates of the second order parameters gamma, b and beta 
+  H <- Hill.2oQV(data=data, start=start, warnings=warnings, plot=plot, add=add)
+  gamma <- H$gamma
+  b <- H$b
+  beta <- H$beta
+  
+  
+  # calculate AMSE and find the minimum
+  
+  AMSE.Hill <- (gamma^2)/K + (b/(1+beta))^2
+  AMSE.Hill.min <- min(AMSE.Hill, na.rm=TRUE)
+  kopt <- K[AMSE.Hill==AMSE.Hill.min]
+  gammaopt <- gamma[kopt]
+  
+  # plots if TRUE
+  if (plot || add) {
+    if (add) {   # add optimal k value to Hill-plot
+      abline(v=kopt, lty=2, col="black", lwd=2)
+    } else {
+      ## plot estimates of AMSE as function of k
+      plot(K, AMSE.Hill, type="l", ylab="AMSE", xlab="k", main=main, ...)
+      abline(v=kopt, lty=2, col="black", lwd=2)
+    }
+  }
+  
+  
+  # output list with values of k, corresponding
+  # estimates of AMSE Hill and optimal k value kopt
+  .output(list(k=K, AMSE=AMSE.Hill, kopt=kopt, gammaopt=gammaopt), plot=plot, add=add)
+}
+

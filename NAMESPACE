@@ -39,7 +39,7 @@ export("MeanExcess")
 # Estimators for Pareto-type tails
 
 export("Hill")
-export("Hill.2oQV") 
+export("Hill.2oQV", "Hill.kopt") 
 export("Prob", "Quant", "Return")
 export("Weissman.p", "Weissman.q", "Weissman.r")
 export("Quant.2oQV", "Weissman.q.2oQV") 
