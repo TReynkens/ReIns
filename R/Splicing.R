@@ -887,7 +887,7 @@ SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(all.equal(Z,I), "right", "interval")
+  type <- ifelse(all(abs(Z-I)< 10^(-10)), "right", "interval")
 
   if (type=="interval") {
     fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
@@ -975,7 +975,7 @@ SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE,
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(all.equal(Z,I), "right", "interval")
+  type <- ifelse(all(abs(Z-I)< 10^(-10)), "right", "interval")
   
   if (type=="interval") {
     fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
@@ -1034,7 +1034,7 @@ SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
   event <- !censored[sortix]
   # 3 for interval censoring and 0 for right censoring
   event[event==0 & Z!=I] <- 3
-  type <- ifelse(all.equal(Z,I), "right", "interval")
+  type <- ifelse(all(abs(Z-I)< 10^(-10)), "right", "interval")
   
   if (type=="interval") {
     fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
