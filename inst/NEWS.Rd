@@ -12,6 +12,7 @@
         \item Improve input checking of \code{MEfit}.
         \item Add input argument "criterium" for the \code{SpliceFit}-functions. 
         \item Add AMSE selection of threshold: \code{Hill.kopt}.
+        \item Improve input checking of \code{SpliceFit}.
       }
 
       \item Documentation changes:

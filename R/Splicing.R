@@ -178,6 +178,18 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
     stop("sigma should be included when GPD is used.")
   }
   
+  # Check if correct type when truncated
+  ind <- which(is.finite(EVTfit$endpoint))
+  if (any(substring(type[ind+1],1,1)!="t")) {
+    stop("Invalid type when endpoint is finite.")
+  }
+  
+  # Check if truncated when indicated by type
+  ind <- which(substring(type,1,1)=="t")
+  if (any(!is.finite(EVTfit$endpoint[ind-1]))) {
+    stop("Finite endpoint is not compatible with type \"tPa\" or \"tciPa\".")
+  }
+  
   # Make list
   L <- list(const=const, pi=pi, trunclower=trunclower, t=t, type=type, MEfit=MEfit, EVTfit=EVTfit)
   
