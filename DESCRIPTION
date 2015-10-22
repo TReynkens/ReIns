@@ -1,12 +1,12 @@
 Package: ReIns
 Type: Package
 Title: Functions and Datasets from "Reinsurance: Actuarial and Statistical Aspects"
-Version: 0.4-01
-Date: 2015-10-20
+Version: 0.4-02
+Date: 2015-10-22
 Authors@R: c(person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = c("aut", "cre")),
+          person("Roel", "Verbelen",role = c("aut")),
           person("Anastasios", "Bardoutsos",role = c("ctb")),
-          person("Dries", "Cornilly",role = c("ctb")),
-          person("Roel", "Verbelen",role = c("aut")))
+          person("Dries", "Cornilly",role = c("ctb")))
 Maintainer: Tom Reynkens <tomreynkens@hotmail.com>
 Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2015) of Albrecher, Beirlant and Teugels.
 License: GPL (>= 2)
