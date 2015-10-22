@@ -285,7 +285,7 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
 ###############################################################################
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
-SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
+SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
                           EVTtruncation = FALSE, ncores = NULL, criterium = c("BIC","AIC")) {
  
   # Check if X is numeric
@@ -397,8 +397,8 @@ SpliceFitHill <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Return SpliceFit object
   return( SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
-
-
+# Include for compatbility with old versions
+SpliceFitHill <- SpliceFitPareto
 
 
 

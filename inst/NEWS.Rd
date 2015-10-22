@@ -1,6 +1,22 @@
 \name{NEWS}
 \title{News for package "ReIns"}
 
+\section{Changes in version 0.4-02 (yyyy-mm-dd)}{
+  \itemize{
+    \item Changes in \code{R} code:
+      \itemize{
+        \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}. \code{SpliceFitHill} is still included for compatibility with older versions.
+      }
+
+      \item Documentation changes:
+        \itemize{
+          \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}.
+        }
+      }
+
+}
+
+
 \section{Changes in version 0.4-01 (2015-10-20)}{
   \itemize{
     \item Changes in \code{R} code:
@@ -26,6 +42,7 @@
       }
 
 }
+
 \section{Changes in version 0.4-00 (2015-09-08)}{
 
   \itemize{

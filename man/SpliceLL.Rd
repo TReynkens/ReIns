@@ -20,7 +20,7 @@ Vector of points to plot the fitted survival function at. By default we plot it 
 Data used for fitting the distribution.
 }
   \item{splicefit}{
-A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -39,7 +39,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{SpliceLL_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SplicePP}}, \code{\link{SpliceQQ}}
+\code{\link{SpliceLL_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SplicePP}}, \code{\link{SpliceQQ}}
 }
 \examples{
 \dontrun{
@@ -49,7 +49,7 @@ Tom Reynkens
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 
 

@@ -1,4 +1,5 @@
-\name{SpliceFitHill}
+\name{SpliceFitPareto}
+\alias{SpliceFitPareto}
 \alias{SpliceFitHill}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -8,6 +9,9 @@ Splicing of mixed Erlang and Pareto
 Fit spliced distribution of a mixed Erlang and Pareto distribution(s). The shape parameter of the Pareto distribution(s) is determined using the Hill estimator. 
 }
 \usage{
+SpliceFitPareto(X, const, M = 3, s = 1:10, trunclower = 0, 
+              EVTtruncation = FALSE, ncores = NULL, criterium = c("BIC","AIC"))
+              
 SpliceFitHill(X, const, M = 3, s = 1:10, trunclower = 0, 
               EVTtruncation = FALSE, ncores = NULL, criterium = c("BIC","AIC"))
 }
@@ -45,6 +49,8 @@ Information criterion used to select the number of components of the ME fit. One
 }
 \details{
 See Beirlant et al. (2015) and Verbelen et al. (2014) for details. The code follows the notation of the latter.
+
+The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
 }
 \value{
 A \code{\link{SpliceFit}} object.
@@ -73,7 +79,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang 
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 
 

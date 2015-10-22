@@ -20,7 +20,7 @@ Vector of points to plot the functions at. By default we plot them at the data p
 Data used for fitting the distribution.
 }
   \item{splicefit}{
-A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
   \item{log}{
 Logical indicating if the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
@@ -42,7 +42,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{SplicePP_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SpliceQQ}}
+\code{\link{SplicePP_TB}}, \code{\link{pSplice}}, \code{\link[stats]{ecdf}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SpliceQQ}}
 }
 \examples{
 \dontrun{
@@ -51,7 +51,7 @@ Tom Reynkens
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 
 

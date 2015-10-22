@@ -209,7 +209,7 @@ legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
 wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution (body)
 and an extreme value distribution, Pareto or GPD, for the tail. The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
-1. `SpliceFitHill`: splicing of ME and Pareto distribution(s), possibly adapted for (upper) truncation.  
+1. `SpliceFitPareto`: splicing of ME and Pareto distribution(s), possibly adapted for (upper) truncation.  
 2. `SpliceFitGPD`: splicing of ME and GPD's, this cannot handle (upper) truncation.   
 3. `SpliceFitcHill`: splicing of ME and a Pareto distribution adapted for right- or interval-censoring.  
 
@@ -228,13 +228,13 @@ abline(v=quantile(size, c(0.5,0.996)))
 For the Norwegian fire insurance data, we choose splicing points at the 50\% and 99.6\% quantile.
 This means that we the spliced distribution is a ME distribution between 0 and the first splicing point, a Pareto distribution between the first and second splicing point and another Pareto distribution after the second splicing point.
 
-Using `SpliceFitHill` we can fit this splicing distribution. This can take some time so we create a `SpliceFit` object using the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the splicing distribution.
+Using `SpliceFitPareto` we can fit this splicing distribution. This can take some time so we create a `SpliceFit` object using the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the splicing distribution.
 
 ```{r, eval=FALSE}
 
 # Splicing of Mixed Erlang (ME) and 2 Pareto pieces
 # Use 3 as initial value for M
-spliceFit <- SpliceFitHill(size, const=c(0.5,0.996), M=3)
+spliceFit <- SpliceFitPareto(size, const=c(0.5,0.996), M=3)
 ```
 
 ```{r}

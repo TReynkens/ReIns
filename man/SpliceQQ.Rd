@@ -16,7 +16,7 @@ SpliceQQ(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...)
   Vector of \eqn{n} observations. 
 }
   \item{splicefit}{
-A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitHill}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
   \item{plot}{
 Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
@@ -43,7 +43,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
+\code{\link{qSplice}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 \examples{
 \dontrun{
@@ -52,7 +52,7 @@ Tom Reynkens
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 
 

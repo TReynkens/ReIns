@@ -67,7 +67,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitHill}}, \code{\link{SpliceFitGPD}}, \code{\link[=pSplice]{Splice}},
+\code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link[=pSplice]{Splice}},
 \code{\link{cHill}}, \code{\link{ciHill}}, \code{\link{trciHill}}
 }
 \examples{

@@ -31,7 +31,7 @@ Vector of probabilities.
 Number of observations.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
+Output list from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
 }
  \item{log}{
   Logical indicating if the densities are given as log(f), default is \code{FALSE}.
@@ -62,7 +62,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF, PDF
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{VaR}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
+\code{\link{VaR}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
 \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 
@@ -73,7 +73,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF, PDF
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 
 

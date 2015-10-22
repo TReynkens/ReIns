@@ -101,7 +101,7 @@ export("trcProb","trciProb")
 #####################################
 # Splicing
 
-export("SpliceFitHill","SpliceFitcHill","SpliceFitGPD")
+export("SpliceFitPareto","SpliceFitHill","SpliceFitcHill","SpliceFitGPD")
 export("dSplice","pSplice","qSplice","rSplice")
 export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB","SpliceQQ")
 # S3
