@@ -48,7 +48,7 @@ Information criterion used to select the number of components of the ME fit. One
 }
 }
 \details{
-See Beirlant et al. (2015) and Verbelen et al. (2014) for details. The code follows the notation of the latter.
+See Beirlant et al. (2015) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
 
 The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
 }
@@ -58,7 +58,8 @@ A \code{\link{SpliceFit}} object.
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
-Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2014). "Fitting Mixtures of Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{FEB Research Report KBI_1401A}.
+Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mixtures of
+Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.
 }
 \author{
 Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution.

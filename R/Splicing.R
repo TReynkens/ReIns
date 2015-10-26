@@ -397,7 +397,7 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Return SpliceFit object
   return( SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
-# Include for compatbility with old versions
+# Include for compatibility with old versions
 SpliceFitHill <- SpliceFitPareto
 
 
