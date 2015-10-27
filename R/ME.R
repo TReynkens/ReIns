@@ -119,7 +119,7 @@
 
 ## EM algorithm (censored and truncated data)
 
-.ME_em <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE){
+.ME_em <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE, beta_tol = 10^(-5)){
   n <- length(lower)
   M <- length(shape)
   # separate uncensored and censored observations
@@ -163,14 +163,30 @@
       c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)      
     }
     # M step
+    
     if(no_censoring & censoring){
       beta <- (colSums(u_z)+colSums(c_z))/n 
-      theta <- nlm(.theta_nlm_u_c, theta, x, c_exp, n, beta, shape, trunclower, truncupper)$estimate
+     
     } else if(no_censoring){
       beta <- colSums(u_z)/n   
-      theta <- nlm(.theta_nlm_u, theta, x, n, beta, shape, trunclower, truncupper)$estimate
+    
     } else{
       beta <- colSums(c_z)/n     
+      
+    }
+    
+    # Remove small beta's
+    if(min(beta) < beta_tol){
+      shape <- shape[beta > beta_tol]
+      beta <- beta[beta > beta_tol]
+      beta <- beta/sum(beta)
+    }
+    
+    if(no_censoring & censoring){
+      theta <- nlm(.theta_nlm_u_c, theta, x, c_exp, n, beta, shape, trunclower, truncupper)$estimate
+    } else if(no_censoring){ 
+      theta <- nlm(.theta_nlm_u, theta, x, n, beta, shape, trunclower, truncupper)$estimate
+    } else{     
       theta <- nlm(.theta_nlm_c, theta, c_exp, n, beta, shape, trunclower, truncupper)$estimate
     }
     iteration <- iteration + 1
@@ -223,10 +239,13 @@
         new_loglikelihood <- fit$loglikelihood
         if(new_loglikelihood > loglikelihood + eps){
           loglikelihood <- new_loglikelihood
-          shape <- new_shape
+          shape <- fit$shape
           theta <- fit$theta
           beta <- fit$beta 
           alpha <- fit$alpha
+          # number of shape combinations might have changed after EM algorithm if beta_tol > 0
+          M <- length(shape)
+          i <- min(i, M)
           if(print) cat("loglikelihood = ", loglikelihood, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")      
         } else{improve <- FALSE}
       }
@@ -241,10 +260,13 @@
         new_loglikelihood <- fit$loglikelihood
         if(new_loglikelihood > loglikelihood + eps){
           loglikelihood <- new_loglikelihood
-          shape <- new_shape
+          shape <- fit$shape
           theta <- fit$theta
           beta <- fit$beta 
           alpha <- fit$alpha
+          # number of shape combinations might have changed after EM algorithm if beta_tol > 0
+          M <- length(shape)
+          i <- min(i, M)
           if(print) cat("loglikelihood = ", loglikelihood, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")      
         } else{improve <- FALSE}
       }          
@@ -446,7 +468,7 @@
   colnames(performances) = c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit==min(crit,na.rm=TRUE))
+  best_index <- which(crit==min(crit,na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   list(best_model = best_model, performances = performances, all_model = all_model)

@@ -7,6 +7,7 @@
       \itemize{
         \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}. \code{SpliceFitHill} is still included for compatibility with older versions.
         \item Improve error handling in Mixed Erlang fitting.
+        \item Remove small beta's in Mixed Erlang Fitting.
       }
 
       \item Documentation changes:
