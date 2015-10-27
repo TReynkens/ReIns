@@ -6,11 +6,13 @@
     \item Changes in \code{R} code:
       \itemize{
         \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}. \code{SpliceFitHill} is still included for compatibility with older versions.
+        \item Improve error handling in Mixed Erlang fitting.
       }
 
       \item Documentation changes:
         \itemize{
           \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}.
+          \item Update Verbelen et al. (2015) reference. 
         }
       }
 

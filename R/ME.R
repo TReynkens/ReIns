@@ -398,7 +398,7 @@
  
     all_model <- foreach(i = 1:nrow(tuning_parameters), 
                          .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
-                         .errorhandling = 'remove') %do% {
+                         .errorhandling = 'pass') %do% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
       suppressWarnings(.ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE))
     }
@@ -416,18 +416,39 @@
     i <- 1
     all_model <- foreach(i = 1:nrow(tuning_parameters), 
                          .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
-                         .errorhandling = 'remove') %dopar% {
+                         .errorhandling = 'pass') %dopar% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
       .ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE)
     }
     stopCluster(cl) 
   }
-
-  performances <- data.frame(tuning_parameters[,1], tuning_parameters[,2], 
-                             sapply(all_model, function(x) with(x, get(criterium))), sapply(all_model, with, M))
+  
+  # Initial values for s and M and obtained values for information criterium and M
+  # Return NA when an error occured in fitting
+  f1 <- function(x) {
+    if (exists(criterium,x)) {
+      with(x, get(criterium))
+    } else {
+      NA
+    }
+  } 
+  crit <- sapply(all_model, f1)
+  
+  f2 <- function(x) {
+    if (exists("M",x)) {
+      x$M
+    } else {
+      NA
+    }
+  } 
+  M_res <-  sapply(all_model, f2)
+  performances <- data.frame(tuning_parameters[,1], tuning_parameters[,2], crit, M_res)
   colnames(performances) = c('M_initial', 's', criterium, 'M')
-  best_index <- which.min(performances[, criterium])
+  
+  # Select model with lowest IC
+  best_index <- which(crit==min(crit,na.rm=TRUE))
   best_model <- all_model[[best_index]]  
+  
   list(best_model = best_model, performances = performances, all_model = all_model)
 }
 
