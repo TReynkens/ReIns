@@ -888,34 +888,15 @@ SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
   
   plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
-  # Sort the data with index return
-  s <- sort(Z, index.return = TRUE)
-  L <- s$x
-  sortix <- s$ix
-  R <- I[sortix]
+  tb <- Turnbull(x, L=Z, R=I, censored=censored, conf.type="plain", conf.int=1-alpha)
   
+  lines(x, 1-tb$cdf, col="red")
   
-  # Turnbull estimator
-  event <- !censored[sortix]
-  # 3 for interval censoring and 0 for right censoring
-  event[event==0 & Z!=I] <- 3
-  type <- ifelse(all(abs(Z-I)< 10^(-10)), "right", "interval")
-
-  if (type=="interval") {
-    fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
-  } else {
-    fit  <- survfit(Surv(time=L, event=event, type=type) ~1, conf.type="plain", conf.int=1-alpha)
-  }
-  
-  f = stepfun(fit$time,c(1,fit$surv))
-  est <- f(x)
-  
-  lines(x,est,col="red")
-  
+  fit <- tb$fit
   # Confidence bounds
   lines(fit$time, fit$lower, col = "blue", lty = 2)
   lines(fit$time, fit$upper, col = "blue", lty = 2)
-  lines(x, est, lty=1, col="red")
+  lines(x, 1-tb$cdf, lty=1, col="red")
   legend("topright", c("Fitted survival function","Turnbull estimator","95% confidence bounds"),
          lty=c(1,1,2), col=c("black","red","blue"))
 }
@@ -976,34 +957,13 @@ SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE,
   # Check if x is numeric
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
-  # Sort the data with index return
-  s <- sort(Z, index.return = TRUE)
-  L <- s$x
-  sortix <- s$ix
-  R <- I[sortix]
-  
-
-  # Turnbull estimator
-  event <- !censored[sortix]
-  # 3 for interval censoring and 0 for right censoring
-  event[event==0 & Z!=I] <- 3
-  type <- ifelse(all(abs(Z-I)< 10^(-10)), "right", "interval")
-  
-  if (type=="interval") {
-    fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
-  } else {
-    fit  <- survfit(Surv(time=L, event=event, type=type) ~1, conf.type="plain")
-  }
-  
-  f = stepfun(fit$time, c(1,fit$surv))
-  est <- f(x)
-  
+  tb <- Turnbull(x, L=Z, R=I, censored=censored)
   
   if (log) {
-    plot(-log(est), -log(1-pSplice(x,splicefit=splicefit)), type="l", xlab="-log(Empirical surv. probs)",
+    plot(-log(1-tb$cdf), -log(1-pSplice(x,splicefit=splicefit)), type="l", xlab="-log(Empirical surv. probs)",
          ylab="-log(Fitted surv. probs)", ...)
   } else {
-    plot(est, 1-pSplice(x, splicefit=splicefit), type="l",
+    plot(1-tb$cdf, 1-pSplice(x, splicefit=splicefit), type="l",
          xlab="Empirical survival probability", ylab="Fitted probability", ...)
   }
   abline(a=0,b=1)
@@ -1036,27 +996,10 @@ SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
   # Check if x is numeric
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
-  # Sort the data with index return
-  s <- sort(Z, index.return = TRUE)
-  L <- s$x
-  sortix <- s$ix
-  R <- I[sortix]
+  Zs <- sort(Z)
+  tb <- Turnbull(Zs, L=Z, R=I, censored=censored)
   
-  # Turnbull estimator
-  event <- !censored[sortix]
-  # 3 for interval censoring and 0 for right censoring
-  event[event==0 & Z!=I] <- 3
-  type <- ifelse(all(abs(Z-I)< 10^(-10)), "right", "interval")
-  
-  if (type=="interval") {
-    fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, conf.type="plain")
-  } else {
-    fit  <- survfit(Surv(time=L, event=event, type=type) ~1, conf.type="plain")
-  }
-  f = stepfun(fit$time, c(1,fit$surv))
-
-  Z <- sort(Z)
-  plot(log(Z), log(f(Z)), ylab="log(Turnbull surv.)", xlab="log(X)", type="p", ...)
+  plot(log(Zs), log(1-tb$cdf), ylab="log(Turnbull surv.)", xlab="log(X)", type="p", ...)
   lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
 }
 
