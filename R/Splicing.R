@@ -164,7 +164,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   
   if (any(type[-1] %in% c("cPa", "ciPa", "tciPa")) & 
       !all(type[-1] %in% c("cPa", "ciPa", "tciPa"))) {
-    stop("The (interval-)censored Pareto distribtion cannot be combined with uncensored EVT distributions.")
+    stop("The (interval-)censored Pareto distribution cannot be combined with uncensored EVT distributions.")
   } 
   
   
@@ -177,7 +177,13 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   if (type[2]=="GPD" & !exists("sigma", where=EVTfit)) {
     stop("sigma should be included when GPD is used.")
   }
-  
+
+  NAind <- which(is.na(EVTfit$gamma))
+  if (any(grepl("Pa", type[-c(1,NAind)]) & EVTfit$gamma[-NAind]<=0)) {
+    stop("gamma should be strictly positive when Pareto distribution is used.")
+  }
+ 
+
   # Check if correct type when truncated
   ind <- which(is.finite(EVTfit$endpoint))
   if (any(substring(type[ind+1],1,1)!="t")) {
@@ -186,8 +192,13 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   
   # Check if truncated when indicated by type
   ind <- which(substring(type,1,1)=="t")
-  if (any(!is.finite(EVTfit$endpoint[ind-1]))) {
+  if (any(!is.finite(EVTfit$endpoint[ind-1]) & !is.na(EVTfit$endpoint[ind-1]))) {
     stop("Finite endpoint is not compatible with type \"tPa\" or \"tciPa\".")
+  }
+  
+  # Issue warning for NAs in gamma
+  if (any(is.na(EVTfit$gamma))) {
+    warning("One or more NAs are present in estimate(s) for gamma.")
   }
   
   # Make list

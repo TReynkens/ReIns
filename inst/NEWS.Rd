@@ -10,6 +10,7 @@
         \item Remove small beta's in Mixed Erlang Fitting.
         \item Improve Turnbull estimator.
         \item Fix bug with Turnbull estimator in \code{SpliceTB}, \code{SplicePP_TB} and \code{SpliceLL_TB}.
+        \item Improve input checking and NA-handling in \code{SpliceFit}.
       }
 
       \item Documentation changes:
