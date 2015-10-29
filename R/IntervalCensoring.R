@@ -128,7 +128,7 @@ ciProb <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf
   
   # Estimator for probabilities
   prob[K] <- (1-tu) * (q/Zsort[n-K])^(-1/gamma1[K])
@@ -163,7 +163,7 @@ ciReturn <- function(Z, I, censored, gamma1, q, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf
   
   # Estimator for probabilities
   R[K] <- 1 / ( (1-tu) * (q/Zsort[n-K])^(-1/gamma1[K]) )
@@ -446,7 +446,7 @@ ciProbEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, add
   K <- 1:(n-1)
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)                                  
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf                                  
 
   K2 <- K[!is.na(gamma1[K])]
   
@@ -483,7 +483,7 @@ ciReturnEPD <- function(Z, I, censored, gamma1, kappa1, beta, q, plot = FALSE, a
   K <- 1:(n-1)
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)                                  
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf                                 
   
   K2 <- K[!is.na(gamma1[K])]
   

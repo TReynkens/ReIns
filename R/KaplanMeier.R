@@ -106,7 +106,7 @@ KaplanMeier <- function(x, data, censored) {
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary sample CDF
 #
-Turnbull <- function(x, L, R, censored) {
+Turnbull <- function(x, L, R, censored, conf.type = "plain", conf.int = 0.95) {
   
   
   # Check input arguments
@@ -132,32 +132,54 @@ Turnbull <- function(x, L, R, censored) {
   censored <- .checkCensored(censored, length(L))
   
   
-  f <- .Turnbull_internal(L=L, R=R, censored=censored)
-  est <- f(x)
+  ft <- .Turnbull_internal(L=L, R=R, censored=censored, conf.type = conf.type, conf.int = conf.int)
+  est <- ft$f(x)
   
   # Turnbull estimator for the CDF
-  return( 1 - est )
+  return( list(cdf = 1 - est, fit=ft$fit) )
 }
 
 
 # Function to return Turnbull stepfunction for survival function
-.Turnbull_internal <- function(L, R, censored) {
+# No left censoring included!
+.Turnbull_internal <- function(L, R, censored, conf.type = "plain", conf.int = 0.95) {
   
-  # Sort the data with index return
-  s <- sort(L, index.return = TRUE)
-  L <- s$x
-  sortix <- s$ix
-  R <- R[sortix]
+  event <- !censored
+  # # 3 for interval censoring and 0 for right censoring
+  event[event==0 & is.finite(R)] <- 3
   
-  event <- !censored[sortix]
-  #3 for interval censoring
-  event[event==0] <- 3
-  
-  
-  fit  <- survfit(Surv(time=L, time2=R, event=event, type="interval") ~1)
+  type <- ifelse(all(is.finite(R)), "interval", "right")
+
+
+  fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, 
+                  conf.type = conf.type, conf.int = conf.int)
+
   
   f = stepfun(fit$time,c(1,fit$surv))
               
-  return(f)
+  return(list(f=f, fit=fit))
 }
+
+
+# # Sort the data with index return
+# s <- sort(Z, index.return = TRUE)
+# L <- s$x
+# sortix <- s$ix
+# R <- I[sortix]
+# 
+# 
+# # Turnbull estimator
+# event <- !censored[sortix]
+# # 3 for interval censoring and 0 for right censoring
+# event[event==0 & is.finite(R)] <- 3
+# type <- ifelse(all(is.finite(R)), "interval", "right")
+# 
+# if (type=="interval") {
+#   fit  <- survfit(Surv(time=L, time2=R, event=event, type="interval") ~1, conf.type="plain", conf.int=1-alpha)
+# } else {
+#   fit  <- survfit(Surv(time=L, event=event, type="right") ~1, conf.type="plain", conf.int=1-alpha)
+# }
+# 
+# f = stepfun(fit$time,c(1,fit$surv))
+# est <- f(x)
 

@@ -285,7 +285,7 @@ trciProb <- function(Z, I, censored, gamma1, q, r = 1, plot = FALSE, add = FALSE
   }
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf
   
   beta <- Zsort[n] / Zsort[n-K]
   
@@ -320,7 +320,7 @@ trciDT <- function(Z, I, censored, gamma1, r = 1, plot=FALSE, add=FALSE, main="E
   }
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf
   
   R <- Zsort[n-K] / Zsort[n-r+1]
   
@@ -364,7 +364,7 @@ trciEndpoint <- function(Z, I, censored, gamma1, DT, r = 1, plot = FALSE, add = 
   }
   
   # Turnbull estimator for CDF in Zsort[n-K]
-  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)
+  tu <- Turnbull(Zsort[n-K], L=Z, R=I, censored=censored)$cdf
   
   
   

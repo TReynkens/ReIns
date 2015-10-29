@@ -458,7 +458,7 @@ ciParetoQQ <- function(Z, I, censored, plot = TRUE, main = "Pareto QQ-plot", ...
   
   
   # -log of Turnbull estimator for the survival function in Z_[n-K+1]
-  pqq.the <- -log( 1 - Turnbull(X[n-K+1], Z[sortix], I[sortix], censored = censored[sortix]) )
+  pqq.the <- -log( 1 - Turnbull(X[n-K+1], Z[sortix], I[sortix], censored = censored[sortix])$cdf )
   pqq.emp <- log(X[n-K+1])
   
   
@@ -493,7 +493,7 @@ ciExpQQ <- function(Z, I, censored, plot = TRUE, main = "Exponential QQ-plot", .
   
   
   # -log of Turnbull estimator for the survival function in Z_[n-K+1]
-  eqq.the <- -log( 1 - Turnbull(X[n-K+1], Z[sortix], I[sortix], censored = censored[sortix]) )
+  eqq.the <- -log( 1 - Turnbull(X[n-K+1], Z[sortix], I[sortix], censored = censored[sortix])$cdf )
   eqq.emp <- X[n-K+1]
   
   
@@ -527,7 +527,7 @@ ciLognormalQQ <- function(Z, I, censored, plot = TRUE, main = "Log-normal QQ-plo
   
   
   # -log of Turnbull estimator for the survival function in Z_[n-K+1]
-  lqq.the <- qnorm(Turnbull(X[n-K+1], Z[sortix], I[sortix], censored = censored[sortix]))
+  lqq.the <- qnorm(Turnbull(X[n-K+1], Z[sortix], I[sortix], censored = censored[sortix])$cdf)
   lqq.emp <- log(X[n-K+1])
   
   
