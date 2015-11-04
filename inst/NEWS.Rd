@@ -12,6 +12,7 @@
         \item Fix bug with Turnbull estimator in \code{SpliceTB}, \code{SplicePP_TB} and \code{SpliceLL_TB}.
         \item Improve input checking and NA-handling in \code{SpliceFit}.
         \item Improve \code{trQuant} for small values of \code{p}.
+        \item Remove types \code{cPa}, \code{ciPa}, \code{tcPa} and \code{tciPa} from \code{SpliceFit} objects.
       }
 
       \item Documentation changes:
