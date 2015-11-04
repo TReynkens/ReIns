@@ -153,7 +153,8 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
   ### Estimator for extreme quantiles
 
   if (rough) {
-    quant[K] <- X[n-K] * ((K+1)/((n+1)*p))^gamma * ((1+DT*(n+1)/(K+1))/(1+DT/p))^gamma
+    #quant[K] <- X[n-K] * ((K+1)/((n+1)*p))^gamma * ((1+DT*(n+1)/(K+1))/(1+DT/p))^gamma
+    quant[K] <- X[n-K] *  ((DT+(K+1)/(n+1))/(DT+p))^gamma
     
   } else {
     quant[K] <- X[n-K] * ((K+1)/(p*(n+1)))^gamma
