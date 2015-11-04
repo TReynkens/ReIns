@@ -2,8 +2,8 @@
 
 
 
-# Integrated tail function using Hill estimates
-.IntTailHill <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
+# Integrated tail function of (truncated) Pareto distribution using Hill estimates
+.IntTailPareto <- function(data, gamma, u, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
@@ -57,7 +57,7 @@
 }
 
 # Auxiliary function used in ExcessSplice
-.IntTailHill_single <- function(t, gamma, u, endpoint = Inf) {
+.IntTailPareto_single <- function(t, gamma, u, endpoint = Inf) {
   
   # Premium
   if (is.finite(endpoint)) {
@@ -207,7 +207,7 @@ ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE,
     }
   }
   
-  f <- function(u) .IntTailHill(u=u, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
+  f <- function(u) .IntTailPareto(u=u, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
                                plot=FALSE, add=FALSE) 
   
   res <- f(M)
@@ -306,7 +306,7 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
 #######################################################
 
 # Integrated tail function of splicing of ME and (truncated) Pareto
-.IntTailSpliceHill <- function(u, splicefit) {
+.IntTailSplicePareto <- function(u, splicefit) {
   
   MEfit <- splicefit$MEfit
   EVTfit <- splicefit$EVTfit
@@ -315,6 +315,7 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
   const <- splicefit$const
   l <- length(const)
   
+  trunclower <- splicefit$trunclower
   tvec <- splicefit$t
   
   
@@ -327,13 +328,13 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
     
     if (u[i] > tvec[l]) {
       # u[i]>tvec[l] case
-      premium[i] <- (1-const[l]) * .IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=u[i])
+      premium[i] <- (1-const[l]) * .IntTailPareto_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=u[i])
       
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <- (1-const[l]) * .IntTailHill_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=tvec[l])
+      premium[i] <- (1-const[l]) * .IntTailPareto_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], u=tvec[l])
     } 
       
     
@@ -348,8 +349,8 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
-          par_u <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=u[i])
+          par_tt <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
+          par_u <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=u[i])
           
           # Integrate from u[i] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-u[i]) + premium[i]
@@ -367,8 +368,8 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
-          par_t <- .IntTailHill_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j])
+          par_tt <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j+1])
+          par_t <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, u=tvec[j])
           
           # Integrate from tvec[j+1] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]
@@ -387,11 +388,12 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
                     theta = MEfit$theta)
       me_t <- .ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
+      F0 <- .ME_cdf(trunclower, shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
       # Integrate from u[i] to tvec[1] and add to premium
       # Take truncation at tvec[1] into account!
-      premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
+      premium[i] <- (me_u-me_t - (1-(Ft-F0)) * (tvec[1]-u[i]))/(Ft-F0) * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
     }
       
   }
@@ -411,6 +413,7 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
   const <- splicefit$const
   l <- length(const)
   
+  trunclower <- splicefit$trunclower
   tvec <- splicefit$t
   
   premium <- numeric(length(u))
@@ -480,11 +483,12 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
                     theta = MEfit$theta)
       me_t <- .ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
                     theta = MEfit$theta)
+      F0 <- .ME_cdf(trunclower, shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
       # Integrate from u[i] to tvec[1] and add to premium
       # Take truncation at tvec[1] into account!
-      premium[i] <- (me_u-me_t - (1-Ft) * (tvec[1]-u[i]))/Ft * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
+      premium[i] <- (me_u-me_t - (1-(Ft-F0)) * (tvec[1]-u[i]))/(Ft-F0) * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
     }
     
   }
@@ -517,8 +521,8 @@ ExcessSplice <- function(M, L=Inf, splicefit) {
   if (type[2]=="GPD") {
     f <- function(u) .IntTailSpliceGPD(u, splicefit=splicefit)
     
-  } else if (type[2] %in% c("Pa", "tPa", "cPa", "ciPa", "trciPa")) {
-    f <- function(u) .IntTailSpliceHill(u, splicefit=splicefit)
+  } else if (type[2] %in% c("Pa", "tPa")) {
+    f <- function(u) .IntTailSplicePareto(u, splicefit=splicefit)
 
   } else {
     stop("Invalid type.")
