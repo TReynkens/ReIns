@@ -286,7 +286,7 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   MEfit_old <- fit_tune$best_model
   
   # Make MEfit object
-  MEfit <- MEfit(p=MEfit_old$beta, shape=MEfit_old$shape, theta=MEfit_old$theta, 
+  MEfit <- MEfit(p=MEfit_old$alpha, shape=MEfit_old$shape, theta=MEfit_old$theta, 
                  M=MEfit_old$M, M_initial=MEfit_old$M_initial)
 
   return(MEfit)

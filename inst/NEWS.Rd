@@ -14,6 +14,7 @@
         \item Improve \code{trQuant} for small values of \code{p}.
         \item Remove types \code{cPa}, \code{ciPa}, \code{tcPa} and \code{tciPa} from \code{SpliceFit} objects.
         \item Fix bug with lower truncation in risk measures for splicing fit.
+        \item Fix bug with weights in ME distribution.
       }
 
       \item Documentation changes:
