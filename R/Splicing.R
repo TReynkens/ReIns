@@ -842,12 +842,13 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   for (i in 1:l) {
     
-    # Next splicing point (Inf for last part)
+    # Next value for const (1 for last part)
     cconst <- ifelse(i==l, 1, const[i+1])
     
     # Index for all probabilities in i-th EVTpart
     ind <- p>=const[i] & p<cconst
     
+    # Next splicing point (Inf for last part)
     tt <- ifelse(i==l, Inf, tvec[i+1])
     e <- min(EVTfit$endpoint[i], tt)
     
