@@ -17,7 +17,7 @@ SpliceFitGPD(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL,
 Data used for fitting the distribution.
 }
   \item{const}{
-Vector of length \eqn{l} containing the probabilities of the quantiles where the distributions will be spliced (splicing points). The ME distribution will be spliced with \eqn{l} GPD distributions.
+The probability of the quantile where the ME distribution will be spliced with the GPD distribution.
 }
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining

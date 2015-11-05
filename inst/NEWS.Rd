@@ -17,6 +17,7 @@
         \item Fix bug with weights in ME distribution.
         \item Estimation of gamma in \code{SpliceFitPareto} now takes truncation (with next splicing point) into account.
         \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
+        \item Remove splicing of ME with more than one GPD.
       }
 
       \item Documentation changes:

@@ -578,6 +578,10 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   
   l <- length(const)
   
+  if (l>=2) {
+    stop("const should be a single number.")
+  }
+  
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
   if (is.na(ncores)) ncores <- 1
