@@ -335,14 +335,23 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   tvec <- numeric(l)
   tvec <-  Xsort[n-k_init]
 
+  if (!is.numeric(trunclower)) {
+    stop("trunclower should be numeric.")
+  }
+  
   # Problem when first splicing point smaller than trunclower
-  if (trunclower>=tvec[1]) {
+  if (any(trunclower>=tvec[1])) {
     stop("trunclower should be strictly smaller than the first splicing point.")
   }
   
-  if (trunclower>min(X)) {
+  if (any(trunclower>min(X))) {
     stop("trunclower should be strictly smaller than all data points.")
   }
+  
+  if (any(trunclower<0)) {
+    stop("trunclower cannot be strictly negative.")
+  }
+  
   
   
   # Update const
@@ -561,13 +570,21 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   tvec <- numeric(l)
   tvec <-  Xsort[n-k_init]
   
+  if (!is.numeric(trunclower)) {
+    stop("trunclower should be numeric.")
+  }
+  
   # Problem when first splicing point smaller than trunclower
-  if (trunclower>=tvec[1]) {
+  if (any(trunclower>=tvec[1])) {
     stop("trunclower should be strictly smaller than the first splicing point.")
   }
   
-  if (trunclower>min(X)) {
+  if (any(trunclower>min(X))) {
     stop("trunclower should be strictly smaller than all data points.")
+  }
+  
+  if (any(trunclower<0)) {
+    stop("trunclower cannot be strictly negative.")
   }
   
   
