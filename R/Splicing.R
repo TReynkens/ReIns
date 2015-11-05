@@ -404,9 +404,19 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
       type[i] <- "tPa"
       
     } else {
-      res <- Hill(X[X<=tt])
-      EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
-      type[i] <- "Pa"
+      #res <- Hill(X[X<=tt])
+      #EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+      
+      if (i==l) {
+        EVTfit$gamma[i] <- .Hillinternal(X[X<=tt], tvec[i])
+        type[i] <- "Pa"
+      } else {
+        EVTfit$gamma[i] <- .trHillinternal(X[X<=tt], tvec[i], tt)
+        EVTfit$endpoint[i] <- tt
+        type[i] <- "tPa"
+      }
+
+  
     }
     
   }
@@ -420,6 +430,27 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
 # Include for compatibility with old versions
 SpliceFitHill <- SpliceFitPareto
 
+
+##################################
+
+# Fast Hill estimator for fixed threshold
+.Hillinternal <- function(x, threshold) {
+  
+  ind <- (x>threshold)
+  
+  return(sum(log(x[ind]/threshold))/sum(ind))
+}
+
+# Fast Hill estimator for fixed threshold and known truncation point 
+.trHillinternal <- function(x, threshold, truncupper) {
+  
+  H <- .Hillinternal(x, threshold)
+  
+  beta <- truncupper/threshold
+  f <- function(gamma) (gamma-H-log(beta)/(beta^(1/gamma)-1))^2
+  
+  return(nlm(f, H)$estimate)
+}
 
 
 

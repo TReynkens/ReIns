@@ -15,6 +15,7 @@
         \item Remove types \code{cPa}, \code{ciPa}, \code{tcPa} and \code{tciPa} from \code{SpliceFit} objects.
         \item Fix bug with lower truncation in risk measures for splicing fit.
         \item Fix bug with weights in ME distribution.
+        \item Estimation of gamma in \code{SpliceFitPareto} now takes truncation (with next splicing point) into account.
       }
 
       \item Documentation changes:
