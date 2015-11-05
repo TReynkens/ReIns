@@ -36,8 +36,7 @@ an optimal mixed Erlang fit using an AIC criterion.
 Lower truncation point. Default is 0.
 }
   \item{EVTtruncation}{
-Logical vector of length \eqn{l} indicating for each Pareto distribution if it is a truncated Pareto distribution.
-A single logical can also be provided which will then be used for all \eqn{l} distributions.
+Logical vector indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution.
 }
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.

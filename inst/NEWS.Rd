@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for package "ReIns"}
 
-\section{Changes in version 0.4-02 (yyyy-mm-dd)}{
+\section{Changes in version 0.5-00 (yyyy-mm-dd)}{
   \itemize{
     \item Changes in \code{R} code:
       \itemize{
@@ -16,12 +16,14 @@
         \item Fix bug with lower truncation in risk measures for splicing fit.
         \item Fix bug with weights in ME distribution.
         \item Estimation of gamma in \code{SpliceFitPareto} now takes truncation (with next splicing point) into account.
+        \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
       }
 
       \item Documentation changes:
         \itemize{
           \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}.
           \item Update Verbelen et al. (2015) reference. 
+          \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
         }
       }
 

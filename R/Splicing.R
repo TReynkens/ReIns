@@ -311,14 +311,17 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Match input argument for criterium
   criterium <- match.arg(criterium)
   
-
-  if (length(EVTtruncation)!=l & length(EVTtruncation)!=1) {
-    stop("EVTtruncation should have length 1 or the same length as const.")
-    
-  } else if (l!=1 & length(EVTtruncation)==1) {
-    EVTtruncation <- rep(EVTtruncation,l)
+  if (length(EVTtruncation)!=1) {
+      stop("EVTtruncation should have length 1.")
   }
-  
+    
+  # if (length(EVTtruncation)!=l & length(EVTtruncation)!=1) {
+  #   stop("EVTtruncation should have length 1 or the same length as const.")
+  #   
+  # } else if (l!=1 & length(EVTtruncation)==1) {
+  #   EVTtruncation <- rep(EVTtruncation,l)
+  # }
+  # 
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
   if (is.na(ncores)) ncores <- 1
@@ -395,29 +398,44 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
       tt <- tvec[i+1]
     }
     
-    if (EVTtruncation[i]) {
-      res <- trHill(X[X<=tt])
-      resDT <- trDT(X[X<=tt], gamma=res$gamma)
-      resEndpoint <- trEndpoint(X[X<=tt], gamma=res$gamma, DT=resDT$DT)
-      EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
-      EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
-      type[i] <- "tPa"
-      
-    } else {
+    # if (EVTtruncation[i]) {
+    #   res <- trHill(X[X<=tt])
+    #   resDT <- trDT(X[X<=tt], gamma=res$gamma)
+    #   resEndpoint <- trEndpoint(X[X<=tt], gamma=res$gamma, DT=resDT$DT)
+    #   EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+    #   EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
+    #   type[i] <- "tPa"
+    #   
+    # } else {
       #res <- Hill(X[X<=tt])
       #EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
       
       if (i==l) {
-        EVTfit$gamma[i] <- .Hillinternal(X[X<=tt], tvec[i])
-        type[i] <- "Pa"
+        
+        # Last Pareto distribution is truncated, estimate truncation point
+        if (EVTtruncation) {
+          res <- trHill(X[X<=tt])
+          resDT <- trDT(X[X<=tt], gamma=res$gamma)
+          resEndpoint <- trEndpoint(X[X<=tt], gamma=res$gamma, DT=resDT$DT)
+          EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+          EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
+          type[i] <- "tPa"
+          
+        } else {
+        # Last Pareto distribution is not truncated
+          EVTfit$gamma[i] <- .Hillinternal(X[X<=tt], tvec[i])
+          type[i] <- "Pa"
+        }
+
       } else {
+        # Truncated Pareto distribution with truncation point tt
         EVTfit$gamma[i] <- .trHillinternal(X[X<=tt], tvec[i], tt)
         EVTfit$endpoint[i] <- tt
         type[i] <- "tPa"
       }
 
   
-    }
+    #}
     
   }
   
