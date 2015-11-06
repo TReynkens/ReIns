@@ -77,17 +77,8 @@ Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang 
 # Pareto random sample
 X <- rpareto(500, shape=2)
 
-# Censoring variable
-Y  <- rpareto(500, shape=1)
-
-# Observed sample
-Z <- pmin(X,Y)
-
-# Censoring indicator
-censored <- (X>Y)
-
 # Splice ME and Pareto
-splicefit <- SpliceFitciPareto(Z=Z, censored=censored, const=0.9)
+splicefit <- SpliceFitciPareto(L=X, U=X, censored=0, tsplice=quantile(0.9,X))
 
 
 
