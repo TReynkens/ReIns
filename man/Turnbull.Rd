@@ -8,7 +8,8 @@ Turnbull estimator
 Computes the Turnbull estimator for the CDF of interval censored data.
 }
 \usage{
-Turnbull(x, L, R, censored, conf.type = "plain", conf.int = 0.95)
+Turnbull(x, L, R, censored, trunclower = 0, truncupper = Inf,
+          conf.type = "plain", conf.int = 0.95)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,6 +25,12 @@ Vector of length \eqn{n} with the right boundary of the intervals.
   \item{censored}{
 Vector of \eqn{n} logicals indicating if an observation is interval censored. 
 }
+\item{trunclower}{
+Lower truncation point, default is 0. This is used to determine whether an observation is left censored or interval censored when it is censored.
+}
+\item{truncupper}{
+Upper truncation point, default is \code{Inf}. This is used to determine whether an observation is right censored or interval censored when it is censored.
+}
   \item{conf.type}{
 Type of confidence interval, see \code{\link[survival]{survfit.formula}}. Default is \code{"plain"}.
 }
@@ -34,6 +41,8 @@ Confidence level of the two-sided confidence interval, see \code{\link[survival]
 \details{
 We consider the random right censoring model where one observes \eqn{L \le R}
 and where the variable of interest \eqn{X} lies between \eqn{L} and \eqn{R}.
+
+Right censored data should be entered as \code{L=l} and \code{R=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{R=r}.
 
 This function calls \code{survfit.formula} from \pkg{survival}.
 }

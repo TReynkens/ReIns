@@ -19,6 +19,7 @@
         \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
         \item Remove splicing of ME with more than one GPD.
         \item Remove \code{SpliceFitcHill} and add dummy version of \code{SpliceFitciPareto}.
+        \item Extend Turnbull estimator for lower censored data by adding truncation bounds.
       }
 
       \item Documentation changes:
@@ -27,6 +28,7 @@
           \item Update Verbelen et al. (2015) reference. 
           \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
           \item Remove \code{SpliceFitcHill} and add dummy version of \code{SpliceFitciPareto}.
+          \item Extend Turnbull estimator for lower censored data by adding truncation bounds.
         }
       }
 
