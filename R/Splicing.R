@@ -429,8 +429,6 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
 SpliceFitHill <- SpliceFitPareto
 
 
-##################################
-
 # Fast Hill estimator for fixed threshold
 .Hillinternal <- function(x, threshold) {
   
@@ -451,6 +449,9 @@ SpliceFitHill <- SpliceFitPareto
 }
 
 
+##################################
+
+# Fit splicing of ME and Pareto distribution to interval censored data
 SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
                               criterium = c("BIC","AIC")) {
   
@@ -458,6 +459,7 @@ SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclow
 }
 
 
+##################################
 
 # Fit splicing of mixed Erlang and GPD (POT)
 SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, criterium = c("BIC","AIC")) {
