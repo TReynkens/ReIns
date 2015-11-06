@@ -148,8 +148,7 @@ Turnbull <- function(x, L, R, censored, conf.type = "plain", conf.int = 0.95) {
   # # 3 for interval censoring and 0 for right censoring
   event[event==0 & is.finite(R)] <- 3
   
-  type <- ifelse(all(is.finite(R)), "interval", "right")
-
+  type <- "interval"
 
   fit  <- survfit(Surv(time=L, time2=R, event=event, type=type) ~1, 
                   conf.type = conf.type, conf.int = conf.int)
