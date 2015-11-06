@@ -145,7 +145,7 @@ Turnbull <- function(x, L, R, censored, conf.type = "plain", conf.int = 0.95) {
 .Turnbull_internal <- function(L, R, censored, conf.type = "plain", conf.int = 0.95) {
   
   event <- !censored
-  # # 3 for interval censoring and 0 for right censoring
+  # 3 for interval censoring and 0 for right censoring
   event[event==0 & is.finite(R)] <- 3
   
   type <- "interval"
