@@ -832,27 +832,38 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
 }
 
 # Plot of fitted survival function and Turnbull estimator + bounds
-SpliceTB <- function(x, Z, I = Z, censored, splicefit, alpha = 0.05, ...) {
+SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, ...) {
   
-  # Check if Z and I are numeric
-  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
-  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  # Check if L and U are numeric
+  if (!is.numeric(L)) stop("L should be a numeric vector.")
+  if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check if x is numeric
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
+  # Check lengths
+  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  
+  if (length(censored)==1) censored <- rep(censored, length(L))
+  
+  if (length(censored)!=length(L)) {
+    stop("censored should have length 1 or the same length as L and U.")
+  }
+  
+  # Plot fitted survival function
   plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
-  tb <- Turnbull(x, L=Z, R=I, censored=censored, conf.type="plain", conf.int=1-alpha)
   
+  # Add Turnbull survival function
+  tb <- Turnbull(x, L=L, R=U, censored=censored, conf.type="plain", conf.int=1-alpha)
   lines(x, 1-tb$cdf, col="red")
   
+  # Add confidence intervals
   fit <- tb$fit
-  # Confidence bounds
   lines(fit$time, fit$lower, col = "blue", lty = 2)
   lines(fit$time, fit$upper, col = "blue", lty = 2)
   lines(x, 1-tb$cdf, lty=1, col="red")
-  legend("topright", c("Fitted survival function","Turnbull estimator","95% confidence bounds"),
+  legend("topright", c("Fitted survival function","Turnbull estimator","95% confidence intervals"),
          lty=c(1,1,2), col=c("black","red","blue"))
 }
 
@@ -868,6 +879,7 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   fit  <- ecdf(X)
   est <- 1-fit(x)
   
+  # Plot fitted survival function vs. empirical survival function or use minus log-versions
   if (log) {
     ind <- est>0
     plot(-log(est[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l",
@@ -881,7 +893,7 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
 }
 
 
-# Probability - probability plot with ECDF
+# Quantile - quantile plot with empirical quantiles
 SpliceQQ <- function(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
   
   # Check input arguments
@@ -890,8 +902,10 @@ SpliceQQ <- function(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) 
   X <- as.numeric(sort(X))
   n <- length(X)
   
-  # ECDF estimator
+  # Emperical quantiles
   sqq.emp <- sort(X)
+  
+  # Quantiles of fitted distribution
   sqq.the <- qSplice(p=(1:n)/(n+1), splicefit=splicefit)
   
   .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
@@ -903,23 +917,35 @@ SpliceQQ <- function(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) 
 
 
 # Probability - probability plot with Turnbull estimator
-SplicePP_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE, ...) {
+SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE, ...) {
   
-  # Check if Z and I are numeric
-  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
-  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  # Check if L and U are numeric
+  if (!is.numeric(L)) stop("L should be a numeric vector.")
+  if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check if x is numeric
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
-  tb <- Turnbull(x, L=Z, R=I, censored=censored)
+  # Check lengths
+  if (length(L)!=length(U)) stop("L and U should have the same length.")
   
+  if (length(censored)==1) censored <- rep(censored, length(L))
+  
+  if (length(censored)!=length(L)) {
+    stop("censored should have length 1 or the same length as L and U.")
+  }
+  
+  # Turnbull CDF
+  tb <- Turnbull(x, L=L, R=U, censored=censored)
+  
+  # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
-    plot(-log(1-tb$cdf), -log(1-pSplice(x,splicefit=splicefit)), type="l", xlab="-log(Empirical surv. probs)",
-         ylab="-log(Fitted surv. probs)", ...)
+    ind <- tb$cdf<1
+    plot(-log(1-tb$cdf[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l", xlab="-log(Turnbull survival probability)",
+         ylab="-log(Fitted survival probability)", ...)
   } else {
     plot(1-tb$cdf, 1-pSplice(x, splicefit=splicefit), type="l",
-         xlab="Empirical survival probability", ylab="Fitted probability", ...)
+         xlab="Turnbull survival probability", ylab="Fitted survival probability", ...)
   }
   abline(a=0,b=1)
 }
@@ -934,27 +960,41 @@ SpliceLL <- function(x = sort(X), X, splicefit, ...) {
   
   # ECDF estimator
   fit  <- ecdf(X)
-
   X <- sort(X)
-  plot(log(X), log(1-fit(X)), ylab="log(emp. surv.)", xlab="log(X)", type="p", ...)
+  
+  # Plot log of empirical survival function vs. sorted values
+  plot(log(X), log(1-fit(X)), ylab="log(empirical survival probability)", xlab="log(X)", type="p", ...)
+  # Add log of fitted survival function
   lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
 }
 
 
 # Log-log plot with Turnbull survival function and fitted survival function
-SpliceLL_TB <- function(x = sort(Z), Z, I = Z, censored, splicefit, ...) {
+SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
   
-  # Check if Z and I are numeric
-  if (!is.numeric(Z)) stop("Z should be a numeric vector.")
-  if (!is.numeric(I)) stop("I should be a numeric vector.")
+  # Check if L and U are numeric
+  if (!is.numeric(L)) stop("L should be a numeric vector.")
+  if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check if x is numeric
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
-  Zs <- sort(Z)
-  tb <- Turnbull(Zs, L=Z, R=I, censored=censored)
+  # Check lengths
+  if (length(L)!=length(U)) stop("L and U should have the same length.")
   
-  plot(log(Zs), log(1-tb$cdf), ylab="log(Turnbull surv.)", xlab="log(X)", type="p", ...)
+  if (length(censored)==1) censored <- rep(censored, length(L))
+  
+  if (length(censored)!=length(L)) {
+    stop("censored should have length 1 or the same length as L and U.")
+  }
+  
+  
+  Zs <- sort(L)
+  tb <- Turnbull(Zs, L=L, R=U, censored=censored)
+  
+  # Plot log of Turnbull survival function vs. sorted values
+  plot(log(Zs), log(1-tb$cdf), ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", ...)
+  # Add log of fitted survival function
   lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
 }
 

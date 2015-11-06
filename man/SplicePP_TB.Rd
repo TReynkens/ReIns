@@ -8,19 +8,19 @@ PP-plot with fitted and Turnbull survival function
 This function plots the fitted survival function of the splicing distribution versus the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
 }
 \usage{
-SplicePP_TB(x = sort(Z), Z, I = Z, censored, splicefit, log = FALSE, ...)
+SplicePP_TB(x = sort(L), L, U = L, censored, splicefit, log = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
  \item{x}{
 Vector of points to plot the functions at. By default we plot it at the data points \code{Z}.
 }
-  \item{Z}{
-Vector of length \eqn{n} with the left boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
+  \item{L}{
+Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
 }
-  \item{I}{
-Vector of length \eqn{n} with the right boundary of the intervals. In an 
-insurance context, these are the incurred values. By default, they are equal to \code{Z} which means that we consider right-censored data. 
+  \item{U}{
+Vector of length \eqn{n} with the upper boundary of the intervals. In an 
+insurance context, these are the incurred values. By default, they are equal to \code{L} which means that we consider right-censored data. 
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
