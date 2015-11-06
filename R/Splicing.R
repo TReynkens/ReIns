@@ -162,12 +162,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   
   if (any(type[-1]=="GPD") & any(type[-1]!="GPD")) stop("GPD cannot be combined with other EVT distributions.")
   
-  # if (any(type[-1] %in% c("cPa", "ciPa", "tciPa")) & 
-  #     !all(type[-1] %in% c("cPa", "ciPa", "tciPa"))) {
-  #   stop("The (interval-)censored Pareto distribution cannot be combined with uncensored EVT distributions.")
-  # } 
-  
-  
+
   # Check MEfit and EVTfit
   if (class(MEfit)!="MEfit") stop("MEfit should be of class MEfit.")
   if (class(EVTfit)!="EVTfit") stop("EVTfit should be of class EVTfit.")
@@ -193,7 +188,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   # Check if truncated when indicated by type
   ind <- which(substring(type,1,1)=="t")
   if (any(!is.finite(EVTfit$endpoint[ind-1]) & !is.na(EVTfit$endpoint[ind-1]))) {
-    stop("Finite endpoint is not compatible with type \"tPa\" or \"tciPa\".")
+    stop("Finite endpoint is not compatible with type \"tPa\".")
   }
   
   # Issue warning for NAs in gamma
@@ -286,6 +281,7 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   MEfit_old <- fit_tune$best_model
   
   # Make MEfit object
+  # Use alpha not beta for future calculations!
   MEfit <- MEfit(p=MEfit_old$alpha, shape=MEfit_old$shape, theta=MEfit_old$theta, 
                  M=MEfit_old$M, M_initial=MEfit_old$M_initial)
 
@@ -299,6 +295,9 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
 SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
                           EVTtruncation = FALSE, ncores = NULL, criterium = c("BIC","AIC")) {
  
+  ##
+  # Check input
+  
   # Check if X is numeric
   if (!is.numeric(X)) stop("X should be a numeric vector.")
   n <- length(X)
@@ -319,7 +318,22 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
   if (is.na(ncores)) ncores <- 1
   
+  if (!is.numeric(trunclower)) {
+    stop("trunclower should be numeric.")
+  }
   
+  
+  if (any(trunclower>min(X))) {
+    stop("trunclower should be strictly smaller than all data points.")
+  }
+  
+  if (any(trunclower<0)) {
+    stop("trunclower cannot be strictly negative.")
+  }
+  
+  
+  
+  ##
   # Determine values of splicing points
     
   Xsort <- sort(X)
@@ -331,24 +345,11 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   tvec <- numeric(l)
   tvec <-  Xsort[n-k_init]
 
-  if (!is.numeric(trunclower)) {
-    stop("trunclower should be numeric.")
-  }
-  
+
   # Problem when first splicing point smaller than trunclower
   if (any(trunclower>=tvec[1])) {
     stop("trunclower should be strictly smaller than the first splicing point.")
   }
-  
-  if (any(trunclower>min(X))) {
-    stop("trunclower should be strictly smaller than all data points.")
-  }
-  
-  if (any(trunclower<0)) {
-    stop("trunclower cannot be strictly negative.")
-  }
-  
-  
   
   # Update const
   const <- 1-k_init/n
@@ -363,7 +364,7 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   }
   t1 <- tvec[1]
    
-  
+  ##
   # Mixing Erlang part
   MEind <- (X<=t1) 
   
@@ -373,6 +374,7 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Output as MEfit object
   MEfit <- .MEoutput(fit_tune)
   
+  ##
   # EVT part
   EVTfit <- list()
   
@@ -397,8 +399,8 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
           type[i] <- "tPa"
           
         } else {
+          # Last Pareto distribution is not truncated
           
-        # Last Pareto distribution is not truncated
           EVTfit$gamma[i] <- .Hillinternal(X, tvec[i])
           type[i] <- "Pa"
         }
@@ -419,6 +421,7 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   # Convert to object of class EVTfit
   EVTfit <- structure(EVTfit, class="EVTfit")
   
+  ##
   # Return SpliceFit object
   return( SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit) )
 }
