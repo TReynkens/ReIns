@@ -855,7 +855,8 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
   
   
   # Add Turnbull survival function
-  tb <- Turnbull(x, L=L, R=U, censored=censored, conf.type="plain", conf.int=1-alpha)
+  tb <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                 truncupper=max(splicefit$EVTfit$endpoint), conf.type="plain", conf.int=1-alpha)
   lines(x, 1-tb$cdf, col="red")
   
   # Add confidence intervals
@@ -936,7 +937,8 @@ SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE,
   }
   
   # Turnbull CDF
-  tb <- Turnbull(x, L=L, R=U, censored=censored)
+  tb <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                 truncupper=max(splicefit$EVTfit$endpoint))
   
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
@@ -990,7 +992,8 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
   
   
   Zs <- sort(L)
-  tb <- Turnbull(Zs, L=L, R=U, censored=censored)
+  tb <- Turnbull(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                 truncupper=max(splicefit$EVTfit$endpoint))
   
   # Plot log of Turnbull survival function vs. sorted values
   plot(log(Zs), log(1-tb$cdf), ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", ...)
