@@ -16,7 +16,7 @@ ES(p, splicefit)
 The probability associated with the ES (we estimate  \eqn{ES_p}).
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
+Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{

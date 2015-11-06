@@ -27,7 +27,7 @@ insurance context, these are the incurred values. By default, they are equal to 
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
-A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitcHill}}.
+A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitciPareto}}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -50,7 +50,7 @@ Tom Reynkens
 
 
 \seealso{
-\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}
+\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}
 }
 \examples{
 \dontrun{
@@ -68,7 +68,7 @@ Z <- pmin(X,Y)
 censored <- (X>Y)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitcHill(Z=Z, censored=censored, const=0.9)
+splicefit <- SpliceFitciPareto(Z=Z, censored=censored, const=0.9)
 
 
 

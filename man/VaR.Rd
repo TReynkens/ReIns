@@ -16,7 +16,7 @@ VaR(p, splicefit)
 The exceedance probability (we estimate \eqn{VaR_p=Q(1-p)}).
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
+Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{ 
@@ -38,7 +38,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{ES}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}}
+\code{\link{qSplice}}, \code{\link{ES}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}}
 }
 
 \examples{

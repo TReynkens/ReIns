@@ -20,7 +20,7 @@ The retention level of the (re-)insurance or a vector of retention levels for th
 The limit of the (re-)insurance or a vector of limits for the (re-)insurance.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
+Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{ 
@@ -47,7 +47,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitcHill}},  \code{\link{SpliceFitGPD}},  \code{\link{SpliceFitHill}}
+\code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}},  \code{\link{SpliceFitGPD}}  
 }
 \examples{
 \dontrun{

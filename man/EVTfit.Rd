@@ -38,7 +38,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFit}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}}
+\code{\link{SpliceFit}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}}
 }
 \examples{
 # Create MEfit object

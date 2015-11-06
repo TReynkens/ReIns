@@ -27,7 +27,7 @@ insurance context, these are the incurred values. By default, they are equal to 
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
-A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitcHill}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitciPareto}}.
 }
   \item{alpha}{
 \eqn{100\alpha\%} is the confidence level for the confidence bounds. Default is \eqn{\alpha=0.05}.
@@ -52,7 +52,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceECDF}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceLL_TB}}, \code{\link{SplicePP_TB}}
+\code{\link{SpliceECDF}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceLL_TB}}, \code{\link{SplicePP_TB}}
 }
 \examples{
 \dontrun{
@@ -70,7 +70,7 @@ Z <- pmin(X,Y)
 censored <- (X>Y)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitcHill(Z=Z, censored=censored, const=0.9)
+splicefit <- SpliceFitciPareto(Z=Z, censored=censored, const=0.9)
 
 x <- seq(0,10^2,0.1)
 

@@ -1,31 +1,33 @@
-\name{SpliceFitcHill}
-\alias{SpliceFitcHill}
+\name{SpliceFitciPareto}
+\alias{SpliceFitciPareto}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Splicing of mixed Erlang and Pareto for censored data
+Splicing of mixed Erlang and Pareto for interval censored data
 }
+
 \description{
-Fit spliced distribution of a mixed Erlang and a Pareto distribution, both adapted for right or interval censoring. The shape parameter of the Pareto distribution is determined using the Hill estimator adpated for censoring. 
+Fit spliced distribution of a mixed Erlang and a Pareto distribution adapted for interval censoring and truncation.
 }
 \usage{
-SpliceFitcHill(Z, I = Z, censored, const, M = 3, s = 1:10, trunclower = 0,
-              EVTtruncation = FALSE, ncores = NULL, criterium = c("BIC","AIC"))
+SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
+                  truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{Z}{
-Vector of length \eqn{n} with the left boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
+  \item{L}{
+Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
 }
-  \item{I}{
-Vector of length \eqn{n} with the right boundary of the intervals. In an 
+  \item{U}{
+Vector of length \eqn{n} with the upper boundary of the intervals. In an 
 insurance context, these are the incurred values. By default, they are equal to \code{Z} which means that we consider right-censored data. 
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
-  \item{const}{
-Probability of quantile where the distributions will be spliced (splicing point).
+  \item{tsplice}{
+The splicing point \eqn{t}.
 }
+
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining
 an optimal mixed Erlang fit using an AIC criterion.
@@ -37,8 +39,8 @@ an optimal mixed Erlang fit using an AIC criterion.
   \item{trunclower}{
 Lower truncation point. Default is 0.
 }
-  \item{EVTtruncation}{
-Logical indicating if a truncated (and censored) Pareto distribution should be fitted as second splicing distribution, default is \code{FALSE}. This is ignored for right-censored data!
+  \item{truncupper}{
+Upper truncation point. Default is \code{Inf} (no upper truncation).
 }
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
@@ -64,12 +66,10 @@ Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulle
 Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution.
 }
 
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link[=pSplice]{Splice}},
-\code{\link{cHill}}, \code{\link{ciHill}}, \code{\link{trciHill}}
+\code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link[=pSplice]{Splice}}
 }
 \examples{
 \dontrun{
@@ -87,7 +87,7 @@ Z <- pmin(X,Y)
 censored <- (X>Y)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitcHill(Z=Z, censored=censored, const=0.9)
+splicefit <- SpliceFitciPareto(Z=Z, censored=censored, const=0.9)
 
 
 
@@ -115,4 +115,5 @@ SplicePP_TB(x, Z, censored=censored, splicefit=splicefit, log=TRUE)
 
 }
 }
+
 

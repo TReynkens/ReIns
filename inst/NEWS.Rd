@@ -18,6 +18,7 @@
         \item Estimation of gamma in \code{SpliceFitPareto} now takes truncation (with next splicing point) into account.
         \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
         \item Remove splicing of ME with more than one GPD.
+        \item Remove \code{SpliceFitcHill} and add dummy version of \code{SpliceFitciPareto}.
       }
 
       \item Documentation changes:
@@ -25,6 +26,7 @@
           \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}.
           \item Update Verbelen et al. (2015) reference. 
           \item \code{EVTtruncation} now only determines if the last Pareto distribution is truncated.
+          \item Remove \code{SpliceFitcHill} and add dummy version of \code{SpliceFitciPareto}.
         }
       }
 

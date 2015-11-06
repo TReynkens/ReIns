@@ -31,7 +31,7 @@ Vector of probabilities.
 Number of observations.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitcHill}} or \code{\link{SpliceFitGPD}}.
+Output list from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitciPareto}} or \code{\link{SpliceFitGPD}}.
 }
  \item{log}{
   Logical indicating if the densities are given as log(f), default is \code{FALSE}.
@@ -62,7 +62,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF, PDF
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{VaR}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitcHill}}, \code{\link{SpliceFitGPD}},
+\code{\link{VaR}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}},
 \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 
