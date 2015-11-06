@@ -239,13 +239,13 @@ spliceFit <- SpliceFitPareto(size, const=c(0.5,0.996), M=3)
 
 ```{r}
 # Create MEfit object
-mefit <- MEfit(p=c(0.65,0.35), shape=c(39,58), theta=16.19, M=2)
+mefit <- MEfit(p=c(0.59,0.41), shape=c(39,58), theta=16.19, M=2)
 
 # Create EVTfit object
-evtfit <- EVTfit(gamma=c(0.76,0.64))
+evtfit <- EVTfit(gamma=c(0.80,0.64), endpoint=c(39096,Inf))
 
 # Create SpliceFit object
-splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","Pa","Pa"),
+splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","tPa","Pa"),
                        MEfit=mefit, EVTfit=evtfit)
 
 # Show summary
@@ -313,7 +313,7 @@ p <- seq(0, 0.01, 0.0001)
 VaR <- VaR(p, splicefit)
 
 # Plot VaR
-plot(p, VaR, xlab="p", ylab="VaR", type="l")
+plot(p, VaR, xlab="p", ylab=expression(VaR[p]), type="l")
 ```
 
 
