@@ -37,6 +37,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
+Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. The limits \code{trunclower} and \code{truncupper} are obtained from the \code{\link{SpliceFit}} object.
+
 Use \code{\link{SpliceECDF}} for non-censored data. 
 }
 \references{
@@ -60,12 +62,25 @@ Tom Reynkens
 # Pareto random sample
 X <- rpareto(500, shape=2)
 
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X,Y)
+
+# Censoring indicator
+censored <- (X>Y)
+
+# Right boundary
+U <- Z
+U[censored] <- Inf
+
 # Splice ME and Pareto
-splicefit <- SpliceFitciPareto(L=X, U=X, censored=0, tsplice=quantile(0.9,X))
+splicefit <- SpliceFitciPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
 
 
 
-x <- seq(0,10^2,0.1)
+x <- seq(0,20,0.1)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -75,17 +90,19 @@ plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 
 # Fitted survival function and Turnbull survival function 
-SpliceTB(x, Z, censored=censored, splicefit=splicefit)
+SpliceTB(x, L=Z, U=U, censored=censored, splicefit=splicefit)
+
 
 # Log-log plot with Turnbull survival function and fitted survival function
-SpliceLL_TB(x, Z, censored=censored, splicefit=splicefit)
+SpliceLL_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit)
+
 
 # PP-plot of Turnbull survival function and fitted survival function
-SplicePP_TB(x, Z, censored=censored, splicefit=splicefit)
+SplicePP_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit)
 
 # PP-plot of Turnbull survival function and 
 # fitted survival function with log-scales
-SplicePP_TB(x, Z, censored=censored, splicefit=splicefit, log=TRUE)
+SplicePP_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
 
 }
 }
