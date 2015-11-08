@@ -462,6 +462,7 @@ SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclow
 ##################################
 
 # Fit splicing of mixed Erlang and GPD (POT)
+# No truncation implemented, so only use with one GPD part!
 SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, criterium = c("BIC","AIC")) {
 
   # Check if X is numeric
