@@ -379,6 +379,8 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
       }
       
     }
+    
+    if (u[i]<=trunclower) u[i] <- trunclower
           
     if (u[i] <= tvec[1]) {
       # u[i]<tvec[1] case
@@ -390,10 +392,11 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
                     theta = MEfit$theta)
       F0 <- .ME_cdf(trunclower, shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
-      
+
+
       # Integrate from u[i] to tvec[1] and add to premium
-      # Take truncation at tvec[1] into account!
-      premium[i] <- (me_u-me_t - (1-(Ft-F0)) * (tvec[1]-u[i]))/(Ft-F0) * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
+      # Take truncation at trunclower and tvec[1] into account!
+      premium[i] <- ( me_u-me_t + (Ft-1) * (tvec[1]-u[i]) ) / (Ft-F0) * const[1] + (1-const[1]) * (tvec[1]-u[i]) + premium[i]
     }
       
   }
