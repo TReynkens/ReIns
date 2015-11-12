@@ -92,7 +92,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
   DT[K] <-  pmax( (K+1)/(n+1) * (R^A-r/(K+1)) / (1-R^A), 0)
   
   ### plots if TRUE  
-  .plotfun(K, DT[K], type="l", xlab="k", ylab="DT", main=main, plot=plot, add=add, ...)
+  .plotfun(K, DT[K], type="l", xlab="k", ylab=expression(D[T]), main=main, plot=plot, add=add, ...)
   
   
   ### output list with values of k and
