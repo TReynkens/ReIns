@@ -173,6 +173,38 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
   
 }
 
+# Quantiles of original data W
+trQuantW <- function(data, gamma, DT, p, plot = FALSE, add = FALSE,
+                    main="Estimates of extreme quantile", ...) {
+  
+  # Check input arguments
+  .checkInput(data,gamma=gamma,DT=DT)
+  .checkProb(p)
+  
+  X <- as.numeric(sort(data))
+  n <- length(X)
+  quant <- numeric(n)
+  K <- 1:(n-1)
+  
+  ### Estimator for extreme quantiles
+  
+  
+  quant[K] <- X[n-K] * ((DT+(K+1)/(n+1))/(p*(1+DT)))^gamma[K]
+    
+ 
+  
+  ### plots if TRUE
+  
+  .plotfun(K, quant[K], type="l", xlab="k", ylab=expression(Q[W](1-p)), main=main, plot=plot, add=add, ...)
+  
+  ### output list with values of k, corresponding quantile estimates 
+  ### and the considered small tail probability p
+  
+  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  
+}
+
+
 
 
 ### exceedance probability estimation
