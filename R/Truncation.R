@@ -127,7 +127,7 @@ trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE,
   Tk[K] <-  exp( pmax( log(X[n-K]) + gamma * log(1+(K+1)/((n+1)*DT)), log(X[n])) )
   
   ### plots if TRUE  
-  .plotfun(K, Tk[K], type="l", xlab="k", ylab="Tk", main=main, plot=plot, add=add, ...)
+  .plotfun(K, Tk[K], type="l", xlab="k", ylab=expression(T[k]), main=main, plot=plot, add=add, ...)
   
   ### output list with values of k and
   ### corresponding estimates for DT
