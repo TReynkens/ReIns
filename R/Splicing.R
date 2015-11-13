@@ -896,7 +896,7 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
 
 
 # Quantile - quantile plot with empirical quantiles
-SpliceQQ <- function(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
+SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-plot", ...) {
   
   # Check input arguments
   .checkInput(X, pos=FALSE)
@@ -904,11 +904,29 @@ SpliceQQ <- function(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) 
   X <- as.numeric(sort(X))
   n <- length(X)
   
-  # Emperical quantiles
+  # Probabilities
+  if (is.null(p)) {
+    p <- (1:n)/(n+1)
+    
+  } else {
+    
+    if(!is.numeric(p)) {
+      stop("p should be numeric.")
+    }
+    
+    if (any(p<=0 | p>=1)) {
+      stop("All elements of p should be strictly between 0 and 1")
+    }
+    
+    p <- sort(p)
+  }
+  
+
+  # Empirical quantiles
   sqq.emp <- sort(X)
   
   # Quantiles of fitted distribution
-  sqq.the <- qSplice(p=(1:n)/(n+1), splicefit=splicefit)
+  sqq.the <- qSplice(p=p, splicefit=splicefit)
   
   .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
            main=main, plot=plot, add=FALSE, ...)

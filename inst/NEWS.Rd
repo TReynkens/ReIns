@@ -22,6 +22,7 @@
         \item Extend Turnbull estimator for lower censored data by adding truncation bounds.
         \item Remove splicing of ME with more than one GPD.
         \item Add quantile estimator \eqn{trQuantW} to estimate quantiles of the untruncated r.v. when only a sample from the truncated r.v. is available.
+        \item Add input argument \code{p} for \code{SpliceQQ}.
       }
 
       \item Documentation changes:
@@ -34,6 +35,7 @@
           \item Remove splicing of ME with more than one GPD.
           \item Improve examples with censored data in splicing.
           \item Add quantile estimator \eqn{trQuantW} to estimate quantiles of the untruncated r.v. when only a sample from the truncated r.v. is available.
+          \item Add input argument \code{p} for \code{SpliceQQ}.
         }
       }
 

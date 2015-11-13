@@ -8,7 +8,7 @@ Splicing quantile plot
 Computes the empirical quantiles of a data vector and the theoretical quantiles of the fitted splicing distribution. These quantiles are then plotted in a splicing QQ-plot with the theoretical quantiles on the \eqn{x}-axis and the empirical quantiles on the \eqn{y}-axis.
 }
 \usage{
-SpliceQQ(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...)
+SpliceQQ(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +17,9 @@ SpliceQQ(X, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...)
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
+}
+ \item{p}{
+  Vector of probabilities used in the QQ-plot. If \code{NULL}, the default, we take \code{p} equal to \code{1/(n+1),...,n/(n+1)}.
 }
   \item{plot}{
 Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
