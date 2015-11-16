@@ -380,8 +380,11 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
       
     }
     
-    if (u[i]<=trunclower) u[i] <- trunclower
-          
+    if (u[i]<=trunclower) {
+      premium[i] <- premium[i] + (trunclower-u[i])
+      u[i] <- trunclower
+    }
+    
     if (u[i] <= tvec[1]) {
       # u[i]<tvec[1] case
 
@@ -478,7 +481,10 @@ ExcessEPD <- function(data, gamma, delta, tau, M, L = Inf, warnings = TRUE, plot
       
     }
     
-    if (u[i]<=trunclower) u[i] <- trunclower
+    if (u[i]<=trunclower) {
+      premium[i] <- premium[i] + (trunclower-u[i])
+      u[i] <- trunclower
+    }
     
     if (u[i] <= tvec[1]) {
       # u[i]<tvec[1] case
