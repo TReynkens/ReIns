@@ -51,7 +51,7 @@ The default value is \code{1}.
 The Cumulative Distribution Function (CDF) of the Burr distribution is equal to
 \eqn{F(x) = 1-((\eta+x^{-\rho*\alpha})/\eta)^{1/\rho}} for all \eqn{x \ge 0} and \eqn{F(x)=0} otherwise. We need that \eqn{\alpha>0}, \eqn{\rho<0} and \eqn{\eta>0}.
 
-Beirlant et al. (2004) uses parameters \eqn{\eta, \tau, \lambda} which correspond to \eqn{\eta},  \eqn{\tau=\rho*\alpha} and \eqn{\lambda=-1/\rho}.
+Beirlant et al. (2004) uses parameters \eqn{\eta, \tau, \lambda} which correspond to \eqn{\eta},  \eqn{\tau=-\rho*\alpha} and \eqn{\lambda=-1/\rho}.
 }
 \value{
 \code{dburr} gives the density function evaluated in \eqn{x}, \code{pburr} the CDF evaluated in \code{x} and \code{qburr} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
