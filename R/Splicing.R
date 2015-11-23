@@ -128,7 +128,7 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
 
 
 # SpliceFit class
-SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
+SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL) {
   
   # Check input for const
   .constCheck(const)
@@ -198,6 +198,16 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit) {
   
   # Make list
   L <- list(const=const, pi=pi, trunclower=trunclower, t=t, type=type, MEfit=MEfit, EVTfit=EVTfit)
+  
+  # Check log-likelihood and add to list
+  if (!is.null(loglik)) {
+    
+    if (!is.numeric(loglik) | length(loglik)!=1) {
+      stop("loglik should be a numeric of length 1.")
+    }
+    
+    L$loglikelihood <- loglik
+  }
   
   # Return final structure of class Splicefit
   structure(L, class = "SpliceFit")

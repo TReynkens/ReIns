@@ -23,6 +23,7 @@
         \item Remove splicing of ME with more than one GPD.
         \item Add quantile estimator \eqn{trQuantW} to estimate quantiles of the untruncated r.v. when only a sample from the truncated r.v. is available.
         \item Add input argument \code{p} for \code{SpliceQQ}.
+        \item Add optional argument \code{loglik} for \code{SpliceFit} objects.
       }
 
       \item Documentation changes:

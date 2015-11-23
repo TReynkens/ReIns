@@ -9,7 +9,7 @@ Create an S3 object using \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitci
 \code{\link{SpliceFitGPD}}.
 }
 \usage{
-SpliceFit(const, trunclower, t, type, MEfit, EVTfit)
+SpliceFit(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,6 +30,9 @@ Vector of types of the distributions:  \code{"ME"} and then for each fitted EVT 
 }
 \item{EVTfit}{
 \code{\link{EVTfit}} object with details on the EVT fit.
+}
+\item{loglik}{
+Log-likelihood of the fitted model. When \code{NULL} (default), not included in the object. 
 }
 }
 \details{
