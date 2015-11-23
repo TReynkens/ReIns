@@ -1,5 +1,5 @@
 
-importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecdf",
+importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecdf", "knots",
              "nlm", "optim", "optimise", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", "qexp",
              "qlnorm", "qnorm", "qweibull", "runif", "stepfun", "uniroot", "var")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot")
