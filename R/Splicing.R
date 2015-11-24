@@ -128,7 +128,7 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
 
 
 # SpliceFit class
-SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL) {
+SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, IC = NULL) {
   
   # Check input for const
   .constCheck(const)
@@ -207,6 +207,16 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL) 
     }
     
     L$loglikelihood <- loglik
+  }
+  
+  # Check IC and add to list
+  if (!is.null(IC)) {
+    
+    if (!is.numeric(IC) | !(length(IC) %in% 1:3)) {
+      stop("IC should be a numeric of length 1, 2 or 3.")
+    }
+    
+    L$IC <- IC
   }
   
   # Return final structure of class Splicefit
@@ -439,9 +449,17 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0,
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
+
+  # Compute ICs, parameters: alpha, r, theta, gammas, endpoints (if finite), pis
+  df <- 2*MEfit$M + 1 + length(EVTfit$gamma) + sum(is.finite(EVTfit$endpoint)) + length(const)
+  aic <- -2*loglik + 2*df
+  bic <- -2*loglik + log(n)*df
+  ic <- c(aic, bic)
+  names(ic) <- c("AIC", "BIC")
   
   # Add to SpliceFit object
   sf$loglik <- loglik
+  sf$IC <- ic
   
   ##
   # Return SpliceFit object
@@ -596,8 +614,17 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
   
+  # Compute ICs, parameters: alpha, r, theta, gammas and sigmas, endpoints (if finite), pis
+  df <- 2*MEfit$M + 1 + 2*length(EVTfit$gamma) + sum(is.finite(EVTfit$endpoint)) + length(const)
+  aic <- -2*loglik + 2*df
+  bic <- -2*loglik + log(n)*df
+  ic <- c(aic, bic)
+  names(ic) <- c("AIC", "BIC")
+  
   # Add to SpliceFit object
   sf$loglik <- loglik
+  sf$IC <- ic
+  
   
   ##
   # Return SpliceFit object
