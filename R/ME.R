@@ -279,7 +279,7 @@
 
 ## Reduction of M based on an information criterium: AIC and BIC implemented
 
-.ME_shape_red <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, criterium="AIC", eps=1e-03, print=TRUE){
+.ME_shape_red <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, criterium="AIC", improve=TRUE, eps=1e-03, print=TRUE){
   n <- length(lower)
   fit <- .ME_shape_adj(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE)
   loglikelihood <- fit$loglikelihood
@@ -290,7 +290,7 @@
   alpha <- fit$alpha
   M <- length(shape)
   if(print) cat("M = ", M, ", ", criterium, " = ", IC, ", shape = ", shape, "\n", "theta = ", theta, ", alpha = ", alpha, "\n")
-  improve <- TRUE
+
   while((improve==TRUE) && length(shape) > 1){    
     new_shape <- shape[beta != min(beta)]
     new_beta <- beta[beta != min(beta)]
@@ -323,10 +323,10 @@
 # By default no truncation: trunclower=0, truncupper=Inf
 # alpha = beta in case of no truncation
 
-.ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, criterium="AIC", eps=1e-03, print=TRUE){
+.ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, criterium="AIC", reduceM = TRUE, eps=1e-03, print=TRUE){
   
   initial <- .ME_initial(lower, upper, trunclower, truncupper, M, s)
-  fit <- .ME_shape_red(lower, upper, trunclower, truncupper, initial$theta, initial$shape, initial$beta, criterium, eps, print)
+  fit <- .ME_shape_red(lower, upper, trunclower, truncupper, initial$theta, initial$shape, initial$beta, criterium, reduceM, eps, print)
   list(alpha = fit$alpha, beta = fit$beta, shape = fit$shape, theta = fit$theta, loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s) 
 }
 
@@ -404,7 +404,8 @@
 
 
 ## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
-.MEtune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, nCores = detectCores(), criterium = "AIC", eps = 1e-03, print=TRUE, file="log.txt"){
+.MEtune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, 
+                    nCores = detectCores(), criterium = "AIC", reduceM = TRUE, eps = 1e-03, print=TRUE, file="log.txt"){
  
   ######
   # Check input
@@ -422,7 +423,8 @@
                          .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
                          .errorhandling = 'pass') %do% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
-      suppressWarnings(.ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE))
+      suppressWarnings(.ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
+                               criterium=criterium, reduceM=reduceM, eps=eps, print=FALSE))
     }
 
 
@@ -440,7 +442,8 @@
                          .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
                          .errorhandling = 'pass') %dopar% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
-      .ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], criterium, eps, FALSE)
+                           .ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
+                                   criterium=criterium, reduceM=reduceM, eps=eps, print=FALSE)
     }
     stopCluster(cl) 
   }

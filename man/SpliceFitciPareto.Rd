@@ -10,7 +10,8 @@ Fit spliced distribution of a mixed Erlang and a Pareto distribution adapted for
 }
 \usage{
 SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
-                  truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"))
+                  truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"), 
+                  reduceM = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -47,7 +48,10 @@ Number of cores to use when determining an optimal mixed Erlang fit using an AIC
 When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
 }
 \item{criterium}{
-Information criterion used to select the number of components of the ME fit. One of \code{"AIC"} and \code{"BIC"} (default).
+Information criterion used to select the number of components of the ME fit and \code{s}. One of \code{"AIC"} and \code{"BIC"} (default).
+}
+\item{reduceM}{
+Logical indicating if M should be reduced based on the information criterion, default is \code{TRUE}.
 }
 }
 \details{

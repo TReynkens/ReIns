@@ -24,6 +24,7 @@
         \item Add quantile estimator \eqn{trQuantW} to estimate quantiles of the untruncated r.v. when only a sample from the truncated r.v. is available.
         \item Add input argument \code{p} for \code{SpliceQQ}.
         \item Add optional arguments \code{loglik} and \code{IC} for \code{SpliceFit} objects.
+        \item Add argument \code{reduceM} for the splicefit functions.
       }
 
       \item Documentation changes:
