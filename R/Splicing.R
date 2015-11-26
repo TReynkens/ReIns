@@ -447,7 +447,7 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtrunca
   ##
 
   # Make SpliceFit object
-  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
+  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
@@ -613,7 +613,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   EVTfit <- structure(EVTfit, class="EVTfit")
   
   # Make SpliceFit object
-  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec,  type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
+  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
