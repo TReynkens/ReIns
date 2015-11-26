@@ -119,7 +119,8 @@
 
 ## EM algorithm (censored and truncated data)
 
-.ME_em <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE, beta_tol = 10^(-5)){
+.ME_em <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, 
+                   print=TRUE, beta_tol = 10^(-5), maxiter = Inf){
   n <- length(lower)
   M <- length(shape)
   # separate uncensored and censored observations
@@ -149,7 +150,8 @@
   old_loglikelihood <- -Inf
   history_loglikelihood <- loglikelihood
   history_theta <- theta
-  while(loglikelihood - old_loglikelihood > eps){
+  
+  while(loglikelihood - old_loglikelihood > eps & iteration < maxiter){
     old_loglikelihood <- loglikelihood
     # E step
     if(no_censoring & censoring){
@@ -213,11 +215,11 @@
 
 ## Shape adjustments
 
-.ME_shape_adj <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE){
+.ME_shape_adj <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=1e-03, print=TRUE, maxiter = Inf){
   shape <- shape[beta>0]
   beta <- beta[beta>0]/sum(beta)
   M <- length(shape)
-  fit <- .ME_em(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE)
+  fit <- .ME_em(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE, maxiter=maxiter)
   loglikelihood <- fit$loglikelihood
   theta <- fit$theta
   beta <- fit$beta
@@ -235,7 +237,7 @@
       while( (improve==TRUE) && (i == M || (shape[i] < shape[i+1]-1))) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1        
-        fit <- .ME_em(lower, upper, trunclower, truncupper, theta, new_shape, beta, eps, print=FALSE)
+        fit <- .ME_em(lower, upper, trunclower, truncupper, theta, new_shape, beta, eps, print=FALSE, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
         if(new_loglikelihood > loglikelihood + eps){
           loglikelihood <- new_loglikelihood
@@ -256,7 +258,7 @@
       while( (improve==TRUE) && ( (i == 1) || shape[i] > shape[i-1]+1 ) && shape[i]>1){
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
-        fit <- .ME_em(lower, upper, trunclower, truncupper, theta, new_shape, beta, eps, print=FALSE)
+        fit <- .ME_em(lower, upper, trunclower, truncupper, theta, new_shape, beta, eps, print=FALSE, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
         if(new_loglikelihood > loglikelihood + eps){
           loglikelihood <- new_loglikelihood
@@ -279,9 +281,9 @@
 
 ## Reduction of M based on an information criterium: AIC and BIC implemented
 
-.ME_shape_red <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, criterium="AIC", improve=TRUE, eps=1e-03, print=TRUE){
+.ME_shape_red <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, criterium="AIC", improve=TRUE, eps=1e-03, print=TRUE, maxiter = Inf){
   n <- length(lower)
-  fit <- .ME_shape_adj(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE)
+  fit <- .ME_shape_adj(lower, upper, trunclower, truncupper, theta, shape, beta, eps, print=FALSE, maxiter=maxiter)
   loglikelihood <- fit$loglikelihood
   IC <- fit[[criterium]]
   shape <- fit$shape
@@ -295,7 +297,7 @@
     new_shape <- shape[beta != min(beta)]
     new_beta <- beta[beta != min(beta)]
     new_beta <- new_beta/sum(new_beta)
-    fit <- .ME_shape_adj(lower, upper, trunclower, truncupper, theta, new_shape, new_beta, eps, print=FALSE)
+    fit <- .ME_shape_adj(lower, upper, trunclower, truncupper, theta, new_shape, new_beta, eps, print=FALSE, maxiter=maxiter)
     new_IC <- fit[[criterium]]
     if(new_IC < IC){ 
       IC <- new_IC
@@ -323,10 +325,12 @@
 # By default no truncation: trunclower=0, truncupper=Inf
 # alpha = beta in case of no truncation
 
-.ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, criterium="AIC", reduceM = TRUE, eps=1e-03, print=TRUE){
+.ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, criterium="AIC", reduceM = TRUE, eps=1e-03, print=TRUE, maxiter = Inf){
   
   initial <- .ME_initial(lower, upper, trunclower, truncupper, M, s)
-  fit <- .ME_shape_red(lower, upper, trunclower, truncupper, initial$theta, initial$shape, initial$beta, criterium, reduceM, eps, print)
+  fit <- .ME_shape_red(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                       theta=initial$theta, shape=initial$shape, beta=initial$beta, 
+                       criterium=criterium, improve=reduceM, eps=eps, print=print, maxiter=maxiter)
   list(alpha = fit$alpha, beta = fit$beta, shape = fit$shape, theta = fit$theta, loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s) 
 }
 
@@ -405,7 +409,7 @@
 
 ## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
 .MEtune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, 
-                    nCores = detectCores(), criterium = "AIC", reduceM = TRUE, eps = 1e-03, print=TRUE, file="log.txt"){
+                    nCores = detectCores(), criterium = "AIC", reduceM = TRUE, eps = 1e-03, maxiter = Inf, print=TRUE, file="log.txt"){
  
   ######
   # Check input
@@ -424,7 +428,7 @@
                          .errorhandling = 'pass') %do% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
       suppressWarnings(.ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
-                               criterium=criterium, reduceM=reduceM, eps=eps, print=FALSE))
+                               criterium=criterium, reduceM=reduceM, maxiter=maxiter, eps=eps, print=FALSE))
     }
 
 
@@ -443,7 +447,7 @@
                          .errorhandling = 'pass') %dopar% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
                            .ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
-                                   criterium=criterium, reduceM=reduceM, eps=eps, print=FALSE)
+                                   criterium=criterium, reduceM=reduceM, maxiter=maxiter, eps=eps, print=FALSE)
     }
     stopCluster(cl) 
   }

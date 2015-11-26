@@ -9,7 +9,7 @@ Fit spliced distribution of a mixed Erlang and Generalised Pareto Distributions 
 }
 \usage{
 SpliceFitGPD(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
-            criterium = c("BIC","AIC"), reduceM = TRUE)
+            criterium = c("BIC","AIC"), reduceM = TRUE, maxiter = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -39,6 +39,9 @@ Information criterion used to select the number of components of the ME fit and 
 }
 \item{reduceM}{
 Logical indicating if M should be reduced based on the information criterion, default is \code{TRUE}.
+}
+\item{maxiter}{
+Maximum number of iterations in a single EM algorithm. Default is \code{Inf} meaning no maximum.
 }
 }
 \details{
