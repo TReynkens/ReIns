@@ -8,7 +8,7 @@
 
 # supply number of shapes M and spread factor s
 
-.ME_initial <- function(lower, upper, trunclower=0, truncupper=Inf, M=10, s=1){
+.ME_initial <- function(lower, upper, trunclower = 0, truncupper = Inf, M = 10, s = 1){
   # data for initial step: treat left and right censored data as observed and take mean for interval censored data
   uc <- lower[lower==upper & !is.na(lower==upper)]
   lc <- upper[is.na(lower)]
@@ -118,8 +118,8 @@
 
 ## EM algorithm (censored and truncated data)
 
-.ME_em <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, eps=10^(-3), 
-                   beta_tol = 10^(-5), maxiter = Inf, print=TRUE){
+.ME_em <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, eps = 10^(-3), 
+                   beta_tol = 10^(-5), maxiter = Inf, print = TRUE){
   n <- length(lower)
   M <- length(shape)
   # separate uncensored and censored observations
@@ -214,8 +214,8 @@
 
 ## Shape adjustments
 
-.ME_shape_adj <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, 
-                          eps=10^(-3), beta_tol = 10^(-5), maxiter = Inf, print=TRUE){
+.ME_shape_adj <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, 
+                          eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, print = TRUE){
   shape <- shape[beta>0]
   beta <- beta[beta>0]/sum(beta)
   M <- length(shape)
@@ -287,8 +287,8 @@
 
 ## Reduction of M based on an information criterium: AIC and BIC implemented
 
-.ME_shape_red <- function(lower, upper, trunclower=0, truncupper=Inf, theta, shape, beta, criterium="AIC", 
-                          improve=TRUE, eps=10^(-3), beta_tol = 10^(-5), maxiter = Inf, print=TRUE){
+.ME_shape_red <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, criterium = "AIC", 
+                          improve = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, print = TRUE){
   n <- length(lower)
   fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                        theta=theta, shape=shape, beta=beta, 
@@ -337,7 +337,7 @@
 # alpha = beta in case of no truncation
 
 .ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1,
-                    criterium="AIC", reduceM = TRUE, eps=10^(-3), beta_tol = 10^(-5), maxiter = Inf, print = TRUE){
+                    criterium = "AIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, print = TRUE){
   
   initial <- .ME_initial(lower, upper, trunclower, truncupper, M, s)
   fit <- .ME_shape_red(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -456,8 +456,9 @@
                          .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
                          .errorhandling = 'pass') %do% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
-      suppressWarnings(.ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
-                               criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, print=FALSE))
+      suppressWarnings(.ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                               M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
+                               criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, print=print))
     }
 
 
@@ -475,8 +476,9 @@
                          .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
                          .errorhandling = 'pass') %dopar% {
       if(print) cat(paste("M = ", tuning_parameters[i, 1], ", s = ", tuning_parameters[i, 2], "\n"), file = file, append = TRUE)
-                           .ME_fit(lower, upper, trunclower, truncupper, M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
-                                   criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, print=FALSE)
+                           .ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                                   M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
+                                   criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, print=print)
     }
     stopCluster(cl) 
   }
