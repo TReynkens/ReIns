@@ -11,7 +11,7 @@ Fit spliced distribution of a mixed Erlang and a Pareto distribution adapted for
 \usage{
 SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
                   truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"), 
-                  reduceM = TRUE, maxiter = Inf)
+                  reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -53,7 +53,13 @@ Information criterion used to select the number of components of the ME fit and 
 \item{reduceM}{
 Logical indicating if M should be reduced based on the information criterion, default is \code{TRUE}.
 }
-\item{maxiter}{
+\item{eps}{
+Covergence threshold used in the EM algorithm. Default is \code{10^(-3)}
+}
+\item{beta_tol}{
+Threshold for the mixing weights below which the corresponding shape parameter vector is considered neglectable (ME part). Default is \code{10^(-5)}.
+}
+ \item{maxiter}{
 Maximum number of iterations in a single EM algorithm. Default is \code{Inf} meaning no maximum.
 }
 }

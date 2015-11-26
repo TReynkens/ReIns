@@ -313,7 +313,8 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
 SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtruncation = FALSE, 
-                            ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, maxiter = Inf) {
+                            ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, 
+                            eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
  
   ##
   # Check input
@@ -390,7 +391,8 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtrunca
   
   # Upper truncated at threshold t
   fit_tune <- .MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
-                      M=M, s=s, nCores = ncores, criterium=criterium, reduceM = reduceM, eps=1e-03, print=FALSE, maxiter = maxiter)
+                      M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
+                      eps=eps, beta_tol=beta_tol, maxiter=maxiter, print=FALSE)
   # Output as MEfit object
   MEfit <- .MEoutput(fit_tune)
   
@@ -493,7 +495,7 @@ SpliceFitHill <- SpliceFitPareto
 
 # Fit splicing of ME and Pareto distribution to interval censored data
 SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
-                              criterium = c("BIC","AIC"), reduceM = TRUE, maxiter = Inf) {
+                              criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
   
   warning("This function has not yet been implemented.")
 }
@@ -503,7 +505,8 @@ SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclow
 
 # Fit splicing of mixed Erlang and GPD (POT)
 # No truncation implemented, so only use with one GPD part!
-SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, maxiter = Inf) {
+SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
+                         criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
 
   # Check if X is numeric
   if (!is.numeric(X)) stop("X should be a numeric vector.")
@@ -574,7 +577,8 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   
   # Upper truncated at threshold t
   fit_tune <- .MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
-                     M=M, s=s, nCores = ncores, criterium=criterium, reduceM = reduceM, eps=1e-03, print=FALSE, maxiter = maxiter)
+                     M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
+                     eps=eps, beta_tol=beta_tol, maxiter=maxiter, print=FALSE)
   # Output as MEfit object
   MEfit <- .MEoutput(fit_tune)
   

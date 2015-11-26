@@ -24,7 +24,7 @@
         \item Add quantile estimator \eqn{trQuantW} to estimate quantiles of the untruncated r.v. when only a sample from the truncated r.v. is available.
         \item Add input argument \code{p} for \code{SpliceQQ}.
         \item Add optional arguments \code{loglik} and \code{IC} for \code{SpliceFit} objects.
-        \item Add arguments \code{reduceM} and \code{maxiter} for the splicefit functions.
+        \item Add arguments \code{reduceM}, \code{eps}, \code{beta_tol} and \code{maxiter} for the splicefit functions.
       }
 
       \item Documentation changes:
@@ -38,6 +38,7 @@
           \item Improve examples with censored data in splicing.
           \item Add quantile estimator \eqn{trQuantW} to estimate quantiles of the untruncated r.v. when only a sample from the truncated r.v. is available.
           \item Add input argument \code{p} for \code{SpliceQQ}.
+          \item Add arguments \code{reduceM}, \code{eps}, \code{beta_tol} and \code{maxiter} for the splicefit functions.
         }
       }
 
