@@ -8,8 +8,8 @@ Splicing of mixed Erlang and GPD using POT-MLE
 Fit spliced distribution of a mixed Erlang and Generalised Pareto Distributions (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
 }
 \usage{
-SpliceFitGPD(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
-            criterium = c("BIC","AIC"), reduceM = TRUE,
+SpliceFitGPD(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
+            ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE,
             eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -18,7 +18,10 @@ SpliceFitGPD(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL,
 Data used for fitting the distribution.
 }
   \item{const}{
-The probability of the quantile where the ME distribution will be spliced with the GPD distribution.
+The probability of the quantile where the ME distribution will be spliced with the GPD distribution. Default is \code{NULL} meaning the input from \code{tsplice} is used.
+}
+  \item{tsplice}{
+The point where the ME distribution will be spliced with the GPD distribution. Default is \code{NULL} meaning the input from \code{const} is used.
 }
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining

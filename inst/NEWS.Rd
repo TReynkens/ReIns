@@ -25,6 +25,7 @@
         \item Add input argument \code{p} for \code{SpliceQQ}.
         \item Add optional arguments \code{loglik} and \code{IC} for \code{SpliceFit} objects.
         \item Add arguments \code{reduceM}, \code{eps}, \code{beta_tol} and \code{maxiter} for the splicefit functions.
+        \item Allow splicing point to be specified for \code{SpliceFitPareto} and \code{SpliceFitGPD}.
       }
 
       \item Documentation changes:

@@ -16,6 +16,19 @@
 }
 
 
+# Check input for tsplice
+.tspliceCheck <- function(tsplice) {
+  
+  if (!is.numeric(tsplice)) stop("tsplice should be numeric.")
+
+  if (is.unsorted(tsplice, strictly=TRUE)) {
+    stop("tsplice should be a strictly increasing vector.")
+  }
+  
+}
+
+
+
 #########################################################
 # S3 classes
 
@@ -312,7 +325,7 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
 ###############################################################################
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
-SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtruncation = FALSE, 
+SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, EVTtruncation = FALSE, 
                             ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, 
                             eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
  
@@ -323,26 +336,37 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtrunca
   if (!is.numeric(X)) stop("X should be a numeric vector.")
   n <- length(X)
   
-  # Check input for const
-  .constCheck(const)
+  # Check input for const if not NULL
+  if (!is.null(const)) {
+
+    .constCheck(const)
+    
+    l <- length(const)
+  }
   
-  l <- length(const)
-  
-  # Match input argument for criterium
-  criterium <- match.arg(criterium)
-  
-  if (length(EVTtruncation)!=1) {
-      stop("EVTtruncation should have length 1.")
+  # Check input for tsplice if not NULL
+  if (!is.null(tsplice)) {
+    
+    .tspliceCheck(tsplice)
+    
+    l <- length(tsplice)
   }
 
-  # Check input for ncores
-  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
-  if (is.na(ncores)) ncores <- 1
+  if (is.null(const) & is.null(tsplice)) {
+    stop("const and tsplice cannot be both NULL.")
+  }
   
+  if (!is.null(const) & !is.null(tsplice)) {
+    warning("Both const and tsplice are not NULL, the input for tsplice will be used.")
+    
+    const <- NULL
+  }
+  
+  
+  # Check input for trunclower
   if (!is.numeric(trunclower)) {
     stop("trunclower should be numeric.")
   }
-  
   
   if (any(trunclower>min(X))) {
     stop("trunclower should be strictly smaller than all data points.")
@@ -353,28 +377,46 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtrunca
   }
   
   
+  # Match input argument for criterium
+  criterium <- match.arg(criterium)
   
+  # Check input for ncores
+  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
+  if (is.na(ncores)) ncores <- 1
+  
+  
+  # Check input for EVTtruncation
+  if (length(EVTtruncation)!=1 | !is.logical(EVTtruncation)) {
+    stop("EVTtruncation should be a logical of length 1.")
+  }
+
   ##
   # Determine values of splicing points
     
   Xsort <- sort(X)
   
-  # Number of points larger than splicing points
-  k_init <- floor((1-const)*n)
-  
-  # Splicing points
-  tvec <- numeric(l)
-  tvec <-  Xsort[n-k_init]
+  if (!is.null(const)) {
+    # Number of points larger than splicing points
+    k_init <- ceiling((1-const)*n)
+    
+    # Splicing points
+    tvec <- numeric(l)
+    tvec <- Xsort[n-k_init]
+    
+    # Update const
+    const <- 1-k_init/n
 
+  } else {
+    tvec <- tsplice
+    
+    # const is number of observations smaller than or equal to tvec
+    f <- function(t, x) sum(x<=t)
+    const <- sapply(tvec, f, Xsort)/n
 
-  # Problem when first splicing point smaller than trunclower
-  if (any(trunclower>=tvec[1])) {
-    stop("trunclower should be strictly smaller than the first splicing point.")
+    # Make sure k_init is of integer type
+    k_init <- as.integer((1-const)*n)
   }
-  
-  # Update const
-  const <- 1-k_init/n
-  
+
   # Number of points in splicing part larger than splicing point
   kvec <- k_init
   
@@ -383,6 +425,13 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtrunca
       kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
     } 
   }
+  
+
+  # Problem when first splicing point smaller than trunclower
+  if (any(trunclower>=tvec[1])) {
+    stop("trunclower should be strictly smaller than the first splicing point.")
+  }
+  
   t1 <- tvec[1]
    
   ##
@@ -408,35 +457,35 @@ SpliceFitPareto <- function(X, const, M = 3, s = 1:10, trunclower = 0, EVTtrunca
   # Splicing parts
   for (i in 1:l) {
 
-      if (i==l) {
+    if (i==l) {
+      
+      if (EVTtruncation) {
+        # Last Pareto distribution is truncated, estimate truncation point
         
-        if (EVTtruncation) {
-          # Last Pareto distribution is truncated, estimate truncation point
-          
-          res <- trHill(X)
-          resDT <- trDT(X, gamma=res$gamma)
-          resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
-          EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
-          EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
-          type[i] <- "tPa"
-          
-        } else {
-          # Last Pareto distribution is not truncated
-          
-          EVTfit$gamma[i] <- .Hillinternal(X, tvec[i])
-          type[i] <- "Pa"
-        }
-
-      } else {
-        
-        # Endpoint is next splicing point
-        tt <- tvec[i+1]
-        
-        # Truncated Pareto distribution with truncation point tt
-        EVTfit$gamma[i] <- .trHillinternal(X[X<=tt], tvec[i], tt)
-        EVTfit$endpoint[i] <- tt
+        res <- trHill(X)
+        resDT <- trDT(X, gamma=res$gamma)
+        resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
+        EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+        EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
         type[i] <- "tPa"
+        
+      } else {
+        # Last Pareto distribution is not truncated
+        
+        EVTfit$gamma[i] <- .Hillinternal(X, tvec[i])
+        type[i] <- "Pa"
       }
+  
+    } else {
+      
+      # Endpoint is next splicing point
+      tt <- tvec[i+1]
+      
+      # Truncated Pareto distribution with truncation point tt
+      EVTfit$gamma[i] <- .trHillinternal(X[X<=tt], tvec[i], tt)
+      EVTfit$endpoint[i] <- tt
+      type[i] <- "tPa"
+    }
     
   }
   
@@ -505,7 +554,7 @@ SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclow
 
 # Fit splicing of mixed Erlang and GPD (POT)
 # No truncation implemented, so only use with one GPD part!
-SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
+SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
                          criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
 
   # Check if X is numeric
@@ -513,40 +562,41 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   n <- length(X)
   
   
-  # Check input for const
-  .constCheck(const)
-  
-  l <- length(const)
-  
-  if (l>=2) {
-    stop("const should be a single number.")
+  # Check input for const if not NULL
+  if (!is.null(const)) {
+    
+    .constCheck(const)
+    
+    l <- length(const)
   }
   
-  # Check input for ncores
-  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
-  if (is.na(ncores)) ncores <- 1
+  # Check input for tsplice if not NULL
+  if (!is.null(tsplice)) {
+    
+    .tspliceCheck(tsplice)
+    
+    l <- length(tsplice)
+  }
   
-  # Match input argument for criterium
-  criterium <- match.arg(criterium)
-
+  if (is.null(const) & is.null(tsplice)) {
+    stop("const and tsplice cannot be both NULL.")
+  }
   
-  # Determine values of splicing points
-  Xsort <- sort(X)
+  if (!is.null(const) & !is.null(tsplice)) {
+    warning("Both const and tsplice are not NULL, the input for tsplice will be used.")
+    
+    const <- NULL
+  }
   
-  # Number of points larger than splicing points
-  k_init <- floor((1-const)*n)
+  # Only implemented for a single splicing point
+  if (l>=2) {
+    stop("const (or tsplice) should be a single number.")
+  }
   
-  # Splicing points
-  tvec <- numeric(l)
-  tvec <-  Xsort[n-k_init]
   
+  # Check input for trunclower
   if (!is.numeric(trunclower)) {
     stop("trunclower should be numeric.")
-  }
-  
-  # Problem when first splicing point smaller than trunclower
-  if (any(trunclower>=tvec[1])) {
-    stop("trunclower should be strictly smaller than the first splicing point.")
   }
   
   if (any(trunclower>min(X))) {
@@ -558,20 +608,49 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   }
   
   
-  # Update const
-  const <- 1-k_init/n
   
-  # Number of points in splicing part larger than splicing point
-  kvec <- k_init
+  # Check input for ncores
+  if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
+  if (is.na(ncores)) ncores <- 1
   
-  if (l>1) {
-    for(i in (l-1):1) {
-      kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
-    } 
+  # Match input argument for criterium
+  criterium <- match.arg(criterium)
+
+  
+  ##
+  # Determine values of splicing points
+  
+  Xsort <- sort(X)
+  
+  if (!is.null(const)) {
+    # Number of points larger than splicing points
+    k_init <- ceiling((1-const)*n)
+    
+    # Splicing points
+    tvec <- numeric(l)
+    tvec <- Xsort[n-k_init]
+    
+    # Update const
+    const <- 1-k_init/n
+    
+  } else {
+    tvec <- tsplice
+    
+    # const is number of observations smaller than or equal to tvec
+    f <- function(t, x) sum(x<=t)
+    const <- sapply(tvec, f, Xsort)/n
+    
   }
+  
+  
+  # Problem when first splicing point smaller than trunclower
+  if (any(trunclower>=tvec[1])) {
+    stop("trunclower should be strictly smaller than the first splicing point.")
+  }
+  
   t1 <- tvec[1]
   
-  
+  ##
   # Mixing Erlang part
   MEind <- (X<=t1) 
   
@@ -582,6 +661,7 @@ SpliceFitGPD <- function(X, const, M = 3, s = 1:10, trunclower = 0, ncores = NUL
   # Output as MEfit object
   MEfit <- .MEoutput(fit_tune)
   
+  ##
   # EVT part
   EVTfit <- list()
   

@@ -9,12 +9,12 @@ Splicing of mixed Erlang and Pareto
 Fit spliced distribution of a mixed Erlang and Pareto distribution(s). The shape parameter of the Pareto distribution(s) is determined using the Hill estimator. 
 }
 \usage{
-SpliceFitPareto(X, const, M = 3, s = 1:10, trunclower = 0, 
+SpliceFitPareto(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
               EVTtruncation = FALSE, ncores = NULL, 
               criterium = c("BIC","AIC"), reduceM = TRUE,
               eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
               
-SpliceFitHill(X, const, M = 3, s = 1:10, trunclower = 0, 
+SpliceFitHill(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
               EVTtruncation = FALSE, ncores = NULL,
               criterium = c("BIC","AIC"), reduceM = TRUE,
               eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
@@ -25,9 +25,11 @@ SpliceFitHill(X, const, M = 3, s = 1:10, trunclower = 0,
 Data used for fitting the distribution.
 }
   \item{const}{
-Vector of length \eqn{l} containing the probabilities of the quantiles where the distributions will be spliced (splicing points). The ME distribution will be spliced with \eqn{l} Pareto distributions.
+Vector of length \eqn{l} containing the probabilities of the quantiles where the distributions will be spliced (splicing points). The ME distribution will be spliced with \eqn{l} Pareto distributions. Default is \code{NULL} meaning the input from \code{tsplice} is used.
 }
-
+  \item{tsplice}{
+Vector of length \eqn{l} containing the splicing points. The ME distribution will be spliced with \eqn{l} Pareto distributions. Default is \code{NULL} meaning the input from \code{const} is used.
+}
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining
 an optimal mixed Erlang fit using an AIC criterion.
@@ -66,6 +68,8 @@ Maximum number of iterations in a single EM algorithm (ME part). Default is \cod
 See Beirlant et al. (2015) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
 
 The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
+
+Use \code{\link{SpliceFitciPareto}} when censoring is present and/or when the upper truncation point does not need to be estimated.
 }
 \value{
 A \code{\link{SpliceFit}} object.
