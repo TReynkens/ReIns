@@ -226,6 +226,10 @@
   theta <- fit$theta
   beta <- fit$beta
   alpha <- fit$alpha
+  shape <- fit$shape
+  
+  M <- length(beta)
+  
   # before and after are the loglikelihoods used in the outer while loop
   before_loglikelihood <- -Inf
   after_loglikelihood <- loglikelihood    

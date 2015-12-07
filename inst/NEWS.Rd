@@ -1,6 +1,22 @@
 \name{NEWS}
 \title{News for package "ReIns"}
 
+
+\section{Changes in version 0.5-01 (yyyy-mm-dd)}{
+  \itemize{
+    \item Changes in \code{R} code:
+      \itemize{
+        \item Fix problem with reduction of number of Erlangs when some beta's are small.
+      }
+
+      \item Documentation changes:
+        \itemize{
+        }
+      }
+
+}
+
+
 \section{Changes in version 0.5-00 (2015-12-01)}{
   \itemize{
     \item Changes in \code{R} code:
