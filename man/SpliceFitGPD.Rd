@@ -55,7 +55,7 @@ Maximum number of iterations in a single EM algorithm (ME part). Default is \cod
 }
 }
 \details{
-See Beirlant et al. (2015) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
+See Albrecher et al. (2016) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
 }
 \value{
 A \code{\link{SpliceFit}} object.

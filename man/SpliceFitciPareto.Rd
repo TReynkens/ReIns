@@ -64,7 +64,7 @@ Maximum number of iterations in a single EM algorithm. Default is \code{Inf} mea
 }
 }
 \details{
-See Beirlant et al. (2015) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
+See Albrecher et al. (2016) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 }
