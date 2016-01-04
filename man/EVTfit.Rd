@@ -23,13 +23,13 @@ Vector of scale estimates for the GPD. When \code{NULL} (default), not included 
 }
 }
 \details{
-See Albrecher et al. (2015) for more details.
+See Albrecher et al. (2016) for more details.
 }
 \value{
 An S3 object containg the above input arguments.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

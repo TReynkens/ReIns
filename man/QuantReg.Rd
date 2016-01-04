@@ -46,7 +46,7 @@ A list with following components:
 \item{p}{The used exceedance probability.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens.

@@ -20,7 +20,7 @@ Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}} or
 }
 }
 \details{ 
-See Section 3.3 of Albrecher et al. (2015) for details.
+See Section 3.3 of Albrecher et al. (2016) for details.
 
 Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, log = FALSE, lower.tail = FALSE)}.
 }
@@ -28,7 +28,7 @@ Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, lo
 Vector of quantiles \eqn{VaR_p=Q(1-p)}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2014). "Fitting Mixtures of Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{FEB Research Report KBI_1401A}.
 }

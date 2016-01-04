@@ -53,7 +53,7 @@ A list with following components:
 \item{Reject}{Logical vector indicating if the null hypothesis is rejected for a certain value of \code{k}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
 Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.

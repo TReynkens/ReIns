@@ -65,7 +65,7 @@ A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}, only returned when \code{threshold=NULL}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

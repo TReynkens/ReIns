@@ -29,7 +29,7 @@ Initial value provided for \code{M}. When \code{NULL} (default), not included in
 }
 }
 \details{
-The rate paremeter \eqn{\lambda} used in Albrecher et al. (2015) is equal to \eqn{1/\theta}.
+The rate paremeter \eqn{\lambda} used in Albrecher et al. (2016) is equal to \eqn{1/\theta}.
 
 The mixing weights are denoted by \eqn{\alpha} (no truncation) or \eqn{\beta} (truncation) in Verbelen et al. (2014).
 }
@@ -37,7 +37,7 @@ The mixing weights are denoted by \eqn{\alpha} (no truncation) or \eqn{\beta} (t
 An S3 object which contains the input arguments in a list.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2014). "Fitting Mixtures of Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{FEB Research Report KBI_1401A}.
 }

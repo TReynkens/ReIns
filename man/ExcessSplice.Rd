@@ -28,14 +28,14 @@ The premium for the excess-loss insurance with retentation \eqn{M} and limit \eq
 \deqn{E(\min{(X-M)_+, L}) = I(M) - I(M+L)}
 where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function.  When \eqn{L=\infty}, the premium is equal to \eqn{I(M)}.
 
-See Section 3.3 of Albrecher et al. (2015) for details.
+See Section 3.3 of Albrecher et al. (2016) for details.
 
 }
 \value{
 An estimate for the premium is returned (for every value of \code{u}).
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2014). "Fitting Mixtures of Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{FEB Research Report KBI_1401A}.
 }

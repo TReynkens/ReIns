@@ -40,7 +40,7 @@ This vector should have length 1, 2 or 3 when included.
 }
 }
 \details{
-See Albrecher et al. (2015) for more details.
+See Albrecher et al. (2016) for more details.
 }
 \value{
 An S3 object containg the above input arguments and values for \eqn{\pi}, the splicing weights.
@@ -50,7 +50,7 @@ These splicing weights are equal to \deqn{\pi_1=const_1,   \pi_2=const_2-const_1
 A summary method is available.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.

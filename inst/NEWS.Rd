@@ -11,6 +11,7 @@
 
       \item Documentation changes:
         \itemize{
+          \item Change reference of Albrecher et al. from 2015 to 2016.
         }
       }
 

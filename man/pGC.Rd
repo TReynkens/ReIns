@@ -40,13 +40,13 @@ The Gram-Charlier approximation for the CDF of \eqn{Z} (\eqn{F(z)}) is given by
 \deqn{\hat{F}_{GC}(x) = \Phi(z) + \phi(z) (-\gamma_3/6 h_2(z)- \gamma_4/24h_3(z)}
 with \eqn{h_2(z)=z^2-1} and \eqn{h_3(z)=z^3-3z}.
 
-See Albrecher et al. (2015) for details.
+See Albrecher et al. (2016) for details.
 }
 \value{
 Vector of estimates for the probabilities \eqn{F(x)=P(X\le x)}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
 Cheah, P.K., Fraser, D.A.S. and Reid, N. (1993). "Some Alternatives to Edgeworth." \emph{The Canadian Journal of Statistics}, 21(2), 131--138.
 }

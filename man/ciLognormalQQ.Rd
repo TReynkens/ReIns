@@ -46,7 +46,7 @@ A list with following components:
 \item{lqq.emp}{Vector of the empirical quantiles from the log-transformed data.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2015). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens
