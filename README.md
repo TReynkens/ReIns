@@ -2,7 +2,7 @@
 ReIns
 =====
 
-ReIns contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2015) of Albrecher, Beirlant and Teugels. It contains implementations of
+ReIns contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Albrecher, Beirlant and Teugels. It contains implementations of
 
 -   Basic extreme value theory (EVT) estimators and graphical methods as described in "Statistics of Extremes: Theory and Applications" (2004) of Beirlant, Goegebeur, Segers and Teugels.
 
