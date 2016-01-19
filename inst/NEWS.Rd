@@ -7,6 +7,7 @@
     \item Changes in \code{R} code:
       \itemize{
         \item Fix problem with reduction of number of Erlangs when some beta's are small.
+        \item Remove \code{print} option in \code{.MEtune}.
       }
 
       \item Documentation changes:
