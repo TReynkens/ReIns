@@ -157,8 +157,6 @@
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
   loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
   old_loglikelihood <- -Inf
-  history_loglikelihood <- loglikelihood
-  history_theta <- theta
   
   while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter){
     old_loglikelihood <- loglikelihood
@@ -213,13 +211,11 @@
     t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
     loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
     
-    history_loglikelihood <- c(history_loglikelihood, loglikelihood)
-    history_theta <- c(history_theta, theta)
   }
   # beta to alpha
   alpha_tilde <- beta / t_probabilities
   alpha <- alpha_tilde / sum(alpha_tilde)
- list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, history_loglikelihood = history_loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n), history_theta=history_theta) 
+ list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
 }
 
 ## Shape adjustments
