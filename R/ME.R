@@ -246,7 +246,7 @@
     # Try increasing the shapes
     for(i in M:1){
       improve <- TRUE
-      while( (improve==TRUE) && (i == M || (shape[i] < shape[i+1]-1))) {
+      while( (improve==TRUE) && (i == M || ifelse(i<=length(shape), shape[i] < shape[i+1]-1, FALSE))) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1        
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -271,7 +271,7 @@
     # Try decreasing the shapes
     for(i in 1:M){
       improve <- TRUE
-      while( (improve==TRUE) && ( (i == 1) || shape[i] > shape[i-1]+1 ) && shape[i]>1){
+      while( (improve==TRUE) && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, TRUE)){
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
