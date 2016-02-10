@@ -237,7 +237,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
 }
 
 # Auxiliary function for summary.SpliceFit
-.pasteVec <- function(s, name, vec, digits) {
+.pasteVec <- function(s, name, vec, digits, paste_end="\n\n") {
   
   # Take no digits when vec is large
   digits <- ifelse(min(vec)<=1000, digits, 0)
@@ -247,10 +247,11 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   res <- format(round(vec,digits), big.mark=" ", scientific=FALSE, trim=TRUE,
                 drop0trailing=TRUE)
   
+  # paste_end is the last part of the string
   if(length(vec)==1) {
-    paste0(s, name," = ",res,"\n\n")
+    paste0(s, name," = ",res, paste_end)
   } else {
-    paste0(s, name," = (",paste(res, collapse=", "),")","\n\n")
+    paste0(s, name," = (",paste(res, collapse=", "),")",paste_end)
   }
   
 }
