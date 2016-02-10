@@ -307,6 +307,108 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   cat(s)
 }
 
+# General tex function
+tex <- function(x, ... ) UseMethod("tex", x)
+
+# TeX method for SpliceFit class
+tex.SpliceFit <- function(object, digits = 3, ...) {
+  
+  splicefit <- object
+  mefit <- splicefit$MEfit
+  evtfit <- splicefit$EVTfit
+  
+  s <- "\n"
+  
+  # General splicing part
+  
+  # Print all but last element of pi
+  if(length(splicefit$pi)>2) {
+    for(i in 1:(length(splicefit$pi)-1)) {
+      s <- .pasteVec(s, paste0("\\pi_",i), splicefit$pi[i], digits, ", ")
+    }
+    # Remove last ", " and add newline (twice)
+    s <- substr(s,1,nchar(s)-2)
+    s <- paste0(s, "\n\n")
+    
+  } else {
+    
+    s <- .pasteVec(s, "\\pi", splicefit$pi[1], digits)
+  }
+  
+  s <- .pasteVec(s, "t^l", splicefit$trunclower, digits)
+  
+  # Print all splicing points
+  if(length(splicefit$t)>1) {
+    
+    for(i in 1:length(splicefit$t)) {
+      s <- .pasteVec(s, paste0("t_",i), splicefit$t[i], digits, ", ")
+    }
+    # Remove last ", " and add newline (twice)
+    s <- substr(s,1,nchar(s)-2)
+    s <- paste0(s, "\n\n")
+    
+  } else {
+    s <- .pasteVec(s, "t", splicefit$t[1], digits)
+  }
+  
+  # Print splicing type
+  s <- paste0(s, "type = (",paste(splicefit$type, collapse=", "),")","\n\n")
+  
+  
+  # ME part
+  # Print alpha
+  s <- .pasteVec(s, "\\alpha", mefit$p, digits)
+  # Print shape
+  s <- .pasteVec(s, "r", mefit$shape, digits)
+  # Print scale
+  s <- .pasteVec(s, "\\theta", mefit$theta, digits)
+  
+  # EVT part
+  
+  # Print gamma
+  if(length(evtfit$gamma)>1) {
+    
+    for(i in 1:length(evtfit$gamma)) {
+      s <- .pasteVec(s, paste0("\\gamma_",i), evtfit$gamma[i], digits, ", ")
+    }
+    # Remove last ", " and add newline (twice)
+    s <- substr(s,1,nchar(s)-2)
+    s <- paste0(s, "\n\n")
+    
+  } else {
+    s <- .pasteVec(s, "\\gamma", evtfit$gamma, digits)
+  }
+  
+  # Print sigma if exists
+  if (exists("sigma", where=splicefit$EVTfit)) {
+    if(length(evtfit$sigma)>1) {
+      
+      for(i in 1:length(evtfit$sigma)) {
+        s <- .pasteVec(s, paste0("\\sigma_",i), evtfit$sigma[i], digits, ", ")
+      }
+      # Remove last ", " and add newline (twice)
+      s <- substr(s,1,nchar(s)-2)
+      s <- paste0(s, "\n\n")
+      
+    } else {
+      s <- .pasteVec(s, "\\sigma", evtfit$sigma, digits)
+    }
+  }
+  
+  # Print endpoint, special case when infinite
+  end <- evtfit$endpoint[length(evtfit$endpoint)]
+  
+  if (is.finite(end)) {
+    s <- .pasteVec(s,"T", end, digits)
+  } else {
+    s <- paste0(s, "T = +\\infty","\n")
+  }
+  
+  
+  cat(s)
+}
+
+
 
 # Only keep necessary parts from .MEtune output
 .MEoutput <- function(fit_tune) {

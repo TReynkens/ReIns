@@ -107,6 +107,7 @@ export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB"
 # S3
 export("MEfit", "EVTfit", "SpliceFit")
 S3method(summary, SpliceFit)
+S3method(tex, SpliceFit)
 
 #####################################
 # Risk measures
