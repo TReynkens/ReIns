@@ -119,11 +119,11 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
     xval <- K
     xlab <- "k"
   } else {
-    xval <- log(X[n-K])
-    xlab <- bquote(log(X["n-k,n"]))
+    xval <- X[n-K]
+    xlab <- bquote(X["n-k,n"])
   }
 
-  #Derivative
+  # Derivative
   yval <- Hill(X)$gamma
   
   # plots if TRUE
@@ -138,7 +138,7 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
 #######################################################################################
 
 
-#Log-normal QQplot
+# Log-normal QQ-plot
 LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   
   # Check input arguments
@@ -161,7 +161,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   
 }
 
-#Derivative plot of log-normal QQ plot
+#Derivative plot of log-normal QQ-plot
 LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of log-normal QQ-plot", ...) {
   
   # Check input arguments
@@ -175,8 +175,8 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
     xval <- K
     xlab <- "k"
   } else {
-    xval <- log(X[n-K])
-    xlab <- bquote(log(X["n-k,n"]))
+    xval <- X[n-K]
+    xlab <- bquote(X["n-k,n"])
   }
   
   

@@ -10,6 +10,7 @@
         \item Remove \code{print} option in \code{.MEtune}.
         \item Remove history of \code{theta} and \code{loglikelihood} in \code{.ME_em}.
         \item Improve while-loops in \code{.ME_shape_adj}.
+        \item Use \code{X}, not \code{log(X)} (as indicated in the documentation) when computing the derivative plots of the Pareto QQ-plot and the lognormal QQ-plot.
       }
 
       \item Documentation changes:
