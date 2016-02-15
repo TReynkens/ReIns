@@ -5,7 +5,7 @@
 Derivative plot of the Pareto QQplot
 }
 \description{
-Computes the derivative plot of the Pareto QQplot. These values can be plotted as a function of the data or as a function of the tail parameter \eqn{k}.
+Computes the derivative plot of the Pareto QQ-plot. These values can be plotted as a function of the data or as a function of the tail parameter \eqn{k}.
 }
 \usage{
 ParetoQQ_der(data, k = FALSE, plot = TRUE, 
@@ -23,14 +23,14 @@ Logical indicating if the derivative values should be plotted, default is \code{
 Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the data (\code{k=FALSE}). Default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Derivative plot of Pareto QQplot"}.
+Title for the plot, default is \code{"Derivative plot of Pareto QQ-plot"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
 \details{
-The derivative plot of a Pareto QQplot is \deqn{(k,H_{k,n})} or \deqn{(X_{n-k,n},H_{k,n})}
+The derivative plot of a Pareto QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(X_{n-k,n},H_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates.
 }
 

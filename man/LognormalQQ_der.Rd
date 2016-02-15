@@ -5,7 +5,7 @@
 Derivative plot of the log-normal QQplot
 }
 \description{
-Computes the derivative plot of the log-normal QQplot. These values can be plotted as a function of the data or as a function of the tail parameter \eqn{k}.
+Computes the derivative plot of the log-normal QQ-plot. These values can be plotted as a function of the data or as a function of the tail parameter \eqn{k}.
 }
 \usage{
 LognormalQQ_der(data, k = FALSE, plot = TRUE, 
@@ -23,14 +23,14 @@ Logical indicating if the derivative values should be plotted, default is \code{
 Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the data (\code{k=FALSE}). Default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Derivative plot of log-normal QQplot"}.
+Title for the plot, default is \code{"Derivative plot of log-normal QQ-plot"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
 \details{
-The derivative plot of a log-normal QQplot is \deqn{(k, H_{k,n}/N_{k,n} )} or \deqn{(X_{n-k,n}, H_{k,n}/N_{k,n} )} with \eqn{H_{k,n}} the Hill estimates and \deqn{N_{k,n} = (n+1)/(k+1) \phi(\Phi^{-1}(a)) - \Phi^{-1}(a).} Here is \eqn{a=1-(k+1)/(n+1)}, \eqn{\phi} the normal PDF and \eqn{\Phi} the normal CDF.
+The derivative plot of a log-normal QQ-plot is \deqn{(k, H_{k,n}/N_{k,n} )} or \deqn{(X_{n-k,n}, H_{k,n}/N_{k,n} )} with \eqn{H_{k,n}} the Hill estimates and \deqn{N_{k,n} = (n+1)/(k+1) \phi(\Phi^{-1}(a)) - \Phi^{-1}(a).} Here is \eqn{a=1-(k+1)/(n+1)}, \eqn{\phi} the normal PDF and \eqn{\Phi} the normal CDF.
 
 
 See Section 3.1 in Beirlant et al. (201x) for more details.
