@@ -61,7 +61,7 @@ a function that depends on \eqn{gamma_1}, see Section 3.2.5 of Beirlant et al. (
 We compute this root using \code{\link[stats]{uniroot}}. Therefore, the arguments \code{lower} and \code{upper} need to be specified. If the function (of which we compute the roots) is equal in \code{lower} and \code{upper}, we increase \code{upper}
 by \code{up} until the function values in \code{lower} and \code{upper} are different or until we increased it \code{maxup} times. In the latter case, we return \code{NA}.
 
-This function is only suitable for right censored data. For interval censored data, one can use \code{\link{trciHill}}.
+This function is only suitable for right censored data.
 }
 \value{
 A list with following components:
@@ -79,7 +79,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{trcProb}}, \code{\link{cHill}}, \code{\link{trHill}}, \code{\link{trciHill}}
+\code{\link{trcProb}}, \code{\link{cHill}}, \code{\link{trHill}}
 }
 \examples{
 # Sample from truncated Pareto distribution.

@@ -36,7 +36,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The Hill estimator adapted for right censored data is equal to the ordinary Hill estimator \eqn{H_{k,n}} divided by the proportion of the \eqn{k} largest observations that is non-censored.
 
-This estimator is only suitable for right censored data. For interval censored data, one can use \code{\link{ciHill}}.
+This estimator is only suitable for right censored data.
 }
 \value{
 A list with following components:
@@ -54,7 +54,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{Hill}}, \code{\link{ciHill}}, \code{\link{cParetoQQ}}, \code{\link{cProb}}, \code{\link{cQuant}}
+\code{\link{Hill}}, \code{\link{cParetoQQ}}, \code{\link{cProb}}, \code{\link{cQuant}}
 }
 \examples{
 data(secura)

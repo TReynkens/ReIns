@@ -55,7 +55,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ParetoQQ}}, \code{\link{cParetoQQ}}, \code{\link{ciExpQQ}}, \code{ciLognormalQQ}, \code{\link{ciHill}}, \code{\link{Turnbull}}
+\code{\link{ParetoQQ}}, \code{\link{cParetoQQ}}, \code{\link{ciExpQQ}}, \code{ciLognormalQQ}, \code{\link{Turnbull}}
 }
 \examples{
 data(secura)

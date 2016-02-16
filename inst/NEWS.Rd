@@ -11,11 +11,13 @@
         \item Remove history of \code{theta} and \code{loglikelihood} in \code{.ME_em}.
         \item Improve while-loops in \code{.ME_shape_adj}.
         \item Use \code{X}, not \code{log(X)} (as indicated in the documentation) when computing the derivative plots of the Pareto QQ-plot and the lognormal QQ-plot.
+        \item Remove all estimators for interval censoring (except QQ-plots).
       }
 
       \item Documentation changes:
         \itemize{
           \item Change reference of Albrecher et al. from 2015 to 2016.
+          \item Remove all estimators for interval censoring (except QQ-plots).
         }
       }
 

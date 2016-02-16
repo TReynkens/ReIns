@@ -45,7 +45,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The probability is estimated as
 \deqn{ (1-km) * ( (q/Z_{n-k,n})^{-1/H_{k,n}^c}-  R_{r,k,n}^{1/\hat{\gamma}_k} ) / (1- R_{r,k,n}^{1/\hat{\gamma}_k})}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c} the Hill estimator adapted for right censoring, \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}, \eqn{R_{r,k,n} = Z_{n-k,n} / Z_{n-r+1,n}}
-and  and \eqn{\hat{\gamma}_k} the Hill estimates adapted for right censoring and truncation.
+and \eqn{\hat{\gamma}_k} the Hill estimates adapted for right censoring and truncation.
 }
 \value{
 A list with following components:
@@ -64,7 +64,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{trcHill}}, \code{\link{trciProb}}, \code{\link{trProb}}, \code{\link{cProb}}, \code{\link{KaplanMeier}}
+\code{\link{trcHill}}, \code{\link{trProb}}, \code{\link{cProb}}, \code{\link{KaplanMeier}}
 }
 \examples{
 # Sample from truncated Pareto distribution.

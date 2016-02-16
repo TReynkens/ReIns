@@ -43,7 +43,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The function \code{EPD} uses \eqn{\tau} which is equal to \eqn{-\beta \gamma}.
 
-This estimator is only suitable for right censored data. When the data are interval censored, one can use \code{\link{ciEPD}}.
+This estimator is only suitable for right censored data.
 }
 \value{
 A list with following components:
@@ -64,7 +64,7 @@ Tom Reynkens based on \code{R} code from A. Bardoutsos.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{EPD}}, \code{\link{ciEPD}}, \code{\link{cProbEPD}}, \code{\link{cGPDmle}}
+\code{\link{EPD}}, \code{\link{cProbEPD}}, \code{\link{cGPDmle}}
 }
 \examples{
 data(secura)

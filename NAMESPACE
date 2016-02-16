@@ -77,9 +77,7 @@ export("cProbGH","cQuantGH","cReturnGH")
 export("cProbMOM","cQuantMOM","cReturnMOM")
 export("cProbGPD","cQuantGPD","cReturnGPD")
 export("cEPD","cProbEPD","cReturnEPD")
-export("ciHill","ciProb","ciReturn")
 export("ciExpQQ","ciLognormalQQ","ciParetoQQ")
-export("ciEPD","ciProbEPD","ciReturnEPD")
 
 
 #########################
@@ -93,7 +91,6 @@ export("trParetoQQ")
 #####################################
 # Censoring+truncation
 
-export("trcHill","trciHill")
 export("trcProb","trciProb")
 #export("trciDT","trciEndpoint")
 

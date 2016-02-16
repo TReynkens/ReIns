@@ -74,7 +74,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{cEPD}}, \code{\link{ProbEPD}}, \code{\link{ciProbEPD}}, \code{\link{Prob}}, \code{\link{KaplanMeier}}
+\code{\link{cEPD}}, \code{\link{ProbEPD}}, \code{\link{Prob}}, \code{\link{KaplanMeier}}
 }
 \examples{
 data(secura)
