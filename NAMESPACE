@@ -87,14 +87,6 @@ export("trHill","trDT","trEndpoint","trQuant", "trQuantW", "trProb")
 export("trTest")
 export("trParetoQQ")
 
-
-#####################################
-# Censoring+truncation
-
-export("trcProb","trciProb")
-#export("trciDT","trciEndpoint")
-
-
 #####################################
 # Splicing
 
