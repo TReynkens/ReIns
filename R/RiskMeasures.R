@@ -189,8 +189,8 @@
 
 
 
-# Premium of excess-loss insurance with retention M and limit L using Hill estimates
-ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
+# Premium of excess-loss insurance with retention M and limit L using Hill estimates (in Pareto model)
+ExcessPareto <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                         main="Estimates for premium of excess-loss insurance", ...) {
   
   if (any(M<0)) {
@@ -230,6 +230,8 @@ ExcessHill <- function(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE,
   
 }
 
+# Old function name
+ExcessHill <- ExcessPareto
 
 # Premium of excess-loss insurance with retention M and limit L using GPD-MLE estimates
 ExcessGPD <- function(data, gamma, sigma, M, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,

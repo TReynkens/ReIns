@@ -13,6 +13,7 @@
         \item Use \code{X}, not \code{log(X)} (as indicated in the documentation) when computing the derivative plots of the Pareto QQ-plot and the lognormal QQ-plot.
         \item Remove all estimators for interval censoring (except QQ-plots).
         \item Remove all estimators that can handle data that is both censored and truncated.
+        \item Rename \code{ExcessHill} to \code{ExcessPareto}, old name is still included for compatibility issues.
       }
 
       \item Documentation changes:

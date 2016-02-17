@@ -1,4 +1,5 @@
-\name{ExcessHill}
+\name{ExcessPareto}
+\alias{ExcessPareto}
 \alias{ExcessHill}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -8,6 +9,9 @@ Estimates for excess-loss premiums using a Pareto model
 Estimate premiums of excess-loss reinsurance with retention \eqn{M} and limit \eqn{L} using a (truncated) Pareto model.
 }
 \usage{
+ExcessPareto(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, 
+        add = FALSE, main = "Estimates for premium of excess-loss insurance", ...)
+        
 ExcessHill(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, 
         add = FALSE, main = "Estimates for premium of excess-loss insurance", ...)
 }
@@ -56,6 +60,8 @@ where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function. Wh
 We estimate the integrated tail function by
 \deqn{ \hat{I}(u) = (k+1)/(n+1) / (1/H_{k,n}-1) * (X_{n-k,n})^{1/H_{k,n}} u^{1-H_{k,n}},}
 with \eqn{H_{k,n}} the Hill estimator.
+
+The \code{ExcessHill} function is the same function but with a different name for compatibility with old versions of the package.
 }
 \value{
 A list with following components:
