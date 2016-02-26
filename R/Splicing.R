@@ -201,7 +201,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   # Check if truncated when indicated by type
   ind <- which(substring(type,1,1)=="t")
   if (any(!is.finite(EVTfit$endpoint[ind-1]) & !is.na(EVTfit$endpoint[ind-1]))) {
-    stop("Finite endpoint is not compatible with type \"tPa\".")
+    stop("Infinite endpoint is not compatible with type \"tPa\".")
   }
   
   # Issue warning for NAs in gamma
