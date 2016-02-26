@@ -10,12 +10,12 @@ Fit spliced distribution of a mixed Erlang and Pareto distribution(s). The shape
 }
 \usage{
 SpliceFitPareto(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
-              EVTtruncation = FALSE, ncores = NULL, 
-              criterium = c("BIC","AIC"), reduceM = TRUE,
-              eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
+                truncupper = Inf, EVTtruncation = FALSE, ncores = NULL, 
+                criterium = c("BIC","AIC"), reduceM = TRUE,
+                eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
               
 SpliceFitHill(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
-              EVTtruncation = FALSE, ncores = NULL,
+              truncupper = Inf, EVTtruncation = FALSE, ncores = NULL,
               criterium = c("BIC","AIC"), reduceM = TRUE,
               eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
 }
@@ -41,8 +41,11 @@ an optimal mixed Erlang fit using an AIC criterion.
   \item{trunclower}{
 Lower truncation point. Default is 0.
 }
+  \item{truncupper}{
+Upper truncation point. Default is \code{Inf} (no upper truncation). When \code{truncupper=Inf} and \code{EVTtruncation=TRUE}, the truncation point is estimated using the approach of Beirlant et al. (2015).
+}
   \item{EVTtruncation}{
-Logical vector indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution.
+Logical vector indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution. Default is \code{FALSE}.
 }
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
@@ -76,6 +79,9 @@ A \code{\link{SpliceFit}} object.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
+Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
+Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.

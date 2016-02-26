@@ -483,18 +483,26 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     stop("trunclower has to be finite.")
   }
   
+  
   # Check input for truncupper
   if (!is.numeric(truncupper)) {
     stop("trunclower should be numeric.")
   }
   
-  if (trunclower<max(X)) {
-    stop("trunclower should be larger than all data points.")
+  if (truncupper<max(X)) {
+    stop("truncupper should be larger than all data points.")
   }
 
   if (truncupper<=trunclower) {
-    stop("truncupper should be strictly larger than trunclower")
+    stop("truncupper should be strictly larger than trunclower.")
   }
+  
+  if (!EVTtruncation & is.finite(truncupper)) {
+    # Set EVTtruncation to true when truncupper is finite
+    EVTtruncation <- TRUE
+    warning("truncupper is finite, EVTtruncation is set to TRUE.")
+  }
+  
   
   
   # Match input argument for criterium
@@ -580,13 +588,21 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     if (i==l) {
       
       if (EVTtruncation) {
-        # Last Pareto distribution is truncated, estimate truncation point
         
-        res <- trHill(X)
-        resDT <- trDT(X, gamma=res$gamma)
-        resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
-        EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
-        EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
+        if (is.finite(truncupper)) {
+          # Last Pareto distribution is truncated, known truncation point
+          EVTfit$gamma[i] <- .trHillinternal(X[X<=truncupper], tvec[i], truncupper)
+          EVTfit$endpoint[i] <- truncupper
+          
+        } else {
+          # Last Pareto distribution is truncated, estimate truncation point
+          res <- trHill(X)
+          resDT <- trDT(X, gamma=res$gamma)
+          resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
+          EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
+          EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
+        }
+
         type[i] <- "tPa"
         
       } else {
