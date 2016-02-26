@@ -428,7 +428,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
 ###############################################################################
 
 # Fit splicing of mixed Erlang and (truncated) Pareto
-SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, EVTtruncation = FALSE, 
+SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, EVTtruncation = FALSE, 
                             ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, 
                             eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
  
@@ -471,12 +471,29 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     stop("trunclower should be numeric.")
   }
   
-  if (any(trunclower>min(X))) {
-    stop("trunclower should be strictly smaller than all data points.")
+  if (trunclower>min(X)) {
+    stop("trunclower should be smaller than all data points.")
   }
   
-  if (any(trunclower<0)) {
+  if (trunclower<0) {
     stop("trunclower cannot be strictly negative.")
+  }
+  
+  if (!is.finite(trunclower) ) {
+    stop("trunclower has to be finite.")
+  }
+  
+  # Check input for truncupper
+  if (!is.numeric(truncupper)) {
+    stop("trunclower should be numeric.")
+  }
+  
+  if (trunclower<max(X)) {
+    stop("trunclower should be larger than all data points.")
+  }
+
+  if (truncupper<=trunclower) {
+    stop("truncupper should be strictly larger than trunclower")
   }
   
   
