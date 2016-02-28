@@ -467,6 +467,10 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   
   
   # Check input for trunclower
+  if (length(trunclower)!=1) {
+    stop("trunclower should have length 1.")
+  }
+  
   if (!is.numeric(trunclower)) {
     stop("trunclower should be numeric.")
   }
@@ -485,6 +489,10 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   
   
   # Check input for truncupper
+  if (length(truncupper)!=1 ) {
+    stop("truncupper should have length 1.")
+  }
+  
   if (!is.numeric(truncupper)) {
     stop("trunclower should be numeric.")
   }
