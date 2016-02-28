@@ -24,7 +24,7 @@
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
       }
     }
-    \subsection{Miscelaneous changes:}{
+    \subsection{Miscellaneous changes:}{
       \itemize{
         \item Reformat NEWS file.
       }
@@ -144,7 +144,7 @@
         \item Included test for truncated Distributions.
       }
     }
-    \subsection{Miscelaneous changes:}{
+    \subsection{Miscellaneous changes:}{
       \itemize{
         \item Remove \pkg{MASS} from imports.
         \item Change \code{import} to \code{importFrom} in NAMESPACE.
@@ -170,7 +170,7 @@
         \item Added documentation of \code{ES}.
       }
     }
-    \subsection{Miscelaneous changes:}{
+    \subsection{Miscellaneous changes:}{
       \itemize{
         \item Updated title to have correct upper case format.
         \item Import default packages as required for R 3.3.0.
