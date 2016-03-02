@@ -54,7 +54,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceECDF}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceLL_TB}}, \code{\link{SplicePP_TB}}
+\code{\link{SpliceECDF}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceLL_TB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
 }
 \examples{
 \dontrun{

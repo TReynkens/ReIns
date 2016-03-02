@@ -92,7 +92,7 @@ export("trParetoQQ")
 
 export("SpliceFitPareto","SpliceFitHill","SpliceFitciPareto","SpliceFitGPD")
 export("dSplice","pSplice","qSplice","rSplice")
-export("SpliceECDF","SpliceTB","SpliceLL","SpliceLL_TB","SplicePP","SplicePP_TB","SpliceQQ")
+export("SpliceECDF","SpliceTB","SplicePP","SplicePP_TB","SpliceQQ","SpliceQQ_TB","SpliceLL","SpliceLL_TB")
 # S3
 export("MEfit", "EVTfit", "SpliceFit")
 S3method(summary, SpliceFit)

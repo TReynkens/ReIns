@@ -47,7 +47,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
+\code{\link{SpliceQQ_TB}}, \code{\link{qSplice}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitGPD}}, \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 \examples{
 \dontrun{

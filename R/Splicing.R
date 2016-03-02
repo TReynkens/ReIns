@@ -1181,48 +1181,6 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   abline(a=0, b=1)
 }
 
-
-# Quantile - quantile plot with empirical quantiles
-SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-plot", ...) {
-  
-  # Check input arguments
-  .checkInput(X, pos=FALSE)
-  
-  X <- as.numeric(sort(X))
-  n <- length(X)
-  
-  # Probabilities
-  if (is.null(p)) {
-    p <- (1:n)/(n+1)
-    
-  } else {
-    
-    if(!is.numeric(p)) {
-      stop("p should be numeric.")
-    }
-    
-    if (any(p<=0 | p>=1)) {
-      stop("All elements of p should be strictly between 0 and 1")
-    }
-    
-    p <- sort(p)
-  }
-  
-
-  # Empirical quantiles
-  sqq.emp <- sort(X)
-  
-  # Quantiles of fitted distribution
-  sqq.the <- qSplice(p=p, splicefit=splicefit)
-  
-  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
-           main=main, plot=plot, add=FALSE, ...)
-  
-  # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
-  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
-}
-
-
 # Probability - probability plot with Turnbull estimator
 SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE, ...) {
   
@@ -1257,6 +1215,126 @@ SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE,
   }
   abline(a=0,b=1)
 }
+
+
+
+# Quantile - quantile plot with empirical quantiles
+SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-plot", ...) {
+  
+  # Check input arguments
+  .checkInput(X, pos=FALSE)
+  
+  X <- as.numeric(sort(X))
+  n <- length(X)
+  
+  # Probabilities
+  if (is.null(p)) {
+    p <- (1:n)/(n+1)
+    
+  } else {
+    
+    if(!is.numeric(p)) {
+      stop("p should be numeric.")
+    }
+    
+    if (any(p<=0 | p>=1)) {
+      stop("All elements of p should be strictly between 0 and 1")
+    }
+    
+    p <- sort(p)
+  }
+  
+  
+  # Empirical quantiles
+  sqq.emp <- sort(X)
+  
+  # Quantiles of fitted distribution
+  sqq.the <- qSplice(p=p, splicefit=splicefit)
+  
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
+  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
+}
+
+
+# QQ-plot with Turnbull estimator
+SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
+  
+  # Check if L and U are numeric
+  if (!is.numeric(L)) stop("L should be a numeric vector.")
+  if (!is.numeric(U)) stop("U should be a numeric vector.")
+  
+  
+  # Check lengths
+  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  
+  if (length(censored)==1) censored <- rep(censored, length(L))
+  
+  if (length(censored)!=length(L)) {
+    stop("censored should have length 1 or the same length as L and U.")
+  }
+  
+  # Turnbull survival function
+  SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored)$f
+  
+  s <- eval(expression(y), envir = environment(SurvTB))
+  x <- knots(SurvTB)
+  
+  # Probabilities
+  if (is.null(p)) {
+    p <- 1-s
+    
+    # Remove 1 if infinite endpoint
+    if(max(splicefit$EVTfit$endpoint)==Inf) {
+      p <- p[p<1-10^(-5)]
+    }
+    
+    # Remove probabilities that are close together
+    ind <- which(diff(p)<10^(-5))
+    if (length(ind)>0) {
+      p <- p[-(ind+1)]
+    }
+    
+    
+  } else {
+    
+    if(!is.numeric(p)) {
+      stop("p should be numeric.")
+    }
+    
+    if (any(p<=0 | p>=1)) {
+      stop("All elements of p should be strictly between 0 and 1")
+    }
+    
+    p <- sort(p)
+  }
+  
+  # Empirical quantiles
+  sqq.emp <- numeric(length(p))
+  
+  #ind <- findInterval(p, 1-s, rightmost.closed=TRUE) + 1
+  #ind <- apply( outer(p, 1-s, ">"), 1, sum) + 1
+  # Find correct intervals (right-closed)
+  ind <-  length(s) - findInterval(-p, -rev(1-s)) + 1
+  
+  sqq.emp <- x[ind]
+  
+  # Quantiles of fitted distribution
+  sqq.the <- qSplice(p=p, splicefit=splicefit)
+  
+  if (plot) {
+    .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
+             main=main, plot=plot, add=FALSE, ...)
+  }
+  
+  # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
+  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
+}
+
+
+
 
 
 # Log-log plot with empirical survival function and fitted survival function

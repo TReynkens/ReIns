@@ -14,6 +14,7 @@
         \item Remove all estimators that can handle data that is both censored and truncated.
         \item Rename \code{ExcessHill} to \code{ExcessPareto}, old name is still included for compatibility issues.
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
+        \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
       }
     }
     \subsection{Documentation changes:}{
@@ -22,6 +23,7 @@
         \item Remove all estimators for interval censoring (except QQ-plots).
         \item Remove all estimators that can handle data that is both censored and truncated.
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
+        \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
       }
     }
     \subsection{Miscellaneous changes:}{

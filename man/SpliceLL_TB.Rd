@@ -54,7 +54,7 @@ Tom Reynkens
 
 
 \seealso{
-\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}
+\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
 }
 \examples{
 \dontrun{
