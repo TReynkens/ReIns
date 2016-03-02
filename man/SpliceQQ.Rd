@@ -22,10 +22,10 @@ A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}}
   Vector of probabilities used in the QQ-plot. If \code{NULL}, the default, we take \code{p} equal to \code{1/(n+1),...,n/(n+1)}.
 }
   \item{plot}{
-Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
+Logical indicating if the quantiles should be plotted in a splicing QQ-plot, default is \code{TRUE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Pareto QQ-plot"}.
+Title for the plot, default is \code{"Splicing QQ-plot"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
