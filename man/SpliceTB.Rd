@@ -104,5 +104,9 @@ SplicePP_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit)
 # fitted survival function with log-scales
 SplicePP_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
 
+# QQ-plot using Turnbull survival function and fitted survival function
+SpliceQQ_TB(L=Z, U=U, censored=censored, splicefit=splicefit)
+# Add 45 degree line
+abline(0,1)
 }
 }
