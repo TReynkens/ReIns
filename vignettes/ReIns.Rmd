@@ -257,6 +257,7 @@ summary(splicefit)
 To see how well the splicing distribution fits the data, we use 2 tools:  
 1. `SpliceECDF`: plot of the fitted survival function and the empirical survival function with confidence bounds.  
 2. `SplicePP`: plot of fitted survival function vs. empirical survival function. The plot with minus-log scales is most informative for the tails.
+3. `SpliceQQ`: plot of fitted quantile function vs. empirical quantiles. 
 
 We see that the fitted splicing distribution approximates the empirical distribution quite well.
 
@@ -274,6 +275,11 @@ SplicePP(x, size, splicefit)
 
 # PP-plot with log-scales
 SplicePP(x, size, splicefit, log=TRUE)
+
+# QQ-plot with fitted quantile function
+SpliceQQ(size, splicefit)
+# Add 45 degree line
+abline(0,1)
 ```
 
 # Risk measures

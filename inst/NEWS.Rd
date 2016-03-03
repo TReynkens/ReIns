@@ -29,6 +29,7 @@
     \subsection{Miscellaneous changes:}{
       \itemize{
         \item Reformat NEWS file.
+        \item Update splicing part in vignette.
       }
     }
 }
