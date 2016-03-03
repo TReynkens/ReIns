@@ -285,7 +285,7 @@ abline(0,1)
 # Risk measures
 
 Using the fitted splicing distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
-Expected Shortfall (ES). 
+Expected Shortfall (ES). Moreover, data can be simulated from the splicing distribution.
 
 
 ## Excess-loss premiums
@@ -337,4 +337,15 @@ es <- ES(p, splicefit)
 plot(p, es, xlab="p", ylab=expression(ES[p]), type="l")
 ```
 
+
+## Simulations
+Simulation of losses is useful for aggregate loss calculations, e.g. when losses are not independent, and to determine risk measures.
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Simulate sample of size 1000
+X <- rSplice(1000, splicefit)
+
+# Plot simulated sample
+plot(X, xlab="Index", ylab="Simulated losses")
+```
 
