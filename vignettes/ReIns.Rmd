@@ -30,7 +30,7 @@ We split this in several sections: *[datasets](#datasets), [graphical methods](#
 
 # Datasets
 
-Three datasets are available: **Norwegian fire insurance data** (`norwegianfire`), **SOA group medical insurance data** (`soa`) and **Secura RE automobile reinsurance data** (`secura`). These datasets were already discussed in Beirlant et al. (2004).
+Three datasets are available: **Norwegian fire insurance data** (`norwegianfire`), **SOA group medical insurance data** (`soa`) and **Secura Re automobile reinsurance data** (`secura`). These datasets were already discussed in Beirlant et al. (2004).
 
 The illustrations will be done using the Norwegian Fire insurance dataset which contains fire insurance claims for a Norwegian insurance company for the period 1972 to 1992. The sizes of the fire insurance claims are expressed in 1000 NOK.
 
