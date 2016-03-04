@@ -391,7 +391,7 @@ cgenQQ <- function(data, censored, plot = TRUE, main = "Generalised QQ-plot", ..
   X <- s$x
   sortix <- s$ix
   # delta is 1 if a data point is not censored, we also sort it with X
-  delta <- !(censored[sortix]*1)
+  #delta <- !(censored[sortix]*1)
   n <- length(X)
   K <- 1:(n-1)
   

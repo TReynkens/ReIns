@@ -27,6 +27,7 @@
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
         \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
         \item Update reference for EPD for censored data (Beirlant et al., 2016).
+        \item Update documentation of QQ-plots adapted for right-censored data.
       }
     }
     \subsection{Miscellaneous changes:}{

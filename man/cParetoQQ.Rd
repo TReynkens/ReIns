@@ -35,7 +35,7 @@ for \eqn{j=1,...,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
 Hence, it has the same empirical quantiles as an ordinary Pareto QQ-plot but replaces the theoretical quantiles \eqn{-\log(j/(n+1))} by \eqn{-\log(1-F_{km}(Z_{n-j+1,n}))}.
 
-This estimator is only suitable for right censored data.
+This QQ-plot is only suitable for right censored data.
 }
 
 \value{
@@ -44,7 +44,7 @@ A list with following components:
 \item{pqq.emp}{Vector of the empirical quantiles from the log-transformed data.}
 }
 \references{
- Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
+Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
 }
 \author{
 Tom Reynkens

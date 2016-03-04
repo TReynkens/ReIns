@@ -34,7 +34,9 @@ for \eqn{j=1,...,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\Phi^{-1}} the quantile function of the standard normal distribution and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
 Hence, it has the same empirical quantiles as an ordinary log-normal QQ-plot but replaces the theoretical quantiles \eqn{ \Phi^{-1}(j/(n+1))} by \eqn{\Phi^{-1}(F_{km}(Z_{j,n}))}.
 
-This estimator is only suitable for right censored data.
+This QQ-plot is only suitable for right censored data.
+
+In Beirlant et al. (2007), only a Pareto QQ-plot adapted for right-censored data is proposed. This QQ-plot is constructed using the same ideas, but is not described in the paper.
 }
 \value{
 A list with following components:
@@ -42,7 +44,7 @@ A list with following components:
 \item{lqq.emp}{Vector of the empirical quantiles from the log-transformed data.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
 }
 \author{
 Tom Reynkens

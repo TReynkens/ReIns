@@ -2,10 +2,10 @@
 \alias{cgenQQ}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Generalised QQplot for right censored data
+Generalised QQ-plot for right censored data
 }
 \description{
-Generalised QQplot adapted for right censored data.
+Generalised QQ-plot adapted for right censored data.
 }
 \usage{
 cgenQQ(data, censored, plot = TRUE, main = "Generalised QQ-plot", ...)
@@ -29,11 +29,13 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The generalised QQplot adapted for right censoring is given by
+The generalised QQ-plot adapted for right censoring is given by
 \deqn{( -\log(1-F_{km}(Z_{n-j+1,n})), \log UH_{n-j+1,n} )}
 for \eqn{j=1,...,n-1,} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{UH_{n-j+1,n} = Z_{n-j+1,n} H_{j-1,n}},  \eqn{H_{j-1,n}^c} the (ordinary) Hill estimator and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
 
-This estimator is only suitable for right censored data!
+This QQ-plot is only suitable for right censored data!
+
+In Beirlant et al. (2007), only a Pareto QQ-plot adapted for right-censored data is proposed. This QQ-plot is constructed using the same ideas, but is not described in the paper.
 }
 \value{
 A list with following components:
@@ -41,7 +43,7 @@ A list with following components:
 \item{gqq.emp}{Vector of the empirical quantiles from the UH scores, see Details.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
 }
 \author{
 Tom Reynkens
