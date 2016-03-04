@@ -34,7 +34,7 @@ for \eqn{j=1,...,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
 Hence, it has the same empirical quantiles as an ordinary exponential QQ-plot but replaces the theoretical quantiles \eqn{-\log(j/(n+1))} by \eqn{-\log(1-F_{km}(Z_{n-j+1,n}))}.
 
-This estimator is only suitable for right censored data. For interval censored data, one can use \code{\link{ciExpQQ}}.
+This estimator is only suitable for right censored data.
 }
 
 \value{
@@ -52,7 +52,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ExpQQ}}, \code{\link{ciExpQQ}}, \code{\link{cLognormalQQ}}, \code{\link{cParetoQQ}}, \code{\link{KaplanMeier}}
+\code{\link{ExpQQ}}, \code{\link{cLognormalQQ}}, \code{\link{cParetoQQ}}, \code{\link{KaplanMeier}}
 }
 \examples{
 data(secura)

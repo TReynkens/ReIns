@@ -34,7 +34,7 @@ for \eqn{j=1,...,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\Phi^{-1}} the quantile function of the standard normal distribution and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
 Hence, it has the same empirical quantiles as an ordinary log-normal QQ-plot but replaces the theoretical quantiles \eqn{ \Phi^{-1}(j/(n+1))} by \eqn{\Phi^{-1}(F_{km}(Z_{j,n}))}.
 
-This estimator is only suitable for right censored data. For interval censored data, one can use \code{\link{ciLognormalQQ}}.
+This estimator is only suitable for right censored data.
 }
 \value{
 A list with following components:
@@ -52,7 +52,7 @@ Tom Reynkens
 
 
 \seealso{
-\code{\link{LognormalQQ}}, \code{\link{ciLognormalQQ}}, \code{\link{cExpQQ}}, \code{\link{cParetoQQ}}, \code{\link{KaplanMeier}}
+\code{\link{LognormalQQ}}, \code{\link{cExpQQ}}, \code{\link{cParetoQQ}}, \code{\link{KaplanMeier}}
 }
 \examples{
 data(secura)

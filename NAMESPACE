@@ -77,7 +77,6 @@ export("cProbGH","cQuantGH","cReturnGH")
 export("cProbMOM","cQuantMOM","cReturnMOM")
 export("cProbGPD","cQuantGPD","cReturnGPD")
 export("cEPD","cProbEPD","cReturnEPD")
-export("ciExpQQ","ciLognormalQQ","ciParetoQQ")
 
 
 #########################

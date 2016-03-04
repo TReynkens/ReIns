@@ -15,6 +15,7 @@
         \item Rename \code{ExcessHill} to \code{ExcessPareto}, old name is still included for compatibility issues.
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
         \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
+        \item Remove QQ-plots with Turnbull estimator for Pareto, Exponential and Lognormal distributions.
       }
     }
     \subsection{Documentation changes:}{
