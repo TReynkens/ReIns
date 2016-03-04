@@ -26,10 +26,10 @@ Vector of length \eqn{n} with the right boundary of the intervals.
 Vector of \eqn{n} logicals indicating if an observation is interval censored. 
 }
 \item{trunclower}{
-Lower truncation point, default is 0. This is used to determine whether an observation is left censored or interval censored when it is censored.
+Lower truncation point, default is 0.
 }
 \item{truncupper}{
-Upper truncation point, default is \code{Inf}. This is used to determine whether an observation is right censored or interval censored when it is censored.
+Upper truncation point, default is \code{Inf}.
 }
   \item{conf.type}{
 Type of confidence interval, see \code{\link[survival]{survfit.formula}}. Default is \code{"plain"}.
@@ -54,6 +54,9 @@ A list with following components:
 
 \references{
 Turnbull, B. W. (1974). "Nonparametric Estimation of a Survivorship Function with Doubly Censored Data." \emph{Journal of the American Statistical Association}, 69, 169--173.
+
+Turnbull, B. W. (1976). "The Empirical Distribution Function with Arbitrarily
+Grouped, Censored and Truncated Data." \emph{Journal of the Royal Statistical Society: Series B (Methodological)}, 38, 290--295.
 }
 \author{
 Tom Reynkens
@@ -65,7 +68,6 @@ Tom Reynkens
 \code{\link[survival]{survfit.formula}}, \code{\link{KaplanMeier}}
 }
 \examples{
-
 L <- 1:10
 R <- c(1,2.5,3,4,5.5,6,7.5,8.25,9,10.5)
 censored <- c(0,1,0,0,1,0,1,1,0,1)
