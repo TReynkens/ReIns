@@ -6,7 +6,7 @@
 Estimates for excess-loss premiums using splicing
 }
 \description{
-Estimate premiums of excess-loss reinsurance with retention \eqn{M} and limit \eqn{L} using splicing of mixed Erlang and GPD or Pareto distribution(s).
+Estimate premiums of excess-loss reinsurance with retention \eqn{M} and limit \eqn{L} using fitted splicing distribution.
 }
 \usage{
 ExcessSplice(M, L, splicefit)

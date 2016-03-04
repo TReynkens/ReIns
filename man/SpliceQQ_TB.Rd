@@ -2,7 +2,7 @@
 \alias{SpliceQQ_TB}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-QQ-plot using Turnbull estimator
+Splicing quantile plot using Turnbull estimator
 }
 \description{
 This function plots the fitted quantile function of the splicing distribution versus quantiles based on the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
