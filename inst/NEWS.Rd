@@ -16,6 +16,7 @@
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
         \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
         \item Remove QQ-plots with Turnbull estimator for Pareto, Exponential and Lognormal distributions.
+        \item Add warning, and only used last element, if \code{EVTtruncation} argument of \code{SpliceFitPareto} has                more than one element.
       }
     }
     \subsection{Documentation changes:}{

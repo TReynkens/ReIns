@@ -466,6 +466,21 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   }
   
   
+  # Check input for EVTtruncation
+  if (!is.logical(EVTtruncation)) {
+    stop("EVTtruncation should be a logical of length 1.")
+  }
+  
+  if (length(EVTtruncation)!=1 & length(EVTtruncation)>0) {
+    # Only use last element if length>1 (compatibility with older versions)
+    EVTtruncation <- EVTtruncation[length(EVTtruncation)]
+    warning("EVTtruncation has more than one element, only the last one is used.")
+    
+  } else if(length(EVTtruncation)<=0) {
+    # Stop if length 0 (or less)
+    stop("EVTtruncation should be a logical of length 1.")
+  }
+  
   # Check input for trunclower
   if (length(trunclower)!=1) {
     stop("trunclower should have length 1.")
@@ -521,11 +536,6 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   if (is.na(ncores)) ncores <- 1
   
   
-  # Check input for EVTtruncation
-  if (length(EVTtruncation)!=1 | !is.logical(EVTtruncation)) {
-    stop("EVTtruncation should be a logical of length 1.")
-  }
-
   ##
   # Determine values of splicing points
     
