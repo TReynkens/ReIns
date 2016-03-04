@@ -24,6 +24,7 @@
         \item Remove all estimators that can handle data that is both censored and truncated.
         \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
         \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
+        \item Update reference for EPD for censored data (Beirlant et al., 2016).
       }
     }
     \subsection{Miscellaneous changes:}{

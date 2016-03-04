@@ -64,7 +64,7 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
-Beirlant, J., Bardoutsos, A., de Wet, T. and Gijbels, I. (201x). "Bias Reduced Tail Estimation for Censored Pareto Type Distributions."
+Beirlant, J., Bardoutsos, A., de Wet, T. and Gijbels, I. (2016). "Bias Reduced Tail Estimation for Censored Pareto Type Distributions." \emph{Statistics & Probability Letters}, 109, 78--88.
 }
 \author{
 Tom Reynkens.
