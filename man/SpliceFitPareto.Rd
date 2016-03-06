@@ -32,11 +32,11 @@ Vector of length \eqn{l} containing the splicing points. The ME distribution wil
 }
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining
-an optimal mixed Erlang fit using an AIC criterion.
+an optimal mixed Erlang fit using an information criterion.
 }
   \item{s}{
 Vector of spread factors for the EM algorithm, default is \code{1:10}. We loop over these factors when determining
-an optimal mixed Erlang fit using an AIC criterion.
+an optimal mixed Erlang fit using an information criterion.
 }
   \item{trunclower}{
 Lower truncation point. Default is 0.
@@ -48,7 +48,7 @@ Upper truncation point. Default is \code{Inf} (no upper truncation). When \code{
 Logical vector indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution. Default is \code{FALSE}.
 }
   \item{ncores}{
-Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
+Number of cores to use when determining an optimal mixed Erlang fit using an information criterion.
 When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
 }
 \item{criterium}{
