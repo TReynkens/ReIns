@@ -6,7 +6,7 @@
 Splicing of mixed Erlang and Pareto
 }
 \description{
-Fit spliced distribution of a mixed Erlang and Pareto distribution(s). The shape parameter of the Pareto distribution(s) is determined using the Hill estimator. 
+Fit splicing distribution of a mixed Erlang distribution and Pareto distribution(s). The shape parameter(s) of the Pareto distribution(s) is determined using the Hill estimator. 
 }
 \usage{
 SpliceFitPareto(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
@@ -45,7 +45,7 @@ Lower truncation point. Default is 0.
 Upper truncation point. Default is \code{Inf} (no upper truncation). When \code{truncupper=Inf} and \code{EVTtruncation=TRUE}, the truncation point is estimated using the approach of Beirlant et al. (2015).
 }
   \item{EVTtruncation}{
-Logical vector indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution. Default is \code{FALSE}.
+Logical indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution. Default is \code{FALSE}.
 }
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an information criterion.
@@ -72,7 +72,7 @@ See Albrecher et al. (2016) and Verbelen et al. (2015) for details. The code fol
 
 The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
 
-Use \code{\link{SpliceFitciPareto}} when censoring is present and/or when the upper truncation point does not need to be estimated.
+Use \code{\link{SpliceFitciPareto}} when censoring is present.
 }
 \value{
 A \code{\link{SpliceFit}} object.

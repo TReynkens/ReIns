@@ -6,7 +6,7 @@ Splicing of mixed Erlang and Pareto for interval censored data
 }
 
 \description{
-Fit spliced distribution of a mixed Erlang and a Pareto distribution adapted for interval censoring and truncation.
+Fit splicing distribution of a mixed Erlang distribution and a Pareto distribution adapted for interval censoring and truncation.
 }
 \usage{
 SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
@@ -78,7 +78,7 @@ Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mix
 Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.
 }
 \author{
-Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution.
+Tom Reynkens based on \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution (without splicing).
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
