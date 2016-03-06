@@ -64,7 +64,7 @@ Covergence threshold used in the EM algorithm (ME part). Default is \code{10^(-3
 Threshold for the mixing weights below which the corresponding shape parameter vector is considered neglectable (ME part). Default is \code{10^(-5)}.
 }
  \item{maxiter}{
-Maximum number of iterations in a single EM algorithm (ME part). Default is \code{Inf} meaning no maximum.
+Maximum number of iterations in a single EM algorithm execution (ME part). Default is \code{Inf} meaning no maximum.
 }
 }
 \details{
