@@ -34,6 +34,7 @@
       \itemize{
         \item Reformat NEWS file.
         \item Update splicing part in vignette.
+        \item Reformat NAMESPACE file.
       }
     }
 }
