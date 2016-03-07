@@ -2,7 +2,7 @@
 \alias{ParetoQQ_der}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Derivative plot of the Pareto QQplot
+Derivative plot of the Pareto QQ-plot
 }
 \description{
 Computes the derivative plot of the Pareto QQ-plot. These values can be plotted as a function of the data or as a function of the tail parameter \eqn{k}.
