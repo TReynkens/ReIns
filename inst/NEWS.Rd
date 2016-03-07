@@ -34,7 +34,11 @@
       \itemize{
         \item Reformat NEWS file.
         \item Update splicing part in vignette.
+<<<<<<< HEAD
         \item Update authors.
+=======
+        \item Reformat NAMESPACE file.
+>>>>>>> 788a83739f1be85a314cff266b16a1f0a8ea0c5f
       }
     }
 }

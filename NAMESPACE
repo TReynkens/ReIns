@@ -6,7 +6,7 @@ importFrom("graphics", "abline", "legend", "lines", "par", "plot")
 importFrom("survival", "Surv", "survfit")
 importFrom("utils", "tail")
 
-# Splicing part
+# Splicing
 importFrom("parallel", "detectCores", "makePSOCKcluster", "stopCluster")
 importFrom("doParallel", "registerDoParallel")
 importFrom("foreach", "%do%", "%dopar%", "foreach")
@@ -16,9 +16,12 @@ importFrom("foreach", "%do%", "%dopar%", "foreach")
 
 export("dpareto","ppareto","qpareto","rpareto") 
 export("dtpareto","ptpareto","qtpareto","rtpareto") 
+
 export("dgpd","pgpd","qgpd","rgpd") 
 export("dtgpd","ptgpd","qtgpd","rtgpd")
+
 export("depd","pepd","qepd","repd")
+
 export("dburr","pburr", "qburr", "rburr")
 export("dtburr","ptburr", "qtburr", "rtburr")
 
@@ -29,69 +32,71 @@ export("dtweibull","ptweibull", "qtweibull", "rtweibull")
 #########################
 # Plots
 
-export("ExpQQ") 
+export("ExpQQ", "MeanExcess") 
 export("ParetoQQ","ParetoQQ_der")
 export("LognormalQQ","LognormalQQ_der") 
-export("MeanExcess") 
-
 
 #########################
-# Estimators for Pareto-type tails
+# Estimators for EVI for Pareto-type tails
 
-export("Hill")
-export("Hill.2oQV", "Hill.kopt") 
-export("Prob", "Quant", "Return")
+export("Hill","Prob", "Quant", "Return")
 export("Weissman.p", "Weissman.q", "Weissman.r")
-export("Quant.2oQV", "Weissman.q.2oQV") 
-export("Scale","Scale.2o","ScaleEPD") 
+
+export("Hill.2oQV", "Hill.kopt", "Quant.2oQV", "Weissman.q.2oQV") 
 export("EPD","EPDfit","ProbEPD","ReturnEPD")
 
+export("Scale", "Scale.2o", "ScaleEPD") 
+
+
 
 #########################
-# General estimators
+# General estimators for EVI
 
 export("genQQ", "generalizedQQ") 
-export("genHill","ProbGH","QuantGH","ReturnGH")
-export("Moment","ProbMOM","QuantMOM","ReturnMOM")
-export("LStail","TSfraction")
-export("POT","GPDmle","GPDfit","GPDresiduals")
+export("genHill", "ProbGH", "QuantGH", "ReturnGH")
+
+export("Moment", "ProbMOM", "QuantMOM", "ReturnMOM")
+
+export("LStail", "TSfraction")
+
+export("POT", "GPDmle", "GPDfit", "GPDresiduals")
 export("ProbGPD", "QuantGPD","ReturnGPD")
 
 
 #########################
-# Regression
+# Regression estimators
 
 export("ScaleReg")
 export("ProbReg","QuantReg")
 
 #########################
-# Censored estimators
+# Censoring estimators
 
 export("KaplanMeier", "Turnbull")
-export("cHill","cgenHill")
+
 export("cExpQQ","cLognormalQQ","cParetoQQ","cgenQQ")
-export("cMoment")
-export("cGPDmle","cPOT")
-export("cProb","cQuant","cReturn")
-export("cProbGH","cQuantGH","cReturnGH")
-export("cProbMOM","cQuantMOM","cReturnMOM")
-export("cProbGPD","cQuantGPD","cReturnGPD")
+
+export("cHill","cProb","cQuant","cReturn")
 export("cEPD","cProbEPD","cReturnEPD")
 
+export("cgenHill", "cProbGH", "cQuantGH", "cReturnGH")
+export("cMoment", "cProbMOM", "cQuantMOM", "cReturnMOM")
+export("cGPDmle", "cPOT", "cProbGPD", "cQuantGPD", "cReturnGPD")
 
 #########################
 # Truncation estimators
 
-export("trHill","trDT","trEndpoint","trQuant", "trQuantW", "trProb")
+export("trHill", "trDT", "trEndpoint", "trQuant", "trQuantW", "trProb")
 export("trTest")
 export("trParetoQQ")
 
 #####################################
 # Splicing
 
-export("SpliceFitPareto","SpliceFitHill","SpliceFitciPareto","SpliceFitGPD")
-export("dSplice","pSplice","qSplice","rSplice")
-export("SpliceECDF","SpliceTB","SplicePP","SplicePP_TB","SpliceQQ","SpliceQQ_TB","SpliceLL","SpliceLL_TB")
+export("SpliceFitPareto", "SpliceFitHill", "SpliceFitciPareto", "SpliceFitGPD")
+export("dSplice", "pSplice", "qSplice", "rSplice")
+export("SpliceECDF", "SpliceTB", "SplicePP", "SplicePP_TB", 
+       "SpliceQQ", "SpliceQQ_TB", "SpliceLL", "SpliceLL_TB")
 # S3
 export("MEfit", "EVTfit", "SpliceFit")
 S3method(summary, SpliceFit)
@@ -100,9 +105,9 @@ S3method(tex, SpliceFit)
 #####################################
 # Risk measures
 
-export("ExcessPareto","ExcessHill","ExcessEPD","ExcessGPD")
+export("ExcessPareto", "ExcessHill", "ExcessEPD", "ExcessGPD")
 export("ExcessSplice")
-export("VaR","ES")
+export("VaR", "ES")
 
 ######################################
 # Approximations
