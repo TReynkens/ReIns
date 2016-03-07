@@ -5,7 +5,7 @@
 Splicing of mixed Erlang and GPD using POT-MLE
 }
 \description{
-Fit spliced distribution of a mixed Erlang and Generalised Pareto Distributions (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
+Fit splicing distribution of a mixed Erlang distribution and a Generalised Pareto Distribution (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
 }
 \usage{
 SpliceFitGPD(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
@@ -25,17 +25,17 @@ The point where the ME distribution will be spliced with the GPD distribution. D
 }
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining
-an optimal mixed Erlang fit using an AIC criterion.
+an optimal mixed Erlang fit using an information criterion.
 }
   \item{s}{
 Vector of spread factors for the EM algorithm, default is \code{1:10}. We loop over these factors when determining
-an optimal mixed Erlang fit using an AIC criterion.
+an optimal mixed Erlang fit using an information criterion.
 }
   \item{trunclower}{
 Lower truncation point. Default is 0.
 }
   \item{ncores}{
-Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
+Number of cores to use when determining an optimal mixed Erlang fit using an information criterion.
 When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
 }
 \item{criterium}{
@@ -51,7 +51,7 @@ Covergence threshold used in the EM algorithm (ME part). Default is \code{10^(-3
 Threshold for the mixing weights below which the corresponding shape parameter vector is considered neglectable (ME part). Default is \code{10^(-5)}.
 }
  \item{maxiter}{
-Maximum number of iterations in a single EM algorithm (ME part). Default is \code{Inf} meaning no maximum.
+Maximum number of iterations in a single EM algorithm  execution (ME part). Default is \code{Inf} meaning no maximum.
 }
 }
 \details{

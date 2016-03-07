@@ -6,7 +6,7 @@ Splicing of mixed Erlang and Pareto for interval censored data
 }
 
 \description{
-Fit spliced distribution of a mixed Erlang and a Pareto distribution adapted for interval censoring and truncation.
+Fit splicing distribution of a mixed Erlang distribution and a Pareto distribution adapted for interval censoring and truncation.
 }
 \usage{
 SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
@@ -31,11 +31,11 @@ The splicing point \eqn{t}.
 
   \item{M}{
 Initial number of Erlang mixtures, default is 3. This number can change when determining
-an optimal mixed Erlang fit using an AIC criterion.
+an optimal mixed Erlang fit using an information criterion.
 }
   \item{s}{
 Vector of spread factors for the EM algorithm, default is \code{1:10}. We loop over these factors when determining
-an optimal mixed Erlang fit using an AIC criterion.
+an optimal mixed Erlang fit using an information criterion.
 }
   \item{trunclower}{
 Lower truncation point. Default is 0.
@@ -44,7 +44,7 @@ Lower truncation point. Default is 0.
 Upper truncation point. Default is \code{Inf} (no upper truncation).
 }
   \item{ncores}{
-Number of cores to use when determining an optimal mixed Erlang fit using an AIC criterion.
+Number of cores to use when determining an optimal mixed Erlang fit using an information criterion.
 When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
 }
 \item{criterium}{
@@ -60,7 +60,7 @@ Covergence threshold used in the EM algorithm. Default is \code{10^(-3)}
 Threshold for the mixing weights below which the corresponding shape parameter vector is considered neglectable (ME part). Default is \code{10^(-5)}.
 }
  \item{maxiter}{
-Maximum number of iterations in a single EM algorithm. Default is \code{Inf} meaning no maximum.
+Maximum number of iterations in a single EM algorithm execution. Default is \code{Inf} meaning no maximum.
 }
 }
 \details{
@@ -78,7 +78,7 @@ Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mix
 Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.
 }
 \author{
-Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution.
+Tom Reynkens based on \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution (without splicing).
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
