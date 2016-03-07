@@ -4,9 +4,10 @@ Title: Functions and Datasets from "Reinsurance: Actuarial and Statistical Aspec
 Version: 0.5-01
 Date: 2016-03-04
 Authors@R: c(person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = c("aut", "cre")),
-          person("Roel", "Verbelen",role = c("aut")),
-          person("Anastasios", "Bardoutsos",role = c("ctb")),
-          person("Dries", "Cornilly",role = c("ctb")))
+          person("Roel", "Verbelen", role = "aut", comment="R code for Mixed Erlang distribution"),
+          person("Anastasios", "Bardoutsos", role = "ctb"),
+          person("Dries", "Cornilly", role = "ctb", comment="Original R code for EVT estimators for truncated data"),
+          person("Yuri", "Goegebeur", role = "ctb", comment="Original S-Plus code for basic EVT estimators"))
 Maintainer: Tom Reynkens <tomreynkens@hotmail.com>
 Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Albrecher, Beirlant and Teugels.
 License: GPL (>= 2)
