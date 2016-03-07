@@ -46,7 +46,7 @@ Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics o
 Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 }
 \seealso{
-\code{\link{ExpQQ}}, \code{\link{LognormalQQ_der}}, \code{\link{ParetoQQ_der}}
+\code{\link{ExpQQ}}, \code{\link{LognormalQQ_der}}, \code{\link{ParetoQQ_der}}, \code{\link{WeibullQQ_der}} 
 }
 \examples{
 data(norwegianfire)

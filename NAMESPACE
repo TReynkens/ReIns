@@ -35,6 +35,7 @@ export("dtweibull","ptweibull", "qtweibull", "rtweibull")
 export("ExpQQ", "MeanExcess") 
 export("ParetoQQ","ParetoQQ_der")
 export("LognormalQQ","LognormalQQ_der") 
+export("WeibullQQ","WeibullQQ_der") 
 
 #########################
 # Estimators for EVI for Pareto-type tails

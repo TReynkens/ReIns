@@ -52,7 +52,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{LognormalQQ}}, \code{\link{MeanExcess}}, \code{\link{ParetoQQ_der}}
+\code{\link{LognormalQQ}}, \code{\link{MeanExcess}}, \code{\link{ParetoQQ_der}}, \code{\link{WeibullQQ_der}} 
 }
 \examples{
 data(norwegianfire)

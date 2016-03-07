@@ -193,9 +193,62 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
   
 }
 
+##############################################################################################
 
+# Weibull QQ-plot
+WeibullQQ <- function(data, plot = TRUE, main = "Weibull QQ-plot", ...) {
+  
+  # Check input arguments
+  .checkInput(data)
+  
+  X <- as.numeric(sort(data))
+  n <- length(X)
+  
+  # calculate theoretical and empirical quantiles
+  i <- 1:n
+  wqq.the <- log(-log(1-i/(n+1)))
+  wqq.emp <- log(X)
+  
+  # plots if TRUE
+  .plotfun(wqq.the, wqq.emp, type="p", xlab="Theoretical quantiles", ylab="log(X)", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
+  .output(list(wqq.the=wqq.the, wqq.emp=wqq.emp), plot=plot, add=FALSE)
+  
+}
 
+#Derivative plot of log-normal QQ-plot
+WeibullQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of Weibull QQ-plot", ...) {
+  
+  # Check input arguments
+  .checkInput(data)
+  
+  X <- as.numeric(sort(data))
+  n <- length(X)
+  K <- 1:(n-1)
+  
+  if (k) {
+    xval <- K
+    xlab <- "k"
+  } else {
+    xval <- log(X[n-K])
+    xlab <- bquote(log(X["n-k,n"]))
+  }
+  
+  
+  H <- Hill(X)
+  j <- 1:(n-1)
+  yval <- H$gamma / (1/H$k*cumsum(log(log((n+1)/j))) - log(log((n+1)/(H$k+1))))
 
+  # plots if TRUE
+  .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
+  .output(list(xval=xval, yval=yval), plot=plot, add=FALSE)
+  
+}
 
 ##############################################################################################
 

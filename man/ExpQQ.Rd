@@ -49,7 +49,7 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 
 
 \seealso{
-\code{\link{MeanExcess}}, \code{\link{LognormalQQ}}, \code{\link{ParetoQQ}}
+\code{\link{MeanExcess}}, \code{\link{LognormalQQ}}, \code{\link{ParetoQQ}}, \code{\link{WeibullQQ}} 
 }
 \examples{
 data(norwegianfire)

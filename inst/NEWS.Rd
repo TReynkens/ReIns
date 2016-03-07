@@ -17,6 +17,7 @@
         \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
         \item Remove QQ-plots with Turnbull estimator for Pareto, Exponential and Lognormal distributions.
         \item Add warning, and only used last element, if \code{EVTtruncation} argument of \code{SpliceFitPareto} has                more than one element.
+        \item Add Weibull QQ-plot and derivative plot.
       }
     }
     \subsection{Documentation changes:}{
@@ -28,6 +29,7 @@
         \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
         \item Update reference for EPD for censored data (Beirlant et al., 2016).
         \item Update documentation of QQ-plots adapted for right-censored data.
+        \item Add Weibull QQ-plot and derivative plot.
       }
     }
     \subsection{Miscellaneous changes:}{

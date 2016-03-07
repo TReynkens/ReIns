@@ -30,7 +30,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The derivative plot of a Pareto QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(X_{n-k,n},H_{k,n})}
+The derivative plot of a Weibull QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(X_{n-k,n},H_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates.
 }
 

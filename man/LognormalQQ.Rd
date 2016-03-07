@@ -46,7 +46,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ExpQQ}}, \code{\link{ParetoQQ}}
+\code{\link{ExpQQ}}, \code{\link{ParetoQQ}}, \code{\link{WeibullQQ}} 
 }
 \examples{
 data(norwegianfire)

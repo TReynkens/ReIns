@@ -50,7 +50,7 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 
 
 \seealso{
-\code{\link{ParetoQQ_der}}, \code{\link{ExpQQ}}, \code{\link{genQQ}}, \code{\link{LognormalQQ}}
+\code{\link{ParetoQQ_der}}, \code{\link{ExpQQ}}, \code{\link{genQQ}}, \code{\link{LognormalQQ}}, \code{\link{WeibullQQ}}
 }
 \examples{
 data(norwegianfire)
