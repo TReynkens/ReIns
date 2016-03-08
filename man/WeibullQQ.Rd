@@ -27,7 +27,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The Weibull QQ-plot is given by
-\deqn{(\log(\log(1-i/(n+1))),\log X_{i,n})}
+\deqn{(\log(-\log(1-i/(n+1))),\log X_{i,n})}
 for \eqn{i=1,...,n-1,} with \eqn{X_{i,n}} the \eqn{i}-th order statistic of the data.
 }
 
