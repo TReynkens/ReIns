@@ -23,7 +23,7 @@ Data used for fitting the distribution.
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
   \item{log}{
-Logical indicating if the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
+Logical indicating if minus the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

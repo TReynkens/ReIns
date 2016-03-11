@@ -30,6 +30,7 @@
         \item Update reference for EPD for censored data (Beirlant et al., 2016).
         \item Update documentation of QQ-plots adapted for right-censored data.
         \item Add Weibull QQ-plot and derivative plot.
+        \item Fix typo in documentation of \code{log} option in \code{SplicePP} and \code{SplicePP_TB}.
       }
     }
     \subsection{Miscellaneous changes:}{

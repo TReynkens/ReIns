@@ -29,7 +29,7 @@ insurance context, these are the incurred values. By default, they are equal to 
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitciPareto}}.
 }
   \item{log}{
-Logical indicating if the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
+Logical indicating if minus the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
