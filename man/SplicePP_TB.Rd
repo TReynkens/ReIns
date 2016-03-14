@@ -5,7 +5,7 @@
 PP-plot with fitted and Turnbull survival function
 }
 \description{
-This function plots the fitted survival function of the splicing distribution versus the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
+This function plots the fitted survival function of the spliced distribution versus the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
 }
 \usage{
 SplicePP_TB(x = sort(L), L, U = L, censored, splicefit, log = FALSE, ...)

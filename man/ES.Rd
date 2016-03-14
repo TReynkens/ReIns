@@ -5,7 +5,7 @@
 Expected Shortfall
 }
 \description{
-Compute Expected Shortfall (ES) \eqn{ES_p} of the fitted splicing distribution.
+Compute Expected Shortfall (ES) \eqn{ES_p} of the fitted spliced distribution.
 }
 \usage{
 ES(p, splicefit)

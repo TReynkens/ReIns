@@ -5,10 +5,10 @@
 \alias{rSplice}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Splicing distribution
+Spliced distribution
 }
 \description{
-Density, distribution function, quantile function and random generation for the fitted splicing distribution.
+Density, distribution function, quantile function and random generation for the fitted spliced distribution.
 }
 \usage{
 dSplice(x, splicefit, log = FALSE)
@@ -98,7 +98,7 @@ plot(p, VaR(p, splicefit), type="l", xlab="p", ylab=bquote(VaR[p]))
 
 
 
-# Random sample from splicing distribution
+# Random sample from spliced distribution
 x <- rSplice(1000, splicefit)
 
 }

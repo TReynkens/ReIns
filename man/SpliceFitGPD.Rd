@@ -5,7 +5,7 @@
 Splicing of mixed Erlang and GPD using POT-MLE
 }
 \description{
-Fit splicing distribution of a mixed Erlang distribution and a Generalised Pareto Distribution (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
+Fit spliced distribution of a mixed Erlang distribution and a Generalised Pareto Distribution (GPD). The parameters of the GPD are determined using the POT-MLE approach. 
 }
 \usage{
 SpliceFitGPD(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 

@@ -5,7 +5,7 @@
 Splicing quantile plot using Turnbull estimator
 }
 \description{
-This function plots the fitted quantile function of the splicing distribution versus quantiles based on the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
+This function plots the fitted quantile function of the spliced distribution versus quantiles based on the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
 }
 \usage{
 SpliceQQ_TB(L, U = L, p = NULL, censored, splicefit, 
@@ -48,7 +48,7 @@ Use \code{\link{SplicePP}} for non-censored data.
 }
 \value{
 A list with following components:
-\item{sqq.the}{Vector of the theoretical quantiles of the fitted splicing distribution.}
+\item{sqq.the}{Vector of the theoretical quantiles of the fitted spliced distribution.}
 \item{sqq.emp}{Vector of the empirical quantiles from the data (based on the Turnbull estimator).}
 }
 \references{

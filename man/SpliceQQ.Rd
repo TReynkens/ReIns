@@ -5,7 +5,7 @@
 Splicing quantile plot
 }
 \description{
-Computes the empirical quantiles of a data vector and the theoretical quantiles of the fitted splicing distribution. These quantiles are then plotted in a splicing QQ-plot with the theoretical quantiles on the \eqn{x}-axis and the empirical quantiles on the \eqn{y}-axis.
+Computes the empirical quantiles of a data vector and the theoretical quantiles of the fitted spliced distribution. These quantiles are then plotted in a splicing QQ-plot with the theoretical quantiles on the \eqn{x}-axis and the empirical quantiles on the \eqn{y}-axis.
 }
 \usage{
 SpliceQQ(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-plot", ...)
@@ -33,7 +33,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \value{
 A list with following components:
-\item{sqq.the}{Vector of the theoretical quantiles of the fitted splicing distribution.}
+\item{sqq.the}{Vector of the theoretical quantiles of the fitted spliced distribution.}
 \item{sqq.emp}{Vector of the empirical quantiles from the data.}
 }
 \references{

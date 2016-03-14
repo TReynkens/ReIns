@@ -1,5 +1,4 @@
 
-
 # Check input for const
 .constCheck <- function(const) {
  
@@ -1094,7 +1093,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   return(q)
 }
 
-# Random numbers from splicing distribution
+# Random numbers from spliced distribution
 rSplice <- function(n, splicefit) {
   
   return(qSplice(runif(n), splicefit=splicefit))

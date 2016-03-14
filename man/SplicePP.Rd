@@ -5,7 +5,7 @@
 PP-plot with fitted and empirical survival function
 }
 \description{
-This function plots the fitted survival function of the splicing distribution versus the
+This function plots the fitted survival function of the spliced distribution versus the
 empirical survival function (determined using the Empirical CDF (ECDF)). 
 }
 \usage{

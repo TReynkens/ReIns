@@ -6,7 +6,7 @@
 Splicing of mixed Erlang and Pareto
 }
 \description{
-Fit splicing distribution of a mixed Erlang distribution and Pareto distribution(s). The shape parameter(s) of the Pareto distribution(s) is determined using the Hill estimator. 
+Fit spliced distribution of a mixed Erlang distribution and Pareto distribution(s). The shape parameter(s) of the Pareto distribution(s) is determined using the Hill estimator. 
 }
 \usage{
 SpliceFitPareto(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 

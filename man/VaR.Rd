@@ -5,7 +5,7 @@
 VaR of splicing fit
 }
 \description{
-Compute Value-at-Risk (\eqn{VaR_p=Q(1-p)}) of the fitted splicing distribution.
+Compute Value-at-Risk (\eqn{VaR_p=Q(1-p)}) of the fitted spliced distribution.
 }
 \usage{
 VaR(p, splicefit)

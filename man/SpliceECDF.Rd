@@ -5,7 +5,7 @@
 Plot of fitted and empirical survival function
 }
 \description{
-This function plots the fitted survival function of the splicing distribution together with the
+This function plots the fitted survival function of the spliced distribution together with the
 empirical survival function (determined using the Empirical CDF (ECDF)). Moreover, \eqn{100\alpha\%} confidence bounds are added.
 }
 \usage{

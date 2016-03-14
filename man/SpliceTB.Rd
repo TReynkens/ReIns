@@ -5,7 +5,7 @@
 Plot of fitted and Turnbull survival function
 }
 \description{
-This function plots the fitted survival function of the splicing distribution together with the
+This function plots the fitted survival function of the spliced distribution together with the
 Turnbull survival function (which is suitable for right-censored or interval-censored data). Moreover, \eqn{100\alpha\%} confidence bounds are added.
 }
 \usage{

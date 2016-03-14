@@ -6,7 +6,7 @@ LL-plot with fitted and empirical survival function
 }
 \description{
 This function plots the logarithm of the empirical survival function (determined using the Empirical CDF (ECDF)) versus the logarithm of the data.
-Moreover, the logarithm of the fitted survival function of the splicing distribution is added.
+Moreover, the logarithm of the fitted survival function of the spliced distribution is added.
 }
 \usage{
 SpliceLL(x = sort(X), X, splicefit, ...)

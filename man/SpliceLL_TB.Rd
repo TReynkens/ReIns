@@ -6,7 +6,7 @@ LL-plot with fitted and Turnbull survival function
 }
 \description{
 This function plots the logarithm of the Turnbull survival function (which is suitable for right-censored or interval-censored data) versus the logarithm of the data.
-Moreover, the logarithm of the fitted survival function of the splicing distribution is added.
+Moreover, the logarithm of the fitted survival function of the spliced distribution is added.
 }
 \usage{
 SpliceLL_TB(x = sort(L), L, U = L, censored, splicefit, ...)

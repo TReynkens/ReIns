@@ -204,7 +204,7 @@ legend("bottomright",c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 
 # Splicing
 
-## Fitting a splicing distribution
+## Fitting a spliced distribution
 
 The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
 wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution (body)
@@ -228,7 +228,7 @@ abline(v=quantile(size, c(0.5,0.996)))
 For the Norwegian fire insurance data, we choose splicing points at the 50\% and 99.6\% quantile.
 This means that we the spliced distribution is a ME distribution between 0 and the first splicing point, a Pareto distribution between the first and second splicing point and another Pareto distribution after the second splicing point.
 
-Using `SpliceFitPareto` we can fit this splicing distribution. This can take some time so we create a `SpliceFit` object using the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the splicing distribution.
+Using `SpliceFitPareto` we can fit this spliced distribution. This can take some time so we create a `SpliceFit` object using the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the spliced distribution.
 
 ```{r, eval=FALSE}
 
@@ -252,14 +252,14 @@ splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c
 summary(splicefit)
 ```
 
-## Checking adequacy of fitted splicing distribution
+## Checking adequacy of fitted spliced distribution
 
-To see how well the splicing distribution fits the data, we use 2 tools:  
+To see how well the spliced distribution fits the data, we use 2 tools:  
 1. `SpliceECDF`: plot of the fitted survival function and the empirical survival function with confidence bounds.  
 2. `SplicePP`: plot of fitted survival function vs. empirical survival function. The plot with minus-log scales is most informative for the tails.
 3. `SpliceQQ`: plot of fitted quantile function vs. empirical quantiles. 
 
-We see that the fitted splicing distribution approximates the empirical distribution quite well.
+We see that the fitted spliced distribution approximates the empirical distribution quite well.
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Points to look at
@@ -284,8 +284,8 @@ abline(0,1)
 
 # Risk measures
 
-Using the fitted splicing distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
-Expected Shortfall (ES). Moreover, data can be simulated from the splicing distribution.
+Using the fitted spliced distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
+Expected Shortfall (ES). Moreover, data can be simulated from the spliced distribution.
 
 
 ## Excess-loss premiums
