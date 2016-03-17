@@ -289,22 +289,22 @@ Expected Shortfall (ES). Moreover, data can be simulated from the spliced distri
 
 
 ## Excess-loss premiums
-To estimate the **premiums of an excess-loss insurance** (with retention $M$), one can use `ExcessSplice`. It is also possible to add a limit to the insurance (e.g. $L=2M$).
+To estimate the **premiums of an excess-loss insurance** (with retention $R$), one can use `ExcessSplice`. It is also possible to add a limit to the insurance (e.g. $L=2R$).
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Sequence of retentions
-M <- seq(0, 10^6, 10^2)
+R <- seq(0, 10^6, 10^2)
 
 # Premiums
-e <- ExcessSplice(M, splicefit=splicefit)
+e <- ExcessSplice(R, splicefit=splicefit)
 
 # Compute premiums of excess-loss insurance min{(X-M)+,L}
-e2 <- ExcessSplice(M, L=2*M, splicefit=splicefit)
+e2 <- ExcessSplice(R, L=2*R, splicefit=splicefit)
 
 
 # Plot premiums
-plot(M, e, type="l", xlab="M", ylab="I(M)-I(M+L)", ylim=c(0,10^3))
-lines(M, e2, lty=2)
-legend("topright",c(expression("L"==infinity),expression("L"==2*"M")), lty=1:2, lwd=2)
+plot(R, e, type="l", xlab="R", ylab="I(R)-I(R+L)", ylim=c(0,10^3))
+lines(R, e2, lty=2)
+legend("topright",c(expression("L"==infinity),expression("L"==2*"R")), lty=1:2, lwd=2)
 ```
 
 

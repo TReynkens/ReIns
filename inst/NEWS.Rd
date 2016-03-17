@@ -18,6 +18,7 @@
         \item Remove QQ-plots with Turnbull estimator for Pareto, Exponential and Lognormal distributions.
         \item Add warning, and only used last element, if \code{EVTtruncation} argument of \code{SpliceFitPareto} has                more than one element.
         \item Add Weibull QQ-plot and derivative plot.
+        \item Rename input argument \code{M} to \code{R} for excess-loss functions.
       }
     }
     \subsection{Documentation changes:}{
@@ -31,6 +32,7 @@
         \item Update documentation of QQ-plots adapted for right-censored data.
         \item Add Weibull QQ-plot and derivative plot.
         \item Fix typo in documentation of \code{log} option in \code{SplicePP} and \code{SplicePP_TB}.
+        \item Rename input argument \code{u} to \code{R} for excess-loss functions.
       }
     }
     \subsection{Miscellaneous changes:}{

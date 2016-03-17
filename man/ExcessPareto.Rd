@@ -6,13 +6,13 @@
 Estimates for excess-loss premiums using a Pareto model
 }
 \description{
-Estimate premiums of excess-loss reinsurance with retention \eqn{M} and limit \eqn{L} using a (truncated) Pareto model.
+Estimate premiums of excess-loss reinsurance with retention \eqn{R} and limit \eqn{L} using a (truncated) Pareto model.
 }
 \usage{
-ExcessPareto(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, 
+ExcessPareto(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, 
         add = FALSE, main = "Estimates for premium of excess-loss insurance", ...)
         
-ExcessHill(data, gamma, M, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, 
+ExcessHill(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, 
         add = FALSE, main = "Estimates for premium of excess-loss insurance", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -23,7 +23,7 @@ Vector of \eqn{n} observations.
   \item{gamma}{
 Vector of \eqn{n-1} estimates for the EVI, obtained from \code{\link{Hill}} or \code{\link{trHill}}.
 }
- \item{M}{
+ \item{R}{
 The retention level of the (re-)insurance.
 }
   \item{L}{
@@ -49,13 +49,13 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-We need that \eqn{u \ge X_{n-k,n}}, the \eqn{(k+1)}-st largest observation.
+We need that \eqn{u \ge X_{n-k,n}}, the \eqn{(k+1)}-th largest observation.
 If this is not the case, we return \code{NA} for the premium. A warning will be issued in
 that case if \code{warnings=TRUE}. One should then use globale fits: \code{\link{ExcessSplice}}.
 
-The premium for the excess-loss insurance with retentation \eqn{M} and limit \eqn{L} is given by
-\deqn{E(\min{(X-M)_+, L}) = I(M) - I(M+L)}
-where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function. When \eqn{L=\infty}, the premium is equal to \eqn{I(M)}.
+The premium for the excess-loss insurance with retentation \eqn{R} and limit \eqn{L} is given by
+\deqn{E(\min{(X-R)_+, L}) = I(R) - I(R+L)}
+where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function. When \eqn{L=\infty}, the premium is equal to \eqn{I(R)}.
 
 We estimate the integrated tail function by
 \deqn{ \hat{I}(u) = (k+1)/(n+1) / (1/H_{k,n}-1) * (X_{n-k,n})^{1/H_{k,n}} u^{1-H_{k,n}},}
@@ -67,7 +67,7 @@ The \code{ExcessHill} function is the same function but with a different name fo
 A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
 \item{premium}{The corresponding estimates for the premium.}
-\item{M}{The retention level of the (re-)insurance.}
+\item{R}{The retention level of the (re-)insurance.}
 \item{L}{The limit of the (re-)insurance.}
 }
 \references{
@@ -88,8 +88,8 @@ data(secura)
 # Hill estimator
 H <- Hill(secura$size)
 
-# Premium of excess-loss insurance with retention M
-M <- 10^7
-ExcessHill(secura$size,H$gamma,M=M)
+# Premium of excess-loss insurance with retention R
+R <- 10^7
+ExcessHill(secura$size,H$gamma,R=R)
 }
 
