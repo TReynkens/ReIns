@@ -19,6 +19,7 @@
         \item Add warning, and only used last element, if \code{EVTtruncation} argument of \code{SpliceFitPareto} has                more than one element.
         \item Add Weibull QQ-plot and derivative plot.
         \item Rename input argument \code{M} to \code{R} for excess-loss functions.
+        \item Correct AIC and BIC for truncated splicing fits (if more than two parts).
       }
     }
     \subsection{Documentation changes:}{
