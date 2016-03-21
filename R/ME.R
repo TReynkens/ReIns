@@ -215,7 +215,7 @@
   # beta to alpha
   alpha_tilde <- beta / t_probabilities
   alpha <- alpha_tilde / sum(alpha_tilde)
- list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
+ list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)+1),BIC=-2*loglikelihood+(2*length(alpha)+1)*log(n)) 
 }
 
 ## Shape adjustments
@@ -296,7 +296,7 @@
     after_loglikelihood <- loglikelihood  
     iteration <- iteration + 1
   }
-  list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(length(lower))) 
+  list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)+1),BIC=-2*loglikelihood+(2*length(alpha)+1)*log(length(lower))) 
 }
 
 ## Reduction of M based on an information criterium: AIC and BIC implemented
@@ -336,7 +336,7 @@
       improve <- FALSE
     }        
   }
-  list(M = M, alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
+  list(M = M, alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)+1),BIC=-2*loglikelihood+(2*length(alpha)+1)*log(n)) 
 }
 
 ## Calibration procedure for mixtures of Erlangs by repeatedly using the EM algorithm while adjusting and reducing the shape parameters based on an information criterium (AIC and BIC implemented)
