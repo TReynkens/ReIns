@@ -114,23 +114,13 @@
 
 ## Auxiliary functions used to maximize theta in the M-step
 
-.theta_nlm_u_c <- function(theta, x, c_exp, n, beta, shape, trunclower, truncupper) {
+.theta_nlm <- function(theta, x, c_exp, n, beta, shape, trunclower, truncupper) {
   
   TT <- .ME_T(trunclower, truncupper, shape, theta, beta)
   (theta - ((sum(x)+sum(c_exp))/n-TT)/sum(beta*shape))^2
 }
 
-.theta_nlm_u <- function(theta, x, n, beta, shape, trunclower, truncupper) {
-  
-  TT <- .ME_T(trunclower, truncupper, shape, theta, beta)
-  (theta - (sum(x)/n-TT)/sum(beta*shape))^2
-}
 
-.theta_nlm_c <- function(theta, c_exp, n, beta, shape, trunclower, truncupper) {
-  
-  TT <- .ME_T(trunclower, truncupper, shape, theta, beta)
-  (theta - (sum(c_exp)/n-TT)/sum(beta*shape))^2
-}
 
 ## EM algorithm (censored and truncated data)
 
@@ -174,9 +164,12 @@
       c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)      
     } else if(no_censoring){
       u_z <- .ME_u_z(x_densities, beta, t_probabilities, M)
+      c_z <- as.matrix(c(0,0))
+      c_exp <- as.matrix(c(0,0))
     } else{
+      u_z <- as.matrix(c(0,0))
       c_z <- .ME_c_z(c_probabilities, beta, t_probabilities, M)
-      c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)      
+      c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)
     }
     # M step
     
@@ -198,13 +191,8 @@
       beta <- beta/sum(beta)
     }
     
-    if(no_censoring & censoring){
-      theta <- nlm(.theta_nlm_u_c, theta, x, c_exp, n, beta, shape, trunclower, truncupper)$estimate
-    } else if(no_censoring){ 
-      theta <- nlm(.theta_nlm_u, theta, x, n, beta, shape, trunclower, truncupper)$estimate
-    } else{     
-      theta <- nlm(.theta_nlm_c, theta, c_exp, n, beta, shape, trunclower, truncupper)$estimate
-    }
+    theta <- nlm(.theta_nlm, theta, x, c_exp, n, beta, shape, trunclower, truncupper)$estimate
+
     iteration <- iteration + 1
     if(no_censoring){  
       # matrix containing densities (uncensored)
@@ -474,7 +462,7 @@
     i <- 1
  
     all_model <- foreach(i = 1:nrow(tuning_parameters), 
-                         .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
+                         .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
                          .errorhandling = 'pass') %do% {
                            
       suppressWarnings(.ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -494,7 +482,7 @@
 
     i <- 1
     all_model <- foreach(i = 1:nrow(tuning_parameters), 
-                         .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm_u_c", ".theta_nlm_u", ".theta_nlm_c", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
+                         .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
                          .errorhandling = 'pass') %dopar% {
                            
                            .ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
