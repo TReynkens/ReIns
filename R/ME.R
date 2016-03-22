@@ -16,17 +16,24 @@
   rc <- lower[is.na(upper)]
   ic <- (lower[lower!=upper & !is.na(lower!=upper)] + upper[lower!=upper & !is.na(lower!=upper)]) / 2
   initial_data = c(uc, lc, rc, ic)
-  theta <- max(initial_data)/M
-  shape <- seq(1, M)
-  alpha <- rep(0,M)
-  for (i in 1:M){
-    alpha[i] <- sum(initial_data <= i*theta & initial_data > (i-1)*theta)
-  }    
+  
+  # Initial value of theta using spread factor s
+  theta <- max(initial_data, na.rm=TRUE) / s
+  
+  # Initial shapes as quantiles
+  shape <- unique(ceiling(quantile(initial_data, probs = seq(0, 1, length.out = M), na.rm = TRUE)/theta))
+  
+  # Initial value for alpha's
+  alpha <- rep(0,length(shape))
+  alpha[1] <- sum(initial_data <= shape[1]*theta)
+  for (i in 2:length(shape)){
+    alpha[i] <- sum(initial_data <= shape[i]*theta & initial_data > shape[i-1]*theta)
+  }
+  
+  # Keep strictly positive alpha's and corresponding shapes
   shape <- shape[alpha>0]
   alpha <- alpha[alpha>0]/sum(alpha)
-  # spread out shapes and adjust theta
-  shape <- s*shape
-  theta <- theta/s
+  
   # alpha to beta
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)  
   beta = alpha * t_probabilities / sum(alpha*t_probabilities)
