@@ -217,11 +217,10 @@
                 theta=theta, shape=shape, beta=beta,
                 eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   loglikelihood <- fit$loglikelihood
+  shape <- fit$shape
   theta <- fit$theta
   beta <- fit$beta
   alpha <- fit$alpha
-  shape <- fit$shape
-  
   M <- length(beta)
   
   # before and after are the loglikelihoods used in the outer while loop
@@ -294,12 +293,10 @@
   n <- length(lower)
   if (adj) {
     fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
-                                               theta=theta, shape=shape, beta=beta,
-                                               eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+                         theta=theta, shape=shape, beta=beta, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   } else {
     fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
-                                        theta=theta, shape=shape, beta=beta,
-                                        eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+                  theta=theta, shape=shape, beta=beta, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   }
   loglikelihood <- fit$loglikelihood
   IC <- fit[[criterium]]
