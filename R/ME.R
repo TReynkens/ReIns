@@ -116,8 +116,10 @@
 
 ## Auxiliary functions used to maximize theta in the M-step
 
-.theta_nlm <- function(theta, x, c_exp, n, beta, shape, trunclower, truncupper) {
-  
+# This function returns log of optimal theta!
+.theta_nlm <- function(ltheta, x, c_exp, n, beta, shape, trunclower, truncupper) {
+  # Ensure theta is strictly positive
+  theta <- exp(ltheta)
   TT <- .ME_T(trunclower, truncupper, shape, theta, beta)
   (theta - ((sum(x)+sum(c_exp))/n-TT)/sum(beta*shape))^2
 }
@@ -184,7 +186,7 @@
       beta <- beta/sum(beta)
     }
     
-    theta <- nlm(.theta_nlm, theta, x, c_exp, n, beta, shape, trunclower, truncupper)$estimate
+    theta <- exp(nlm(.theta_nlm, log(theta), x, c_exp, n, beta, shape, trunclower, truncupper)$estimate)
 
     iteration <- iteration + 1
     if(no_censoring){  
