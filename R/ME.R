@@ -26,8 +26,10 @@
   # Initial value for alpha's
   alpha <- rep(0,length(shape))
   alpha[1] <- sum(initial_data <= shape[1]*theta)
-  for (i in 2:length(shape)){
-    alpha[i] <- sum(initial_data <= shape[i]*theta & initial_data > shape[i-1]*theta)
+  if (length(shape)>1) {
+    for (i in 2:length(shape)){
+      alpha[i] <- sum(initial_data <= shape[i]*theta & initial_data > shape[i-1]*theta)
+    }
   }
   
   # Keep strictly positive alpha's and corresponding shapes
@@ -173,17 +175,8 @@
     }
     # M step
     
-    if(no_censoring & censoring){
-      beta <- (colSums(u_z)+colSums(c_z))/n 
-     
-    } else if(no_censoring){
-      beta <- colSums(u_z)/n   
-    
-    } else{
-      beta <- colSums(c_z)/n     
-      
-    }
-    
+    beta <- (colSums(u_z)+colSums(c_z))/n 
+
     # Remove small beta's
     if(min(beta) < beta_tol){
       shape <- shape[beta > beta_tol]
@@ -297,11 +290,17 @@
 ## Reduction of M based on an information criterium: AIC and BIC implemented
 
 .ME_shape_red <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, criterium = "AIC", 
-                          improve = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+                          improve = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, adj = TRUE) {
   n <- length(lower)
-  fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
-                       theta=theta, shape=shape, beta=beta, 
-                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  if (adj) {
+    fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                                               theta=theta, shape=shape, beta=beta,
+                                               eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  } else {
+    fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                                        theta=theta, shape=shape, beta=beta,
+                                        eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  }
   loglikelihood <- fit$loglikelihood
   IC <- fit[[criterium]]
   shape <- fit$shape
@@ -314,9 +313,15 @@
     new_shape <- shape[beta != min(beta)]
     new_beta <- beta[beta != min(beta)]
     new_beta <- new_beta/sum(new_beta)
-    fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
-                         theta=theta, shape=new_shape, beta=new_beta, 
-                         eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+    if (adj) {
+      fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                           theta=theta, shape=new_shape, beta=new_beta,
+                           eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+    } else {
+      fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                    theta=theta, shape=new_shape, beta=new_beta,
+                    eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+    }
     new_IC <- fit[[criterium]]
     if(new_IC < IC){ 
       IC <- new_IC
@@ -350,9 +355,14 @@
                     criterium = "AIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
   
   initial <- .ME_initial(lower, upper, trunclower, truncupper, M, s)
+  # Reduction of the shape combinations
   fit <- .ME_shape_red(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                        theta=initial$theta, shape=initial$shape, beta=initial$beta, 
-                       criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+                       criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
+  # Subsequent adjustment and reduction of the shape combinations
+  fit <- .ME_shape_red(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                       theta=fit$theta, shape=fit$shape, beta=fit$beta, 
+                       criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
   list(alpha = fit$alpha, beta = fit$beta, shape = fit$shape, theta = fit$theta, loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s) 
 }
 
