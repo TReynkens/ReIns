@@ -53,8 +53,8 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
-Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
-Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
+Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
+Pareto-type Distributions." \emph{Extremes}, accepted.
 }
 \author{
 Tom Reynkens based on \code{R} code of Dries Cornilly.

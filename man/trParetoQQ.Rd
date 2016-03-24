@@ -5,7 +5,7 @@
 Truncated Pareto quantile plot
 }
 \description{
-Extension of the Pareto QQ-plot as described in Beirlant et al. (2015).
+Extension of the Pareto QQ-plot as described in Beirlant et al. (2016).
 }
 \usage{
 trParetoQQ(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "tPa QQ-plot", ...)
@@ -46,7 +46,7 @@ and \eqn{log(\hat{D}_{T,r,k^*,n}+j/(n+1))} for \eqn{j=1,...k} and \eqn{k^*>10}.
 
 When taking \eqn{D_T=0}, one obtains the ordinary Pareto QQ-plot.
 
-Note that the definition here differs slightly from the one in Beirlant et al. (2015).
+Note that the definition here differs slightly from the one in Beirlant et al. (2016).
 We plot the empirical and theoretical quantiles the other way around and therefore have to add a minus (before the log).
 }
 \value{
@@ -59,8 +59,8 @@ A list with following components:
 }
 
 \references{
-Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
-Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
+Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
+Pareto-type Distributions." \emph{Extremes}, accepted.
 }
 \author{
 Tom Reynkens.

@@ -35,6 +35,7 @@
         \item Add Weibull QQ-plot and derivative plot.
         \item Fix typo in documentation of \code{log} option in \code{SplicePP} and \code{SplicePP_TB}.
         \item Rename input argument \code{u} to \code{R} for excess-loss functions.
+        \item Update Beirlant et al. (2015) reference.
       }
     }
     \subsection{Miscellaneous changes:}{

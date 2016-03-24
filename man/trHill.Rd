@@ -41,7 +41,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The truncated Hill estimator is the MLE for \eqn{\gamma} under the truncated Pareto distribution.
 
-To estimate the EVI using the truncated Hill estimator an equation needs to be solved. Beirlant et al. (2015) propose
+To estimate the EVI using the truncated Hill estimator an equation needs to be solved. Beirlant et al. (2016) propose
 to use Newton-Raphson iterations to solve this equation. We take the trimmed Hill estimates as starting values for this algorithm. The trimmed Hill estimator is defined as
 \deqn{H_{r,k,n} = 1/(k-r+1) \sum_{j=r}^k \log(X_{n-j+1,n})-\log(X_{n-k,n})   for 1\le r < k < n}
 and is a basic extension of the Hill estimator for upper truncated data (the ordinary Hill estimator is obtained for \eqn{r=1}).
@@ -60,8 +60,8 @@ A list with following components:
 Aban, I.B., Meerschaert, M.M. and Panorska, A.K. (2006). "Parameter Estimation for the Truncated
 Pareto Distribution." \emph{Journal of the American Statistical Association}, 101, 270--277.
 
-Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
-Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
+Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
+Pareto-type Distributions." \emph{Extremes}, accepted.
 }
 \author{
 Tom Reynkens based on \code{R} code of Dries Cornilly.

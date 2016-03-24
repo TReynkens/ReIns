@@ -42,7 +42,7 @@ an optimal mixed Erlang fit using an information criterion, see Verbelen et al. 
 Lower truncation point. Default is 0.
 }
   \item{truncupper}{
-Upper truncation point. Default is \code{Inf} (no upper truncation). When \code{truncupper=Inf} and \code{EVTtruncation=TRUE}, the truncation point is estimated using the approach of Beirlant et al. (2015).
+Upper truncation point. Default is \code{Inf} (no upper truncation). When \code{truncupper=Inf} and \code{EVTtruncation=TRUE}, the truncation point is estimated using the approach of Beirlant et al. (2016).
 }
   \item{EVTtruncation}{
 Logical indicating if the \eqn{l}-th Pareto distribution is a truncated Pareto distribution. Default is \code{FALSE}.
@@ -81,8 +81,8 @@ A \code{\link{SpliceFit}} object.
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
-Beirlant, J., Fraga Alves, M.I., Gomes, M.I. and Meerschaert, M.M. (2015). "Extreme Value Statistics for Truncated
-Pareto-type Distributions", \emph{http://arxiv.org/abs/1410.4097}.
+Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
+Pareto-type Distributions." \emph{Extremes}, accepted.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.
