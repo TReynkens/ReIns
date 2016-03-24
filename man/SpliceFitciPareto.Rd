@@ -64,7 +64,7 @@ Maximum number of iterations in a single EM algorithm execution. Default is \cod
 }
 }
 \details{
-See Albrecher et al. (2016) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
+See Albrecher et al. (2016) and Verbelen et al. (2015a) for details. The code follows the notation of the latter.
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 }
@@ -74,8 +74,11 @@ A \code{\link{SpliceFit}} object.
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
-Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mixtures of
-Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.
+Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
+Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758.
+
+Verbelen, R., Antonio, K. and Claeskens, G. (2015). "Multivariate Mixtures
+of Erlangs for Density Estimation Under Censoring." \emph{Lifetime Data Analysis}, accepted.
 }
 \author{
 Tom Reynkens based on \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution (without splicing).

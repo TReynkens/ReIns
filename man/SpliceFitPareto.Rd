@@ -84,11 +84,11 @@ Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuaria
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.
 
-Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). Fitting Mixtures of
-Erlangs to Censored and Truncated Data Using the EM Algorithm. \emph{Astin Bulletin}, 45, 729--758.
+Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
+Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758.
 
-Verbelen, R., Antonio, K. and Claeskens, G. (2015). Multivariate Mixtures
-of Erlangs for Density Estimation Under Censoring. \emph{Lifetime Data Analysis}, accepted.
+Verbelen, R., Antonio, K. and Claeskens, G. (2015). "Multivariate Mixtures
+of Erlangs for Density Estimation Under Censoring." \emph{Lifetime Data Analysis}, accepted.
 }
 \author{
 Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution.
