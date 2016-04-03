@@ -10,11 +10,11 @@ GPD-ML estimator
 Fit the Generalised Pareto Distribution (GPD) to the exceedances (peaks) over a threshold using Maximum Likelihood Estimation (MLE). Optionally, these estimates are plotted as a function of \eqn{k}.
 }
 \usage{
-GPDmle(data, start = c(0.1,1), warnings = FALSE, plot = FALSE, add = FALSE, 
-        main = "POT estimates of EVI", ...)
+GPDmle(data, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
+       plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
 
-POT(data, start = c(0.1,1), warnings = FALSE, plot = FALSE, add = FALSE, 
-        main = "POT estimates of EVI", ...)
+POT(data, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
+    plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +27,9 @@ is the starting value for the estimator of \eqn{\gamma} and the second element i
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

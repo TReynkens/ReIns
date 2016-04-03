@@ -21,6 +21,7 @@
         \item Rename input argument \code{M} to \code{R} for excess-loss functions.
         \item Correct AIC and BIC for truncated splicing fits (if more than two parts).
         \item Change initial values of ME distribution to the ones used in Verbelen et al. (2015b) (multivariate ME).
+        \item Add option to plot estimates for EVI as function of \eqn{log(k)} instead of \eqn{k}.
       }
     }
     \subsection{Documentation changes:}{

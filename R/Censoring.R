@@ -4,7 +4,7 @@
 # Hill estimator for censored data
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary Hill estimator
-cHill <- function(data, censored, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
+cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -40,7 +40,11 @@ cHill <- function(data, censored, plot = FALSE, add = FALSE, main = "Hill estima
   
 
   # plots if TRUE
-  .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  }
   
   # output list with values of k and corresponding Hill estimates
   
@@ -52,7 +56,7 @@ cHill <- function(data, censored, plot = FALSE, add = FALSE, main = "Hill estima
 # generalised Hill estimator for censored data
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary generalised Hill estimator.
-cgenHill <- function(data, censored, plot = FALSE, add = FALSE,  
+cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,  
          main = "Generalised Hill estimates of EVI", ...) {
   
   # Check input arguments
@@ -95,7 +99,11 @@ cgenHill <- function(data, censored, plot = FALSE, add = FALSE,
   
 
   # plots if TRUE
-  .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  }
   
   # output list with values of k and
   # corresponding Zipf estimates
@@ -107,7 +115,7 @@ cgenHill <- function(data, censored, plot = FALSE, add = FALSE,
 # Moment estimator for censored data
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary Moment estimator
-cMoment <- function(data, censored, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
+cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -146,8 +154,12 @@ cMoment <- function(data, censored, plot = FALSE, add = FALSE, main = "Moment es
   ######################
   
   # plots if TRUE
-  .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
-  
+  if (logk) {
+    .plotfun(log(K), Mom[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  }
+ 
   # output list with values of k and
   # corresponding estimates for gamma1, b and beta
   .output(list(k=K, gamma1=Mom[K]),plot=plot,add=add)
@@ -155,7 +167,7 @@ cMoment <- function(data, censored, plot = FALSE, add = FALSE, main = "Moment es
 }
 
 
-cGPDmle <- function(data, censored, start = c(0.1,1), warnings = FALSE, 
+cGPDmle <- function(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
                  plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
   
   # Check input arguments
@@ -185,7 +197,12 @@ cGPDmle <- function(data, censored, start = c(0.1,1), warnings = FALSE,
   gamma1 <- gamma1 / pk
     
   # plots if TRUE
-  .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), gamma1[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
+  }
+ 
   
   .output(list(k=K, gamma1=gamma1[K], sigma1=sigma1[K]), plot=plot, add=add)
 }

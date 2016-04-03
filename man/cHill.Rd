@@ -9,7 +9,7 @@ Computes the Hill estimator for positive extreme value indices, adapted for righ
 Optionally, these estimates are plotted as a function of \eqn{k}.
 }
 \usage{
-cHill(data, censored, plot = FALSE, add = FALSE, 
+cHill(data, censored, logk = FALSE, plot = FALSE, add = FALSE, 
       main = "Hill estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -19,6 +19,9 @@ cHill(data, censored, plot = FALSE, add = FALSE,
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

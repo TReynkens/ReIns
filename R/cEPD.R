@@ -49,7 +49,7 @@
 # rho is a parameter for the rho_estimator of Fraga Alves et al. (2003)
 # when strictly positive or (a) choice(s) for rho if negative
 
-cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE, 
+cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FALSE, add = FALSE, 
                  main = "EPD estimates of EVI", ...){
   
   # Check input
@@ -151,7 +151,11 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, plot=FALSE, add=FALSE,
   
   
   # plots if TRUE
-  .plotfun(K, gamma1[,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), gamma1[,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, gamma1[,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
   
   # Transform to vectors if rho is a single value
   if(nrho==1) {

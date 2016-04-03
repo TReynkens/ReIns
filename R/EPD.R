@@ -13,7 +13,7 @@
 # rho is a parameter for the rho_estimator of Fraga Alves et al. (2003)
 # when strictly positive or (a) choice(s) for rho if negative
 EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE, 
-                plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...) {
+                logk = FALSE, plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -35,7 +35,11 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   }
   
   # plots if TRUE
-  .plotfun(K, EPD$gamma[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), EPD$gamma[K,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, EPD$gamma[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
   
   # Transform to vectors if rho is a single value
   if(length(rho)==1) {

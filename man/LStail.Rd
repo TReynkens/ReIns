@@ -10,10 +10,10 @@ Least Squares tail estimator
 Computes the Least Squares (LS) estimates of the EVI based on the last \eqn{k} observations of the generalised QQ-plot.
 }
 \usage{
-LStail(data, rho = -1, lambda = 0.5, plot = FALSE, add = FALSE, 
+LStail(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
             main = "LS estimates of EVI", ...)
             
-TSfraction(data, rho = -1, lambda = 0.5, plot = FALSE, add = FALSE, 
+TSfraction(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
             main = "LS estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -26,6 +26,9 @@ Estimate for \eqn{\rho}, or \code{NULL} when \eqn{\rho} needs to be estimated us
 }
   \item{lambda}{
 Parameter used in the method of Beirlant et al. (2002), only used when \code{rho=NULL}. Default is \code{0.5}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

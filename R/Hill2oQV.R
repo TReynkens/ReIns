@@ -19,7 +19,7 @@
 # plot
 
 
-Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, add = FALSE, 
+Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, plot = FALSE, add = FALSE, 
                       main = "Estimates of EVI", ...) {
   
   # Check input arguments
@@ -94,7 +94,12 @@ Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, ad
   }
   
   # plots if TRUE
-  .plotfun(K, H[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), H[K,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, H[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
+  
   
   .output(list(k=K, gamma=H[K,1], b=H[K,2], beta=H[K,3]),plot=plot,add=add)
 
@@ -165,7 +170,7 @@ Weissman.q.2oQV <- Quant.2oQV
 #
 # If plot=TRUE then the estimates of the AMSE are plotted
 # as a function of k and the optimal k value is added to it
-Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, add = FALSE, 
+Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, plot = FALSE, add = FALSE, 
                      main = "AMSE plot", ...) {
   
   # Check input arguments
@@ -195,11 +200,23 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, ad
   # plots if TRUE
   if (plot || add) {
     if (add) {   # add optimal k value to Hill-plot
-      abline(v=kopt, lty=2, col="black", lwd=2)
+      if (logk) {
+        abline(v=log(kopt), lty=2, col="black", lwd=2)
+      } else {
+        abline(v=kopt, lty=2, col="black", lwd=2)
+      }
+      
     } else {
-      ## plot estimates of AMSE as function of k
-      plot(K, AMSE.Hill, type="l", ylab="AMSE", xlab="k", main=main, ...)
-      abline(v=kopt, lty=2, col="black", lwd=2)
+      if (logk) {
+        ## plot estimates of AMSE as function of log(k)
+        plot(log(K), AMSE.Hill, type="l", ylab="AMSE", xlab="log(k)", main=main, ...)
+        abline(v=log(kopt), lty=2, col="black", lwd=2)
+      } else {
+        ## plot estimates of AMSE as function of k
+        plot(K, AMSE.Hill, type="l", ylab="AMSE", xlab="k", main=main, ...)
+        abline(v=kopt, lty=2, col="black", lwd=2)
+      }
+
     }
   }
   

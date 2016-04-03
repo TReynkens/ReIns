@@ -1,6 +1,6 @@
 
 #Scale estimator
-Scale <- function(data, gamma = NULL, plot = FALSE, add = FALSE, 
+Scale <- function(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE, 
                     main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
@@ -21,7 +21,11 @@ Scale <- function(data, gamma = NULL, plot = FALSE, add = FALSE,
   C[K] <- A[K]^gamma[K]
   
   # plots if TRUE
-  .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), A[K], type="l", xlab="log(k)", ylab="scale", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  }
   
   .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
   
@@ -29,7 +33,7 @@ Scale <- function(data, gamma = NULL, plot = FALSE, add = FALSE,
 
 
 #Bias-reduced scale estimator
-Scale.2o <- function(data, gamma, b, beta, plot = FALSE, add = FALSE,
+Scale.2o <- function(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FALSE,
                        main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
@@ -46,13 +50,17 @@ Scale.2o <- function(data, gamma, b, beta, plot = FALSE, add = FALSE,
   C[K] <- A[K]^gamma[K]
   
   # plots if TRUE
-  .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), A[K], type="l", xlab="log(k)", ylab="scale", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  }
   
   .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
 }
 
 
-ScaleEPD <- function (data, gamma, kappa, plot = FALSE, add = FALSE, 
+ScaleEPD <- function (data, gamma, kappa, logk = FALSE, plot = FALSE, add = FALSE, 
                       main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
@@ -71,7 +79,11 @@ ScaleEPD <- function (data, gamma, kappa, plot = FALSE, add = FALSE,
   C[K] <- A[K]^gamma[K]
   
   # plots if TRUE
-  .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), A[K], type="l", xlab="log(k)", ylab="scale", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
+  }
   
   .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
 }

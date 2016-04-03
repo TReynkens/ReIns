@@ -8,12 +8,16 @@ Moment estimator
 Compute the moment estimates for real extreme value indices as a function of the tail parameter \eqn{k}. Optionally, these estimates are plotted as a function of \eqn{k}.
 }
 \usage{
-Moment(data, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...)
+Moment(data, logk = FALSE, plot = FALSE, add = FALSE, 
+       main = "Moment estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data}{
   Vector of \eqn{n} observations. 
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.

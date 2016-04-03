@@ -8,8 +8,8 @@ Select optimal threshold for Hill estimator
 Select optimal threshold for the Hill estimator by minimising the Asymptotic Mean Squared Error (AMSE). 
 }
 \usage{
-Hill.kopt(data, start = c(1, 1, 1), warnings = FALSE, plot = FALSE, add = FALSE, 
-         main = "AMSE plot", ...)
+Hill.kopt(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
+          plot = FALSE, add = FALSE, main = "AMSE plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,6 +21,9 @@ A vector of length 3 containing starting values for the first numerical optimisa
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
+}
+  \item{logk}{
+Logical indicating if the AMSE values are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the AMSE values should be plotted as a function of \eqn{k}, default is \code{FALSE}.

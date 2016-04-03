@@ -13,7 +13,7 @@
 # plot
 
 
-Moment <- function(data, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
+Moment <- function(data, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -45,7 +45,11 @@ Moment <- function(data, plot = FALSE, add = FALSE, main = "Moment estimates of 
   ######################
   
   # plots if TRUE
-  .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), Mom[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
   
   # output list with values of k and
   # corresponding estimates for gamma, b and beta

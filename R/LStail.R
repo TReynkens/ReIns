@@ -7,7 +7,7 @@
 # Set rho or use estimator from Beirlant et al. (2002) when rho
 # is set to NULL. We then need a value for lambda (between 0 and 1)
 
-LStail <- function(data, rho = -1, lambda = 0.5, plot = FALSE, add = FALSE, 
+LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
                        main = "LS estimates of EVI", ...) {
   
   # Check input arguments
@@ -111,7 +111,11 @@ LStail <- function(data, rho = -1, lambda = 0.5, plot = FALSE, add = FALSE,
 
   
   ######################
-  .plotfun(K, par[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), par[K,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, par[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
   
   # output list with values of k and
   # corresponding estimates for gamma, b and rho

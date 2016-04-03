@@ -8,7 +8,8 @@ MOM estimator for right censored data
 Computes the Method of Moment estimates adapted for right censored data.
 }
 \usage{
-cMoment(data, censored, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...)
+cMoment(data, censored, logk = FALSE, plot = FALSE, add = FALSE, 
+        main = "Moment estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +18,9 @@ cMoment(data, censored, plot = FALSE, add = FALSE, main = "Moment estimates of E
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

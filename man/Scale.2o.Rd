@@ -8,7 +8,7 @@ Bias-reduced scale estimator using second order Hill estimator
 Computes the bias-reduced estimator for the scale parameter using the second order Hill estimator.
 }
 \usage{
-Scale.2o(data, gamma, b, beta, plot = FALSE, add = FALSE, 
+Scale.2o(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FALSE, 
         main = "Estimates of scale parameter", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -24,6 +24,9 @@ Vector of \eqn{n-1} estimates for \eqn{B} obtained from \code{Hill.2oQV}.
 }
   \item{beta}{
 Vector of \eqn{n-1} estimates for \eqn{\beta} obtained from \code{Hill.2oQV}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.

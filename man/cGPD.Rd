@@ -9,10 +9,10 @@ GPD-ML estimator for right censored data
 Computes ML estimates of fitting GPD to a peaks over a threshold adapted for right censoring.
 }
 \usage{
-cGPDmle(data, censored, start = c(0.1,1), warnings = FALSE, 
+cGPDmle(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
       plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
       
-cPOT(data, censored, start = c(0.1,1), warnings = FALSE, 
+cPOT(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
       plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -29,6 +29,9 @@ is the starting value for the estimator of \eqn{\gamma_1} and the second element
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

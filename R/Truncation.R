@@ -11,7 +11,7 @@
 
 ### estimation of gamma
 
-trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, plot = FALSE, add = FALSE, 
+trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = FALSE, add = FALSE, 
                          main="Estimates of EVI", ...) {
   
   # Check input arguments
@@ -58,7 +58,11 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, plot = FALSE, add = F
   gamma[gamma<=0] <- NA
   
   ### plots if TRUE  
-  .plotfun(K, gamma[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), gamma[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, gamma[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
   
   ### output list with values of k and
   ### corresponding estimates for gamma

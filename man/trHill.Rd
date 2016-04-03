@@ -8,8 +8,8 @@ Hill estimator for upper truncated data
 Computes the Hill estimator for positive extreme value indices, adapted for upper truncation, as a function of the tail parameter \eqn{k}. Optionally, these estimates are plotted as a function of \eqn{k}.
 }
 \usage{
-trHill(data, r = 1, tol = 1e-08, maxiter = 100, plot = FALSE, add = FALSE, 
-      main = "Estimates of EVI", ...)
+trHill(data, r = 1, tol = 1e-08, maxiter = 100, logk = FALSE,
+       plot = FALSE, add = FALSE, main = "Estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,6 +24,9 @@ Numerical tolerance for stopping criterion used in Newton-Raphson iterations, de
 }
   \item{maxiter}{
 Maximum number of Newton-Raphson iterations, default is \code{100}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

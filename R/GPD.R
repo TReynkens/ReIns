@@ -66,7 +66,8 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
 
 
 # Start should be a 2-dimensional vector: (gamma_start,sigma_start)
-GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
+GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
+                   plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -92,7 +93,11 @@ GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, plot = FALSE, add =
   }
 
   # plots if TRUE
-  .plotfun(K, POT[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  if (logk) {
+    .plotfun(log(K), POT[K,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, POT[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
   
   .output(list(k=K, gamma=POT[K,1], sigma=POT[K,2]),plot=plot,add=add)
 }

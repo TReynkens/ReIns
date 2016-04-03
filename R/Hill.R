@@ -10,7 +10,7 @@
 # If add=TRUE then the estimates are added to an existing
 # plot
 
-Hill <- function(data, k = TRUE, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
+Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
 	
   # Check input arguments
   .checkInput(data)
@@ -31,7 +31,12 @@ Hill <- function(data, k = TRUE, plot = FALSE, add = FALSE, main = "Hill estimat
   # plots if TRUE
   
   if (k) {
-    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+    if (logk) {
+      .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+    } else {
+      .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+    }
+    
   } else {
     .plotfun(log(X[n-K]), Hill[K], type="l", xlab=bquote(log(X["n-k,n"])), 
             ylab="gamma", main=main, plot=plot, add=add, ...)

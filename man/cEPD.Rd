@@ -8,7 +8,7 @@ EPD estimator for right censored data
 Computes the EPD estimates adapted for right censored data.
 }
 \usage{
-cEPD(data, censored, rho = -1, beta = NULL, 
+cEPD(data, censored, rho = -1, beta = NULL, logk = FALSE, 
      plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -26,6 +26,9 @@ when strictly positive or choice(s) for \eqn{\rho} if negative. Default is \code
   \item{beta}{
 Parameter for EPD (\eqn{\beta=-\tau/\gamma}). If \code{NULL} (default), \code{beta} is estimated by
 \eqn{-\rho/H_{k,n}} with \eqn{H_{k,n}} the Hill estimator.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

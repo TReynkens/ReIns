@@ -8,8 +8,8 @@ Bias-reduced MLE (Quantile view)
 Computes bias-reduced ML estimates of gamma based on the quantile view.
 }
 \usage{
-Hill.2oQV(data, start = c(1,1,1), warnings = FALSE, plot = FALSE, add = FALSE, 
-          main = "Estimates of EVI", ...)
+Hill.2oQV(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, 
+          plot = FALSE, add = FALSE, main = "Estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,6 +22,9 @@ are the starting values for the estimators of \eqn{\gamma}, \eqn{\mu} and \eqn{\
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

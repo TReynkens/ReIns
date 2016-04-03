@@ -10,7 +10,7 @@
 # plot
 
 
-genHill <- function(data, gamma, plot = FALSE, add = FALSE,  
+genHill <- function(data, gamma, logk = FALSE, plot = FALSE, add = FALSE,  
                     main = "Generalised Hill estimates of EVI", ...) {
   
   # Check input arguments
@@ -36,8 +36,12 @@ genHill <- function(data, gamma, plot = FALSE, add = FALSE,
   ######################
   
   # plots if TRUE
-  .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
-  
+  if (logk) {
+    .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+  } else {
+    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+  }
+ 
   # output list with values of k and corresponding Hill estimates
   .output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
   

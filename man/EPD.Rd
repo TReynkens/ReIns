@@ -9,7 +9,7 @@ Fit the Extended Pareto Distribution (GPD) to the exceedances (peaks) over a thr
 }
 \usage{
 EPD(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE, 
-    plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...)
+    logk = FALSE, plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,6 +30,9 @@ Logical indication if the parameters are obtained by directly maximising the log
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
+}
+  \item{logk}{
+Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
