@@ -565,15 +565,115 @@
   p
 } 
 
-## Value-at-Risk (VaR) or quantile function
 
+
+# Value-at-Risk (VaR) or quantile function
+# p can be a vector
 .ME_VaR <- function(p, theta, shape, alpha, trunclower = 0, truncupper = Inf, interval = NULL, start = NULL) {
+  
+  pl <- length(p)
+  VaR <- numeric(pl)
+  
+  start0 <- start
+  interval0 <- interval
+  
+  # Analytical solution if single shape and no truncation
+  if(length(shape) == 1 & trunclower == 0 & truncupper == Inf){
+    VaR <- qgamma(p, shape = shape, scale = theta)
+    
+  } else {
+    
+    # Sort p and keep indices
+    p_sort <- sort(p, index.return=TRUE)
+    p <- p_sort$x
+    
+    # Move backwards and use previous estimate as starting value and 
+    # upper bound for interval when not provided
+    for (i in pl:1) {
+
+      if(is.null(interval0)) {
+        
+        if(trunclower == 0 & truncupper == Inf) {
+          interval <- c(qgamma(p[i], shape = min(shape), scale = theta), 
+                        qgamma(p[i], shape = max(shape), scale = theta))
+          # Possible better upper bound
+          if (!is.na(VaR[i+1])) {
+            interval[2] <- min(VaR[i+1], interval[2])
+          } 
+          
+        } else { 
+          interval <- c(trunclower, min(truncupper, trunclower + qgamma(p[i], shape = max(shape), scale = theta)))
+          # Possible better upper bound
+          if (!is.na(VaR[i+1])) {
+            interval[2] <- min(VaR[i+1], interval[2])
+          }
+        }
+        
+      }
+      
+      if(is.null(start0)) {
+        
+        if (!is.na(VaR[i+1])) {
+          start <- VaR[i+1]
+        } else {
+          start <- qgamma(p[i], shape = shape[which.max(alpha)], scale = theta)
+        }
+        
+      }
+      
+      if(p[i]==1){
+        # Fixed for truncation case
+        VaR[i] <- truncupper
+      } else {
+        objective <- function(x){return(10000000*(.ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p[i])^2)}    
+        VaR_nlm <- nlm(f = objective, p = start)
+        VaR_optimise <- optimise(f = objective, interval = interval)
+        VaR[i] <- ifelse(VaR_nlm$minimum < VaR_optimise$objective, VaR_nlm$estimate, VaR_optimise$minimum)    
+      
+        if(objective(VaR[i])>1e-06){ # in case optimisation fails, retry with more different starting values
+          # Fix warnings
+          estimate <- NULL
+          minimum <- NULL
+          
+          alpha <- alpha[order(shape)]
+          shape <- shape[order(shape)]
+          VaR_nlm <-  vector("list", length(shape))
+          VaR_optimise <-  vector("list", length(shape))
+          # Fixed for truncation case
+          interval <- c(trunclower, pmin(truncupper, trunclower + qgamma(p[i], shape, scale = theta)))
+          # Possible better upper bound
+          if (!is.na(VaR[i+1])) {
+            interval[2] <- min(VaR[i+1], interval[2])
+          }
+          for(j in 1:length(shape)){
+            VaR_nlm[[j]] <- nlm(f = objective, p = qgamma(p[i], shape = shape[j], scale = theta))    
+            VaR_optimise[[j]] <- optimise(f = objective, interval = interval[c(1, j+1)])
+          }
+          VaR_nlm <- sapply(VaR_nlm, with, estimate)[which.min(sapply(VaR_nlm, with, minimum))]
+          VaR_optimise <- sapply(VaR_optimise, with, minimum)[which.min(sapply(VaR_optimise, with, objective))]
+          VaR[i] <- ifelse(objective(VaR_nlm) < objective(VaR_optimise), VaR_nlm, VaR_optimise)  
+        }  
+      }  
+
+    }
+
+    # Re-order VaR again
+    VaR[p_sort$ix] <- VaR
+  }
+  
+  
+  return(VaR)  
+}
+
+
+## Value-at-Risk (VaR) or quantile function (old function)
+.ME_VaR_old <- function(p, theta, shape, alpha, trunclower = 0, truncupper = Inf, interval = NULL, start = NULL) {
   
   if(is.null(interval)) {
     if(trunclower == 0 & truncupper == Inf){
       interval <- c(qgamma(p, shape = min(shape), scale = theta), 
                     qgamma(p, shape = max(shape), scale = theta))
-    
+      
     } else{ 
       interval <- c(trunclower, min(truncupper, trunclower + qgamma(p, shape = max(shape), scale = theta)))
     }
@@ -593,28 +693,30 @@
   } else{
     objective <- function(x){return(10000000*(.ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p)^2)}    
     VaR_nlm <- nlm(f = objective, p = start)
-    VaR_optimize <- optimize(f = objective, interval = interval)
-    VaR <- ifelse(VaR_nlm$minimum < VaR_optimize$objective, VaR_nlm$estimate, VaR_optimize$minimum)    
+    VaR_optimise <- optimise(f = objective, interval = interval)
+    VaR <- ifelse(VaR_nlm$minimum < VaR_optimise$objective, VaR_nlm$estimate, VaR_optimise$minimum)    
+    
+    if(objective(VaR)>1e-06){ # in case optimization fails, retry with more different starting values
+      alpha <- alpha[order(shape)]
+      shape <- shape[order(shape)]
+      VaR_nlm <-  vector("list", length(shape))
+      VaR_optimise <-  vector("list", length(shape))
+      # Fixed for truncation case
+      interval <- c(trunclower, pmin(truncupper, trunclower + qgamma(p, shape, scale = theta)))
+      for(i in 1:length(shape)){
+        VaR_nlm[[i]] <- nlm(f = objective, p = qgamma(p, shape = shape[i], scale = theta))    
+        VaR_optimise[[i]] <- optimise(f = objective, interval = interval[c(1, i+1)])
+      }
+      VaR_nlm <- sapply(VaR_nlm, with, estimate)[which.min(sapply(VaR_nlm, with, minimum))]
+      VaR_optimise <- sapply(VaR_optimise, with, minimum)[which.min(sapply(VaR_optimise, with, objective))]
+      VaR <- ifelse(objective(VaR_nlm) < objective(VaR_optimise), VaR_nlm, VaR_optimise)  
+    }  
   }
-  if(objective(VaR)>1e-06){ # in case optimization fails, retry with more different starting values
-    alpha <- alpha[order(shape)]
-    shape <- shape[order(shape)]
-    VaR_nlm <-  vector("list", length(shape))
-    VaR_optimize <-  vector("list", length(shape))
-    # Fixed for truncation case
-    interval <- c(trunclower, pmin(truncupper, trunclower + qgamma(p, shape, scale = theta)))
-    for(i in 1:length(shape)){
-      VaR_nlm[[i]] <- nlm(f = objective, p = qgamma(p, shape = shape[i], scale = theta))    
-      VaR_optimize[[i]] <- optimize(f = objective, interval = interval[c(1, i+1)])
-    }
-    VaR_nlm <- sapply(VaR_nlm, with, estimate)[which.min(sapply(VaR_nlm, with, minimum))]
-    VaR_optimize <- sapply(VaR_optimize, with, minimum)[which.min(sapply(VaR_optimize, with, objective))]
-    VaR <- ifelse(objective(VaR_nlm) < objective(VaR_optimize), VaR_nlm, VaR_optimize)  
-  }  
   VaR  
 }
+# Vectorize function
+.ME_VaR_old <- Vectorize(.ME_VaR_old, vectorize.args = c("p", "start"))
 
-.ME_VaR <- Vectorize(.ME_VaR, vectorize.args = c("p", "start"))
 
 ## Excess-of-loss reinsurance premium: L xs R
 
