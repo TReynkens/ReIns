@@ -213,7 +213,7 @@
 .ME_shape_adj <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, 
                           eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
   shape <- shape[beta>0]
-  beta <- beta[beta>0]/sum(beta)
+  beta <- beta[beta>0]/sum(beta[beta>0])
   M <- length(shape)
   fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                 theta=theta, shape=shape, beta=beta,
