@@ -212,9 +212,7 @@
 
 .ME_shape_adj <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, 
                           eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
-  shape <- shape[beta>0]
-  beta <- beta[beta>0]/sum(beta[beta>0])
-  M <- length(shape)
+
   fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                 theta=theta, shape=shape, beta=beta,
                 eps=eps, beta_tol=beta_tol, maxiter=maxiter)
@@ -235,7 +233,7 @@
     # Try increasing the shapes
     for(i in M:1){
       improve <- TRUE
-      while( (improve==TRUE) && (i == M || ifelse(i<=length(shape), shape[i] < shape[i+1]-1, FALSE))) {
+      while( improve && (i == M || ifelse(i<=length(shape), shape[i] < shape[i+1]-1, FALSE))) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1        
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -260,7 +258,7 @@
     # Try decreasing the shapes
     for(i in 1:M){
       improve <- TRUE
-      while( (improve==TRUE) && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, TRUE)){
+      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, TRUE)){
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -308,7 +306,7 @@
   alpha <- fit$alpha
   M <- length(shape)
 
-  while((improve==TRUE) && length(shape) > 1){    
+  while( improve && length(shape) > 1){    
     new_shape <- shape[beta != min(beta)]
     new_beta <- beta[beta != min(beta)]
     new_beta <- new_beta/sum(new_beta)
