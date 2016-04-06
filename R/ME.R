@@ -577,9 +577,11 @@
   start0 <- start
   interval0 <- interval
   
-  # Analytical solution if single shape and no truncation
-  if(length(shape) == 1 & trunclower == 0 & truncupper == Inf){
-    VaR <- qgamma(p, shape = shape, scale = theta)
+  # Analytical solution if single shape
+  if(length(shape) == 1){
+    Ft <- pgamma(trunclower, shape = shape, scale = theta)
+    FT <- pgamma(truncupper, shape = shape, scale = theta)
+    VaR <- qgamma(p*(FT-Ft)+Ft, shape = shape, scale = theta)
     
   } else {
     
