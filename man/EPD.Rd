@@ -49,8 +49,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 We fit the Extended Pareto distribution to the relative excesses over a threshold (X/u).
-The EPD has distribution function \eqn{F(x) = 1- x^{1/\gamma} (1+\kappa(1-y^{\tau}))} 
-with \eqn{\tau = \rho/\gamma <0} and \eqn{\kappa>max(-1,1/\tau)}. 
+The EPD has distribution function \eqn{F(x) = 1-(x(1+\kappa-\kappa x^{\tau})^{-1/\gamma}} 
+with \eqn{\tau = \rho/\gamma <0<\gamma} and \eqn{\kappa>max(-1,1/\tau)}. 
 
 The parameters are determined using MLE and there are two possible approaches:
 maximise the log-likelihood directly (\code{direct=TRUE}) or follow the approach detailed in
@@ -61,15 +61,14 @@ A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
 \item{gamma}{Vector of the corresponding estimates for the \eqn{\gamma} parameter of the EPD.}
 \item{kappa}{Vector of the corresponding MLE estimates for the \eqn{\kappa} parameter of the EPD.}
-\item{tau}{Vector of the corresponding estimates for the \eqn{\tau} parameter of the EPD using Hill estimates and values for \eqn{\beta}.}
+\item{tau}{Vector of the corresponding estimates for the \eqn{\tau} parameter of the EPD using Hill estimates and values for \eqn{\rho}.}
 }
 \references{
 Beirlant, J., Joossens, E. and Segers, J. (2009). "Second-Order Refined Peaks-Over-Threshold
 Modelling for Heavy-Tailed Distributions." \emph{Journal of Statistical Planning and Inference}, 139, 2800--2815.
 
 
-Fraga Alves, M.I. , Gomes, M.I. and de Haan, L. (2003). "A new class of semi-parametric estimators of the second order parameter." \emph{Portugaliae Mathematica}, 60, 193--214.
-
+Fraga Alves, M.I. , Gomes, M.I. and de Haan, L. (2003). "A New Class of Semi-parametric Estimators of the Second Order Parameter." \emph{Portugaliae Mathematica}, 60, 193--214.
 }
 \author{
 Tom Reynkens

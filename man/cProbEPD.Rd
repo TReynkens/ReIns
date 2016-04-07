@@ -52,7 +52,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The probability is estimated as \deqn{ (1-km) * (1-F(q))} with \eqn{F}
-the CDF of the EPD with parameters \eqn{\gamma}, \eqn{\kappa} and \eqn{\tau}
+the CDF of the EPD with parameters \eqn{\gamma}, \eqn{\kappa} and \eqn{\tau=-\beta}
 and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}} (the \eqn{(k+1)}-st largest data point).
 }
 

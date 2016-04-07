@@ -24,7 +24,7 @@ A parameter for the \eqn{\rho}-estimator of Fraga Alves et al. (2003)
 when strictly positive or choice(s) for \eqn{\rho} if negative. Default is \code{-1}.
 }
   \item{beta}{
-Parameter for EPD (\eqn{\beta=-\tau/\gamma}). If \code{NULL} (default), \code{beta} is estimated by
+Parameter for EPD (\eqn{\beta=-\rho/\gamma}). If \code{NULL} (default), \code{beta} is estimated by
 \eqn{-\rho/H_{k,n}} with \eqn{H_{k,n}} the Hill estimator.
 }
   \item{logk}{
@@ -44,7 +44,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The function \code{EPD} uses \eqn{\tau} which is equal to \eqn{-\beta \gamma}.
+The function \code{EPD} uses \eqn{\tau} which is equal to \eqn{-\beta}.
 
 This estimator is only suitable for right censored data.
 }
@@ -58,6 +58,8 @@ A list with following components:
 }
 \references{
 Beirlant, J., Bardoutsos, A., de Wet, T. and Gijbels, I. (2016). "Bias Reduced Tail Estimation for Censored Pareto Type Distributions." \emph{Statistics & Probability Letters}, 109, 78--88.
+
+Fraga Alves, M.I. , Gomes, M.I. and de Haan, L. (2003). "A New Class of Semi-parametric Estimators of the Second Order Parameter." \emph{Portugaliae Mathematica}, 60, 193--214.
 }
 \author{
 Tom Reynkens based on \code{R} code from A. Bardoutsos.
