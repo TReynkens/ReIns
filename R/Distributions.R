@@ -474,17 +474,17 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
     
   }
  
-
+  
   
   for(i in 1:l) {
-    
-    if (p[i]<10^(-14)) {
+
+    if (p[i]<.Machine$double.eps) {
       # p=0 case
       Q[i] <- 1
       
-    } else if (p[i]<1) {
+    } else if (abs(p[i]-1)>.Machine$double.eps) {
       # 0<p<1 case
-       
+      
       # Function to minimise
       f <- function(x){
         ((1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau)))^2
@@ -498,7 +498,7 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
     }
     
   }
-  
+
   return(Q)
 }
 
