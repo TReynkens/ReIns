@@ -183,7 +183,99 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
                   conf.type = conf.type, conf.int = conf.int)
 
   
-  f = stepfun(fit$time,c(1,fit$surv))
+  f <- stepfun(fit$time,c(1,fit$surv))
               
+  return(list(f=f, fit=fit))
+}
+
+
+# Turnbull estimator for the CDF using icenReg package evaluated in x
+# L and R are the lower and upper values for interval censoring
+# censored is a vector which is 1 if a data point is censored and 0 otherwise,
+# giving censored=0 results in the ordinary sample CDF
+#
+.Turnbull2 <- function(x, L, R, censored, trunclower = 0, truncupper = Inf) {
+  
+  
+  # Check input arguments
+  if (!is.numeric(L)) {
+    stop("L should be a numeric vector.")
+  }
+  
+  # Check input arguments
+  if (!is.numeric(R)) {
+    stop("R should be a numeric vector.")
+  }
+  
+  if (!is.numeric(trunclower)) {
+    stop("trunclower should be numeric.")
+  }
+  
+  if (!is.numeric(truncupper)) {
+    stop("truncupper should be numeric.")
+  }
+  
+  # Check lengths
+  if (length(L)!=length(R)) {
+    stop("L and R should have the same length.")
+  }
+  
+  if (length(trunclower)!=1) {
+    stop("trunclower should have length 1.")
+  }
+  
+  if (length(truncupper)!=1) {
+    stop("truncupper should have length 1.")
+  }
+  
+  if (any(L<trunclower)) {
+    stop("All elements of L should be larger than trunclower.")
+  }
+  
+  if (any(R>truncupper)) {
+    stop("All elements of R should be smaller than truncupper.")
+  }
+  
+  if (any(L>R)) {
+    stop("Each element of L should be smaller or equal than each corresponding element of R.")
+  }
+  
+  if (!is.numeric(x)) {
+    stop("x should be numeric.")
+  }
+  censored <- .checkCensored(censored, length(L))
+  
+  
+  ft <- .Turnbull_internal2(L=L, R=R, censored=censored, trunclower=trunclower, truncupper=truncupper)
+  est <- ft$f(x)
+  
+  # Turnbull estimator for the CDF
+  return( list(cdf = 1 - est, fit=ft$fit) )
+}
+
+# Function to return Turnbull step function for survival function using icenReg package
+.Turnbull_internal2 <- function(L, R, censored, trunclower = 0, truncupper = Inf) {
+  
+  # Uncensored observations
+  R[!censored] <- L[!censored]
+  # Right censored observations, set upper bound to Inf
+  R[censored & R==truncupper] <- Inf
+  # Left censored observations, set lower bound to 0
+  L[censored & L==trunclower] <- 0
+  
+  # Fit Turnbull estimator using icensReg package
+  fit <- ic_np(cbind(L,R))
+  
+  # Extract Turnbull intervals
+  x <- fit$T_bull_Intervals
+  # Extract probabilities corresponding to these intervals
+  y <- fit$p_hat
+  # Only keep intervals where probabilties are >0
+  x <- x[,y>0]
+  y <- y[y>0]
+
+  # Make step function
+  f <- stepfun(colMeans(x), c(1,1-cumsum(y)))
+  
   return(list(f=f, fit=fit))
 }

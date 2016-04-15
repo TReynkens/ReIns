@@ -5,6 +5,7 @@ importFrom("stats", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecd
 importFrom("graphics", "abline", "legend", "lines", "par", "plot")
 importFrom("survival", "Surv", "survfit")
 importFrom("utils", "tail")
+importFrom("icenReg", "ic_np")
 
 # Splicing
 importFrom("parallel", "detectCores", "makePSOCKcluster", "stopCluster")
