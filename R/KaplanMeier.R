@@ -162,7 +162,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
                            trunclower=trunclower, truncupper=truncupper)
   est <- ft$f(x)
   
-  # Turnbull estimator for the CDF
+  # Turnbull estimator for the survival function
   return( list(surv = est, fit=ft$fit) )
 }
 
@@ -249,7 +249,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   ft <- .Turnbull_internal2(L=L, R=R, censored=censored, trunclower=trunclower, truncupper=truncupper)
   est <- ft$f(x)
   
-  # Turnbull estimator for the CDF
+  # Turnbull estimator for the survival function
   return( list(surv = est, fit=ft$fit) )
 }
 
