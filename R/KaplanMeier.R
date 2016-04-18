@@ -263,8 +263,8 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Left censored observations, set lower bound to 0
   L[censored & L==trunclower] <- 0
   
-  # Fit Turnbull estimator using icensReg package
-  fit <- ic_np(cbind(L,R))
+  # Fit Turnbull estimator using icenReg package
+  fit <- icenReg::ic_np(cbind(L,R))
   
   # Extract Turnbull intervals
   x <- fit$T_bull_Intervals
