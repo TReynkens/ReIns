@@ -274,8 +274,67 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   x <- x[,y>0]
   y <- y[y>0]
 
-  # Make step function
-  f <- stepfun(colMeans(x), c(1,1-cumsum(y)))
+  # Make function with linear interpolation in Turnbull intervals
+  # Plot empirical survival function with linear interpolation in TB intervals
+  xl <- x[1,]
+  xu <- x[2,]
+  
+  # Add small number if jump in point to make it a step function
+  xu[abs(xu-xl)<10^(-12)] <- xu[abs(xu-xl)<10^(-12)]+10^(-12)
+  xall <- c(xl,xu)
+  # Make survival function and repeat 2 times
+  pall <- rep(1-cumsum(y),2)
+  
+  # Order x and y-values
+  pall <- pall[order(xall)]
+  xall <- xall[order(xall)]
+
+  # Linear interpolation with jumps in ties
+  f <- function(x) .pl(x, xall, pall)
   
   return(list(f=f, fit=fit))
+}
+
+
+# Piecewise linear function with jumps in ties.
+# The function is assumed to be left-continuous in the jumps.
+# The values in xval are assumed to be increasing, the values in yval to be decreasing
+.pl <- function(x, xval, yval) {
+  
+  # Check if sorted, use rev(yval) since function tests if sorted in increasing order
+  if (is.unsorted(xval, strictly=FALSE)) stop("xval is not sorted in increasing order.")
+  if (is.unsorted(rev(yval), strictly=FALSE)) stop("yval is not sorted in decreasing order.")
+  
+  fun <- numeric(length(x))
+  
+  # Check if duplicated elements in xval
+  if (anyDuplicated(xval)) {
+    ind <- which(duplicated(xval))
+    
+    # If any of the xval duplicate values are in x,
+    # make the function left-continuous in these points
+    ind2 <- which(x %in% xval[ind])
+    if (length(ind2)>0) {
+      
+      # Left-continuous since first match used
+      fun[ind2] <- yval[match(x[ind2],xval)]
+      
+    } else {
+      ind2 <- NULL
+    }
+    
+  } else {
+    ind2 <- NULL
+  }
+
+  if (is.null(ind2)) {
+    # Linear interpolation
+    fun <- approx(x=xval, y=yval, xout=x, ties = "ordered", rule=2, yleft=1)$y
+    
+  } else {
+    # Linear interpolation except in jumps
+    fun[-ind2] <- approx(x=xval, y=yval, xout=x[-ind2], ties = "ordered", rule=2, yleft=1)$y
+  }
+
+  return(fun)
 }
