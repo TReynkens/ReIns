@@ -101,7 +101,7 @@ KaplanMeier <- function(x, data, censored) {
 }
 
 
-# Turnbull estimator for the CDF evaluated in x
+# Turnbull estimatorfor the survival function evaluated in x
 # L and R are the lower and upper values for interval censoring
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary sample CDF
@@ -163,7 +163,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   est <- ft$f(x)
   
   # Turnbull estimator for the CDF
-  return( list(cdf = 1 - est, fit=ft$fit) )
+  return( list(surv = est, fit=ft$fit) )
 }
 
 
@@ -189,7 +189,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
 }
 
 
-# Turnbull estimator for the CDF using icenReg package evaluated in x
+# Turnbull estimator for the survival function using icenReg package evaluated in x
 # L and R are the lower and upper values for interval censoring
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary sample CDF
@@ -250,7 +250,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   est <- ft$f(x)
   
   # Turnbull estimator for the CDF
-  return( list(cdf = 1 - est, fit=ft$fit) )
+  return( list(surv = est, fit=ft$fit) )
 }
 
 # Function to return Turnbull step function for survival function using icenReg package

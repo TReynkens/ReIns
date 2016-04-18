@@ -5,7 +5,7 @@
 Turnbull estimator
 }
 \description{
-Computes the Turnbull estimator for the CDF of interval censored data.
+Computes the Turnbull estimator for the survival function of interval censored data.
 }
 \usage{
 Turnbull(x, L, R, censored, trunclower = 0, truncupper = Inf,
@@ -48,7 +48,7 @@ This function calls \code{survfit.formula} from \pkg{survival}.
 }
 \value{
 A list with following components:
-\item{cdf}{A vector of length \code{length(x)} containing the Turnbull estimator evaluated in the elements of \code{x}.}
+\item{surv}{A vector of length \code{length(x)} containing the Turnbull estimator evaluated in the elements of \code{x}.}
 \item{fit}{The output from the call to \code{\link[survival]{survfit.formula}}, an object of class \code{survfit}.}
 }
 
