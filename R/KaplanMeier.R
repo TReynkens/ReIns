@@ -294,9 +294,8 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   xall <- xall[order(xall)]
 
   # Linear interpolation with jumps in ties
-  #f <- function(x) .pl(x, xall, pall)
   f <- approxfun(xall, pall, ties = "ordered", rule=2, yleft=1)
   
-  return(list(f=f, fit=fit))
+  return(list(f=f, fit=fit, xall=xall, pall=pall))
 }
 
