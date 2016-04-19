@@ -1154,13 +1154,12 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
   # Add Turnbull survival function
   tb <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                  truncupper=max(splicefit$EVTfit$endpoint), conf.type="plain", conf.int=1-alpha)
-  lines(x, 1-tb$cdf, col="red")
+  lines(x, tb$surv, col="red")
   
   # Add confidence intervals
   fit <- tb$fit
   lines(fit$time, fit$lower, col = "blue", lty = 2)
   lines(fit$time, fit$upper, col = "blue", lty = 2)
-  lines(x, 1-tb$cdf, lty=1, col="red")
   legend("topright", c("Fitted survival function","Turnbull estimator","95% confidence intervals"),
          lty=c(1,1,2), col=c("black","red","blue"))
 }
@@ -1209,17 +1208,25 @@ SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE,
     stop("censored should have length 1 or the same length as L and U.")
   }
   
-  # Turnbull CDF
-  tb <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
-                 truncupper=max(splicefit$EVTfit$endpoint))
-  
+  # Turnbull survival function
+  if (requireNamespace("icenReg", quietly = TRUE)) {
+    SurvTB <- .Turnbull2(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                   truncupper=max(splicefit$EVTfit$endpoint))
+  } else {
+    warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+            call.=FALSE)
+    SurvTB <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                     truncupper=max(splicefit$EVTfit$endpoint))
+  }
+
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
-    ind <- tb$cdf<1
-    plot(-log(1-tb$cdf[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l", xlab="-log(Turnbull survival probability)",
+    ind <- SurvTB$surv>0
+    plot(-log(SurvTB$surv[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l", 
+         xlab="-log(Turnbull survival probability)",
          ylab="-log(Fitted survival probability)", ...)
   } else {
-    plot(1-tb$cdf, 1-pSplice(x, splicefit=splicefit), type="l",
+    plot(SurvTB$surv, 1-pSplice(x, splicefit=splicefit), type="l",
          xlab="Turnbull survival probability", ylab="Fitted survival probability", ...)
   }
   abline(a=0,b=1)
@@ -1285,11 +1292,24 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     stop("censored should have length 1 or the same length as L and U.")
   }
   
+
   # Turnbull survival function
-  SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored)$f
-  
-  s <- eval(expression(y), envir = environment(SurvTB))
-  x <- knots(SurvTB)
+  if (requireNamespace("icenReg", quietly = TRUE)) {
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored)
+    
+    s <- SurvTB$pall
+    x <- SurvTB$xall
+    
+    
+  } else {
+    warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+            call.=FALSE)
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored)$f
+    
+    s <- eval(expression(y), envir = environment(SurvTB))
+    x <- knots(SurvTB)
+  }
+
   
   # Probabilities
   if (is.null(p)) {
@@ -1385,11 +1405,19 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
   
   
   Zs <- sort(L)
-  tb <- Turnbull(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
-                 truncupper=max(splicefit$EVTfit$endpoint))
-  
+  # Turnbull survival function
+  if (requireNamespace("icenReg", quietly = TRUE)) {
+    SurvTB <- .Turnbull2(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                         truncupper=max(splicefit$EVTfit$endpoint))
+  } else {
+    warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+            call.=FALSE)
+    SurvTB <- Turnbull(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                       truncupper=max(splicefit$EVTfit$endpoint))
+  }
+
   # Plot log of Turnbull survival function vs. sorted values
-  plot(log(Zs), log(1-tb$cdf), ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", ...)
+  plot(log(Zs), log(SurvTB$surv), ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", ...)
   # Add log of fitted survival function
   lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
 }

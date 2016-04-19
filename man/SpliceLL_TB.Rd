@@ -38,6 +38,8 @@ Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and
 
 We always use the \code{L}-values as data points in the plot. 
 
+If the \pkg{icenReg} package is installed, the \code{\link[icenReg]{ic_np}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
+
 Use \code{\link{SpliceLL}} for non-censored data. 
 }
 \references{
@@ -54,7 +56,7 @@ Tom Reynkens
 
 
 \seealso{
-\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
+\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link[icenReg]{ic_np}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
 }
 \examples{
 \dontrun{
