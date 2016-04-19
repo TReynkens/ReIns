@@ -1297,7 +1297,7 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   if (requireNamespace("icenReg", quietly = TRUE)) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored)
     
-    s <- SurvTB$pall
+    s <- SurvTB$survall
     x <- SurvTB$xall
     
     

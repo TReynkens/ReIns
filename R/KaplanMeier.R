@@ -285,17 +285,17 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
 
   xall <- c(trunclower, xl, xu)
   # Make survival function and repeat 2 times
-  pall <- c(1,rep(1-cumsum(y),2))
+  survall <- c(1,rep(1-cumsum(y),2))
   # Left function value in jump is previous function value
-  pall[ind+1] <- pall[ind]
+  survall[ind+1] <- survall[ind]
 
   # Order x and y-values
-  pall <- pall[order(xall)]
+  survall <- survall[order(xall)]
   xall <- xall[order(xall)]
 
   # Linear interpolation with jumps in ties
-  f <- approxfun(xall, pall, ties = "ordered", rule=2, yleft=1)
+  f <- approxfun(xall, survall, ties = "ordered", rule=2, yleft=1)
   
-  return(list(f=f, fit=fit, xall=xall, pall=pall))
+  return(list(f=f, fit=fit, xall=xall, survall=survall))
 }
 
