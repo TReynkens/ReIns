@@ -1179,11 +1179,11 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
   # Plot fitted survival function vs. empirical survival function or use minus log-versions
   if (log) {
     ind <- est>0
-    plot(-log(est[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l",
+    plot(-log(est[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="p",
          xlab="-log(Empirical survival probability)",
          ylab="-log(Fitted survival probability)", ...)
   } else {
-    plot(est, 1-pSplice(x,splicefit=splicefit), type="l", xlab="Empirical survival probability",
+    plot(est, 1-pSplice(x,splicefit=splicefit), type="p", xlab="Empirical survival probability",
          ylab="Fitted survival probability", ...)
   }
   abline(a=0, b=1)
@@ -1222,11 +1222,11 @@ SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE,
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
     ind <- SurvTB$surv>0
-    plot(-log(SurvTB$surv[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="l", 
+    plot(-log(SurvTB$surv[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="p", 
          xlab="-log(Turnbull survival probability)",
          ylab="-log(Fitted survival probability)", ...)
   } else {
-    plot(SurvTB$surv, 1-pSplice(x, splicefit=splicefit), type="l",
+    plot(SurvTB$surv, 1-pSplice(x, splicefit=splicefit), type="p",
          xlab="Turnbull survival probability", ylab="Fitted survival probability", ...)
   }
   abline(a=0,b=1)
