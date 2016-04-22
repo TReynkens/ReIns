@@ -31,6 +31,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 Use \code{\link{SpliceTB}} for censored data. 
+
+Confidence bounds are determined using the Dvoretzky-Kiefer-Wolfowitz inequality.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
