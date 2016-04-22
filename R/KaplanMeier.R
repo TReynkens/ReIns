@@ -270,7 +270,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   x <- fit$T_bull_Intervals
   # Extract probabilities corresponding to these intervals
   y <- fit$p_hat
-  # Only keep intervals where probabilties are >0
+  # Only keep intervals where probabilities are >0
   x <- x[,y>0]
   y <- y[y>0]
 
@@ -279,15 +279,26 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   xl <- x[1,]
   xu <- x[2,]
   
+  # Turnbull intervals not corresponding to uncensored observations
+  ind_cens <- which(xu-xl>0)
+  
   # Add small number if jump in point to make it a step function
-  ind <- which(abs(xu-xl)<10^(-12))
-  xu[ind] <- xu[ind]+10^(-12)
+  eps <- sqrt(.Machine$double.eps)
+  ind_jump <- which(abs(xu-xl)<eps)
+  xu[ind_jump] <- xu[ind_jump] + eps
+  
+  
 
   xall <- c(trunclower, xl, xu)
   # Make survival function and repeat 2 times
   survall <- c(1,rep(1-cumsum(y),2))
   # Left function value in jump is previous function value
-  survall[ind+1] <- survall[ind]
+  # +1 due to left truncation point
+  survall[ind_jump+1] <- survall[ind_jump]
+  
+  # Function value in left boundary of Turnbull interval not corresponding 
+  # to an uncensored observation is the function value in the previous point (an xu)
+  survall[ind_cens+1] <- survall[1+length(xu)+ind_cens-1]
 
   # Order x and y-values
   survall <- survall[order(xall)]
@@ -295,7 +306,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
 
   # Linear interpolation with jumps in ties
   f <- approxfun(xall, survall, ties = "ordered", rule=2, yleft=1)
-  
+
   return(list(f=f, fit=fit, xall=xall, survall=survall))
 }
 
