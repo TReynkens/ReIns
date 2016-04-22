@@ -1166,7 +1166,7 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
 
 
 # Probability - probability plot with ECDF
-SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
+SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, ...) {
   
   # Check if X and x are numeric
   if (!is.numeric(X)) stop("X should be a numeric vector.")
@@ -1190,7 +1190,7 @@ SplicePP <- function(x = sort(X), X, splicefit, log = FALSE, ...) {
 }
 
 # Probability - probability plot with Turnbull estimator
-SplicePP_TB <- function(x = sort(L), L, U = L, censored, splicefit, log = FALSE, ...) {
+SplicePP_TB <- function(L, U = L, censored, splicefit, x = sort(L), log = FALSE, ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")

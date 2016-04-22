@@ -271,10 +271,10 @@ SpliceECDF(x, size, splicefit, ylim=c(0,0.1))
 
 # PP-plot with fitted survival function
 # and empirical survival function 
-SplicePP(x, size, splicefit)
+SplicePP(size, splicefit)
 
 # PP-plot with log-scales
-SplicePP(x, size, splicefit, log=TRUE)
+SplicePP(size, splicefit, log=TRUE)
 
 # QQ-plot with fitted quantile function
 SpliceQQ(size, splicefit)

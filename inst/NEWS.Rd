@@ -24,6 +24,7 @@
         \item Add option to plot estimates for EVI as function of \eqn{log(k)} instead of \eqn{k}.
         \item Improve ME quantile function.
         \item Plot points instead of lines in PP-plots.
+        \item Change order of argument \code{x} in \code{SplicePP} and \code{SplicePP_TB}.
       }
     }
     \subsection{Documentation changes:}{

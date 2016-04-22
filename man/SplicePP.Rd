@@ -9,18 +9,18 @@ This function plots the fitted survival function of the spliced distribution ver
 empirical survival function (determined using the Empirical CDF (ECDF)). 
 }
 \usage{
-SplicePP(x = sort(X), X, splicefit, log = FALSE, ...)
+SplicePP(X, splicefit, x = sort(X), log = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-Vector of points to plot the functions at. By default we plot them at the data points.
-}
   \item{X}{
 Data used for fitting the distribution.
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
+}
+  \item{x}{
+Vector of points to plot the functions at. By default we plot them at the data points.
 }
   \item{log}{
 Logical indicating if minus the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
