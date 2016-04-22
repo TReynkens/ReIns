@@ -654,8 +654,8 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
 
-  # Compute ICs, parameters: alpha, r, theta, gamma's, last endpoint (if finite), pi's
-  df <- 2*MEfit$M + 1 + length(EVTfit$gamma) + is.finite(EVTfit$endpoint[length(EVTfit$endpoint)]) + length(const)
+  # Compute ICs, parameters: alpha (-1 since sums to 1), r, theta, gamma's, last endpoint (if finite), pi's
+  df <- 2*MEfit$M-1 + 1 + length(EVTfit$gamma) + is.finite(EVTfit$endpoint[length(EVTfit$endpoint)]) + length(const)
   aic <- -2*loglik + 2*df
   bic <- -2*loglik + log(n)*df
   ic <- c(aic, bic)
@@ -851,8 +851,8 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
   
-  # Compute ICs, parameters: alpha, r, theta, gamma's and sigma's, last endpoint (if finite), pi's
-  df <- 2*MEfit$M + 1 + 2*length(EVTfit$gamma) + is.finite(EVTfit$endpoint[length(EVTfit$endpoint)]) + length(const)
+  # Compute ICs, parameters: alpha (-1 since sums to 1), r, theta, gamma's and sigma's, last endpoint (if finite), pi's
+  df <- 2*MEfit$M-1 + 1 + 2*length(EVTfit$gamma) + is.finite(EVTfit$endpoint[length(EVTfit$endpoint)]) + length(const)
   aic <- -2*loglik + 2*df
   bic <- -2*loglik + log(n)*df
   ic <- c(aic, bic)
