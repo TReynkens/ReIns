@@ -1280,7 +1280,7 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
-  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
            main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line
