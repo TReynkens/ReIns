@@ -21,7 +21,7 @@ Vector of length \eqn{n} with the upper boundary of the intervals. In an
 insurance context, these are the incurred values. By default, they are equal to \code{L} which means that we consider right-censored data. 
 }
  \item{p}{
-  Vector of probabilities used in the QQ-plot. If \code{NULL}, the default, we take \code{p} equal to probabalities from the Turnbull estimator.
+  Vector of probabilities used in the QQ-plot. If \code{NULL}, the default, we take \code{p} equal to probabalities from the Turnbull estimator in the points where its behaviour changes (jump or change from linear decreasing to constant and vice versa).
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.

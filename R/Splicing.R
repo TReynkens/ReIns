@@ -1190,14 +1190,14 @@ SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, ...) {
 }
 
 # Probability - probability plot with Turnbull estimator
-SplicePP_TB <- function(L, U = L, censored, splicefit, x = sort(L), log = FALSE, ...) {
+SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
   if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check if x is numeric
-  if (!is.numeric(x)) stop("x should be a numeric vector.")
+  if (!is.null(x) & !is.numeric(x)) stop("x should be a numeric vector or NULL.")
   
   # Check lengths
   if (length(L)!=length(U)) stop("L and U should have the same length.")
@@ -1210,23 +1210,36 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = sort(L), log = FALSE,
   
   # Turnbull survival function
   if (requireNamespace("icenReg", quietly = TRUE)) {
-    SurvTB <- .Turnbull2(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
-                   truncupper=max(splicefit$EVTfit$endpoint))
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                                  truncupper=max(splicefit$EVTfit$endpoint))
+    if (is.null(x)) {
+      # Use unique points of Turnbull intervals since Turnbull estimator is exact there
+      x <- unique(SurvTB$fit$T_bull_Intervals)
+    }
+    
   } else {
     warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
-    SurvTB <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                      truncupper=max(splicefit$EVTfit$endpoint))
+    
+    if (is.null(x)) {
+      # Use knots (jump points)
+      x <- unique(SurvTB$fit$knots)
+    }
   }
 
+  # Survival function in x
+  surv <- SurvTB$f(x)
+  
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
-    ind <- SurvTB$surv>0
-    plot(-log(SurvTB$surv[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="p", 
+    ind <- surv>0
+    plot(-log(surv[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="p", 
          xlab="-log(Turnbull survival probability)",
          ylab="-log(Fitted survival probability)", ...)
   } else {
-    plot(SurvTB$surv, 1-pSplice(x, splicefit=splicefit), type="p",
+    plot(surv, 1-pSplice(x, splicefit=splicefit), type="p",
          xlab="Turnbull survival probability", ylab="Fitted survival probability", ...)
   }
   abline(a=0,b=1)
@@ -1295,19 +1308,26 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
 
   # Turnbull survival function
   if (requireNamespace("icenReg", quietly = TRUE)) {
-    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored)
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                                  truncupper=max(splicefit$EVTfit$endpoint))
     
-    s <- SurvTB$survall
-    x <- SurvTB$xall
+    # Use unique points of Turnbull intervals since Turnbull estimator is exact there
+    x <- unique(SurvTB$fit$T_bull_Intervals)
+    # Corresponding function values
+    s <- SurvTB$f(x)
     
     
   } else {
     warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
-    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored)$f
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
+                                 truncupper=max(splicefit$EVTfit$endpoint))$f
     
-    s <- eval(expression(y), envir = environment(SurvTB))
+    # Use knots (jump points)
     x <- knots(SurvTB)
+    # Corresponding function values
+    s <- eval(expression(y), envir = environment(SurvTB))
+
   }
 
   
