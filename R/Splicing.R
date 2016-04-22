@@ -1283,6 +1283,9 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
   .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="X", 
            main=main, plot=plot, add=FALSE, ...)
   
+  # Add 45 degree line
+  if (plot) abline(0,1)
+  
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
   .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
 }
@@ -1373,10 +1376,11 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
-  if (plot) {
-    .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
              main=main, plot=plot, add=FALSE, ...)
-  }
+  
+  # Add 45 degree line
+  if (plot) abline(0,1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
   .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
