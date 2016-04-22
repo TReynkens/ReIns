@@ -14,7 +14,7 @@ SpliceTB(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-Vector of points to plot the functions at.
+Vector of points to plot the functions at. By default we plot it at the points \code{L}.
 }
   \item{L}{
 Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.

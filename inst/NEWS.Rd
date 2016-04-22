@@ -25,7 +25,7 @@
         \item Improve ME quantile function.
         \item Plot points instead of lines in PP-plots.
         \item Change order of argument \code{x} in \code{SplicePP} and \code{SplicePP_TB}.
-        \item Improve Turnbull estimator.
+        \item Improve Turnbull estimator using \pkg{interval}.
       }
     }
     \subsection{Documentation changes:}{

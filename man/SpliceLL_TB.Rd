@@ -14,7 +14,7 @@ SpliceLL_TB(x = sort(L), L, U = L, censored, splicefit, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
  \item{x}{
-Vector of points to plot the fitted survival function at. By default we plot it at the data points \code{Z}.
+Vector of points to plot the fitted survival function at. By default we plot it at the points \code{L}.
 }
   \item{L}{
 Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
@@ -38,7 +38,7 @@ Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and
 
 We always use the \code{L}-values as data points in the plot. 
 
-If the \pkg{icenReg} package is installed, the \code{\link[icenReg]{ic_np}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
+If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
 Use \code{\link{SpliceLL}} for non-censored data. 
 }
@@ -56,7 +56,7 @@ Tom Reynkens
 
 
 \seealso{
-\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link[icenReg]{ic_np}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
+\code{\link{SpliceLL}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link[interval]{icfit}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
 }
 \examples{
 \dontrun{

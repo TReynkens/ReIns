@@ -40,7 +40,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-This QQ-plot is given by \deqn{(Q(p_j), x_j)} where \eqn{Q} is the quantile function of the fitted splicing model, \eqn{x_j} for \eqn{j=1,...,m} the knots of the Turnbull survival function \eqn{\hat{F}^{TB}} and \eqn{p_j=\hat{F}^{TB}(x_j)}. If the \pkg{icenReg} package is installed, the \code{\link[icenReg]{ic_np}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
+This QQ-plot is given by \deqn{(Q(p_j), x_j)} where \eqn{Q} is the quantile function of the fitted splicing model, \eqn{x_j} for \eqn{j=1,...,m} the knots of the Turnbull survival function \eqn{\hat{F}^{TB}} and \eqn{p_j=\hat{F}^{TB}(x_j)}. If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. The limits \code{trunclower} and \code{truncupper} are obtained from the \code{\link{SpliceFit}} object.
 
@@ -64,7 +64,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceQQ}}, \code{\link{qSplice}}, \code{\link{Turnbull}}, \code{\link[icenReg]{ic_np}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceLL_TB}}
+\code{\link{SpliceQQ}}, \code{\link{qSplice}}, \code{\link{Turnbull}}, \code{\link[interval]{icfit}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceTB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceLL_TB}}
 }
 \examples{
 \dontrun{

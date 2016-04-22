@@ -1209,16 +1209,16 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
   }
   
   # Turnbull survival function
-  if (requireNamespace("icenReg", quietly = TRUE)) {
+  if (requireNamespace("interval", quietly = TRUE)) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
     if (is.null(x)) {
       # Use unique points of Turnbull intervals since Turnbull estimator is exact there
-      x <- unique(SurvTB$fit$T_bull_Intervals)
+      x <- unique(as.numeric(SurvTB$fit$intmap))
     }
     
   } else {
-    warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+    warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
     SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                      truncupper=max(splicefit$EVTfit$endpoint))
@@ -1310,18 +1310,18 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   
 
   # Turnbull survival function
-  if (requireNamespace("icenReg", quietly = TRUE)) {
+  if (requireNamespace("interval", quietly = TRUE)) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
     
     # Use unique points of Turnbull intervals since Turnbull estimator is exact there
-    x <- unique(SurvTB$fit$T_bull_Intervals)
+    x <- unique(as.numeric(SurvTB$fit$intmap))
     # Corresponding function values
     s <- SurvTB$f(x)
     
     
   } else {
-    warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+    warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
     SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                  truncupper=max(splicefit$EVTfit$endpoint))$f
@@ -1430,11 +1430,11 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
   
   Zs <- sort(L)
   # Turnbull survival function
-  if (requireNamespace("icenReg", quietly = TRUE)) {
+  if (requireNamespace("interval", quietly = TRUE)) {
     SurvTB <- .Turnbull2(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                          truncupper=max(splicefit$EVTfit$endpoint))
   } else {
-    warning("Package \"icenReg\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+    warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
     SurvTB <- Turnbull(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                        truncupper=max(splicefit$EVTfit$endpoint))

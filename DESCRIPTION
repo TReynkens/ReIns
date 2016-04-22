@@ -15,5 +15,5 @@ URL: https://github.com/TReynkens/ReIns
 BugReports: https://github.com/TReynkens/ReIns/issues
 Depends: R (>= 2.10)
 Imports: stats, graphics, survival, utils, parallel, foreach, doParallel
-Suggests: testthat, knitr, icenReg
+Suggests: testthat, knitr, interval, Icens
 VignetteBuilder: knitr
