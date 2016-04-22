@@ -183,7 +183,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
                   conf.type = conf.type, conf.int = conf.int)
 
   
-  f <- stepfun(fit$time,c(1,fit$surv))
+  f <- stepfun(fit$time,c(1,fit$surv), right=TRUE)
               
   return(list(f=f, fit=fit))
 }
