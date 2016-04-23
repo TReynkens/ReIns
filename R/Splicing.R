@@ -1262,12 +1262,21 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
     
   } else {
     
-    if(!is.numeric(p)) {
+    if (!is.numeric(p)) {
       stop("p should be numeric.")
     }
     
-    if (any(p<=0 | p>=1)) {
-      stop("All elements of p should be strictly between 0 and 1")
+    if(is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+      stop("All elements of p should be strictly smaller than 1 since the splicing
+           distribution has an infinite endpoint.")
+    }
+      
+    if (any(p<0 | p>1)) {
+      stop("All elements of p should be between 0 and 1.")
+    }
+    
+    if (length(p)!=n) {
+      stop("p should have the same length as x.")
     }
     
     p <- sort(p)
@@ -1310,19 +1319,26 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   
 
   # Turnbull survival function
-  if (requireNamespace("interval", quietly = TRUE)) {
+  if (requireNamespace("interval", quietly = TRUE) & all(censored!=rep(0, length(L)))) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
-    
+
     # Use unique points of Turnbull intervals since Turnbull estimator is exact there
     x <- unique(as.numeric(SurvTB$fit$intmap))
     # Corresponding function values
     s <- SurvTB$f(x)
-    
-    
+
+
   } else {
-    warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
-            call.=FALSE)
+    
+    # Special warning when no censoring
+    if (all(censored==rep(0, length(L)))) {
+      warning("Turnbull survival function from the \"survival\" package is used.", 
+              call.=FALSE)
+    } else {
+      warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+              call.=FALSE)
+    }
     SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                  truncupper=max(splicefit$EVTfit$endpoint))$f
     
@@ -1339,7 +1355,7 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     p <- 1-s
     
     # Remove 1 if infinite endpoint
-    if(max(splicefit$EVTfit$endpoint)==Inf) {
+    if(is.infinite(max(splicefit$EVTfit$endpoint))) {
       p <- p[p<1-10^(-5)]
     }
     
@@ -1352,15 +1368,25 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     
   } else {
     
-    if(!is.numeric(p)) {
+    if (!is.numeric(p)) {
       stop("p should be numeric.")
     }
     
-    if (any(p<=0 | p>=1)) {
-      stop("All elements of p should be strictly between 0 and 1")
+    if(is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+      stop("All elements of p should be strictly smaller than 1 since the splicing
+           distribution has an infinite endpoint.")
     }
     
+    if (any(p<0 | p>1)) {
+      stop("All elements of p should be between 0 and 1.")
+    }
+    
+
     p <- sort(p)
+    
+    if (length(p)!=length(x)) {
+      stop("x and p should have equal length.")
+    }
   }
   
   # Empirical quantiles
@@ -1372,7 +1398,7 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   ind <-  length(s) - findInterval(-p, -rev(1-s)) + 1
   
   sqq.emp <- x[ind]
-  
+  browser()
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
