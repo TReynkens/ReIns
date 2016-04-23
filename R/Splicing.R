@@ -1384,21 +1384,18 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
 
     p <- sort(p)
     
-    if (length(p)!=length(x)) {
-      stop("x and p should have equal length.")
-    }
   }
-  
+
   # Empirical quantiles
   sqq.emp <- numeric(length(p))
   
   #ind <- findInterval(p, 1-s, rightmost.closed=TRUE) + 1
   #ind <- apply( outer(p, 1-s, ">"), 1, sum) + 1
   # Find correct intervals (right-closed)
-  ind <-  length(s) - findInterval(-p, -rev(1-s)) + 1
+  ind <-  length(s) - findInterval(-p, -rev(1-s))
   
   sqq.emp <- x[ind]
-  browser()
+
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
