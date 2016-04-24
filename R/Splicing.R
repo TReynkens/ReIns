@@ -1392,7 +1392,7 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   #ind <- findInterval(p, 1-s, rightmost.closed=TRUE) + 1
   #ind <- apply( outer(p, 1-s, ">"), 1, sum) + 1
   # Find correct intervals (right-closed)
-  ind <-  length(s) - findInterval(-p, -rev(1-s))
+  ind <-  length(s) - findInterval(-p, -rev(1-s)) + 1
   
   sqq.emp <- x[ind]
 
