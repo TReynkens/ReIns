@@ -1322,7 +1322,7 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   survpack <- FALSE
 
   # Turnbull survival function
-  if (requireNamespace("interval", quietly = TRUE) & all(censored!=rep(0, length(L)))) {
+  if (requireNamespace("interval", quietly = TRUE) & !all(censored==rep(0, length(L)))) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
 
@@ -1403,6 +1403,8 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     sqq.emp <- x[ind]
     
   } else {
+    
+    
     
     
   }
