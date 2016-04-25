@@ -183,7 +183,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
                   conf.type = conf.type, conf.int = conf.int)
 
   
-  f <- stepfun(fit$time,c(1,fit$surv), right=TRUE)
+  f <- stepfun(fit$time,c(1,fit$surv), right=FALSE)
               
   return(list(f=f, fit=fit))
 }
@@ -284,10 +284,10 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Turnbull intervals not corresponding to uncensored observations
   ind_cens <- which(xu-xl>0)
   
-  # Add small number if jump in point to make it a step function
+  # Subtract small number if jump in point to make it a step function
   eps <- sqrt(.Machine$double.eps)
   ind_jump <- which(abs(xu-xl)<eps)
-  xu[ind_jump] <- xu[ind_jump] + eps
+  xl[ind_jump] <- xl[ind_jump] - eps
   
   
 
