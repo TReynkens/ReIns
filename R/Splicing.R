@@ -1361,11 +1361,11 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     
     # Remove 1 if infinite endpoint
     if(is.infinite(max(splicefit$EVTfit$endpoint))) {
-      p <- p[p<1-10^(-5)]
+      p <- p[p<1- sqrt(.Machine$double.eps)]
     }
     
     # Remove probabilities that are close together
-    ind <- which(diff(p)<10^(-5))
+    ind <- which(diff(p)< sqrt(.Machine$double.eps))
     if (length(ind)>0) {
       p <- p[-(ind+1)]
     }
