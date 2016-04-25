@@ -1361,14 +1361,14 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     
     # Remove 1 if infinite endpoint
     if(is.infinite(max(splicefit$EVTfit$endpoint))) {
-      p <- p[p<1- sqrt(.Machine$double.eps)]
+      p <- p[p<1-10^(-5)]
     }
     
-    # Remove probabilities that are close together
-    ind <- which(diff(p)< sqrt(.Machine$double.eps))
-    if (length(ind)>0) {
-      p <- p[-(ind+1)]
-    }
+    # # Remove probabilities that are close together
+    # ind <- which(diff(p)< sqrt(.Machine$double.eps))
+    # if (length(ind)>0) {
+    #   p <- p[-(ind+1)]
+    # }
     
     
   } else {
@@ -1405,7 +1405,36 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   } else {
     
     
+    # Extract Turnbull intervals
+    xx <- SurvTB$fit$intmap
+    # Extract probabilities corresponding to these intervals
+    yy <- SurvTB$fit$pf
+    # Only keep intervals where probabilities are >0
+    xx <- xx[,yy>0]
+    yy <- yy[yy>0]
     
+    # Make function with linear interpolation in Turnbull intervals
+    # Plot empirical survival function with linear interpolation in TB intervals
+    xl <- xx[1,]
+    xu <- xx[2,]
+    # Make CDF
+    yl <- cumsum(yy)
+    yu <- yl
+    
+    xall <- c(trunclower, xl, xu)
+    
+    # Combine probabilities
+    proball <- c(0, yl, yu)
+    
+    # Order x and y-values
+    proball <- proball[order(xall)]
+    xall <- xall[order(xall)]
+    
+    # Linear interpolation with jumps in ties
+    g <- approxfun(proball, xall, ties = "ordered", rule=2, yleft=1)
+    
+    # Empirical quantiles
+    sqq.emp <- g(p)
     
   }
 
