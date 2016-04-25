@@ -1317,6 +1317,9 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     stop("censored should have length 1 or the same length as L and U.")
   }
   
+  
+  # Logical indicating if survival package is used
+  survpack <- FALSE
 
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE) & all(censored!=rep(0, length(L)))) {
@@ -1330,6 +1333,8 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
 
 
   } else {
+    
+    survpack <- TRUE
     
     # Special warning when no censoring
     if (all(censored==rep(0, length(L)))) {
@@ -1386,15 +1391,21 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
     
   }
 
-  # Empirical quantiles
-  sqq.emp <- numeric(length(p))
-  
-  #ind <- findInterval(p, 1-s, rightmost.closed=TRUE) + 1
-  #ind <- apply( outer(p, 1-s, ">"), 1, sum) + 1
-  # Find correct intervals (right-closed)
-  ind <-  length(s) - findInterval(-p, -rev(1-s)) + 1
-  
-  sqq.emp <- x[ind]
+  if (survpack) {
+    # Empirical quantiles
+    sqq.emp <- numeric(length(p))
+    
+    #ind <- findInterval(p, 1-s, rightmost.closed=TRUE) + 1
+    #ind <- apply( outer(p, 1-s, ">"), 1, sum) + 1
+    # Find correct intervals (right-closed)
+    ind <-  findInterval(p, 1-s, left.open=TRUE, rightmost.closed=TRUE)
+    
+    sqq.emp <- x[ind]
+    
+  } else {
+    
+    
+  }
 
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
