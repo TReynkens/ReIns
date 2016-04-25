@@ -1301,7 +1301,7 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
 
 
 # QQ-plot with Turnbull estimator
-SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
+SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
@@ -1316,10 +1316,6 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
   if (length(censored)!=length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
-  
-  
-  # Logical indicating if survival package is used
-  survpack <- FALSE
 
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE) & !all(censored==rep(0, length(L)))) {
@@ -1333,9 +1329,7 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
 
 
   } else {
-    
-    survpack <- TRUE
-    
+
     # Special warning when no censoring
     if (all(censored==rep(0, length(L)))) {
       warning("Turnbull survival function from the \"survival\" package is used.", 
@@ -1356,88 +1350,16 @@ SpliceQQ_TB <- function(L, U = L, p = NULL, censored, splicefit, plot = TRUE, ma
 
   
   # Probabilities
-  if (is.null(p)) {
-    p <- 1-s
-    
-    # Remove 1 if infinite endpoint
-    if(is.infinite(max(splicefit$EVTfit$endpoint))) {
-      p <- p[p<1-10^(-5)]
-    }
-    
-    # # Remove probabilities that are close together
-    # ind <- which(diff(p)< sqrt(.Machine$double.eps))
-    # if (length(ind)>0) {
-    #   p <- p[-(ind+1)]
-    # }
-    
-    
+  p <- 1-s
+  
+  # Remove 1 if infinite endpoint
+  if(is.infinite(max(splicefit$EVTfit$endpoint))) {
+    sqq.emp <- x[p<1-10^(-5)]
+    p <- p[p<1-10^(-5)]
   } else {
-    
-    if (!is.numeric(p)) {
-      stop("p should be numeric.")
-    }
-    
-    if(is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
-      stop("All elements of p should be strictly smaller than 1 since the splicing
-           distribution has an infinite endpoint.")
-    }
-    
-    if (any(p<0 | p>1)) {
-      stop("All elements of p should be between 0 and 1.")
-    }
-    
-
-    p <- sort(p)
-    
+    sqq.emp <- x
   }
-
-  if (survpack) {
-    # Empirical quantiles
-    sqq.emp <- numeric(length(p))
-    
-    #ind <- findInterval(p, 1-s, rightmost.closed=TRUE) + 1
-    #ind <- apply( outer(p, 1-s, ">"), 1, sum) + 1
-    # Find correct intervals (right-closed)
-    ind <-  findInterval(p, 1-s, left.open=TRUE, rightmost.closed=TRUE)
-    
-    sqq.emp <- x[ind]
-    
-  } else {
-    
-    
-    # Extract Turnbull intervals
-    xx <- SurvTB$fit$intmap
-    # Extract probabilities corresponding to these intervals
-    yy <- SurvTB$fit$pf
-    # Only keep intervals where probabilities are >0
-    xx <- xx[,yy>0]
-    yy <- yy[yy>0]
-    
-    # Make function with linear interpolation in Turnbull intervals
-    # Plot empirical survival function with linear interpolation in TB intervals
-    xl <- xx[1,]
-    xu <- xx[2,]
-    # Make CDF
-    yl <- cumsum(yy)
-    yu <- yl
-    
-    xall <- c(trunclower, xl, xu)
-    
-    # Combine probabilities
-    proball <- c(0, yl, yu)
-    
-    # Order x and y-values
-    proball <- proball[order(xall)]
-    xall <- xall[order(xall)]
-    
-    # Linear interpolation with jumps in ties
-    g <- approxfun(proball, xall, ties = "ordered", rule=2, yleft=1)
-    
-    # Empirical quantiles
-    sqq.emp <- g(p)
-    
-  }
-
+  
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
