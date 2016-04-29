@@ -128,15 +128,14 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
 
     # Estimates for kappa1
     kappa1[,j] <- (1 - Es[K] - beta[K,j] * (HillZ[K] / phat[K]) * cEs[K]) / D[K]
-    ind2 <- which(kappa1[,j]<=pmax(-1,-1/beta[,j]))
-    kappa1[ind2,j] <- pmax(-1,-1/beta[ind2,j])+0.001
-    
+    kappa1[,j] <- pmax(kappa1[,j], pmax(-1,-1/beta[,j])+0.001)
+
     # Estimates for Delta
     Delta[,j] <- (kappa1[,j]*(1-Es))/phat 
     
     # Has to be strictly negative otherwise the bias is increased,
     # hence we put it to 0 such that gamma1 = cHill then
-    Delta[Delta[,j]>0,j] <- 0
+    Delta[,j] <- pmin(0, Delta[,j])
     
     # gamma1 = cHill + Delta
     gamma1[,j] <- (HillZ/phat) + Delta[,j]
