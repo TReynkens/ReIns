@@ -210,7 +210,7 @@ WeibullQQ <- function(data, plot = TRUE, main = "Weibull QQ-plot", ...) {
   wqq.emp <- log(X)
   
   # plots if TRUE
-  .plotfun(wqq.the, wqq.emp, type="p", xlab="Theoretical quantiles", ylab="log(X)", 
+  .plotfun(wqq.the, wqq.emp, type="p", xlab="Quantiles of Standard Weibull", ylab="log(X)", 
            main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
