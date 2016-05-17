@@ -20,7 +20,7 @@ ParetoQQ_der(data, k = FALSE, plot = TRUE,
 Logical indicating if the derivative values should be plotted, default is \code{TRUE}.
 }
   \item{k}{
-Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the data (\code{k=FALSE}). Default is \code{FALSE}.
+Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the logarithm of the data (\code{k=FALSE}). Default is \code{FALSE}.
 }
   \item{main}{
 Title for the plot, default is \code{"Derivative plot of Pareto QQ-plot"}.
@@ -30,13 +30,13 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The derivative plot of a Weibull QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(X_{n-k,n},H_{k,n})}
+The derivative plot of a Weibull QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates.
 }
 
 \value{
 A list with following components:
-\item{xval}{Vector of the x-values of the plot (\eqn{k} or \eqn{X_{n-k,n}}).}
+\item{xval}{Vector of the x-values of the plot (\eqn{k} or \eqn{\log X_{n-k,n}}).}
 \item{yval}{Vector of the derivative values \eqn{H_{k,n}}.}
 }
 

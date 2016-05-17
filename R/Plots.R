@@ -119,8 +119,8 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
     xval <- K
     xlab <- "k"
   } else {
-    xval <- X[n-K]
-    xlab <- bquote(X["n-k,n"])
+    xval <- log(X[n-K])
+    xlab <- bquote(log(X["n-k,n"]))
   }
 
   # Derivative
@@ -175,8 +175,8 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
     xval <- K
     xlab <- "k"
   } else {
-    xval <- X[n-K]
-    xlab <- bquote(X["n-k,n"])
+    xval <- log(X[n-K])
+    xlab <- bquote(log(X["n-k,n"]))
   }
   
   

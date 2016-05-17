@@ -20,7 +20,7 @@ WeibullQQ_der(data, k = FALSE, plot = TRUE,
 Logical indicating if the derivative values should be plotted, default is \code{TRUE}.
 }
   \item{k}{
-Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the data (\code{k=FALSE}). Default is \code{FALSE}.
+Logical indicating if the derivative values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the logarithm of the data (\code{k=FALSE}). Default is \code{FALSE}.
 }
   \item{main}{
 Title for the plot, default is \code{"Derivative plot of Weibull QQ-plot"}.
@@ -30,7 +30,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The derivative plot of a Weibull QQ-plot is \deqn{(k,H_{k,n}/W_{k,n})} or \deqn{(\log X_{n-k,n},H_{k,n}/W_{k,n})}
+The derivative plot of a Weibull QQ-plot is \deqn{(k, H_{k,n}/W_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n}/W_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates and
 \deqn{W_{k,n}=1/k*\sum_{j=1}^k \log(\log((n+1)/j))  -  \log(\log((n+1)/(k+1))).}
 }
