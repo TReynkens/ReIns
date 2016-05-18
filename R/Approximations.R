@@ -1,5 +1,105 @@
 
 
+
+
+# Classical approximations for the aggregate claim size distribution
+pClas <- function(x, mean = 0, variance = 1, skewness = NULL, 
+                  method = c("normal", "normal-power", "shifted Gamma", "shifted Gamma normal"), 
+                  lower.tail = TRUE, log.p = FALSE) {
+  
+  
+  # Check if valid input for method
+  method <- match.arg(method)
+  
+  # Check input for mean and variance
+  if (!is.numeric(mean) | !is.numeric(variance)) stop("Input arguments mean and variance should be numeric.")
+  if (length(mean)>1 | length(variance)>1) stop("Input arguments mean and variance should have length 1.")
+  if (variance<=0) stop("The variance should be strictly positive.")
+  
+  # Check if skewness is provided
+  if (is.null(skewness) & method!="normal") {
+    stop(paste0("Input argument skewness cannot be NULL when using method \"", method, "\"."))
+  }  
+  
+  # Check skewness
+  if (!is.null(skewness)) {
+    
+    if (!is.numeric(skewness) | length(skewness)>1) stop("skewness should be a numeric of length 1.")
+    
+    if (method=="normal-power" & skewness==0) {
+      warning("The skewness cannot be 0 when using \'normal-power\', the normal approximation will be used.")
+      method <- "normal"
+    }  
+    
+    if (method=="shifted Gamma" & skewness<=0) {
+      stop("The skewness should be strictly positive when using \"shifted Gamma\".")
+    }
+    
+    if (method=="shifted Gamma normal" & skewness==0) { 
+      stop("The skewness should be non-zero when using \"shifted Gamma normal\".")
+    }
+  }
+  
+  p <- numeric(length(x))
+  
+  if (method=="normal") {
+
+    # Normal approximation using mean and variance
+    p <- pnorm((x-mean) / sqrt(variance))
+    
+  } else if (method=="normal-power") {
+    
+    # Normal-power approximation: correction of normal approximation using skewness coefficient
+    
+    z <- (x-mean) / sqrt(variance)
+    # Problems with z<1
+    if (any(z<1)) {
+      ind <- which(z>=1)
+      warning("Only estimates for F(x) for values of x larger than or equal to mean + sqrt(variance) are provided.")
+      p[-ind] <- NaN
+    } else {
+      ind <- 1:length(x)
+    }
+
+    p[ind] <- pnorm(sqrt(9/skewness^2 + 6*z[ind]/skewness + 1) - 3/skewness)
+    
+  } else if (method=="shifted Gamma") {
+    
+    # Shifted Gamma approximation
+
+    y <- x - mean + 2 * sqrt(variance) / skewness
+    
+    p <- pgamma(y, shape=4/skewness^2, rate=2/(skewness*sqrt(variance)))
+    
+  } else {
+    
+    # Normal approximation to shifted Gamma distribution
+    
+    z <- (x-mean) / sqrt(variance)
+    # Problems with z<1
+    if (any(z<1)) {
+      ind <- which(z>=1)
+      warning("Only estimates for F(x) for values of x larger than or equal to mean + sqrt(variance) are provided.")
+      p[-ind] <- NaN
+    } else {
+      ind <- 1:length(x)
+    }
+    
+    p[ind] <- pnorm(sqrt(16/skewness^2 + 8*z[ind]/skewness) - sqrt(16/skewness^2-1))
+  }
+  
+  # Solve numerical issues to obtain valid probabilities
+  p <- pmin(1, pmax(0,p))
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  return(p)
+  
+}
+
+
 # Gram-Charlier approximation for CDF
 pGC <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
   

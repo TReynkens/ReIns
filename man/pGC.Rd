@@ -56,7 +56,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{pEdge}}
+\code{\link{pEdge}}, \code{\link{pClas}}
 }
 \examples{
 # Chi-squared sample
