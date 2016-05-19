@@ -26,18 +26,16 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
     
     if (!is.numeric(skewness) | length(skewness)>1) stop("skewness should be a numeric of length 1.")
     
-    if (method=="normal-power" & skewness==0) {
-      warning("The skewness cannot be 0 when using \'normal-power\', the normal approximation will be used.")
+    if (method!="normal" & skewness==0) {
+      warning(paste0("The skewness coefficient cannot be 0 when using \"", method, "\", 
+                     the normal approximation will be used."))
       method <- "normal"
     }  
     
-    if (method=="shifted Gamma" & skewness<=0) {
-      stop("The skewness should be strictly positive when using \"shifted Gamma\".")
+    if (method!="normal" & skewness<0) { 
+      stop(paste0("The skewness coefficient should be positive when using \"", method, "\"."))
     }
-    
-    if (method=="shifted Gamma normal" & skewness==0) { 
-      stop("The skewness should be non-zero when using \"shifted Gamma normal\".")
-    }
+
   }
   
   p <- numeric(length(x))
@@ -57,6 +55,7 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
       ind <- which(z>=1)
       warning("Only estimates for F(x) for values of x larger than or equal to mean + sqrt(variance) are provided.")
       p[-ind] <- NaN
+      
     } else {
       ind <- 1:length(x)
     }
@@ -81,6 +80,7 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
       ind <- which(z>=1)
       warning("Only estimates for F(x) for values of x larger than or equal to mean + sqrt(variance) are provided.")
       p[-ind] <- NaN
+      
     } else {
       ind <- 1:length(x)
     }
