@@ -27,6 +27,7 @@
         \item Change order of argument \code{x} in \code{SplicePP} and \code{SplicePP_TB}.
         \item Improve Turnbull estimator using \pkg{interval}.
         \item Add classical approximations for CDF.
+        \item Add argument \code{raw} to \code{pGC} and \code{pEdge} to define which moments are given the argument \code{moments}.
       }
     }
     \subsection{Documentation changes:}{

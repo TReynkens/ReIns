@@ -6,10 +6,10 @@ Edgeworth approximation
 
 }
 \description{
-Edgeworth approximation of the CDF using the first four raw moments.
+Edgeworth approximation of the CDF using the first four moments.
 }
 \usage{
-pEdge(x, moments = c(0, 1, 0, 3), lower.tail = TRUE, log.p = FALSE)
+pEdge(x, moments = c(0, 1, 0, 3), raw = TRUE, lower.tail = TRUE, log.p = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,7 +17,11 @@ pEdge(x, moments = c(0, 1, 0, 3), lower.tail = TRUE, log.p = FALSE)
 Vector of points to approximate the CDF in.
 }
   \item{moments}{
-The first four raw moments, by default the first four raw moments of the standard normal distribution are used.
+The first four raw moments if \code{raw=TRUE}, by default the first four raw moments of the standard normal distribution are used.
+When \code{raw=FALSE}, the mean \eqn{\mu=E(X)}, variance \eqn{\sigma^2=E((X-\mu)^2)}, skewness (third standardised moment, \eqn{E((X-\mu)^3)/\sigma^3}) and kurtosis (fourth standardised moment, \eqn{E((X-\mu)^4)/\sigma^4}).
+}
+  \item{raw}{
+When \code{TRUE} (default), the first four raw moments are provided in \code{moments}. Otherwise, the mean, variance, skewness and kurtosis are provided in \code{moments}. 
 }
  \item{lower.tail}{
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
@@ -36,9 +40,9 @@ Now consider the random variable \eqn{Z=(X-\mu)/\sigma}, which has cumulants
 0, 1, \eqn{\gamma_3=\kappa_3/\sigma^3}  and \eqn{\gamma_4=\kappa_4/\sigma^4=\mu_4/\sigma^4-3}.
 
 
-The Edgeworth approximation for the CDF of \eqn{Z} (\eqn{F(z)}) is given by
+The Edgeworth approximation for the CDF of \eqn{X} (\eqn{F(x)}) is given by
 \deqn{\hat{F}_{E}(x) = \Phi(z) + \phi(z) (-\gamma_3/6 h_2(z)- (3\gamma_4h_3(z)+\gamma_3^2h_5(z))/72)}
-with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z} and \eqn{h_5(z)=z^4-10z^3+15z}.
+with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z}, \eqn{h_5(z)=z^4-10z^3+15z} and \eqn{z=(x-\mu)/\sigma}.
 
 
 See Albrecher et al. (2016) for details.

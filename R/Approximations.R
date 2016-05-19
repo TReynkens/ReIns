@@ -101,17 +101,47 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
 
 
 # Gram-Charlier approximation for CDF
-pGC <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
+pGC <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = FALSE) {
   
-  L <- .gcInput(moments)
+  if (length(moments)<4) {
+    stop("Four moments should be provided.")
+  }
   
-  average <- L$average
-  variance <- L$variance
-  EZ3 <- L$EZ3
-  EZ4 <- L$EZ4
+  if (length(moments)>4) {
+    warning("Only the first four moments are used.")
+  }
   
+  # Use raw moments of X
+  if (raw) {
+
+    # Mean
+    average <- moments[1]
+    # Variance
+    variance <- moments[2] - moments[1]^2
+    
+    # Standardised moment of order 3
+    EZ3 <- .standMoment(order=3, moments=moments)
+    # Standardised moment of order 4
+    EZ4 <- .standMoment(order=4, moments=moments)
+ 
+  } else {
+    # Mean, variance, skewness and kurtosis are provided
+    average <- moments[1]
+    variance <- moments[2]
+    EZ3 <- moments[3]
+    EZ4 <- moments[4]
+    
+  }
+  
+  if (variance<=0) stop("The variance should be strictly positive.")
+  
+  if (EZ4<EZ3+1) {
+    stop("The fourth standardised moment should be larger than or equal to the 
+         third standardised moment plus 1.")
+  }
+
   # Standardised x-values
-  z <- (x-average)/sqrt(variance)
+  z <- (x-average) / sqrt(variance)
   
   # Gram-Charlier approximation
   p <- pnorm(z) + dnorm(z) * (-EZ3/6 * (z^2-1)  - (EZ4-3)/24 * (z^3-3*z))
@@ -128,19 +158,50 @@ pGC <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
 
 
 # Edgeworth approximation for CDF
-pEdge <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
+pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = FALSE) {
   
-  L <- .gcInput(moments)
   
-  average <- L$average
-  variance <- L$variance
-  EZ3 <- L$EZ3
-  EZ4 <- L$EZ4
+  if (length(moments)<4) {
+    stop("Four moments should be provided.")
+  }
+  
+  if (length(moments)>4) {
+    warning("Only the first four moments are used.")
+  }
+  
+  # Use raw moments of X
+  if (raw) {
+
+    # Mean
+    average <- moments[1]
+    # Variance
+    variance <- moments[2] - moments[1]^2
+    
+    # Standardised moment of order 3
+    EZ3 <- .standMoment(order=3, moments=moments)
+    # Standardised moment of order 4
+    EZ4 <- .standMoment(order=4, moments=moments)
+    
+  } else {
+    # Mean, variance, skewness and kurtosis are provided
+    average <- moments[1]
+    variance <- moments[2]
+    EZ3 <- moments[3]
+    EZ4 <- moments[4]
+    
+  }
+  
+  if (variance<=0) stop("The variance should be strictly positive.")
+  
+  if (EZ4<EZ3+1) {
+    stop("The fourth standardised moment should be larger than or equal to the 
+         third standardised moment plus 1.")
+  }
   
   # Standardised x-values
-  z <- (x-average)/sqrt(variance)
+  z <- (x-average) / sqrt(variance)
   
-  # Gram-Charlier approximation
+  # Edgeworth approximation
   p <- pnorm(z) + dnorm(z) * (-EZ3/6 * (z^2-1)  - (3*EZ4*(z^3-3*z) + EZ3^2*(z^5-10*z^3+15*z))/72 )
   
   # Solve numerical issues to obtain valid probabilities
@@ -154,42 +215,13 @@ pEdge <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
 }
 
 
-# Check input and return (standardised) moments
-.gcInput <- function(moments) {
-  
-  if (length(moments)<4) {
-    stop("Four moments should be provided.")
-  }
-  
-  if (length(moments)>4) {
-    warning("Only the first four moments are used.")
-  }
-  
-  # Average
-  average <- moments[1]
-  # Variance
-  variance <- moments[2] - moments[1]^2
-  if (variance<=0) stop("Variance should be strictly positive.")
-  
-  # Standardised moment of order 3
-  EZ3 <- .standMoment(order=3, moments=moments)
-  # Standardised moment of order 4
-  EZ4 <- .standMoment(order=4, moments=moments)
-  
-  if (EZ4<EZ3+1) {
-    stop("The fourth standardised moments should be larger or equal to the 
-         third standardised moment plus 1.")
-  }
-
-  return( list(average=average, variance=variance, EZ3=EZ3, EZ4=EZ4))
-}
 
 # Standardised (normalised) moment of order order
 .standMoment <- function(order = 1, moments) {
   
   m <- length(moments)
   if(order > m) {
-    stop("The order should be smaller or equal to the length of moments.")
+    stop("The order should be smaller than or equal to the length of moments.")
   }
   
   # First moment
@@ -207,7 +239,7 @@ pEdge <- function(x, moments = c(0,1,0,3), lower.tail = TRUE, log.p = FALSE) {
   standMom <- sum(choose(order, k) * (-average)^(order-k) * moments[k+1])
   
   # Divide by standard deviation to the power order
-  standMom <- standMom/sqrt(variance)^order
+  standMom <- standMom / sqrt(variance)^order
   
   return(standMom)
 }
