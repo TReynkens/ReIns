@@ -8,7 +8,7 @@ Truncated Pareto quantile plot
 Extension of the Pareto QQ-plot as described in Beirlant et al. (2016).
 }
 \usage{
-trParetoQQ(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "tPa QQ-plot", ...)
+trParetoQQ(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,7 +29,7 @@ correlation between the empirical and theoretical quantiles (see Details).
 Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
 }
   \item{main}{
-Title for the plot, default is \code{"tPa QQ-plot"}.
+Title for the plot, default is \code{"TPa QQ-plot"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

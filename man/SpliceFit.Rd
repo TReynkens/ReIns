@@ -23,7 +23,7 @@ Lower truncation point.
 Vector of splicing point or a single splicing point.
 }
 \item{type}{
-Vector of types of the distributions:  \code{"ME"} and then for each fitted EVT distribution: \code{Pa} (Pareto), \code{tPa} (truncated Pareto) or \code{GPD} (GPD).
+Vector of types of the distributions:  \code{"ME"} and then for each fitted EVT distribution: \code{"Pa"} (Pareto), \code{"TPa"} (truncated Pareto) or \code{"GPD"} (GPD).
 }
 \item{MEfit}{
 \code{\link{MEfit}} object with details on the mixed Erlang fit.

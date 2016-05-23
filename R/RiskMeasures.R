@@ -534,7 +534,7 @@ ExcessSplice <- function(R, L=Inf, splicefit) {
   if (type[2]=="GPD") {
     f <- function(R) .IntTailSpliceGPD(R, splicefit=splicefit)
     
-  } else if (type[2] %in% c("Pa", "tPa")) {
+  } else if (type[2] %in% c("Pa", "TPa")) {
     f <- function(R) .IntTailSplicePareto(R, splicefit=splicefit)
 
   } else {

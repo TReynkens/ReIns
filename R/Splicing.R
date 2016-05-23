@@ -166,11 +166,15 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   
   
   # Check type
+  
+  # Change tPa to TPa
+  type[type=="tPa"] <- "TPa"
+  
   if (length(type)!=l+1) stop("type should have one element more than const.")
   
   if (!type[1]=="ME") stop("The first argument of type is \"ME\".")
   
-  if (!all(type[-1] %in% c("Pa", "GPD", "tPa"))) stop("Invalid type.")
+  if (!all(type[-1] %in% c("Pa", "GPD", "TPa"))) stop("Invalid type.")
   
   if (any(type[-1]=="GPD") & any(type[-1]!="GPD")) stop("GPD cannot be combined with other EVT distributions.")
   
@@ -193,14 +197,14 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
 
   # Check if correct type when truncated
   ind <- which(is.finite(EVTfit$endpoint))
-  if (any(substring(type[ind+1],1,1)!="t")) {
+  if (any(substring(type[ind+1],1,1)!="T")) {
     stop("Invalid type when endpoint is finite.")
   }
   
   # Check if truncated when indicated by type
-  ind <- which(substring(type,1,1)=="t")
+  ind <- which(substring(type,1,1)=="T")
   if (any(!is.finite(EVTfit$endpoint[ind-1]) & !is.na(EVTfit$endpoint[ind-1]))) {
-    stop("Infinite endpoint is not compatible with type \"tPa\".")
+    stop("Infinite endpoint is not compatible with type \"TPa\".")
   }
   
   # Issue warning for NAs in gamma
@@ -620,7 +624,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
           EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
         }
 
-        type[i] <- "tPa"
+        type[i] <- "TPa"
         
       } else {
         # Last Pareto distribution is not truncated
@@ -637,7 +641,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
       # Truncated Pareto distribution with truncation point tt
       EVTfit$gamma[i] <- .trHillinternal(X[X<=tt], tvec[i], tt)
       EVTfit$endpoint[i] <- tt
-      type[i] <- "tPa"
+      type[i] <- "TPa"
     }
     
   }
@@ -925,7 +929,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
     if (splicefit$type[i+1]=="GPD") {
       d[ind] <- dtgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
       
-    } else if (type[i+1] %in% c("Pa","tPa")) {
+    } else if (type[i+1] %in% c("Pa","TPa")) {
       d[ind] <- dtpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
       
     } else {
@@ -995,7 +999,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
       p[ind] <- const[i] + ptgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
     
-    } else if (type[i+1] %in% c("Pa","tPa")) {
+    } else if (type[i+1] %in% c("Pa","TPa")) {
       p[ind] <- const[i] + ptpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
     
     } else {
@@ -1079,7 +1083,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
     if (splicefit$type[i+1]=="GPD") {
       q[ind] <- qtgpd((p[ind]-const[i])/(cconst-const[i]), mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e)
       
-    } else if (splicefit$type[i+1] %in% c("Pa","tPa")) {
+    } else if (splicefit$type[i+1] %in% c("Pa","TPa")) {
       q[ind] <- qtpareto((p[ind]-const[i])/(cconst-const[i]), shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e)
       
     } else {

@@ -250,7 +250,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
 }
 
 
-trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "tPa QQ-plot", ...) {
+trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa QQ-plot", ...) {
   
   # Check input arguments
   .checkInput(data, DT=DT)

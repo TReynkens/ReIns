@@ -28,6 +28,7 @@
         \item Improve Turnbull estimator using \pkg{interval}.
         \item Add classical approximations for CDF.
         \item Add argument \code{raw} to \code{pGC} and \code{pEdge} to define which moments are given the argument \code{moments}.
+        \item Type \code{"tPa"} is changed to \code{"TPa"} when using splicefit objects. \code{"tPa"} is however still supported.
       }
     }
     \subsection{Documentation changes:}{
