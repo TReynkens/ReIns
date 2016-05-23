@@ -131,11 +131,11 @@ SpliceLL_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit)
 
 
 # PP-plot of Turnbull survival function and fitted survival function
-SplicePP_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit)
+SplicePP_TB(L=Z, U=U, censored=censored, splicefit=splicefit)
 
 # PP-plot of Turnbull survival function and 
 # fitted survival function with log-scales
-SplicePP_TB(x, L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
+SplicePP_TB(L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
 
 # QQ-plot using Turnbull survival function and fitted survival function
 SpliceQQ_TB(L=Z, U=U, censored=censored, splicefit=splicefit)
