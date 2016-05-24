@@ -311,6 +311,40 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Linear interpolation with jumps in ties
   f <- approxfun(xall, survall, ties = "ordered", rule=2, yleft=1)
 
-  return(list(f=f, fit=fit, xall=xall, survall=survall))
+  ##
+  # Make quantile function
+  
+  xl <- x[1,]
+  xu <- x[2,]
+  
+  # Left and right probabilities
+  probl <- c(0, cumsum(y)[-length(y)])
+  probu <- cumsum(y)
+  
+  # Correct names of probl
+  names(probl) <- names(probu)
+  
+  # Add small number to make function left continuous
+  probl <- probl + 10^(-10)
+  
+  # Combine values of x
+  xall2 <- c(xl, xu)
+  
+  # Combine probabilities
+  proball <- c(probl, probu)
+  
+  # Order x and y-values
+  xall2 <- xall2[order(proball)]
+  proball <- proball[order(proball)]
+  
+  # Quantile function (left continuous)
+  fquant <- function(p) {
+    
+    fq <- approxfun(proball, xall2, ties = "ordered", rule=2)
+    
+    return(ifelse(p>=0 & p<=1, fq(p), NaN))
+  }
+  
+  return(list(f=f, fit=fit, xall=xall, survall=survall, fquant=fquant))
 }
 
