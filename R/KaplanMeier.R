@@ -264,9 +264,11 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   L[censored & L==trunclower] <- 0
   
   # Fit Turnbull estimator using interval package,
-  # starting value using Icens package
-  fit <- interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
-                         conf.int=FALSE,initfit=Icens::EMICM(cbind(L,R)))
+  # starting value using Icens package, use no starting value if problems
+  fit <- tryCatch(interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
+                         conf.int=FALSE, initfit=Icens::EMICM(cbind(L,R))),
+                  error = function(e) interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
+                                                      conf.int=FALSE, initfit=NULL))
   
   # Extract Turnbull intervals
   x <- fit$intmap
