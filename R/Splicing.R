@@ -1350,12 +1350,12 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Spli
               call.=FALSE)
     }
     SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
-                                 truncupper=max(splicefit$EVTfit$endpoint))$f
+                                 truncupper=max(splicefit$EVTfit$endpoint))
     
     # # Use knots (jump points)
-    # x <- knots(SurvTB)
+    # x <- knots(SurvTB$f)
     # # Corresponding function values
-    # s <- eval(expression(y), envir = environment(SurvTB))
+    # s <- eval(expression(y), envir = environment(SurvTB$f))
     # p <- 1-s
   }
 
