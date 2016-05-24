@@ -1218,7 +1218,10 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
                                   truncupper=max(splicefit$EVTfit$endpoint))
     if (is.null(x)) {
       # Use unique points of Turnbull intervals since Turnbull estimator is exact there
-      x <- unique(as.numeric(SurvTB$fit$intmap))
+      #x <- unique(as.numeric(SurvTB$fit$intmap))
+      n <- length(L)
+      p <- (1:n) / (n+1)
+      x <- SurvTB$fquant(p)
     }
     
   } else {
@@ -1229,12 +1232,16 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
     
     if (is.null(x)) {
       # Use knots (jump points)
-      x <- unique(SurvTB$fit$knots)
+      #x <- unique(SurvTB$fit$knots)
+      n <- length(L)
+      p <- (1:n) / (n+1)
+      x <- SurvTB$fquant(p)
     }
   }
 
   # Survival function in x
-  surv <- SurvTB$f(x)
+  #surv <- SurvTB$f(x)
+  surv <- 1-p
   
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
@@ -1326,11 +1333,11 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Spli
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
 
-    # Use unique points of Turnbull intervals since Turnbull estimator is exact there
-    x <- unique(as.numeric(SurvTB$fit$intmap))
-    # Corresponding function values
-    s <- SurvTB$f(x)
-
+    # # Use unique points of Turnbull intervals since Turnbull estimator is exact there
+    # x <- unique(as.numeric(SurvTB$fit$intmap))
+    # # Corresponding function values
+    # s <- SurvTB$f(x)
+    # p <- 1-s
 
   } else {
 
@@ -1345,17 +1352,19 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Spli
     SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                  truncupper=max(splicefit$EVTfit$endpoint))$f
     
-    # Use knots (jump points)
-    x <- knots(SurvTB)
-    # Corresponding function values
-    s <- eval(expression(y), envir = environment(SurvTB))
-
+    # # Use knots (jump points)
+    # x <- knots(SurvTB)
+    # # Corresponding function values
+    # s <- eval(expression(y), envir = environment(SurvTB))
+    # p <- 1-s
   }
 
   
   # Probabilities
-  p <- 1-s
-  
+  n <- length(L)
+  p <- (1:n) / (n+1)
+  x <- SurvTB$fquant(p)
+
   # Remove 1 if infinite endpoint
   if(is.infinite(max(splicefit$EVTfit$endpoint))) {
     sqq.emp <- x[p<1-10^(-5)]
