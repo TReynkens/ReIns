@@ -291,27 +291,19 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   xl <- x[1,]
   xu <- x[2,]
   
-  # Turnbull intervals not corresponding to uncensored observations
-  ind_cens <- which(xu-xl>0)
+  # Left and right probabilities
+  probl <- c(1, 1-cumsum(y)[-length(y)])
+  probu <- 1-cumsum(y)
   
-  # Subtract small number if jump in point to make it a step function
-  eps <- sqrt(.Machine$double.eps)
-  ind_jump <- which(abs(xu-xl)<eps)
-  xl[ind_jump] <- xl[ind_jump] - eps
+  # Correct names of probl
+  names(probl) <- names(probu)
   
+  # Subtract small number to make function right continuous
+  xl <- xl - sqrt(.Machine$double.eps)
   
-
-  xall <- c(trunclower, xl, xu)
-  # Make survival function and repeat 2 times
-  survall <- c(1,rep(1-cumsum(y),2))
-  # Left function value in jump is previous function value
-  # +1 due to left truncation point
-  survall[ind_jump+1] <- survall[ind_jump]
+  survall <- c(probl, probu)
+  xall <- c(xl, xu)
   
-  # Function value in left boundary of Turnbull interval not corresponding 
-  # to an uncensored observation is the function value in the previous point (an xu)
-  survall[ind_cens+1] <- survall[1+length(xu)+ind_cens-1]
-
   # Order x and y-values
   survall <- survall[order(xall)]
   xall <- xall[order(xall)]
