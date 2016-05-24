@@ -182,10 +182,18 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   fit  <- survfit(Surv(time=L, time2=R, type="interval2") ~1,
                   conf.type = conf.type, conf.int = conf.int)
 
+  # Survival function (right continuous)
+  f <- stepfun(fit$time, c(1,fit$surv), right=FALSE)
   
-  f <- stepfun(fit$time,c(1,fit$surv), right=FALSE)
-              
-  return(list(f=f, fit=fit))
+  # Quantile function (left continuous)
+  fquant <- function(p) {
+    
+    fq <- stepfun(1-fit$surv, c(fit$time, Inf), right=TRUE)
+    
+    return(ifelse(p>=0 & p<=1, fq(p), NaN))
+  }
+
+  return(list(f=f, fit=fit, fquant=fquant))
 }
 
 
