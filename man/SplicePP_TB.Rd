@@ -26,7 +26,7 @@ insurance context, these are the incurred values. By default, they are equal to 
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitciPareto}}.
 }
  \item{x}{
-Vector of points to plot the functions at. When \code{NULL}, the default, the points where the behaviour of the Turnbull estimator for the survival function changes (jump or change from linear decreasing to constant and vice versa) are used.
+Vector of points to plot the functions at. When \code{NULL}, the default, the empirical quantiles for \eqn{1/(n+1), \ldots, (n-1)/(n+1)}, obtained using the Turnbull estimator, are used.
 }
   \item{log}{
 Logical indicating if minus the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
