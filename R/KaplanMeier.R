@@ -299,7 +299,10 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   names(probl) <- names(probu)
   
   # Subtract small number to make function right continuous
-  xl <- xl - sqrt(.Machine$double.eps)
+  #xl <- xl - sqrt(.Machine$double.eps)
+  eps <- sqrt(.Machine$double.eps)
+  ind_jump <- which(abs(xu-xl)<eps)
+  xl[ind_jump] <- xl[ind_jump] - eps
   
   survall <- c(probl, probu)
   xall <- c(xl, xu)
