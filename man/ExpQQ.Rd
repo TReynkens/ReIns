@@ -30,7 +30,7 @@ The exponential QQ-plot is defined as
 for \eqn{i=1,...,n-1,}
 with \eqn{X_{i,n}} the \eqn{i}-th order statistic of the data.
 
-Note that the mean excess plot is the derivative plot of the Exponential QQplot.
+Note that the mean excess plot is the derivative plot of the Exponential QQ-plot.
 
 See Section 1.2 of Beirlant et al. (2004) for more details.
 }

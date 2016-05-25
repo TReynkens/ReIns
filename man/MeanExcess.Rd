@@ -30,7 +30,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 See Section 1.2 of Beirlant et al. (2004) for more details. 
-Note that the mean excess plot is the derivative plot of the Exponential QQplot.
+Note that the mean excess plot is the derivative plot of the Exponential QQ-plot.
 }
 \value{
 A list with following components:
