@@ -34,10 +34,9 @@ Note that the mean excess plot is the derivative plot of the Exponential QQ-plot
 }
 \value{
 A list with following components:
-\item{k}{Vector of the values of the tail parameter \eqn{k}.}
+\item{k}{Vector of the values of the tail parameter \code{k}.}
 \item{X}{Vector of the order statistics \code{data[n-k]} corresponding to the tail parameters in \code{k}.}
 \item{e}{Vector of the mean excess values corresponding to the tail parameters in \code{k}.}
-
 }
 \references{
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
