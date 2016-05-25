@@ -1240,9 +1240,8 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
   }
 
   # Survival function in x
-  #surv <- SurvTB$f(x)
-  surv <- 1-p
-  
+  surv <- SurvTB$f(x)
+
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
     ind <- surv>0
