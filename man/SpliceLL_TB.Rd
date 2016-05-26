@@ -21,7 +21,7 @@ Vector of length \eqn{n} with the lower boundary of the intervals for interval c
 }
   \item{U}{
 Vector of length \eqn{n} with the upper boundary of the intervals. In an 
-insurance context, these are the incurred values. By default, they are equal to \code{L} which means that we consider right-censored data. 
+insurance context, these are the incurred values. By default, they are equal to \code{L}.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
