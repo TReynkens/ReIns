@@ -25,6 +25,9 @@ export("depd","pepd","qepd","repd")
 export("dburr","pburr", "qburr", "rburr")
 export("dtburr","ptburr", "qtburr", "rtburr")
 
+export("dfrechet","pfrechet", "qfrechet", "rfrechet")
+export("dtfrechet","ptfrechet", "qtfrechet", "rtfrechet")
+
 export("dtexp","ptexp", "qtexp", "rtexp")
 export("dtlnorm","ptlnorm", "qtlnorm", "rtlnorm")
 export("dtweibull","ptweibull", "qtweibull", "rtweibull")

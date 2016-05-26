@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{News for package "ReIns"}
-
+\encoding{UTF-8}
 
 \section{Changes in version 0.5-01 (yyyy-mm-dd)}{
     \subsection{Changes in \code{R} code:}{
@@ -30,6 +30,7 @@
         \item Add argument \code{raw} to \code{pGC} and \code{pEdge} to define which moments are given the argument \code{moments}.
         \item Type \code{"tPa"} is changed to \code{"TPa"} when using splicefit objects. \code{"tPa"} is however still supported.
         \item Add mean excess plot adapted for censoring using Turnbull estimator.
+        \item Add Fréchet distribution.
       }
     }
     \subsection{Documentation changes:}{

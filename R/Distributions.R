@@ -1073,3 +1073,197 @@ rtexp <- function(n, rate = 1, endpoint=Inf) {
   return(qtexp(runif(n),rate=rate,endpoint=endpoint))
 }
 
+
+###############################################################
+# Fréchet
+
+dfrechet <- function(x, shape, loc = 0, scale = 1, log = FALSE) {
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  
+  d <- ifelse(x>=loc, shape/scale * ((x-loc)/scale)^(-shape-1) * exp(-((x-loc)/scale)^(-shape)), 0)
+  
+  if (log) d <- log(d)
+  
+  return(d)
+}
+
+pfrechet <- function(x, shape, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE) {
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  
+  p <- ifelse(x>=loc, exp(-((x-loc)/scale)^(-shape)), 0)
+  
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  
+  return(p)
+}
+
+
+qfrechet <- function(p, shape, loc = 0, scale = 1, lower.tail = TRUE, log.p = FALSE) {
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
+  
+  if (!all(p>=0 & p<=1)) {
+    stop("p should be between 0 and 1.")
+  }
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  
+  q <- loc + scale * (-log(p))^(-1/shape)
+  
+  return(q)
+}
+
+
+rfrechet <- function(n, shape, loc = 0, scale = 1) {
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  qfrechet(runif(n), shape=shape, loc=loc, scale=scale)
+}
+
+######################
+# Truncated Fréchet
+
+dtfrechet <- function(x, shape, loc = 0, scale = 1, endpoint=Inf, log = FALSE) {
+  
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  
+  d <- ifelse(x<=endpoint, 
+              dfrechet(x,shape=shape,loc=loc,scale=scale)/pfrechet(endpoint,shape=shape,loc=loc,scale=scale),
+              0)
+  
+  if (log) d <- log(d)
+  
+  return(d)
+  
+}
+
+ptfrechet <- function(x, shape, loc = 0, scale = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  if(endpoint<=loc) {
+    stop("endpoint should be strictly larger than loc.")
+  }
+  
+  p <- ifelse(x<=endpoint, 
+              pfrechet(x,shape=shape,loc=loc,scale=scale)/pfrechet(endpoint,shape=shape,loc=loc,scale=scale),
+              1)
+  
+  
+  if (!lower.tail) p <- 1-p
+  
+  if (log.p) p <- log(p)
+  
+  
+  return(p)
+}
+
+
+qtfrechet <- function(p, shape, loc = 0, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+  
+  
+  if (log.p) p <- exp(p)
+  
+  if (!lower.tail) p <- 1-p
+  
+  
+  if (!all(p>=0 & p<=1)) {
+    stop("p should be between 0 and 1.")
+  }
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  
+  if(endpoint<=loc) {
+    stop("endpoint should be strictly larger than loc.")
+  }
+  
+  q <- qfrechet(p*pfrechet(endpoint,shape=shape,loc=loc,scale=scale),shape=shape,loc=loc,scale=scale)
+  
+  return(q)
+  
+}
+
+
+rtfrechet <- function(n, shape, loc = 0, scale = 1, endpoint = Inf) {
+  
+  if (shape<=0) {
+    stop("shape should be strictly positive.")
+  }
+  
+  
+  if (scale<=0) {
+    stop("scale should be strictly positive.")
+  }
+  
+  if(endpoint<=loc) {
+    stop("endpoint should be strictly larger than loc.")
+  }
+  
+  
+  qtfrechet(runif(n), shape=shape, loc=loc, scale=scale, endpoint=endpoint)
+}
+
+
+
+
+
