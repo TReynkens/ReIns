@@ -181,7 +181,7 @@ eps <- 10^(-14)
 
 dgpd <- function(x, gamma, mu = 0, sigma, log = FALSE) {
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
@@ -202,7 +202,7 @@ dgpd <- function(x, gamma, mu = 0, sigma, log = FALSE) {
 
 pgpd <- function(x, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE) {
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
@@ -237,7 +237,7 @@ qgpd <- function(p, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE) {
     stop("p should be between 0 and 1.")
   }
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
@@ -254,7 +254,7 @@ qgpd <- function(p, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE) {
 
 rgpd <- function(n, gamma, mu = 0, sigma) {
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
@@ -278,7 +278,7 @@ dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, log = FALSE) {
 
 ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
@@ -312,7 +312,7 @@ qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, lo
     stop("p should be between 0 and 1.")
   }
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
@@ -329,7 +329,7 @@ qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, lo
 
 rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
   
-  if (sigma<0) {
+  if (sigma<=0) {
     stop("sigma should be strictly positive.")
   }
   
