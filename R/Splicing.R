@@ -1447,7 +1447,7 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
 
 
 # Mean excess plot using Turnbull estimator
-MeanExcess_TB <- function(L, U, censored, trunclower = 0, truncupper = Inf, 
+MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf, 
                           plot = TRUE, k = TRUE, main = "Mean excess plot", ...) {
   
   # Check if L and U are numeric

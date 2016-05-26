@@ -8,7 +8,7 @@ Mean excess function using Turnbull estimator
 Computes mean excess values using the Turnbull estimator. These mean excess values can then be plotted as a function of the empirical quantiles (computed using the Turnbull estimator) or as a function of the tail parameter \eqn{k}.
 }
 \usage{
-MeanExcess_TB(L, U, censored, trunclower = 0, truncupper = Inf, 
+MeanExcess_TB(L, U = L, censored, trunclower = 0, truncupper = Inf, 
               plot = TRUE, k = TRUE, main = "Mean excess plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
