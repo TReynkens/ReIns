@@ -266,6 +266,10 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
 
 dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, log = FALSE) {
   
+  if (sigma<=0) {
+    stop("sigma should be strictly positive.")
+  }
+  
   d <- ifelse(x<=endpoint, 
               dgpd(x,gamma=gamma,mu=mu,sigma=sigma)/pgpd(endpoint,gamma=gamma,mu=mu,sigma=sigma),
               0)
