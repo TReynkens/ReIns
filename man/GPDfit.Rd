@@ -28,7 +28,7 @@ Logical indicating if possible warnings from the optimisation function are shown
 A vector with the MLE estimate for the \eqn{\gamma} parameter of the GPD as the first component and the MLE estimate for the \eqn{\sigma} parameter of the GPD as the second component.
 }
 \references{
-Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }
 \author{
 Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code from Klaus Herrmann.

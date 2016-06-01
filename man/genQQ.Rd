@@ -42,7 +42,7 @@ A list with following components:
 \item{gqq.emp}{Vector of the empirical quantiles from the UH scores.}
 }
 \references{
-Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 Beirlant, J., Vynckier, P. and Teugels, J.L. (1996). "Excess Function and Estimation of the Extreme-value Index." \emph{Bernoulli}, 2, 293--318.
 }

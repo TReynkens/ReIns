@@ -54,7 +54,7 @@ Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuaria
 
 Beirlant J., Dierckx, G., Goegebeur Y. and Matthys, G. (1999). "Tail Index Estimation and an Exponential Regression Model." \emph{Extremes}, 2, 177--200.
 
-Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }
 \author{
 Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code from Klaus Herrmann.

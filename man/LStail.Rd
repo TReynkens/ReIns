@@ -62,7 +62,7 @@ Beirlant, J., Dierckx, G. and Guillou, A. (2005). "Estimation of the Extreme Val
 
 Beirlant, J., Dierckx, G., Guillou, A. and Starica, C. (2002). "On Exponential Representations of Log-spacing of Extreme Order Statistics." \emph{Extremes}, 5, 157--180.
 
-Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 
 }

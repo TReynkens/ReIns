@@ -22,7 +22,7 @@ Beirlant, J., Teugels, J. L. and Vynckier, P. (1996). \emph{Practical Analysis o
 University Press.
 }
 \references{
-Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }
 \examples{
 data(norwegianfire)

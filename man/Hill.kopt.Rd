@@ -51,7 +51,7 @@ A list with following components:
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
 
-Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 Beirlant J., Vynckier, P. and Teugels, J. (1996). "Tail Index Estimation, Pareto Quantile Plots, and Regression Diagnostics." \emph{Journal of the American Statistical Association}, 91, 1659--1667.
 }
