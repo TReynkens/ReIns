@@ -31,7 +31,7 @@ Logical indicating if possible warnings from the optimisation function are shown
 A vector with the MLE estimate for the \eqn{\gamma} parameter of the EPD as the first component and the MLE estimate for the \eqn{\sigma} parameter of the EPD as the second component.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Joossens, E. and Segers, J. (2009). "Second-Order Refined Peaks-Over-Threshold
 Modelling for Heavy-Tailed Distributions." \emph{Journal of Statistical Planning and Inference}, 139, 2800--2815.

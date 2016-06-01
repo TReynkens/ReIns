@@ -54,7 +54,7 @@ A list with following components:
 \item{C}{Vector of the corresponding estimates for \eqn{C}, see details.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Schoutens, W., De Spiegeleer, J., Reynkens, T. and Herrmann, K. (201x). 
 "Hunting for Black Swans in the European Banking Sector." \emph{}, , --.

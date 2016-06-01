@@ -50,7 +50,7 @@ A list with following components:
 \item{beta}{Vector of the ML estimates for the parameter \eqn{\beta} in the regression model for each value of \eqn{k}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Dierckx, G., Goegebeur Y. and Matthys, G. (1999). "Tail Index Estimation and an Exponential Regression Model." \emph{Extremes}, 2, 177--200.
 

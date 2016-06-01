@@ -50,7 +50,7 @@ See Albrecher et al. (2016) for details.
 Vector of estimates for the probabilities \eqn{F(x)=P(X\le x)}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Cheah, P.K., Fraser, D.A.S. and Reid, N. (1993). "Some Alternatives to Edgeworth." \emph{The Canadian Journal of Statistics}, 21(2), 131--138.
 }
