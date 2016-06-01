@@ -124,7 +124,7 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
   }
 
   # Derivative
-  yval <- Hill(X)$gamma
+  yval <- Hill(X, plot=FALSE)$gamma
   
   # plots if TRUE
   .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
@@ -180,7 +180,7 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
   }
   
   
-  H <- Hill(X)$gamma
+  H <- Hill(X, plot=FALSE)$gamma
   N <- (n+1)/(K+1) * dnorm(qnorm(1-(K+1)/(n+1))) - qnorm(1-(K+1)/(n+1))
   yval <- H/N
   
@@ -205,8 +205,7 @@ WeibullQQ <- function(data, plot = TRUE, main = "Weibull QQ-plot", ...) {
   n <- length(X)
   
   # calculate theoretical and empirical quantiles
-  i <- 1:n
-  wqq.the <- log(-log(1-i/(n+1)))
+  wqq.the <- log(-log(1-(1:n)/(n+1)))
   wqq.emp <- log(X)
   
   # plots if TRUE
@@ -237,9 +236,9 @@ WeibullQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot 
   }
   
   
-  H <- Hill(X)
+  H <- Hill(X, plot=FALSE)
   j <- 1:(n-1)
-  yval <- H$gamma / (1/H$k*cumsum(log(log((n+1)/j))) - log(log((n+1)/(H$k+1))))
+  yval <- H$gamma / (1/H$k * cumsum(log(log((n+1)/j))) - log(log((n+1)/(H$k+1))))
 
   # plots if TRUE
   .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 

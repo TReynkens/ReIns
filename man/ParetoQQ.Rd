@@ -29,10 +29,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 It can be easily seen that a log-transformed Pareto random variable is exponentially distributed.
 We can hence obtain a Pareto QQ-plot from an exponential QQ-plot by replacing the empirical quantiles of the data vector by the empirical quantiles from the log-transformed data. We hence plot
 \deqn{( -\log(1-i/(n+1)), \log X_{i,n} )}
-for \eqn{i=1,...,n-1,}
+for \eqn{i=1,...,n,}
 with \eqn{X_{i,n}} the \eqn{i}-th order statistic of the data.
 
-See Section 1.2 of Beirlant et al. (2004) for more details.
+See Section 4.1 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -42,6 +42,8 @@ A list with following components:
 }
 
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 }
 \author{

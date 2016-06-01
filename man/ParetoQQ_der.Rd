@@ -30,8 +30,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The derivative plot of a Weibull QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n})}
+The derivative plot of a Pareto QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates.
+
+See Section 4.1 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -41,6 +43,8 @@ A list with following components:
 }
 
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 }
 \author{
@@ -50,7 +54,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ParetoQQ}}, \code{\link{MeanExcess}}, \code{\link{LognormalQQ_der}}
+\code{\link{ParetoQQ}}, \code{\link{Hill}}, \code{\link{MeanExcess}}, \code{\link{LognormalQQ_der}}, \code{\link{WeibullQQ_der}}
 }
 \examples{
 data(norwegianfire)

@@ -33,6 +33,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The derivative plot of a Weibull QQ-plot is \deqn{(k, H_{k,n}/W_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n}/W_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates and
 \deqn{W_{k,n}=1/k*\sum_{j=1}^k \log(\log((n+1)/j))  -  \log(\log((n+1)/(k+1))).}
+
+See Section 4.1 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -51,7 +53,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{WeibullQQ}}, \code{\link{MeanExcess}}, \code{\link{LognormalQQ_der}}, \code{\link{ParetoQQ_der}}
+\code{\link{WeibullQQ}}, \code{\link{Hill}}, \code{\link{MeanExcess}}, \code{\link{LognormalQQ_der}}, \code{\link{ParetoQQ_der}}
 }
 \examples{
 data(norwegianfire)

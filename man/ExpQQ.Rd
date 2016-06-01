@@ -27,12 +27,12 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The exponential QQ-plot is defined as
 \deqn{( -\log(1-i/(n+1)), X_{i,n} )}
-for \eqn{i=1,...,n-1,}
+for \eqn{i=1,...,n,}
 with \eqn{X_{i,n}} the \eqn{i}-th order statistic of the data.
 
 Note that the mean excess plot is the derivative plot of the Exponential QQ-plot.
 
-See Section 1.2 of Beirlant et al. (2004) for more details.
+See Section 4.1 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -41,6 +41,8 @@ A list with following components:
 \item{eqq.emp}{Vector of the empirical quantiles from the data.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 }
 \author{

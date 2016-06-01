@@ -27,8 +27,9 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 By definition, a log-transformed log-normal random variable is normally distributed.
 We can thus obtain a log-normal QQ-plot from a normal QQ-plot by replacing the empirical quantiles of the data vector by the empirical quantiles from the log-transformed data. We hence plot
-\deqn{(\Phi^{-1}(i/(n+1)), \log(X_{i,n}) )} for \eqn{i=1,\ldots,n-1,} where \eqn{\phi} is the normal PDF and \eqn{\Phi} is the normal CDF.
-See Section 1.2 of Beirlant et al. (2004) for more details.
+\deqn{(\Phi^{-1}(i/(n+1)), \log(X_{i,n}) )} for \eqn{i=1,\ldots,n,} where \eqn{\phi} is the normal PDF and \eqn{\Phi} is the normal CDF.
+
+See Section 4.1 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -37,6 +38,8 @@ A list with following components:
 \item{lnqq.emp}{Vector of the empirical quantiles from the log-transformed data.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 }
 \author{
