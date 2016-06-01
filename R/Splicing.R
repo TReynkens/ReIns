@@ -1217,8 +1217,9 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
     if (is.null(x)) {
-      # Use unique points of Turnbull intervals since Turnbull estimator is exact there
-      #x <- unique(as.numeric(SurvTB$fit$intmap))
+      # # Use unique points of Turnbull intervals since Turnbull estimator is exact there
+      # x <- unique(as.numeric(SurvTB$fit$intmap))
+      # Use empirical quantiles
       n <- length(L)
       p <- (1:n) / (n+1)
       x <- SurvTB$fquant(p)
@@ -1231,8 +1232,9 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
                      truncupper=max(splicefit$EVTfit$endpoint))
     
     if (is.null(x)) {
-      # Use knots (jump points)
-      #x <- unique(SurvTB$fit$knots)
+      # # Use knots (jump points)
+      # x <- unique(SurvTB$fit$knots)
+      # Use empirical quantiles
       n <- length(L)
       p <- (1:n) / (n+1)
       x <- SurvTB$fquant(p)
@@ -1362,6 +1364,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Spli
   # Probabilities
   n <- length(L)
   p <- (1:n) / (n+1)
+  # Use empirical quantiles
   x <- SurvTB$fquant(p)
 
   # Remove 1 if infinite endpoint

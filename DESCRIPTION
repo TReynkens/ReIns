@@ -2,7 +2,7 @@ Package: ReIns
 Type: Package
 Title: Functions and Datasets from "Reinsurance: Actuarial and Statistical Aspects"
 Version: 0.5-01
-Date: 2016-05-26
+Date: 2016-06-01
 Authors@R: c(person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = c("aut", "cre")),
           person("Roel", "Verbelen", role = "aut", comment="R code for Mixed Erlang distribution"),
           person("Anastasios", "Bardoutsos", role = "ctb"),
