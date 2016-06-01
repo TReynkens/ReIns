@@ -55,6 +55,8 @@ with \eqn{\tau = \rho/\gamma <0<\gamma} and \eqn{\kappa>max(-1,1/\tau)}.
 The parameters are determined using MLE and there are two possible approaches:
 maximise the log-likelihood directly (\code{direct=TRUE}) or follow the approach detailed in
 Beirlant et al. (2009) (\code{direct=FALSE}). The latter approach uses the score functions of the log-likelihood.
+
+See Section 4.2.1 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -64,9 +66,10 @@ A list with following components:
 \item{tau}{Vector of the corresponding estimates for the \eqn{\tau} parameter of the EPD using Hill estimates and values for \eqn{\rho}.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant, J., Joossens, E. and Segers, J. (2009). "Second-Order Refined Peaks-Over-Threshold
 Modelling for Heavy-Tailed Distributions." \emph{Journal of Statistical Planning and Inference}, 139, 2800--2815.
-
 
 Fraga Alves, M.I. , Gomes, M.I. and de Haan, L. (2003). "A New Class of Semi-parametric Estimators of the Second Order Parameter." \emph{Portugaliae Mathematica}, 60, 193--214.
 }

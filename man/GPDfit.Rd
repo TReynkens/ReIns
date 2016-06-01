@@ -31,7 +31,7 @@ A vector with the MLE estimate for the \eqn{\gamma} parameter of the GPD as the 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 }
 \author{
-Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code from Klauss Herrmann.
+Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code from Klaus Herrmann.
 }
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

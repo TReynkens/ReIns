@@ -50,6 +50,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The return period is estimated as \deqn{(n+1)/(k+1) / (1-F(x))} with \eqn{F}
 the CDF of the EPD with parameters \eqn{\gamma}, \eqn{\kappa} and \eqn{\tau}.
+
+See Section 4.2.1 of Albrecher et al. (2016) for more details.
 }
 
 
@@ -61,9 +63,10 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant, J., Joossens, E. and Segers, J. (2009). "Second-Order Refined Peaks-Over-Threshold
 Modelling for Heavy-Tailed Distributions." \emph{Journal of Statistical Planning and Inference}, 139, 2800--2815.
-
 }
 \author{
 Tom Reynkens

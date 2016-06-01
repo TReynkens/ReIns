@@ -49,7 +49,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-See Section 4.6 of Beirlant et al. (2004) for more details.
+See Section 4.2.1 of Albrecher et al. (2016) for more details.
 
 \code{Weissman.p} and \code{Weissman.r} are the same functions as \code{Prob} and \code{Return} but with a different name for compatibility with the old \code{S-Plus} code. 
 }
@@ -61,6 +61,8 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 
 Weissman, I. (1978). "Estimation of Parameters and Large Quantiles Based on the \emph{k} Largest Observations." \emph{Journal of the American Statistical Association}, 73, 812--815.
@@ -85,12 +87,12 @@ SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 H <- Hill(SOAdata)
 
 # Exceedance probability
-q = 10^6
+q <- 10^6
 # Weissman estimator
 Prob(SOAdata,gamma=H$gamma,q=q,plot=TRUE)
 
 # Return period
-q = 10^6
+q <- 10^6
 # Weissman estimator
 Return(SOAdata,gamma=H$gamma,q=q,plot=TRUE)
 }

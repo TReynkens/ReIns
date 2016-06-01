@@ -22,13 +22,13 @@ Weissman.q.2oQV(data, gamma, b, beta, p, plot = FALSE, add = FALSE,
   Vector of \eqn{n} observations.  
 }
   \item{gamma}{
-Vector of \eqn{n-1} estimates for the EVI obtained from \code{Hill.2oQV}.
+Vector of \eqn{n-1} estimates for the EVI obtained from \code{\link{Hill.2oQV}}.
 }
   \item{b}{
-Vector of \eqn{n-1} estimates for \eqn{b} obtained from \code{Hill.2oQV}.
+Vector of \eqn{n-1} estimates for \eqn{b} obtained from \code{\link{Hill.2oQV}}.
 }
   \item{beta}{
-Vector of \eqn{n-1} estimates for \eqn{\beta} obtained from \code{Hill.2oQV}.
+Vector of \eqn{n-1} estimates for \eqn{\beta} obtained from \code{\link{Hill.2oQV}}.
 }
   \item{p}{
 The exceedance probability of the quantile (we estimate \eqn{Q(1-p)} for \eqn{p} small).
@@ -47,7 +47,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-See Section 4.6 of Beirlant et al. (2004) for more details.
+See Section 4.2.1 of Albrecher et al. (2016) for more details.
 
 \code{Weissman.q.2oQV} is the same function but with a different name for compatibility with the old \code{S-Plus} code. 
 
@@ -59,6 +59,8 @@ A list with following components:
 \item{p}{The used exceedance probability.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 }
 \author{

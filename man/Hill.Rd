@@ -38,7 +38,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 
 \details{
-The Hill estimator can be seen as the estimator of slope in the upper right corner (\eqn{k} last points) of the Pareto QQ-plot when using constrained least squares (the regression line has to pass through the point \eqn{-\log((k+1)/(n+1)),\log X_{n-k}}). See Section 4.2 of Beirlant et al. (2004) for more details.
+The Hill estimator can be seen as the estimator of slope in the upper right corner (\eqn{k} last points) of the Pareto QQ-plot when using constrained least squares (the regression line has to pass through the point \eqn{-\log((k+1)/(n+1)),\log X_{n-k}}). It is given by
+\deqn{H_{k,n}=1/k\sum_{j=1}^k \log X_{n-j+1,n}- \log X_{n-k,n}.}
+
+See Section 4.2.1 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -48,6 +51,8 @@ A list with following components:
 }
 
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{"Reinsurance: Actuarial and Statistical Aspects"}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley.
 
 Hill, B. M. (1975). "A simple general approach to inference about the tail of a
