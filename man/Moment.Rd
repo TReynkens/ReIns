@@ -33,7 +33,9 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The moment estimator for the EVI is introduced by Dekkers et al. (1989) and is a generalisation of the Hill estimator. See Section 5.2 of Beirlant et al. (2004) for more details.
+The moment estimator for the EVI is introduced by Dekkers et al. (1989) and is a generalisation of the Hill estimator. 
+
+See Section 4.2.2 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -43,6 +45,8 @@ A list with following components:
 }
 
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 Dekkers, A.L.M, Einmahl, J.H.J. and de Haan, L. (1989). "A Moment Estimator for the Index of an Extreme-value Distribution." \emph{Annals of Statistics}, 17, 1833--1855.
@@ -61,15 +65,16 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 data(soa)
 
 # Hill estimator
-H <- Hill(soa$size,plot=FALSE)
+H <- Hill(soa$size, plot=FALSE)
 # Moment estimator
 M <- Moment(soa$size)
 # Generalised Hill estimator
-gH <- genHill(soa$size,gamma=H$gamma)
+gH <- genHill(soa$size, gamma=H$gamma)
 
 # Plot estimates
-lines(H$k[1:5000],M$gamma[1:5000],xlab="k",ylab=expression(gamma),type="l",ylim=c(0,0.6))
-lines(H$k[1:5000],gH$gamma[1:5000],lty=2)
+plot(H$k[1:5000], M$gamma[1:5000], xlab="k", ylab=expression(gamma), type="l", ylim=c(0.2,0.5))
+lines(H$k[1:5000], gH$gamma[1:5000], lty=2)
+legend("topright", c("Moment", "Generalised Hill"), lty=1:2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

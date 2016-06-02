@@ -80,7 +80,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{GPDmle}}, \code{\link{ReturnEPD}}
+\code{\link{GPDmle}}, \code{\link{ProbEPD}}
 }
 \examples{
 data(secura)

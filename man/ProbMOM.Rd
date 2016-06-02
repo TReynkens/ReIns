@@ -40,7 +40,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-See Section 5.5 of Beirlant et al. (2004) for more details.
+See Section 4.2.2 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -50,6 +50,8 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 Dekkers, A.L.M, Einmahl, J.H.J. and de Haan, L. (1989). "A Moment Estimator for the Index of an Extreme-value Distribution." \emph{Annals of Statistics}, 17, 1833--1855.
@@ -74,10 +76,10 @@ M <- Moment(SOAdata)
 
 # Exceedance probability
 q = 10^7
-ProbMOM(SOAdata,gamma=M$gamma,q=q,plot=TRUE)
+ProbMOM(SOAdata, gamma=M$gamma, q=q, plot=TRUE)
 
 # Return period
 q = 10^7
-ReturnMOM(SOAdata,gamma=M$gamma,q=q,plot=TRUE)
+ReturnMOM(SOAdata, gamma=M$gamma, q=q, plot=TRUE)
 }
 

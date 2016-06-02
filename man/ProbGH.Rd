@@ -39,7 +39,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-See Section 5.5 of Beirlant et al. (2004) for more details.
+See Section 4.2.2 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -49,6 +49,8 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 Beirlant, J., Vynckier, P. and Teugels, J.L. (1996). "Excess Function and Estimation of the Extreme-value Index". \emph{Bernoulli}, 2, 293--318.
@@ -71,14 +73,14 @@ SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 # Hill estimator
 H <- Hill(SOAdata)
 # Generalised Hill estimator
-gH <- genHill(SOAdata,H$gamma)
+gH <- genHill(SOAdata, H$gamma)
 
 # Exceedance probability
 q = 10^7
-ProbGH(SOAdata,gamma=gH$gamma,q=q,plot=TRUE)
+ProbGH(SOAdata, gamma=gH$gamma, q=q, plot=TRUE)
 
 # Return period
 q = 10^7
-ReturnGH(SOAdata,gamma=gH$gamma,q=q,plot=TRUE)
+ReturnGH(SOAdata, gamma=gH$gamma, q=q, plot=TRUE)
 }
 

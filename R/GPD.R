@@ -167,7 +167,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
     # Estimator for tail probabilities
     
     # Formula 5.26
-    r[K] <- ((n+1)/(K+1)) / (1+gamma[K]/sigma[K]*(q-X[n-K]))^(-1/gamma[K])
+    r[K] <- (n+1)/(K+1) * (1+gamma[K]/sigma[K]*(q-X[n-K]))^(1/gamma[K])
     r[r<=0] <- NA
     
     # plots if TRUE

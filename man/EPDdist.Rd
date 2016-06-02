@@ -78,11 +78,11 @@ Tom Reynkens.
 
 \examples{
 # Plot of the PDF
-x = seq(0,10,0.01)
+x <- seq(0,10,0.01)
 plot(x, depd(x, gamma=1/2, kappa=1, tau=-1), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
-x = seq(0,10,0.01)
+x <- seq(0,10,0.01)
 plot(x, pepd(x, gamma=1/2, kappa=1, tau=-1), xlab="x", ylab="CDF", type="l")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

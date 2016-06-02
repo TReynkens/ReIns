@@ -5,7 +5,7 @@
 Estimator of extreme quantiles using MOM
 }
 \description{
-Compute estimates of an extreme quantile \eqn{Q(1-p)} using generalised Hill estimates of the EVI.
+Compute estimates of an extreme quantile \eqn{Q(1-p)} using the Method of Moments estimates of the EVI.
 }
 \usage{
 QuantMOM(data, gamma, p, plot = FALSE, add = FALSE, 
@@ -36,7 +36,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-See Section 5.5 of Beirlant et al. (2004) for more details.
+See Section 4.2.2 of Albrecher et al. (2016) for more details.
 }
 
 \value{
@@ -46,6 +46,8 @@ A list with following components:
 \item{p}{The used exceedance probability.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 
 Dekkers, A.L.M, Einmahl, J.H.J. and de Haan, L. (1989). "A Moment Estimator for the Index of an Extreme-value Distribution." \emph{Annals of Statistics}, 17, 1833--1855.
@@ -71,5 +73,5 @@ M <- Moment(SOAdata)
 
 # Large quantile
 p <- 10^(-5)
-QuantMOM(SOAdata,p=p,gamma=M$gamma,plot=TRUE)
+QuantMOM(SOAdata, p=p, gamma=M$gamma, plot=TRUE)
 }

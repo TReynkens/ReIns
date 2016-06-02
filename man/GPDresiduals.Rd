@@ -41,7 +41,9 @@ Consider the POT values \eqn{Y=X-t} and the transformed variable
 \deqn{R = Y/\sigma,}
 otherwise. 
 We can assess the goodness-of-fit of the GPD when modelling POT values \eqn{Y=X-t} by 
-constructing an exponential QQplot of the transformed variable \eqn{R} since \eqn{R} is standard exponentially distributed if \eqn{Y} follows the GPD.
+constructing an exponential QQ-plot of the transformed variable \eqn{R} since \eqn{R} is standard exponentially distributed if \eqn{Y} follows the GPD.
+
+See Section 4.2.2 in Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -71,4 +73,6 @@ SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 pot <- GPDmle(SOAdata, plot=TRUE)
 
 # Residual plot
+k <- 200
+GPDresiduals(SOAdata, sort(SOAdata)[length(SOAdata)-k], pot$gamma[k], pot$sigma[k])
 }

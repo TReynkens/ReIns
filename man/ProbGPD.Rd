@@ -44,7 +44,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-See Section 5.5 of Beirlant et al. (2004) for more details.
+See Section 4.2.2 in Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -54,6 +54,8 @@ A list with following components:
 \item{q}{The used large quantile.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }
 \author{
@@ -76,10 +78,10 @@ pot <- GPDmle(SOAdata)
 
 # Exceedance probability
 q = 10^7
-ProbGPD(SOAdata,gamma=pot$gamma,sigma=pot$sigma,q=q,plot=TRUE)
+ProbGPD(SOAdata, gamma=pot$gamma, sigma=pot$sigma, q=q, plot=TRUE)
 
 # Return period
 q = 10^7
-ReturnGPD(SOAdata,gamma=pot$gamma,sigma=pot$sigma,q=q,plot=TRUE)
+ReturnGPD(SOAdata, gamma=pot$gamma, sigma=pot$sigma, q=q, plot=TRUE)
 }
 

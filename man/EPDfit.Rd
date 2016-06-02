@@ -26,9 +26,11 @@ is the starting value for the estimator of \eqn{\gamma} and the second element i
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
 }
 }
-
+\details{
+See Section 4.2.1 of Albrecher et al. (2016) for more details.
+}
 \value{
-A vector with the MLE estimate for the \eqn{\gamma} parameter of the EPD as the first component and the MLE estimate for the \eqn{\sigma} parameter of the EPD as the second component.
+A vector with the MLE estimate for the \eqn{\gamma} parameter of the EPD as the first component and the MLE estimate for the \eqn{\kappa} parameter of the EPD as the second component.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -51,5 +53,5 @@ data(soa)
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Fit EPD to last 500 observations
-res <- GPDmle(SOAdata)
+res <- EPDfit(SOAdata/sort(soa$size)[500], tau=-1)
 }
