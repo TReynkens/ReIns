@@ -2,6 +2,37 @@
 title: "Using the ReIns package"
 author: "Tom Reynkens"
 date: "`r Sys.Date()`"
+references:
+- id: reins
+  title: "Reinsurance: Actuarial and Statistical Aspects"
+  author:
+  - family: Albrecher
+    given: Hansjörg
+  - family: Beirlant
+    given: Jan
+  - family: Teugels
+    given: Jef
+  publisher: Wiley, Chichester
+  type: book
+  issued:
+    year: 2016
+- id: soe
+  title: "Statistics of Extremes: Theory and Applications"
+  author:
+  - family: Beirlant
+    given: Jan
+  - family: Goegebeur
+    given: Yuri
+  - family: Segers
+    given: Johan
+  - family: Teugels
+    given: Jef
+  publisher: Wiley, Chichester
+  type: book
+  issued:
+    year: 2004
+nocite: |
+  @reins
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
@@ -12,11 +43,11 @@ vignette: >
 # Introduction
 
 
-The ReIns package contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Albrecher, Beirlant and Teugels.
+The ReIns package contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
 
 It contains implementations of
 
-* Basic extreme value theory (EVT) estimators and graphical methods as described in "Statistics of Extremes: Theory and Applications" (2004) of Beirlant, Goegebeur, Segers and Teugels.
+* Basic extreme value theory (EVT) estimators and graphical methods as described in "Statistics of Extremes: Theory and Applications" (2004) of Jan Beirlant, Yuri Goegebeur, Johan Segers and Jef Teugels.
 
 * EVT estimators and graphical methods adapted for censored or truncated data.
 
@@ -29,7 +60,7 @@ We split this in several sections: *[datasets](#datasets), [graphical methods](#
 
 # Datasets
 
-Three datasets are available: **Norwegian fire insurance data** (`norwegianfire`), **SOA group medical insurance data** (`soa`) and **Secura Re automobile reinsurance data** (`secura`). These datasets were already discussed in Beirlant et al. (2004).
+Three datasets are available: **Norwegian fire insurance data** (`norwegianfire`), **SOA group medical insurance data** (`soa`) and **Secura Re automobile reinsurance data** (`secura`). These datasets were already discussed in @soe.
 
 The illustrations will be done using the Norwegian Fire insurance dataset which contains fire insurance claims for a Norwegian insurance company for the period 1972 to 1992. The sizes of the fire insurance claims are expressed in 1000 NOK.
 
@@ -484,3 +515,5 @@ legend("bottomright", c("True CDF", "GC approximation",
                         "Edgeworth approximation", "Normal approximation"), 
        col=c("red", "black", "black", "blue"), lty=1:4, lwd=2)
 ```
+
+# References
