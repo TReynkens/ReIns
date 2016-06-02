@@ -43,7 +43,7 @@ vignette: >
 # Introduction
 
 
-The ReIns package contains functions of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
+The *ReIns* package contains functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
 
 It contains implementations of
 
