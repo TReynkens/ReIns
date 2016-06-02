@@ -26,7 +26,7 @@ When \code{TRUE} (default), the first four raw moments are provided in \code{mom
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
  }
   \item{log.p}{
-  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+  Logical indicating if the probabilities are given as \eqn{log(p)}, default is \code{FALSE}.
  }
 }
 \details{ 

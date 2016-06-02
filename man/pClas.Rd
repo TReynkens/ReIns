@@ -25,7 +25,7 @@ Mean of the distribution, default is 0.
 Variance of the distribution, default is 1.
 }
   \item{skewness}{
-Skewness coefficient of the distribution, this argument is not used for the normal approximation. Default is \code{NULL} meaning skewness parameter is provided.
+Skewness coefficient of the distribution, this argument is not used for the normal approximation. Default is \code{NULL} meaning no skewness coefficient is provided.
 }
   \item{method}{
 Approximation method to use, one of \code{"normal"}, \code{"normal-power"}, \code{"shifted Gamma"} or \code{"shifted Gamma normal"}. Default is \code{"normal"}.
@@ -34,7 +34,7 @@ Approximation method to use, one of \code{"normal"}, \code{"normal-power"}, \cod
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
  }
   \item{log.p}{
-  Logical indicating if the probabilities are given as log(p), default is \code{FALSE}.
+  Logical indicating if the probabilities are given as \eqn{log(p)}, default is \code{FALSE}.
  }
 }
 \details{
