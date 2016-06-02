@@ -1,4 +1,4 @@
-# Computes the Peaks-Over-Threshold estimates of gamma using ML (Section 5.3.2 in SoE) 
+# Computes the Peaks-Over-Threshold estimates of gamma using ML (Section 5.3.2 in Beirlant et al. (2004)) 
 # Based on POT_KH.R (written by Klaus Herrmann) and POT.R.
 
 # minus log-likelihood for a (univariate sample Y) of iid GP random variables
@@ -183,7 +183,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
 
 ##############################################################################
 # Computes estimates of extreme quantile Q(1-p) 
-# (Section 5.5.1) for a numeric vector of observations 
+# (Section 5.5.1 in Beirlant et al. (2004)) for a numeric vector of observations 
 # (data) and as a function of k
 #
 # Estimates are based on prior estimates gamma for the

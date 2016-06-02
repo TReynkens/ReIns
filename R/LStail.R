@@ -1,5 +1,5 @@
 # Computes the least squared estimates of gamma, b and rho 
-# based on (5.36) for a numeric vector of 
+# based on (5.36) in Beirlant et al. (2004) for a numeric vector of 
 # observations (data) and as a function of k
 #
 # lambda chosen between 0 and 1

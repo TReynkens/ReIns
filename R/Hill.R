@@ -1,5 +1,5 @@
 
-# Computes the Hill estimates of gamma (Section 4.2) 
+# Computes the Hill estimates of gamma (Section 4.2 in Beirlant et al. (2004)) 
 # for a numeric vector of observations (data) and as a
 # function of k
 #
@@ -52,7 +52,7 @@ Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main =
 ##########################################################################
 
 # Computes estimates of small exceedance probability 1-F(q) 
-# (Section 4.6.1) for a numeric vector of observations 
+# (Section 4.6.1 in Beirlant et al. (2004)) for a numeric vector of observations 
 # (data) and as a function of k
 #
 # Estimates are based on prior estimates gamma for the
@@ -132,7 +132,7 @@ Weissman.r <- Return
 ##########################################################################
 
 # Computes estimates of extreme quantile Q(1-p) 
-# (Section 4.6.1) for a numeric vector of observations 
+# (Section 4.6.1 in Beirlant et al. (2004)) for a numeric vector of observations 
 # (data) and as a function of k
 #
 # Estimates are based on prior estimates gamma for the

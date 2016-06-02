@@ -1,5 +1,5 @@
 
-# Computes the Hill estimates of gamma (Section 5.2.3) 
+# Computes the Hill estimates of gamma (Section 5.2.3 in Beirlant et al. (2004)) 
 # for a numeric vector of observations (data) and as a
 # function of k
 #
@@ -136,7 +136,7 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   H <- Hill(X)$gamma
   a <- X[n-K]*H[K]*(1-pmin(gamma,0))
   
-  r[K] <- ((n+1)/(K+1)) / (1 + gamma[K]/a[K]*(q-X[n-K]))^(-1/gamma[K])
+  r[K] <- (n+1)/(K+1) * (1 + gamma[K]/a[K]*(q-X[n-K]))^(1/gamma[K])
   r[r<0] <- NA
   
   # plots if TRUE

@@ -2,7 +2,7 @@
 
 ############################################################################################################
 
-# Computes the moment estimates of gamma (Section 5.2.2) 
+# Computes the moment estimates of gamma (Section 5.2.2 in Beirlant et al. (2004)) 
 # for a numeric vector of observations (data) 
 # and as a function of k
 #
@@ -36,7 +36,7 @@ Moment <- function(data, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment
   # for k=1:(n-1)
   # 1/k*sum_{j=1}^k [log(X[n-j+1])-log(X[n-k])]^2
   # = 1/k*sum_{j=1}^k log(X[n-j+1])^2 - 2*log(X[n-k])*1/k*sum_{j=1}^k log(X[n-j+1]) + log(X[n-k])^2
-  M2[K] <- cumsum(log(X[n-K+1])^2)/K-2*cumsum(log(X[n-K+1]))/K*log(X[n-K]) + log(X[n-K])^2
+  M2[K] <- cumsum(log(X[n-K+1])^2)/K - 2*cumsum(log(X[n-K+1]))/K*log(X[n-K]) + log(X[n-K])^2
   
   Mom <- M1 + 1 - (1-M1^2/M2)^(-1)/2
   

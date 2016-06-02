@@ -4,7 +4,7 @@
 ##############################################################################################
 
 # Computes the quantile scores to the Exponential quantile plot
-# (Section 1.2.1) for a numeric vector of observations (data)
+# (Section 1.2.1 in Beirlant et al. (2004)) for a numeric vector of observations (data)
 #
 # If plot=TRUE then the scores are plotted on a Exponential
 # quantile plot
@@ -32,7 +32,7 @@ ExpQQ <- function(data, plot = TRUE, main = "Exponential QQ-plot", ...) {
   
 }
 
-# Computes the mean excess scores e_k,n (Section 1.2.2) 
+# Computes the mean excess scores e_k,n (Section 1.2.2 in Beirlant et al. (2004)) 
 # for a numeric vector of observations (data)
 #
 # If plot=TRUE then the mean excess scores are plotted as
@@ -77,7 +77,7 @@ MeanExcess <- function(data, plot = TRUE, k = FALSE, main = "Mean excess plot", 
 ##############################################################################################
 
 # Computes the quantile scores to the Pareto quantile plot
-# (Section 1.2.1) for a numeric vector of observations (data)
+# (Section 1.2.1 in Beirlant et al. (2004)) for a numeric vector of observations (data)
 #
 # If plot=TRUE then the scores are plotted on a Pareto
 # quantile plot
@@ -252,7 +252,7 @@ WeibullQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot 
 ##############################################################################################
 
 # Computes the quantile scores to the generalised quantile plot
-# (Section 5.2.3) for a numeric vector of observations (data)
+# (Section 5.2.3 in Beirlant et al. (2004)) for a numeric vector of observations (data)
 #
 # If plot=TRUE then the scores are plotted on a generalised
 # quantile plot

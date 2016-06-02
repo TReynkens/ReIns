@@ -1,9 +1,9 @@
 # Computes bias reduced estimates of gamma based on the
-# quantile view (Section 4.5.1) for a numeric vector of 
+# quantile view (Section 4.5.1 in Beirlant et al. (2004)) for a numeric vector of 
 # observations (data) and as a function of k
 #
 # Method is based on an exponential regression model for
-# log-spacings (Section 4.4) and maximum likelihood estimation
+# log-spacings (Section 4.4 in Beirlant et al. (2004)) and maximum likelihood estimation
 # on the parameters gamma, b and beta
 #
 # start contains the starting values for the ml optimization
@@ -111,12 +111,12 @@ Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
 ##########################################################################
 
 # Computes second order refined estimates of extreme 
-# quantile Q(1-p) (Section 4.6.2) based on the
+# quantile Q(1-p) (Section 4.6.2 in Beirlant et al. (2004)) based on the
 # quantile view for a numeric vector of 
 # observations (data) and as a function of k
 #
 # Method is based on a prior exponential regression model for
-# log-spacings (Section 4.4) and maximum likelihood estimation
+# log-spacings (Section 4.4 in Beirlant et al. (2004)) and maximum likelihood estimation
 # on the parameters gamma, b and beta (Hill.2oQV)
 #
 # If plot=TRUE then the estimates of gamma are plotted as a
@@ -159,7 +159,7 @@ Weissman.q.2oQV <- Quant.2oQV
 
 # Computes a possible choice for the optimal k value
 # of the Hill estimator by minimizing estimates of 
-# the asumptotic mean squared error (Section 4.7ii)
+# the asumptotic mean squared error (Section 4.7ii in Beirlant et al. (2004))
 #
 # Estimates can be based on the estimates of the second
 # order parameters gamma, b and beta obtained with the
