@@ -404,6 +404,7 @@ Several distributions have been implemented in the package:
 * The Fréchet distribution: `frechet`.
 * The Generalised Pareto Distribution (GPD): `gpd`.
 * The Pareto distribution: `pareto`.
+* The spliced distribution consisting of a Mixed Erlang distribution and a Pareto or GP distribution: `splice`.
 
 Moreover, several upper truncated distributions are included:
 
