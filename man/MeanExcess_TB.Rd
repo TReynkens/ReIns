@@ -70,7 +70,7 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{MeanExcess}}
+\code{\link{MeanExcess}}, \code{\link{Turnbull}}, \code{\link[interval]{icfit}}
 }
 
 \examples{
