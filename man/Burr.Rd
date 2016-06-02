@@ -59,6 +59,9 @@ Beirlant et al. (2004) uses parameters \eqn{\eta, \tau, \lambda} which correspon
 \code{rburr} returns a random sample of length \eqn{n}.
 }
 
+\references{
+Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
+}
 \author{
 Tom Reynkens.
 }
@@ -69,7 +72,6 @@ Tom Reynkens.
 \code{\link[=ptburr]{tBurr}},  \code{\link[stats]{Distributions}}
 }
 \examples{
-
 # Plot of the PDF
 x = seq(0,10,0.01)
 plot(x, dburr(x, alpha=2, rho=-1), xlab="x", ylab="PDF", type="l")
