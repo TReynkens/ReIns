@@ -42,7 +42,7 @@ Now consider the random variable \eqn{Z=(X-\mu)/\sigma}, which has cumulants
 
 The Edgeworth approximation for the CDF of \eqn{X} (\eqn{F(x)}) is given by
 \deqn{\hat{F}_{E}(x) = \Phi(z) + \phi(z) (-\gamma_3/6 h_2(z)- (3\gamma_4h_3(z)+\gamma_3^2h_5(z))/72)}
-with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z}, \eqn{h_5(z)=z^4-10z^3+15z} and \eqn{z=(x-\mu)/\sigma}.
+with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z}, \eqn{h_5(z)=z^5-10z^3+15z} and \eqn{z=(x-\mu)/\sigma}.
 
 
 See Section 6.2 of Albrecher et al. (2016) for more details.
