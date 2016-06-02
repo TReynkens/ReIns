@@ -12,7 +12,7 @@ vignette: >
 # Introduction
 
 
-The ReIns package contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2015) of Albrecher, Beirlant and Teugels.
+The ReIns package contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Albrecher, Beirlant and Teugels.
 
 It contains implementations of
 
@@ -92,7 +92,7 @@ ParetoQQ_der(size, k=TRUE)
 
 
 ## Log-normal QQ-plot
-Finally, one can also consider the **log-normal QQ-plot** (`LognormalQQ`) and its derivative plot (`LognormalQQ_der`).
+One can also consider the **log-normal QQ-plot** (`LognormalQQ`) and its derivative plot (`LognormalQQ_der`).
 It is clear that a log-normal distribution is not suitable for this data.
 
 
@@ -107,6 +107,24 @@ LognormalQQ_der(size)
 
 # Derivative plot with k
 LognormalQQ_der(size, k=TRUE)
+```
+
+## Weibull QQ-plot
+Finally, we look at the **Weibull QQ-plot** (`WeibullQQ`) and its derivative plot (`WeibullQQ_der`).
+The concave shape indicates that the Weibull distribution is not suitable for this data.
+
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+
+# Weibull QQ-plot
+WeibullQQ(size)
+
+
+# Derivative plot with log X_{n-k,n}
+WeibullQQ_der(size)
+
+# Derivative plot with k
+WeibullQQ_der(size, k=TRUE)
 ```
 
 # Estimators of the EVI
