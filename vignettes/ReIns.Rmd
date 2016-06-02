@@ -43,7 +43,7 @@ vignette: >
 # Introduction
 
 
-The ReIns package contains functions and datasets of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
+The ReIns package contains functions of the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
 
 It contains implementations of
 
@@ -400,8 +400,9 @@ plot(X, xlab="Index", ylab="Simulated losses")
 Several distributions have been implemented in the package:
 
 * The Burr distribution (type XII): `burr`.
+* The Extended Pareto Distribution (EPD): `epd`.
 * The Fréchet distribution: `frechet`.
-* The Generalised Pareto distribution (GPD): `gpd`.
+* The Generalised Pareto Distribution (GPD): `gpd`.
 * The Pareto distribution: `pareto`.
 
 Moreover, several upper truncated distributions are included:
