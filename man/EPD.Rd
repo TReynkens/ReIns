@@ -32,7 +32,7 @@ Logical indication if the parameters are obtained by directly maximising the log
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
 }
   \item{logk}{
-Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
+Logical indicating if the estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.

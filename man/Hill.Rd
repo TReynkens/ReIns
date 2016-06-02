@@ -21,7 +21,7 @@ Vector of \eqn{n} observations.
 Logical indicating if the Hill estimates are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of \eqn{log X_{n-k}}. Default is \code{TRUE}.
 }
   \item{logk}{
-Logical indicating if the Hill estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k} when \code{k=TRUE}. Default is \code{FALSE}.
+Logical indicating if the Hill estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k} when \code{k=TRUE}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.

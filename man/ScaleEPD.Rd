@@ -23,7 +23,7 @@ Vector of \eqn{n-1} estimates for the EVI obtained from \code{EPD}.
 Vector of \eqn{n-1} estimates for \eqn{\kappa} obtained from \code{EPD}.
 }
   \item{logk}{
-Logical indicating if the estimates are plotted as a function of the \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
+Logical indicating if the estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.
