@@ -44,7 +44,7 @@ The Gram-Charlier approximation for the CDF of \eqn{X} (\eqn{F(x)}) is given by
 \deqn{\hat{F}_{GC}(x) = \Phi(z) + \phi(z) (-\gamma_3/6 h_2(z)- \gamma_4/24h_3(z))}
 with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z} and \eqn{z=(x-\mu)/\sigma}.
 
-See Albrecher et al. (2016) for details.
+See Section 6.2 of Albrecher et al. (2016) for more details.
 }
 \value{
 Vector of estimates for the probabilities \eqn{F(x)=P(X\le x)}.
@@ -66,10 +66,11 @@ Tom Reynkens
 # Chi-squared sample
 X <- rchisq(1000, 2)
 
-# Empirical moments
-moments = c(mean(X),mean(X^2),mean(X^3),mean(X^4))
 
-x <- seq(0,10,0.01)
+x <- seq(0, 10, 0.01)
+
+# Empirical moments
+moments = c(mean(X), mean(X^2), mean(X^3), mean(X^4))
 
 # Gram-Charlier approximation
 p1 <- pGC(x, moments)
@@ -77,17 +78,21 @@ p1 <- pGC(x, moments)
 # Edgeworth approximation
 p2 <- pEdge(x, moments)
 
+# Normal approximation
+p3 <- pClas(x, mean(X), var(X))
+
 # True probabilities
 p <- pchisq(x, 2)
 
 
-# Plot true and estimate probabilities
-plot(x, p, type="l", ylab="F(x)", ylim=c(0,1))
+# Plot true and estimated probabilities
+plot(x, p, type="l", ylab="F(x)", ylim=c(0,1), col="red")
 lines(x, p1, lty=2)
 lines(x, p2, lty=3)
+lines(x, p3, lty=4, col="blue")
 
 legend("bottomright", c("True CDF", "GC approximation", 
-                        "Edgeworth approximation"), lty=1:3)
-
+                        "Edgeworth approximation", "Normal approximation"), 
+       col=c("red", "black", "black", "blue"), lty=1:4, lwd=2)
 }
 
