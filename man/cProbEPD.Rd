@@ -51,9 +51,9 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The probability is estimated as \deqn{ (1-km) * (1-F(q))} with \eqn{F}
+The probability is estimated as \deqn{\hat{P}(X>q)= (1-km) * (1-F(q))} with \eqn{F}
 the CDF of the EPD with parameters \eqn{\gamma}, \eqn{\kappa} and \eqn{\tau=-\beta}
-and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}} (the \eqn{(k+1)}-st largest data point).
+and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}} (the \eqn{(k+1)}-th largest data point).
 }
 
 \value{
@@ -80,18 +80,18 @@ Tom Reynkens.
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # EPD estimator adapted for right censoring
-cepd <- cEPD(secura$size,censored=censored,plot=TRUE)
+cepd <- cEPD(secura$size, censored=censored, plot=TRUE)
 
 # Small exceedance probability
 q <- 10^7
-cProbEPD(secura$size,censored=censored,gamma1=cepd$gamma1,
-        kappa1=cepd$kappa1,beta=cepd$beta,q=q,plot=TRUE)
+cProbEPD(secura$size, censored=censored, gamma1=cepd$gamma1,
+        kappa1=cepd$kappa1, beta=cepd$beta, q=q, plot=TRUE)
 
 # Return period
-cReturnEPD(secura$size,censored=censored,gamma1=cepd$gamma1,
-        kappa1=cepd$kappa1,beta=cepd$beta,q=q,plot=TRUE)        
+cReturnEPD(secura$size, censored=censored, gamma1=cepd$gamma1,
+        kappa1=cepd$kappa1, beta=cepd$beta, q=q, plot=TRUE)        
 }
 

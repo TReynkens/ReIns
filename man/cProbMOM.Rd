@@ -45,7 +45,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The probability is estimated as
-\deqn{ (1-km) * (1+ \hat{\gamma}_1/a_{k,n} * (x-Z_{n-k,n}))^{-1/\hat{\gamma}_1}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the MOM estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
+\deqn{ \hat{P}(X>q)=(1-km) * (1+ \hat{\gamma}_1/a_{k,n} * (q-Z_{n-k,n}))^{-1/\hat{\gamma}_1}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the MOM estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
 \deqn{a_{k,n}=  Z_{n-k,n} H_{k,n} (1-\min(\hat{\gamma}_1,0)) /\hat{p}_k} with \eqn{H_{k,n}} the ordinary Hill estimator
 and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored.
 }
@@ -75,16 +75,16 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Moment estimator adapted for right censoring
-cmom <- cMoment(secura$size,censored=censored,plot=TRUE)
+cmom <- cMoment(secura$size, censored=censored, plot=TRUE)
 
 # Small exceedance probability
 q <- 10^7
-cProbMOM(secura$size,censored=censored,gamma1=cmom$gamma1,q=q,plot=TRUE)
+cProbMOM(secura$size, censored=censored, gamma1=cmom$gamma1, q=q, plot=TRUE)
 
 # Return period
-cReturnMOM(secura$size,censored=censored,gamma1=cmom$gamma1,q=q,plot=TRUE)
+cReturnMOM(secura$size, censored=censored, gamma1=cmom$gamma1, q=q, plot=TRUE)
 }
 

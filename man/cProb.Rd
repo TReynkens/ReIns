@@ -47,7 +47,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The probability is estimated as
-\deqn{ (1-km) * (x/Z_{n-k,n})^{-1/H_{k,n}^c}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c}
+\deqn{ \hat{P}(X>q)=(1-km) * (q/Z_{n-k,n})^{-1/H_{k,n}^c}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c}
 the Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}.
 }
 \value{
@@ -73,16 +73,16 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Hill estimator adapted for right censoring
-chill <- cHill(secura$size,censored=censored,plot=TRUE)
+chill <- cHill(secura$size, censored=censored, plot=TRUE)
 
 # Small exceedance probability
 q <- 10^7
-cProb(secura$size,censored=censored,gamma1=chill$gamma1,q=q,plot=TRUE)
+cProb(secura$size, censored=censored, gamma1=chill$gamma1, q=q, plot=TRUE)
 
 # Return period
-cReturn(secura$size,censored=censored,gamma1=chill$gamma1,q=q,plot=TRUE)
+cReturn(secura$size, censored=censored, gamma1=chill$gamma1, q=q, plot=TRUE)
 }
 

@@ -49,7 +49,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The probability is estimated as
-\deqn{ (1-km) * (1+ \hat{\gamma}_1/a_{k,n} * (x-Z_{n-k,n}))^{-1/\hat{\gamma}_1}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
+\deqn{ \hat{P}(X>q)=(1-km) * (1+ \hat{\gamma}_1/a_{k,n} * (q-Z_{n-k,n}))^{-1/\hat{\gamma}_1}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
 \deqn{a_{k,n} = \hat{\sigma}_1 / \hat{p}_k} with \eqn{\hat{\sigma}_1} the ML estimate for \eqn{\sigma_1}
 and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored.
 }
@@ -76,17 +76,17 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # GPD-MLE estimator adapted for right censoring
-cpot <- cGPDmle(secura$size,censored=censored,plot=TRUE)
+cpot <- cGPDmle(secura$size, censored=censored, plot=TRUE)
 
 # Exceedance probability
-q = 10^7
-cProbGPD(secura$size,gamma1=cpot$gamma1,sigma1=cpot$sigma1,
-         censored=censored,q=q,plot=TRUE)
+q <- 10^7
+cProbGPD(secura$size, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
+         censored=censored, q=q, plot=TRUE)
          
 # Return period
-cReturnGPD(secura$size,gamma1=cpot$gamma1,sigma1=cpot$sigma1,
-         censored=censored,q=q,plot=TRUE)         
+cReturnGPD(secura$size, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
+         censored=censored, q=q, plot=TRUE)         
 }
