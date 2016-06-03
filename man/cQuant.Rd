@@ -39,7 +39,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The quantile is estimated as \deqn{ Z_{n-k,n} * ( (1-km)/p)^{H_{k,n}^c}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c}
+The quantile is estimated as \deqn{\hat{Q}(1-p)=Z_{n-k,n} * ( (1-km)/p)^{H_{k,n}^c}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c}
 the Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}.
 }
 \value{
@@ -66,12 +66,12 @@ Tom Reynkens.
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Hill estimator adapted for right censoring
-chill <- cHill(secura$size,censored=censored,plot=TRUE)
+chill <- cHill(secura$size, censored=censored, plot=TRUE)
 
 # Large quantile
 p <- 10^(-4)
-cQuant(secura$size,gamma1=chill$gamma,censored=censored,p=p,plot=TRUE)
+cQuant(secura$size, gamma1=chill$gamma, censored=censored, p=p, plot=TRUE)
 }

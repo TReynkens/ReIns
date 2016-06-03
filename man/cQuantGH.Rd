@@ -40,9 +40,9 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The quantile is estimated as 
-\deqn{ Z_{n-k,n} + a_{k,n} ( ( (1-km)/p)^{\hat{\gamma}_1} -1 ) / \hat{\gamma}_1)} 
+\deqn{\hat{Q}(1-p)= Z_{n-k,n} + a_{k,n} ( ( (1-km)/p)^{\hat{\gamma}_1} -1 ) / \hat{\gamma}_1)} 
 ith \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
-\deqn{a_{k,n} = Z_{n-k,n} H_{k,n} (1-\min(\hat{\gamma}_1,0)) /\hat{p}_k} with \eqn{H_{k,n}} the ordinary Hill estimator
+\deqn{a_{k,n} = Z_{n-k,n} H_{k,n} (1-\min(\hat{\gamma}_1,0)) / \hat{p}_k} with \eqn{H_{k,n}} the ordinary Hill estimator
 and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored.
 }
 \value{
@@ -68,13 +68,13 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Generalised Hill estimator adapted for right censoring
-cghill <- cgenHill(secura$size,censored=censored,plot=TRUE)
+cghill <- cgenHill(secura$size, censored=censored, plot=TRUE)
 
 
 # Large quantile
 p <- 10^(-4)
-cQuantGH(secura$size,gamma1=cghill$gamma,censored=censored,p=p,plot=TRUE)
+cQuantGH(secura$size, gamma1=cghill$gamma, censored=censored, p=p, plot=TRUE)
 }

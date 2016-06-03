@@ -43,7 +43,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The quantile is estimated as 
-\deqn{ Z_{n-k,n} + a_{k,n} ( ( (1-km)/p)^{\hat{\gamma}_1} -1 ) / \hat{\gamma}_1)} 
+\deqn{\hat{Q}(1-p)= Z_{n-k,n} + a_{k,n} ( ( (1-km)/p)^{\hat{\gamma}_1} -1 ) / \hat{\gamma}_1)} 
 ith \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
 \deqn{a_{k,n} = \hat{\sigma}_1 / \hat{p}_k} with \eqn{\hat{\sigma}_1} the ML estimate for \eqn{\sigma_1}
 and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored.
@@ -71,13 +71,13 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # GPD-MLE estimator adapted for right censoring
-cpot <- cGPDmle(secura$size,censored=censored,plot=TRUE)
+cpot <- cGPDmle(secura$size, censored=censored, plot=TRUE)
 
 # Large quantile
 p <- 10^(-4)
-cQuantGPD(secura$size,gamma1=cpot$gamma1,sigma1=cpot$sigma1,
-         censored=censored,p=p,plot=TRUE)
+cQuantGPD(secura$size, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
+         censored=censored, p=p, plot=TRUE)
 }         
