@@ -22,16 +22,16 @@ Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics o
 \examples{
 data(secura)
 
-# Exponential QQplot of Secura data
+# Exponential QQ-plot of Secura data
 ExpQQ(secura$size)
 
-# Pareto QQplot of Secura data
+# Pareto QQ-plot of Secura data
 ParetoQQ(secura$size)
 
 #Mean excess plot of Secura data (function of k)
-MeanExcess(secura$size,k=TRUE)
+MeanExcess(secura$size, k=TRUE)
 
 # Mean excess plot of Secura data (function of order statistics)
-MeanExcess(secura$size,k=FALSE)
+MeanExcess(secura$size, k=FALSE)
 }
 \keyword{datasets}

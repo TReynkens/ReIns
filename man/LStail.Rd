@@ -45,10 +45,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 We estimate \eqn{\gamma} (EVI) and \eqn{b} using least squares on the following regression model (Beirlant et al., 2005): \eqn{Z_j = \gamma + b(n/k) (j/k)^{-\rho} + \epsilon_j} with \eqn{Z_j = (j+1) \log(UH_{j,n}/UH_{j+1,n})} and \eqn{UH_{j,n}=X_{n-j,n}H_{j,n}} where \eqn{H_{j,n}} is the Hill estimator with threshold \eqn{X_{n-j,n}}.
+
 See Section 5.8 of Beirlant et al. (2004) for more details.
 
 The function \code{TSfraction} is included for compatibility with the old \code{S-Plus} code.
-
 }
 \value{
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
@@ -63,8 +63,6 @@ Beirlant, J., Dierckx, G. and Guillou, A. (2005). "Estimation of the Extreme Val
 Beirlant, J., Dierckx, G., Guillou, A. and Starica, C. (2002). "On Exponential Representations of Log-spacing of Extreme Order Statistics." \emph{Extremes}, 5, 157--180.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
-
-
 }
 \author{
 Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
@@ -79,7 +77,7 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 data(soa)
 
 # LS tail estimator
-LStail(soa$size,plot=TRUE,ylim=c(0,0.5))
+LStail(soa$size, plot=TRUE, ylim=c(0,0.5))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
