@@ -75,8 +75,8 @@ Tom Reynkens based on \code{R} code from A. Bardoutsos.
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # EPD estimator adapted for right censoring
-cepd <- cEPD(secura$size,censored=censored,plot=TRUE)
+cepd <- cEPD(secura$size, censored=censored, plot=TRUE)
 }

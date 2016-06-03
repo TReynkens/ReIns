@@ -2,7 +2,7 @@
 \alias{cExpQQ}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Exponential QQ-plot for right censored data
+Exponential quantile plot for right censored data
 }
 \description{
 Exponential QQ-plot adapted for right censored data.
@@ -29,10 +29,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The exponential QQ-plot adapted for right censoring is given by
-\deqn{( -\log(1-F_{km}(Z_{n-j+1,n})),  Z_{n-j+1,n} )}
-for \eqn{j=1,...,n-1,}
+\deqn{( -\log(1-F_{km}(Z_{j,n})),  Z_{j,n} )}
+for \eqn{j=1,\ldots,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
-Hence, it has the same empirical quantiles as an ordinary exponential QQ-plot but replaces the theoretical quantiles \eqn{-\log(j/(n+1))} by \eqn{-\log(1-F_{km}(Z_{n-j+1,n}))}.
+Hence, it has the same empirical quantiles as an ordinary exponential QQ-plot but replaces the theoretical quantiles \eqn{-\log(1-j/(n+1))} by \eqn{-\log(1-F_{km}(Z_{j,n}))}.
 
 This QQ-plot is only suitable for right censored data.
 
@@ -60,8 +60,8 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Exponential QQ-plot adapted for right censoring
-cExpQQ(secura$size,censored=censored)
+cExpQQ(secura$size, censored=censored)
 }
