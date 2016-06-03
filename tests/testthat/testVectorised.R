@@ -100,30 +100,7 @@ test_that("Censored estimators for-loops", {
                   na.rm=TRUE)<eps)
   
 	  
-	  
-  ######################
-  # cgenQQ
-  
 
-  indNA <- rep(0,n)
-  gqq.the3 <- numeric(n)
-  gqq.emp3 <- numeric(n)
-  #gamma = cHill(X,censored=censored)$gamma
-  gamma = Hill(X)$gamma
-  for (j in 1:(n-1)) { 
-    gqq.the3[j] <-  -log(1-KaplanMeier(X[n-j+1],X,censored))
-    gqq.emp3[j] <- log(X[n-j]*gamma[j])
-    #indNA[j] = ifelse(sum(delta[1:(n-j+1)])==0,1,0)
-  }
-#   gqq.emp3[indNA] <- NA
-#   gqq.the3[indNA] <- NA
-  
-  expect_true(max(abs(cgenQQ(X,censored=censored,plot=FALSE)$gqq.the- gqq.the3 )/ gqq.the3 ,
-                  na.rm=TRUE)<eps)
-  expect_true(max(abs(cgenQQ(X,censored=censored,plot=FALSE)$gqq.emp- gqq.emp3 )/ gqq.emp3 ,
-                  na.rm=TRUE)<eps)
-  
-  
   ################################
   # p.hat.fun
   

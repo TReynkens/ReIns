@@ -78,7 +78,7 @@ export("ProbReg","QuantReg")
 
 export("KaplanMeier", "Turnbull")
 
-export("cExpQQ","cLognormalQQ","cParetoQQ","cgenQQ")
+export("cExpQQ","cLognormalQQ","cParetoQQ")
 
 export("cHill","cProb","cQuant","cReturn")
 export("cEPD","cProbEPD","cReturnEPD")
