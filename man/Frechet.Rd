@@ -39,7 +39,7 @@ Location parameter of the Fréchet distribution, default is 0.
 Scale parameter of the Fréchet distribution, default is 1.
 }
 \item{log}{
-  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+  Logical indicating if the densities are given as \eqn{log(f)}, default is \code{FALSE}.
  }
  \item{lower.tail}{
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}

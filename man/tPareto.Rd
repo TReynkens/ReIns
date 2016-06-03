@@ -37,7 +37,7 @@ The scale parameter of the truncated Pareto distribution, a strictly positive nu
 Endpoint of the truncated Pareto distribution. The default value is \code{Inf} for which the truncated Pareto distribution corresponds to the ordinary Pareto distribution.
 }
  \item{log}{
-  Logical indicating if the densities are given as log(f), default is \code{FALSE}.
+  Logical indicating if the densities are given as \eqn{log(f)}, default is \code{FALSE}.
  }
  \item{lower.tail}{
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
