@@ -73,11 +73,11 @@ Tom Reynkens.
 \examples{
 
 # Plot of the PDF
-x = seq(1,10,0.01)
+x <- seq(1, 10, 0.01)
 plot(x, dtfrechet(x, shape=2, endpoint=5), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
-x = seq(1,10,0.01)
+x <- seq(1, 10, 0.01)
 plot(x, ptfrechet(x, shape=2, endpoint=5), xlab="x", ylab="CDF", type="l")
 
 }

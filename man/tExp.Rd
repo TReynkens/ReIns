@@ -65,11 +65,11 @@ Tom Reynkens.
 \examples{
 
 # Plot of the PDF
-x = seq(0,10,0.01)
+x <- seq(0, 10, 0.01)
 plot(x, dtexp(x, rate = 2, endpoint=5), xlab="x", ylab="PDF", type="l")
 
 # Plot of the CDF
-x = seq(0,10,0.01)
+x <- seq(0, 10, 0.01)
 plot(x, ptexp(x, rate = 2, endpoint=5), xlab="x", ylab="CDF", type="l")
 
 }
