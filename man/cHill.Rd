@@ -63,8 +63,8 @@ Tom Reynkens
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Hill estimator adapted for right censoring
-chill <- cHill(secura$size,censored=censored,plot=TRUE)
+chill <- cHill(secura$size, censored=censored, plot=TRUE)
 }

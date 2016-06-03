@@ -23,10 +23,10 @@ cgenHill(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
 Logical indicating if the estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
-Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
 }
   \item{add}{
-Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{\gamma_1} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
 Title for the plot, default is \code{"Generalised Hill estimates of EVI"}.
@@ -55,14 +55,14 @@ Tom Reynkens
 }
 
 \seealso{
-\code{\link{genHill}}, \code{\link{cgenQQ}}, \code{\link{cHill}}, \code{\link{cProbGH}}, \code{\link{cQuantGH}}
+\code{\link{genHill}}, \code{\link{cHill}}, \code{\link{cProbGH}}, \code{\link{cQuantGH}}
 }
 \examples{
 data(secura)
 
 # Censoring indicator
-censored <- sample(0:1,length(secura$size),replace=TRUE)
+censored <- sample(0:1, length(secura$size), replace=TRUE)
 
 # Generalised Hill estimator adapted for right censoring
-cghill <- cgenHill(secura$size,censored=censored,plot=TRUE)
+cghill <- cgenHill(secura$size, censored=censored, plot=TRUE)
 }
