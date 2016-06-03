@@ -49,20 +49,22 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-We observe the untruncated r.v. \eqn{X=W | W<T} where \eqn{T} is the truncation point and \eqn{W} the untruncated r.v..
+We observe the truncated r.v. \eqn{X=W | W<T} where \eqn{T} is the truncation point and \eqn{W} the untruncated r.v..
 
 Under rough truncation, the quantiles for \eqn{X} are estimated using
-\deqn{X_{n-k,n}  ((k+1)/((n+1)p))^{\hat{\gamma}_k} ( 1 + (n+1)\hat{D_T}/(k+1) / (1+\hat{D_T}/p) )^{\hat{\gamma}_k},}
-with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation and \eqn{\hat{D_T}} the estimates for the odds ratio.
+\deqn{\hat{Q}(1-p)=X_{n-k,n}  ((\hat{D}_T + (k+1)/(n+1))/(\hat{D}_T+p))^{\hat{\gamma}_k},}
+with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation and \eqn{\hat{D}_T} the estimates for the odds ratio.
 
 Under light truncation, the quantiles are estimated using the Weissman estimator with the Hill estimates replaced
 by the truncated Hill estimates:
-\deqn{X_{n-k,n}  ((k+1)/((n+1)p))^{\hat{\gamma}_k}.}
+\deqn{\hat{Q}(1-p)=X_{n-k,n}  ((k+1)/((n+1)p))^{\hat{\gamma}_k}.}
 
 To decide between light and rough truncation, one can use the test implemented in \code{\link{trTest}}.
 
 The quantiles for \eqn{W} are estimated using
-\deqn{X_{n-k,n} ( (\hat{D_T} + (k+1)/(n+1)) / (p(1+\hat{D_T}))^{\hat{\gamma}_k}.}
+\deqn{\hat{Q}_W(1-p)=X_{n-k,n} ( (\hat{D}_T + (k+1)/(n+1)) / (p(1+\hat{D}_T))^{\hat{\gamma}_k}.}
+
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -71,6 +73,8 @@ A list with following components:
 \item{p}{The used exceedance probability.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.
 }
@@ -88,18 +92,19 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 # Sample from truncated Pareto distribution.
 # truncated at 99\% quantile
 shape <- 2
-X <- rtpareto(n=1000,shape=shape,endpoint=qpareto(0.99,shape=shape))
+X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 
 # Truncated Hill estimator
-trh <- trHill(X,plot=TRUE,ylim=c(0,2))
+trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 
 # Odds ratio
-dt <- trDT(X,gamma=trh$gamma,plot=TRUE,ylim=c(0,2))
+dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,2))
 
 # Large quantile
 p <- 10^(-5)
+# Truncated distribution
 trQuant(X, gamma=trh$gamma, DT=dt$DT, p=p, plot=TRUE)
-
+# Original distribution
 trQuantW(X, gamma=trh$gamma, DT=dt$DT, p=p, plot=TRUE, ylim=c(0,1000))
 
 }

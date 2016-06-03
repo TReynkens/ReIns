@@ -316,7 +316,7 @@ test_that("Truncation (gamma pos) for-loops", {
   G[K] <- gamma
   
   for (k in (n-1):r) {
-    Tk[k] <- exp( max(log(X[n-k]) + G[k] * log(1+(k+1)/((n+1)*Dt[k])),log(X[n])) )
+    Tk[k] <- max(X[n-k] * (1+(k+1)/((n+1)*Dt[k]))^G[k], X[n])
   }
   
   expect_true(max(abs(trEndpoint(X,gamma=gamma,DT=DT,r=r)$Tk-Tk[K]),na.rm=TRUE)<eps)

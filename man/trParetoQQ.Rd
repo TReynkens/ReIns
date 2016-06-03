@@ -38,16 +38,17 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The Pareto QQ-plot for truncated data plots 
 \deqn{ (-log(\hat{D}_{T,r,k^*,n}+j/(n+1)), log(X_{n-j+1,n}) )}
-for \eqn{j=1,...,n-1}.
+for \eqn{j=1,\ldots,n}.
 
 The value for \eqn{k^*} can be be given by the user or can be determined automatically.
-In the latter case, we use the \eqn{k^*} that maximises the absolute value of the correlation between \eqn{log(X_{n-j+1,n})}
-and \eqn{log(\hat{D}_{T,r,k^*,n}+j/(n+1))} for \eqn{j=1,...k} and \eqn{k^*>10}.
+In the latter case, we use the \eqn{k^*} that maximises the absolute value of the correlation between \eqn{-log(\hat{D}_{T,r,k^*,n}+j/(n+1))} and \eqn{log(X_{n-j+1,n})} for \eqn{j=1,\ldots,k} and \eqn{k^*>10}.
 
 When taking \eqn{D_T=0}, one obtains the ordinary Pareto QQ-plot.
 
 Note that the definition here differs slightly from the one in Beirlant et al. (2016).
 We plot the empirical and theoretical quantiles the other way around and therefore have to add a minus (before the log).
+
+See Beirlant et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -73,10 +74,10 @@ Tom Reynkens.
 }
 \examples{
 # Endpoint of truncated Pareto distribution
-endpoint <- qpareto(0.99,shape=2)
+endpoint <- qpareto(0.99, shape=2)
 
 # Generate sample from truncated Pareto distribution
-X <- rtpareto(1000,shape=2,endpoint=endpoint)
+X <- rtpareto(1000, shape=2, endpoint=endpoint)
 
 # Ordinary Pareto QQ-plot
 ParetoQQ(X)

@@ -43,11 +43,13 @@ We reject \eqn{H_0} on level \eqn{\alpha} if
 where \eqn{z_{\alpha}} is the \eqn{100(1-\alpha)\%} quantile of a standard normal distribution.
 The corresponding P-value is thus given by
 \deqn{\Phi(T_{k,n})} with \eqn{\Phi} the CDF of a standard normal distribution.
+
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
-\item{testVal}{Corresponding test values}
+\item{testVal}{Corresponding test values.}
 \item{critVal}{Critical value used for the test, i.e. \code{qnorm(1-alpha/2)}.}
 \item{Pval}{Corresponding P-values.}
 \item{Reject}{Logical vector indicating if the null hypothesis is rejected for a certain value of \code{k}.}
@@ -72,7 +74,7 @@ Tom Reynkens.
 # Sample from truncated Pareto distribution.
 # truncated at 95\% quantile
 shape <- 2
-X <- rtpareto(n=1000,shape=shape,endpoint=qpareto(0.95,shape=shape))
+X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.95, shape=shape))
 
 # Test for truncation
 trTest(X)
@@ -81,7 +83,7 @@ trTest(X)
 # Sample from truncated Pareto distribution.
 # truncated at 99\% quantile
 shape <- 2
-X <- rtpareto(n=1000,shape=shape,endpoint=qpareto(0.99,shape=shape))
+X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 
 # Test for truncation
 trTest(X)

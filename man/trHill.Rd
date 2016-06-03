@@ -5,7 +5,7 @@
 Hill estimator for upper truncated data
 }
 \description{
-Computes the Hill estimator for positive extreme value indices, adapted for upper truncation, as a function of the tail parameter \eqn{k}. Optionally, these estimates are plotted as a function of \eqn{k}.
+Computes the Hill estimator for positive extreme value indices, adapted for upper truncation, as a function of the tail parameter \eqn{k} (Aban et al. 2006; Beirlant et al., 2016). Optionally, these estimates are plotted as a function of \eqn{k}.
 }
 \usage{
 trHill(data, r = 1, tol = 1e-08, maxiter = 100, logk = FALSE,
@@ -29,10 +29,10 @@ Maximum number of Newton-Raphson iterations, default is \code{100}.
 Logical indicating if the estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
-Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
 }
   \item{add}{
-Logical indicating if the estimates of \eqn{\gamma_1} should be added to an existing plot, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
 Title for the plot, default is \code{"Estimates of EVI"}.
@@ -52,6 +52,8 @@ and is a basic extension of the Hill estimator for upper truncated data (the ord
 The equation that needs to be solved is
 \deqn{H_{r,k,n} = \gamma + R_{r,k,n}^{1/\gamma} \log(R_{r,k,n}) / (1-R_{r,k,n}^{1/\gamma})}
 with \eqn{R_{r,k,n} = X_{n-k,n} / X_{n-r+1,n}}.
+
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -62,6 +64,8 @@ A list with following components:
 \references{
 Aban, I.B., Meerschaert, M.M. and Panorska, A.K. (2006). "Parameter Estimation for the Truncated
 Pareto Distribution." \emph{Journal of the American Statistical Association}, 101, 270--277.
+
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.
@@ -80,10 +84,10 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 # Sample from truncated Pareto distribution.
 # truncated at 99\% quantile
 shape <- 2
-X <- rtpareto(n=1000,shape=shape,endpoint=qpareto(0.99,shape=shape))
+X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 
 # Truncated Hill estimator
-trh <- trHill(X,plot=TRUE,ylim=c(0,2))
+trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 }
 
 

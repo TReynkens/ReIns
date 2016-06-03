@@ -39,8 +39,10 @@ The odds ratio is defined as
 \deqn{(1-F(T))/F(T)} with \eqn{T} the upper truncation point and \eqn{F} the CDF of the untruncated distribution (e.g. Pareto distribution).
 
 We estimate this odds ratio as
-\deqn{\max( (k+1)/(n+1) ( R_{r,k,n}^{1/\gamma_k} - 1/(k+1) ) / (1-R_{r,k,n}^{1/\gamma_k}), 0)}
+\deqn{\hat{D}_T=\max( (k+1)/(n+1) ( R_{r,k,n}^{1/\gamma_k} - 1/(k+1) ) / (1-R_{r,k,n}^{1/\gamma_k}), 0)}
 with \eqn{R_{r,k,n} = X_{n-k,n} / X_{n-r+1,n}}.
+
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -48,6 +50,8 @@ A list with following components:
 \item{DT}{Vector of the corresponding estimates for the odds ratio \eqn{D_T}.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.
 }
@@ -62,11 +66,11 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 # Sample from truncated Pareto distribution.
 # truncated at 99\% quantile
 shape <- 2
-X <- rtpareto(n=1000,shape=shape,endpoint=qpareto(0.99,shape=shape))
+X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 
 # Truncated Hill estimator
-trh <- trHill(X,plot=TRUE,ylim=c(0,2))
+trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 
 # Odds ratio
-dt <- trDT(X,gamma=trh$gamma,plot=TRUE,ylim=c(0,2))
+dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,2))
 }

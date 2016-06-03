@@ -128,7 +128,7 @@ trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE,
   }
   
   
-  Tk[K] <-  exp( pmax( log(X[n-K]) + gamma * log(1+(K+1)/((n+1)*DT)), log(X[n])) )
+  Tk[K] <- pmax(X[n-K] * (1+(K+1)/((n+1)*DT))^gamma, X[n])
   
   ### plots if TRUE  
   .plotfun(K, Tk[K], type="l", xlab="k", ylab=expression(T[k]), main=main, plot=plot, add=add, ...)
@@ -278,7 +278,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
     cors <- numeric(length(k)) 
     
     for(i in 1:length(k)) {
-      cors[i] <- abs( cor(log(X[n-(1:k[i])+1]), log(DT[K==k[i]]+(1:k[i])/n)) )
+      cors[i] <- abs( cor(log(X[n-(1:k[i])+1]), -log(DT[K==k[i]]+(1:k[i])/n)) )
     }
     # Value for k which maximises correlation
     kstar <- k[which.max(cors)]

@@ -40,8 +40,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The endpoint is estimated as
-\deqn{\log(\hat{T}_{k,n}) = \max( \log(X_{n-k,n}) + \hat{\gamma}_k \log(1+(k+1)/((n+1)\hat{D_T})), \log(X_{n,n}) ),}
-with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation and \eqn{hat{D_T}} the estimates for the odds ratio.
+\deqn{\hat{T}_{k,n} = \max(X_{n-k,n}  ((\hat{D}_T + (k+1)/(n+1))/\hat{D}_T)^{\hat{\gamma}_k},X_{n,n})}
+with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation and \eqn{hat{D}_T} the estimates for the odds ratio.
+
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -49,6 +51,8 @@ A list with following components:
 \item{Tk}{Vector of the corresponding estimates for the endpoint \eqn{T}.}
 }
 \references{
+Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.
 }
@@ -63,15 +67,15 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 # Sample from truncated Pareto distribution.
 # truncated at 99\% quantile
 shape <- 2
-X <- rtpareto(n=1000,shape=shape,endpoint=qpareto(0.99,shape=shape))
+X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 
 # Truncated Hill estimator
-trh <- trHill(X,plot=TRUE,ylim=c(0,2))
+trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 
 # Odds ratio
-dt <- trDT(X,gamma=trh$gamma,plot=TRUE,ylim=c(0,2))
+dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,2))
 
 # Endpoint
-trEndpoint(X,gamma=trh$gamma, DT=dt$DT,plot=TRUE,ylim=c(8,12))
-abline(h=qpareto(0.99,shape=shape),lty=2)
+trEndpoint(X, gamma=trh$gamma, DT=dt$DT, plot=TRUE, ylim=c(8,12))
+abline(h=qpareto(0.99, shape=shape), lty=2)
 }
