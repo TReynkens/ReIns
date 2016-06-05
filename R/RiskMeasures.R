@@ -41,7 +41,7 @@
 # Auxiliary function used in ExcessSplice
 .IntTailPareto_aux <- function(t, gamma, R, endpoint = Inf) {
   
-  if (gamma>=1) stop("gamma should be strictly smaller than 1.")
+  if (any(gamma>=1)) stop("gamma should be strictly smaller than 1.")
   
   # Premium
   if (is.finite(endpoint)) {
@@ -62,7 +62,7 @@
 
 
 # Integrated tail function using EPD estimates
-.IntTailEPD <- function(data, gamma, delta, tau, R, warnings = TRUE, plot = TRUE, add = FALSE,
+.IntTailEPD <- function(data, gamma, kappa, tau, R, warnings = TRUE, plot = TRUE, add = FALSE,
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
@@ -72,8 +72,8 @@
     stop("R should be a numeric of length 1.")
   }
   
-  if (length(gamma)!=length(delta) | length(gamma)!=length(tau)) {
-    stop("gamma, delta and tau should have equal length.")
+  if (length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
+    stop("gamma, kappa and tau should have equal length.")
   } 
   
   
@@ -82,8 +82,8 @@
   premium <- numeric(n)
   K <- 1:(n-1)
   
-  premium[K] <- (K+1) / (n+1) * X[n-K]^(1/gamma[K]) * ( (1-delta[K]/gamma[K]) / (1/gamma[K]-1) * R^(1-1/gamma[K]) +
-                                                          delta[K]/(gamma[K]*X[n-K]^tau[K]) / (1/gamma[K]-tau[K]-1) *
+  premium[K] <- (K+1) / (n+1) * X[n-K]^(1/gamma[K]) * ( (1-kappa[K]/gamma[K]) / (1/gamma[K]-1) * R^(1-1/gamma[K]) +
+                                                          kappa[K]/(gamma[K]*X[n-K]^tau[K]) / (1/gamma[K]-tau[K]-1) *
                                                           R^(1+tau[K]-1/gamma[K]) )
   
   # Remove negative values
@@ -150,7 +150,7 @@
 # Auxiliary function used in ExcessSplice
 .IntTailGPD_aux <- function(t, gamma, sigma, R, endpoint = Inf) {
   
-  if (gamma>=1) stop("gamma should be strictly smaller than 1.")
+  if (any(gamma>=1)) stop("gamma should be strictly smaller than 1.")
   
   if (is.finite(endpoint)) {
     
@@ -225,6 +225,12 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
     stop("L should be positive.")
   }
   
+  if (length(L)!=length(R)) {
+    if(length(L)!=1 & length(R)!=1) {
+      stop("R and L should have equal length or at least one of them should have length 1.")
+    }
+  }
+  
   f <- function(R) .IntTailGPD(R=R, data=data, gamma=gamma, sigma=sigma, warnings=warnings, 
                                plot=FALSE, add=FALSE) 
   
@@ -249,7 +255,7 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
 }
 
 # Premium of excess-loss insurance with retention R and limit L using EPD estimates
-ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
+ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                       main="Estimates for premium of excess-loss insurance", ...) {
   
   
@@ -261,7 +267,13 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
     stop("L should be positive.")
   }
   
-  f <- function(R) .IntTailEPD(R=R, data=data, gamma=gamma, delta=delta, tau=tau, warnings=warnings, 
+  if (length(L)!=length(R)) {
+    if(length(L)!=1 & length(R)!=1) {
+      stop("R and L should have equal length or at least one of them should have length 1.")
+    }
+  }
+  
+  f <- function(R) .IntTailEPD(R=R, data=data, gamma=gamma, kappa=kappa, tau=tau, warnings=warnings, 
                               plot=FALSE, add=FALSE) 
   
   res <- f(R)
@@ -372,9 +384,9 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
 
       # Set C to Inf because C is maximal cover amount
       me_u <- .ME_XL(R=R[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
-                    theta = MEfit$theta)
+                     theta = MEfit$theta)
       me_t <- .ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
-                    theta = MEfit$theta)
+                     theta = MEfit$theta)
       F0 <- .ME_cdf(trunclower, shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
 
@@ -414,13 +426,13 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
     if (R[i] > tvec[l]) {
       # R[i]>tvec[l] case
       premium[i] <- (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
-                                                     endpoint=endpoint[l], R=R[i])
+                                                   endpoint=endpoint[l], R=R[i])
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <-  (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
-                                                      endpoint=endpoint[l], R=tvec[l])
+      premium[i] <- (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+                                                   endpoint=endpoint[l], R=tvec[l])
     }  
     
     # Only necessary if more than 2 EVT parts in splicing
@@ -473,9 +485,9 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
       
       # Set C to Inf because C is maximal cover amount
       me_u <- .ME_XL(R=R[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
-                    theta = MEfit$theta)
+                     theta = MEfit$theta)
       me_t <- .ME_XL(R=tvec[1], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
-                    theta = MEfit$theta)
+                     theta = MEfit$theta)
       F0 <- .ME_cdf(trunclower, shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       Ft <- .ME_cdf(tvec[1], shape = MEfit$shape, alpha = MEfit$p, theta = MEfit$theta)
       
@@ -526,8 +538,6 @@ ExcessSplice <- function(R, L=Inf, splicefit) {
   # First premium
   Im <- f(R)
   
-  
-  
   # Length of premium vector
   le <- max(length(L), length(R))
   
@@ -538,9 +548,7 @@ ExcessSplice <- function(R, L=Inf, splicefit) {
   Il <- f(R+L)
   
   # Numerical issues can arrise when L=Inf
-  Il[!is.finite(L)] <- 0
-  
-  
+  Il[is.infinite(L)] <- 0
   
   
   # Final premium
@@ -576,7 +584,7 @@ ES <- function(p, splicefit) {
   # VaR
   VaR <- VaR(p=p, splicefit=splicefit)
 
-  # Conditional tail expectation 
+  # ES
   es <-  VaR + 1/p * ExcessSplice(VaR, splicefit=splicefit)
     
   return(es)
