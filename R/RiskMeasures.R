@@ -7,37 +7,19 @@
                     main="Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma)
+  .checkInput(data, gamma)
   
   X <- as.numeric(sort(data))
   n <- length(X)
   premium <- numeric(n)
   K <- 1:(n-1)
   
-  
-  
   if (length(R)>1 & length(R)!=(n-1)) {
     stop("R should be a numeric of length 1 or n-1.")
   }
   
   # Premium
-  if (is.finite(endpoint)) {
-    
-    if (R>=endpoint) {
-      premium <- 0
-      
-    } else {
-      # Truncated Pareto model
-      #beta <- X[n]/X[n-K]
-      beta <- endpoint/X[n-K]
-      premium[K] <- (K+1) / (n+1) / (1-beta^(-1/gamma[K])) * ( X[n-K]^(1/gamma[K]) / (1/gamma[K]-1) * 
-                    (R^(1-1/gamma[K]) - endpoint^(1-1/gamma[K])) + beta^(-1/gamma[K]) * (R - endpoint) )
-    }
-  } else {
-    # Pareto model
-    premium[K] <- (K+1) / (n+1) / (1/gamma[K]-1) * X[n-K]^(1/gamma[K]) * R^(1-1/gamma[K])
-  }
-
+  premium[K] <- (K+1) / (n+1) * .IntTailPareto_aux(t=X[n-K], gamma=gamma[K], R=R, endpoint=endpoint)
   
   # Remove negative values
   premium[premium<0] <- NA
@@ -57,20 +39,19 @@
 }
 
 # Auxiliary function used in ExcessSplice
-.IntTailPareto_single <- function(t, gamma, R, endpoint = Inf) {
+.IntTailPareto_aux <- function(t, gamma, R, endpoint = Inf) {
+  
+  if (gamma>=1) stop("gamma should be strictly smaller than 1.")
   
   # Premium
   if (is.finite(endpoint)) {
-    
-    if (R>=endpoint) {
-      premium <- 0
-      
-    } else {
-      # Truncated Pareto model
-      beta <- endpoint/t
-      premium <- 1 / (1-beta^(-1/gamma)) * ( t^(1/gamma) / (1/gamma-1) * 
-                                               (R^(1-1/gamma) - endpoint^(1-1/gamma)) + beta^(-1/gamma) * (R - endpoint) )
-    }
+
+    # Truncated Pareto model
+    beta <- endpoint/t
+    premium <- 1 / (1-beta^(-1/gamma)) * ( t^(1/gamma) / (1/gamma-1) * 
+                                             (R^(1-1/gamma) - endpoint^(1-1/gamma)) + beta^(-1/gamma) * (R - endpoint) )
+    # Special case if R>=endpoint
+    premium[R>=endpoint] <- 0
     
   } else {
     # Pareto model
@@ -102,7 +83,7 @@
   K <- 1:(n-1)
   
   premium[K] <- (K+1) / (n+1) * X[n-K]^(1/gamma[K]) * ( (1-delta[K]/gamma[K]) / (1/gamma[K]-1) * R^(1-1/gamma[K]) +
-                                                        delta[K]/(gamma[K]*X[n-K]^tau[K]) / (1/gamma[K]-tau[K]-1) *
+                                                          delta[K]/(gamma[K]*X[n-K]^tau[K]) / (1/gamma[K]-tau[K]-1) *
                                                           R^(1+tau[K]-1/gamma[K]) )
   
   # Remove negative values
@@ -145,7 +126,7 @@
   premium <- numeric(n)
   K <- 1:(n-1)
   
-  premium[K] <- (K+1) / (n+1) * sigma[K]/(1-gamma[K]) * (1 + gamma[K]/sigma[K] * (R-X[n-K]) )^(1-1/gamma[K])
+  premium[K] <- (K+1) / (n+1) * .IntTailGPD_aux(t=X[n-K], gamma=gamma[K], sigma=sigma[K], endpoint=Inf, R=R)
 
   # Remove negative values
   premium[premium<0] <- NA
@@ -167,17 +148,16 @@
 
 
 # Auxiliary function used in ExcessSplice
-.IntTailGPD_single <- function(t, gamma, sigma, R, endpoint = Inf) {
+.IntTailGPD_aux <- function(t, gamma, sigma, R, endpoint = Inf) {
+  
+  if (gamma>=1) stop("gamma should be strictly smaller than 1.")
   
   if (is.finite(endpoint)) {
     
-    if (R>=endpoint) {
-      premium <- 0
-      
-    } else {
-      pT <- pgpd(endpoint, mu=t, gamma=gamma, sigma=sigma)
-      premium <- ( sigma/(1-gamma) * ( (1 + gamma/sigma * (R-t) )^(1-1/gamma) - (1 + gamma/sigma * (endpoint-t) )^(1-1/gamma) ) + (1-pT)*(R-endpoint)) / pT
-    }
+    pT <- pgpd(endpoint, mu=t, gamma=gamma, sigma=sigma)
+    premium <- ( sigma/(1-gamma) * ( (1 + gamma/sigma * (R-t) )^(1-1/gamma) - (1 + gamma/sigma * (endpoint-t) )^(1-1/gamma) ) + (1-pT)*(R-endpoint)) / pT
+    # Special case if R>=endpoint
+    premium[R>=endpoint] <- 0
     
   } else {
     premium <- sigma/(1-gamma) * (1 + gamma/sigma * (R-t) )^(1-1/gamma)
@@ -208,7 +188,7 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
   }
   
   f <- function(R) .IntTailPareto(R=R, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
-                               plot=FALSE, add=FALSE) 
+                                  plot=FALSE, add=FALSE) 
   
   res <- f(R)
   Im <- res$premium
@@ -330,13 +310,13 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
     
     if (R[i] > tvec[l]) {
       # R[i]>tvec[l] case
-      premium[i] <- (1-const[l]) * .IntTailPareto_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], R=R[i])
+      premium[i] <- (1-const[l]) * .IntTailPareto_aux(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], R=R[i])
       
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <- (1-const[l]) * .IntTailPareto_single(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], R=tvec[l])
+      premium[i] <- (1-const[l]) * .IntTailPareto_aux(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], R=tvec[l])
     } 
       
     
@@ -351,8 +331,8 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=tvec[j+1])
-          par_u <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=R[i])
+          par_tt <- .IntTailPareto_aux(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=tvec[j+1])
+          par_u <- .IntTailPareto_aux(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=R[i])
           
           # Integrate from R[i] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-R[i]) + premium[i]
@@ -370,8 +350,8 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=tvec[j+1])
-          par_t <- .IntTailPareto_single(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=tvec[j])
+          par_tt <- .IntTailPareto_aux(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=tvec[j+1])
+          par_t <- .IntTailPareto_aux(t=tvec[j], gamma=EVTfit$gamma[j], endpoint=e, R=tvec[j])
           
           # Integrate from tvec[j+1] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]
@@ -433,13 +413,13 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
     
     if (R[i] > tvec[l]) {
       # R[i]>tvec[l] case
-      premium[i] <- (1-const[l]) * .IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+      premium[i] <- (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
                                                      endpoint=endpoint[l], R=R[i])
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <-  (1-const[l]) * .IntTailGPD_single(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
+      premium[i] <-  (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
                                                       endpoint=endpoint[l], R=tvec[l])
     }  
     
@@ -454,8 +434,8 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
 		      # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=tvec[j+1])
-          par_u <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=R[i])
+          par_tt <- .IntTailGPD_aux(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=tvec[j+1])
+          par_u <- .IntTailGPD_aux(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=R[i])
           
           # Integrate from R[i] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_u - par_tt) + (1-const[j+1]) * (tvec[j+1]-R[i]) + premium[i]  
@@ -472,8 +452,8 @@ ExcessEPD <- function(data, gamma, delta, tau, R, L = Inf, warnings = TRUE, plot
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
           
-          par_tt <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=tvec[j+1])
-          par_t <- .IntTailGPD_single(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=tvec[j])
+          par_tt <- .IntTailGPD_aux(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=tvec[j+1])
+          par_t <- .IntTailGPD_aux(t=tvec[j], gamma=EVTfit$gamma[j], sigma=EVTfit$sigma[j], endpoint=e, R=tvec[j])
           
           # Integrate from tvec[j] to tvec[j+1] and add to premium
           premium[i] <- (const[j+1]-const[j]) * (par_t - par_tt) + (1-const[j+1]) * (tvec[j+1]-tvec[j]) + premium[i]  
