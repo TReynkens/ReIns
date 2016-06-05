@@ -37,8 +37,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The estimator is defined as
-\deqn{\hat{F}_i(x) = 1- \hat{A}(i/n) (k+1)/(n+1) (x/Z_{n-k,n})^{-1/H_{k,n}},}
-with \eqn{H_{k,n}} the Hill estimator.
+\deqn{1-\hat{F}_i(q) = \hat{A}(i/n) (k+1)/(n+1) (q/Z_{n-k,n})^{-1/H_{k,n}},}
+with \eqn{H_{k,n}} the Hill estimator. Here, it is assumed that we have equidistant covariates \eqn{x_i=i/n}.
+
+See Section 4.4 in Albrecher et al. (2016) for more details. 
 }
 \value{
 A list with following components:
@@ -56,7 +58,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{QuantReg}}, \code{\link{ScaleReg}}
+\code{\link{QuantReg}}, \code{\link{ScaleReg}}, \code{\link{Prob}}
 }
 \examples{
 data(norwegianfire)
@@ -67,15 +69,14 @@ i <- 100
 n <- length(Z)
 
 # Scale estimator in i/n
-A <- ScaleReg(i/n,Z,h=0.5,kernel = "epanechnikov")$A
+A <- ScaleReg(i/n, Z, h=0.5, kernel = "epanechnikov")$A
 
 # Small exceedance probability
 q <- 10^6
-ProbReg(Z,A,q,plot=TRUE)
+ProbReg(Z, A, q, plot=TRUE)
 
 # Large quantile
 p <- 10^(-5)
-QuantReg(Z,A,p,plot=TRUE)
-
+QuantReg(Z, A, p, plot=TRUE)
 }
 
