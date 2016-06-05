@@ -104,7 +104,7 @@ ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
 
 }
 
-#Derivative plot of Pareto QQ-plot
+# Derivative plot of Pareto QQ-plot
 ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of Pareto QQ-plot", ...) {
   
   # Check input arguments
@@ -161,7 +161,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   
 }
 
-#Derivative plot of log-normal QQ-plot
+# Derivative plot of log-normal QQ-plot
 LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of log-normal QQ-plot", ...) {
   
   # Check input arguments
@@ -217,7 +217,7 @@ WeibullQQ <- function(data, plot = TRUE, main = "Weibull QQ-plot", ...) {
   
 }
 
-#Derivative plot of log-normal QQ-plot
+# Derivative plot of Weibull QQ-plot
 WeibullQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot of Weibull QQ-plot", ...) {
   
   # Check input arguments
@@ -290,7 +290,7 @@ generalizedQQ <- genQQ
 
 ############################################
 
-#GPD residual plot when applying POT with threshold t
+# GPD residual plot when applying POT with threshold t
 GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residual plot", ...) {
   
   # Check input arguments
