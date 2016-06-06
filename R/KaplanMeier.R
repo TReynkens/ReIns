@@ -2,11 +2,8 @@
 # Kaplan-Meier estimator for the CDF evaluated in x
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary sample CDF
-#
-# Pure R implementation
-.KaplanMeier_R <- function(x, data, censored) {
-  
-  
+KaplanMeier <- function(x, data, censored, conf.type = "plain", conf.int = 0.95) {
+
   # Check input arguments
   if (!is.numeric(data)) {
     stop("data should be a numeric vector.")
@@ -14,42 +11,7 @@
   if (!is.numeric(x)) {
     stop("x should be a numeric.")
   }
-  censored <- .checkCensored(censored, length(data))
   
-  
-  # Sort the data with index return
-  s <- sort(data, index.return = TRUE)
-  X <- s$x
-  sortix <- s$ix
-  # delta is 1 if a data point is not censored, we also sort it with X
-  delta <- !(censored[sortix]*1)
-  n <- length(X)
-  
-  est <- numeric(length(x))
-  
-  for (i in 1:length(x)) {
-    est[i] <- prod(1-delta[X<=x[i]]/(n-(1:n)[X<=x[i]]+1))
-  }
-  
-  # Kaplan Meier estimator for the CDF
-  return( 1 - est )
-}
-
-
-# Kaplan-Meier estimator for the CDF evaluated in x
-# censored is a vector which is 1 if a data point is censored and 0 otherwise,
-# giving censored=0 results in the ordinary sample CDF
-#
-.KaplanMeier_surv <- function(x, data, censored, conf.type = "plain") {
-  
-  
-  # Check input arguments
-  if (!is.numeric(data)) {
-    stop("data should be a numeric vector.")
-  }
-  if (!is.numeric(x)) {
-    stop("x should be a numeric.")
-  }
   censored <- .checkCensored(censored, length(data))
   
   
@@ -60,44 +22,12 @@
   # delta is 1 if a data point is not censored, we also sort it with X
   delta <- !(censored[sortix]*1)
   
-  fit  <- survfit(Surv(X, delta) ~1, conf.type=conf.type)
+  fit  <- survfit(Surv(X, delta) ~1, conf.type=conf.type, conf.int=conf.int)
 
-  f = stepfun(fit$time,c(1,fit$surv))
+  f <- stepfun(fit$time, c(1,fit$surv))
   est <- f(x)
   
-  
-  # Kaplan Meier estimator for the CDF
-  L <- list(km = 1 - est)
-
-  # Lower CI
-  if(!is.null(fit$lower)) {
-    fl <- stepfun(fit$time,c(1,fit$lower))
-    clower <- fl(x)
-    L$clower <- 1-clower
-  }
-
-
-  # Upper CI
-  if(!is.null(fit$upper)) {
-    fu <- stepfun(fit$time,c(1,fit$upper))
-    cupper <- fu(x)
-    L$cupper <- 1-cupper
-  } 
-  
- return(L)
-}
-
-
-
-
-# Use version based on survival package by default when x is a large vector
-KaplanMeier <- function(x, data, censored) {
-  
- if (length(x)<=1000) {
-   return(.KaplanMeier_R(x, data, censored))
- } else {
-   return(.KaplanMeier_surv(x, data, censored)$km)
- }
+  return(list(surv = est, fit=fit))
 }
 
 
@@ -155,6 +85,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   if (!is.numeric(x)) {
     stop("x should be numeric.")
   }
+  
   censored <- .checkCensored(censored, length(L))
   
   
@@ -274,7 +205,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Fit Turnbull estimator using interval package,
   # starting value using Icens package, use no starting value if problems
   fit <- tryCatch(interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
-                         conf.int=FALSE, initfit=Icens::EMICM(cbind(L,R))),
+                                  conf.int=FALSE, initfit=Icens::EMICM(cbind(L,R))),
                   error = function(e) interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
                                                       conf.int=FALSE, initfit=NULL))
   
