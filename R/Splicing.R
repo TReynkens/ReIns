@@ -902,11 +902,11 @@ dSplice <- function(x, splicefit, log = FALSE) {
   
   type <- splicefit$type
   
-  ind <- (x<tvec[1])
+  ind <- (x<=tvec[1])
   
   # Case x<=t
   d[ind] <- const[1] * .ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
-                       theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
+                                   theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
   
   # Case x>t
   for (i in 1:l) {
@@ -915,7 +915,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
     tt <- ifelse(i==l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>=tvec[i] & x<tt
+    ind <- x>tvec[i] & x<=tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -971,11 +971,11 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   type <- splicefit$type
   
-  ind <- (x<tvec[1])
+  ind <- (x<=tvec[1])
   
   # Case x<t
   p[ind] <- const[1] * .ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
-                theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
+                               theta = MEfit$theta, trunclower = trunclower, truncupper = tvec[1])
 
   # Case x>t
   for (i in 1:l) {
@@ -984,7 +984,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
     tt <- ifelse(i==l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>=tvec[i] & x<tt
+    ind <- x>tvec[i] & x<=tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -1055,13 +1055,13 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   const <- splicefit$const
   l <- length(const)
 
-  ind <- (p<const[1])
+  ind <- (p<=const[1])
   
   if (any(ind)) {
     # Quantiles of ME part
     q[ind] <- .ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$p, 
-                     theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
-                     interval=c(trunclower,tvec[1])) 
+                      theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
+                      interval=c(trunclower,tvec[1])) 
   }
   
   
@@ -1073,7 +1073,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
     cconst <- ifelse(i==l, 1, const[i+1])
     
     # Index for all probabilities in i-th EVTpart
-    ind <- p>=const[i] & p<cconst
+    ind <- p>const[i] & p<=cconst
     
     # Next splicing point (Inf for last part)
     tt <- ifelse(i==l, Inf, tvec[i+1])
