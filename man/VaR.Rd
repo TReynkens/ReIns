@@ -16,13 +16,13 @@ VaR(p, splicefit)
 The exceedance probability (we estimate \eqn{VaR_p=Q(1-p)}).
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{ 
-See Section 3.3 of Albrecher et al. (2016) for details.
+See Section 4.5 of Albrecher et al. (2016) for details.
 
-Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, log = FALSE, lower.tail = FALSE)}.
+Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, lower.tail = FALSE)}.
 }
 \value{
 Vector of quantiles \eqn{VaR_p=Q(1-p)}.
@@ -39,7 +39,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{ES}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}}
+\code{\link{qSplice}}, \code{\link{ES}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}}
 }
 
 \examples{
@@ -49,7 +49,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 
 

@@ -20,7 +20,7 @@ The retention level of the (re-)insurance or a vector of retention levels for th
 The limit of the (re-)insurance or a vector of limits for the (re-)insurance.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{ 
@@ -28,8 +28,7 @@ The premium for the excess-loss insurance with retentation \eqn{R} and limit \eq
 \deqn{E(\min{(X-R)_+, L}) = I(R) - I(R+L)}
 where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function.  When \eqn{L=\infty}, the premium is equal to \eqn{I(R)}.
 
-See Section 3.3 of Albrecher et al. (2016) for details.
-
+See Section 4.5 of Albrecher et al. (2016) for more details.
 }
 \value{
 An estimate for the premium is returned (for every value of \code{R}).
@@ -48,7 +47,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitHill}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}}  
+\code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}}  
 }
 \examples{
 \dontrun{
@@ -57,11 +56,10 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mi
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.8)
+splicefit <- SpliceFitPareto(X, 0.8)
 
 # Excess-loss premium 
 ExcessSplice(R=2, L=Inf, splicefit=splicefit)
-
 }
 }
 
