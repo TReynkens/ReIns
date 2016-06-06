@@ -9,7 +9,8 @@ This function plots the logarithm of the Turnbull survival function (which is su
 Moreover, the logarithm of the fitted survival function of the spliced distribution is added.
 }
 \usage{
-SpliceLL_TB(x = sort(L), L, U = L, censored, splicefit, ...)
+SpliceLL_TB(x = sort(L), L, U = L, censored, splicefit, plot = TRUE,
+            main = "Splicing LL-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,13 +29,19 @@ Vector of length \eqn{n} with the upper boundary of the intervals. By default, t
   \item{splicefit}{
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFiticPareto}}.
 }
+  \item{plot}{
+Logical indicating if the splicing LL-plot should be made, default is \code{TRUE}.
+}
+  \item{main}{
+Title for the plot, default is \code{"Splicing LL-plot"}.
+}
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
 \details{
 The LL-plot consists of the points
-\deqn{(\log(x_{i,n}), \log(1-\hat{F}^{TB}(x_{i,n})))}
+\deqn{(\log(L_{i,n}), \log(1-\hat{F}^{TB}(L_{i,n})))}
 for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{x_{i,n}} the \eqn{i}-th smallest observation
 and \eqn{\hat{F}^{TB}} the Turnbull estimator for the distribution function.
 Then, the line 
@@ -49,6 +56,13 @@ If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} fu
 Use \code{\link{SpliceLL}} for non-censored data. 
 
 See Section 4.3 of Albrecher et al. (2016) for more details.
+}
+\value{
+A list with following components:
+\item{logX}{Vector of the logarithms of the sorted left boundaries of the intervals.}
+\item{sll.the}{Vector of the theoretical log-probabilities \eqn{\log(1-\hat{F}_{spliced}(x)}.}
+\item{logx}{Vector of the logarithms of the points to plot the fitted survival function at.}
+\item{sll.emp}{Vector of the empirical log-probabilities \eqn{\log(1-\hat{F}^{TB}(x_{i,n}))}.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.

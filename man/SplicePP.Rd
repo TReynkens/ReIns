@@ -9,7 +9,8 @@ This function plots the fitted survival function of the spliced distribution ver
 empirical survival function (determined using the Empirical CDF (ECDF)). 
 }
 \usage{
-SplicePP(X, splicefit, x = sort(X), log = FALSE, ...)
+SplicePP(X, splicefit, x = sort(X), log = FALSE, plot = TRUE, 
+         main = "Splicing PP-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,6 +25,12 @@ Vector of points to plot the functions at. By default we plot them at the data p
 }
   \item{log}{
 Logical indicating if minus the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
+}
+  \item{plot}{
+Logical indicating if the splicing PP-plot should be made, default is \code{TRUE}.
+}
+  \item{main}{
+Title for the plot, default is \code{"Splicing PP-plot"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -40,6 +47,11 @@ The minus-log version of the PP-plot consists of
 Use \code{\link{SplicePP_TB}} for censored data. 
 
 See Section 4.3 of Albrecher et al. (2016) for more details.
+}
+\value{
+A list with following components:
+\item{spp.the}{Vector of the theoretical probabilities \eqn{1-\hat{F}_{spliced}(x_{i,n})}.}
+\item{spp.emp}{Vector of the empirical probabilities \eqn{1-\hat{F}(x_{i,n})}.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.

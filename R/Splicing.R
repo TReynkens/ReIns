@@ -1170,7 +1170,7 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
 
 
 # Probability - probability plot with ECDF
-SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, ...) {
+SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, plot = TRUE, main = "Splicing PP-plot", ...) {
   
   # Check if X and x are numeric
   if (!is.numeric(X)) stop("X should be a numeric vector.")
@@ -1183,18 +1183,27 @@ SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, ...) {
   # Plot fitted survival function vs. empirical survival function or use minus log-versions
   if (log) {
     ind <- est>0
-    plot(-log(est[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="p",
-         xlab="-log(Empirical survival probability)",
-         ylab="-log(Fitted survival probability)", ...)
+    spp.the <- -log(1-pSplice(x[ind],splicefit=splicefit))
+    spp.emp <- -log(est[ind])
+    .plotfun(spp.emp, spp.the, type="p",
+             xlab="-log(Empirical survival probability)",
+             ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
+
   } else {
-    plot(est, 1-pSplice(x,splicefit=splicefit), type="p", xlab="Empirical survival probability",
-         ylab="Fitted survival probability", ...)
+    spp.the <- 1-pSplice(x,splicefit=splicefit)
+    spp.emp <- est
+    .plotfun(spp.emp, spp.the, type="p", xlab="Empirical survival probability",
+             ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
-  abline(a=0, b=1)
+  # Add 45 degree line
+  if (plot) abline(0,1)
+  
+  # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
+  .output(list(spp.the=spp.the, spp.emp=spp.emp), plot=plot, add=FALSE)
 }
 
 # Probability - probability plot with Turnbull estimator
-SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ...) {
+SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, plot = TRUE, main = "Splicing PP-plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
@@ -1247,14 +1256,23 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, ..
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
     ind <- surv>0
-    plot(-log(surv[ind]), -log(1-pSplice(x[ind],splicefit=splicefit)), type="p", 
-         xlab="-log(Turnbull survival probability)",
-         ylab="-log(Fitted survival probability)", ...)
+    spp.the <- -log(1-pSplice(x[ind],splicefit=splicefit))
+    spp.emp <- -log(surv[ind])
+    .plotfun(spp.emp, spp.the, type="p",
+             xlab="-log(Empirical survival probability)",
+             ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
+    
   } else {
-    plot(surv, 1-pSplice(x, splicefit=splicefit), type="p",
-         xlab="Turnbull survival probability", ylab="Fitted survival probability", ...)
+    spp.the <- 1-pSplice(x,splicefit=splicefit)
+    spp.emp <- surv
+    .plotfun(spp.emp, spp.the, type="p", xlab="Empirical survival probability",
+             ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
-  abline(a=0,b=1)
+  # Add 45 degree line
+  if (plot) abline(0,1)
+  
+  # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
+  .output(list(spp.the=spp.the, spp.emp=spp.emp), plot=plot, add=FALSE)
 }
 
 
@@ -1402,7 +1420,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
   .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
-             main=main, plot=plot, add=FALSE, ...)
+           main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line
   if (plot) abline(0,1)
@@ -1416,7 +1434,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
 
 
 # Log-log plot with empirical survival function and fitted survival function
-SpliceLL <- function(x = sort(X), X, splicefit, ...) {
+SpliceLL <- function(x = sort(X), X, splicefit, plot = TRUE, main = "Splicing LL-plot", ...) {
   
   # Check if X and x are numeric
   if (!is.numeric(X)) stop("X should be a numeric vector.")
@@ -1426,15 +1444,22 @@ SpliceLL <- function(x = sort(X), X, splicefit, ...) {
   fit  <- ecdf(X)
   X <- sort(X)
   
-  # Plot log of empirical survival function vs. sorted values
-  plot(log(X), log(1-fit(X)), ylab="log(empirical survival probability)", xlab="log(X)", type="p", ...)
-  # Add log of fitted survival function
-  lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
+  sll.emp <- log(1-fit(X))
+  sll.the <- log(1-pSplice(x, splicefit=splicefit))
+  
+  if (plot) {
+    # Plot log of empirical survival function vs. sorted values
+    plot(log(X), sll.emp, ylab="log(empirical survival probability)", xlab="log(X)", type="p", main=main, ...)
+    # Add log of fitted survival function
+    lines(log(x), sll.the)
+  }
+
+  .output(list(logX=log(X), sll.emp=sll.emp, logx=log(x), sll.the=sll.the, plot=plot, add=FALSE))
 }
 
 
 # Log-log plot with Turnbull survival function and fitted survival function
-SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
+SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, plot = TRUE, main = "Splicing LL-plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
@@ -1465,10 +1490,16 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, ...) {
                        truncupper=max(splicefit$EVTfit$endpoint))
   }
 
-  # Plot log of Turnbull survival function vs. sorted values
-  plot(log(Zs), log(SurvTB$surv), ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", ...)
-  # Add log of fitted survival function
-  lines(log(x), log(1-pSplice(x, splicefit=splicefit)))
+  sll.emp <- log(SurvTB$surv)
+  sll.the <- log(1-pSplice(x, splicefit=splicefit))
+  
+  if (plot) {
+    # Plot log of Turnbull survival function vs. sorted values
+    plot(log(Zs), sll.emp, ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", main=main, ...)
+    # Add log of fitted survival function
+    lines(log(x), sll.the)
+  }
+  .output(list(logX=log(Zs), sll.emp=sll.emp, logx=log(x), sll.the=sll.the), plot=plot, add=FALSE)
 }
 
 
