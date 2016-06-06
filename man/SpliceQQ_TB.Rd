@@ -5,26 +5,28 @@
 Splicing quantile plot using Turnbull estimator
 }
 \description{
-This function plots the fitted quantile function of the spliced distribution versus quantiles based on the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
+This function plots the fitted quantile function of the spliced distribution versus quantiles based on the Turnbull survival function (which is suitable for interval censored data). 
 }
 \usage{
-SpliceQQ_TB(L, U = L, censored, splicefit, 
+SpliceQQ_TB(L, U = L, censored, splicefit, p = NULL,
             plot = TRUE, main = "Splicing QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{L}{
-Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
+Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundary of the intervals. In an 
-insurance context, these are the incurred values. By default, they are equal to \code{L}.
+Vector of length \eqn{n} with the upper boundary of the intervals. By default, they are equal to \code{L}.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFiticPareto}}.
+}
+ \item{p}{
+  Vector of probabilities used in the QQ-plot. If \code{NULL}, the default, we take \code{p} equal to \code{1/(n+1),...,n/(n+1)}.
 }
   \item{plot}{
 Logical indicating if the quantiles should be plotted in a splicing QQ-plot, default is \code{TRUE}.
@@ -37,13 +39,15 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}]),} for \eqn{j=1,\ldots,n-1} where \eqn{Q} is the quantile function of the fitted splicing model, \eqn{\hat{Q}^{TB}} the empirical quantile function obtained using the Turnbull estimator and \eqn{p_j=j/(n+1)}. 
+This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model, \eqn{\hat{Q}^{TB}} the empirical quantile function obtained using the Turnbull estimator and \eqn{p_j=j/(n+1)}. 
 
 If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
-Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. The limits \code{trunclower} and \code{truncupper} are obtained from the \code{\link{SpliceFit}} object.
+Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. The limits \code{trunclower} and \code{truncupper} are obtained from the \code{\link{SpliceFit}} object.
 
 Use \code{\link{SpliceQQ}} for non-censored data. 
+
+See Section 4.3 of Albrecher et al. (2016) for more details.
 }
 \value{
 A list with following components:
@@ -115,8 +119,6 @@ SplicePP_TB(L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
 
 # QQ-plot using Turnbull survival function and fitted survival function
 SpliceQQ_TB(L=Z, U=U, censored=censored, splicefit=splicefit)
-# Add 45 degree line
-abline(0,1)
 }
 }
 

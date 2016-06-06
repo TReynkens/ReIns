@@ -1313,7 +1313,7 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
 
 
 # QQ-plot with Turnbull estimator
-SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Splicing QQ-plot", ...) {
+SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
@@ -1363,7 +1363,30 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, plot = TRUE, main = "Spli
   
   # Probabilities
   n <- length(L)
-  p <- (1:n) / (n+1)
+  if (is.null(p)) {
+    p <- (1:n)/(n+1)
+    
+  } else {
+    
+    if (!is.numeric(p)) {
+      stop("p should be numeric.")
+    }
+    
+    if(is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+      stop("All elements of p should be strictly smaller than 1 since the splicing
+           distribution has an infinite endpoint.")
+    }
+    
+    if (any(p<0 | p>1)) {
+      stop("All elements of p should be between 0 and 1.")
+    }
+    
+    if (length(p)!=n) {
+      stop("p should have the same length as x.")
+    }
+    
+    p <- sort(p)
+  }
   # Use empirical quantiles
   x <- SurvTB$fquant(p)
 
