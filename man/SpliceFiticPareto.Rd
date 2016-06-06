@@ -1,5 +1,5 @@
-\name{SpliceFitciPareto}
-\alias{SpliceFitciPareto}
+\name{SpliceFiticPareto}
+\alias{SpliceFiticPareto}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Splicing of mixed Erlang and Pareto for interval censored data
@@ -9,7 +9,7 @@ Splicing of mixed Erlang and Pareto for interval censored data
 Fit spliced distribution of a mixed Erlang distribution and a Pareto distribution adapted for interval censoring and truncation.
 }
 \usage{
-SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
+SpliceFiticPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
                   truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"), 
                   reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
 }
@@ -109,7 +109,7 @@ U <- Z
 U[censored] <- Inf
 
 # Splice ME and Pareto
-splicefit <- SpliceFitciPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
+splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
 
 
 

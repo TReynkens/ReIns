@@ -700,7 +700,7 @@ SpliceFitHill <- SpliceFitPareto
 ##################################
 
 # Fit splicing of ME and Pareto distribution to interval censored data
-SpliceFitciPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
+SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
                               criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
   
   warning("This function has not yet been implemented.")

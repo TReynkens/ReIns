@@ -27,7 +27,7 @@ insurance context, these are the incurred values. By default, they are equal to 
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{splicefit}{
-A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitciPareto}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFiticPareto}}.
 }
   \item{alpha}{
 \eqn{100\alpha\%} is the confidence level for the confidence bounds. Default is \eqn{\alpha=0.05}.
@@ -54,7 +54,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceECDF}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceLL_TB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
+\code{\link{SpliceECDF}}, \code{\link{pSplice}}, \code{\link{Turnbull}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceLL_TB}}, \code{\link{SplicePP_TB}}, \code{\link{SpliceQQ_TB}}
 }
 \examples{
 \dontrun{
@@ -76,7 +76,7 @@ U <- Z
 U[censored] <- Inf
 
 # Splice ME and Pareto
-splicefit <- SpliceFitciPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
+splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
 
 
 

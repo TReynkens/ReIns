@@ -73,7 +73,7 @@ Initial values follow from Verbelen et al. (2015b).
 
 The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
 
-Use \code{\link{SpliceFitciPareto}} when censoring is present.
+Use \code{\link{SpliceFiticPareto}} when censoring is present.
 }
 \value{
 A \code{\link{SpliceFit}} object.
@@ -98,7 +98,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}}, \code{\link[=pSplice]{Splice}},
+\code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}}, \code{\link[=pSplice]{Splice}},
 \code{\link{Hill}}, \code{\link{trHill}}
 }
 \examples{

@@ -16,7 +16,7 @@ ES(p, splicefit)
 The probability associated with the ES (we estimate  \eqn{ES_p}).
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}} or \code{\link{SpliceFitGPD}}.
+Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{
@@ -44,7 +44,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{ExcessSplice}}
+\code{\link{qSplice}}, \code{\link{ExcessSplice}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}} 
 }
 \examples{
 \dontrun{

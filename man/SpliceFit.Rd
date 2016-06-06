@@ -5,7 +5,7 @@
 Splicing fit
 }
 \description{
-Create an S3 object using \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitciPareto}} or
+Create an S3 object using \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or
 \code{\link{SpliceFitGPD}}.
 }
 \usage{
@@ -63,7 +63,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{MEfit}}, \code{\link{EVTfit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}}
+\code{\link{MEfit}}, \code{\link{EVTfit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}}
 }
 \examples{
 # Create MEfit object
