@@ -1454,7 +1454,7 @@ SpliceLL <- function(x = sort(X), X, splicefit, plot = TRUE, main = "Splicing LL
     lines(log(x), sll.the)
   }
 
-  .output(list(logX=log(X), sll.emp=sll.emp, logx=log(x), sll.the=sll.the, plot=plot, add=FALSE))
+  .output(list(logX=log(X), sll.emp=sll.emp, logx=log(x), sll.the=sll.the), plot=plot, add=FALSE)
 }
 
 
