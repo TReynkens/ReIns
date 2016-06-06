@@ -31,7 +31,7 @@ Vector of probabilities.
 Number of observations.
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
 }
  \item{log}{
   Logical indicating if the densities are given as \eqn{log(f)}, default is \code{FALSE}.
@@ -44,7 +44,7 @@ Output list from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} 
  }
 }
 \details{ 
-See Section 3.3 of Albrecher et al. (2016) for details.
+See Section 4.3 in Albrecher et al. (2016) for details.
 }
 \value{
 Vector of densities \eqn{f(x)} for \code{dSplice}, vector of probabilities \eqn{F(x)=P(X\le x)} for \code{pSplice},  vector of quantiles \eqn{Q(p)} for \code{qSplice} and a random sample of length \eqn{n} for \code{rSplice}.
@@ -78,7 +78,7 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 
 
-x <- seq(0,20,0.01)
+x <- seq(0, 20, 0.01)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -88,7 +88,7 @@ plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 
 
-p <- seq(0,1,0.01)
+p <- seq(0, 1, 0.01)
 
 # Plot of splicing quantiles
 plot(p, qSplice(p, splicefit), type="l", xlab="p", ylab="Q(p)")

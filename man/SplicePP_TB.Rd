@@ -5,7 +5,7 @@
 PP-plot with fitted and Turnbull survival function
 }
 \description{
-This function plots the fitted survival function of the spliced distribution versus the Turnbull survival function (which is suitable for right-censored or interval-censored data). 
+This function plots the fitted survival function of the spliced distribution versus the Turnbull survival function (which is suitable for interval censored data). 
 }
 \usage{
 SplicePP_TB(L, U = L, censored, splicefit, x = NULL, log = FALSE, ...)
@@ -13,11 +13,10 @@ SplicePP_TB(L, U = L, censored, splicefit, x = NULL, log = FALSE, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{L}{
-Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
+Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundary of the intervals. In an 
-insurance context, these are the incurred values. By default, they are equal to \code{L}.
+Vector of length \eqn{n} with the upper boundary of the intervals. By default, they are equal to \code{L}.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
@@ -26,7 +25,7 @@ insurance context, these are the incurred values. By default, they are equal to 
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFiticPareto}}.
 }
  \item{x}{
-Vector of points to plot the functions at. When \code{NULL}, the default, the empirical quantiles for \eqn{1/(n+1), \ldots, (n-1)/(n+1)}, obtained using the Turnbull estimator, are used.
+Vector of points to plot the functions at. When \code{NULL}, the default, the empirical quantiles for \eqn{1/(n+1), \ldots, n/(n+1)}, obtained using the Turnbull estimator, are used.
 }
   \item{log}{
 Logical indicating if minus the logarithms of the survival probabilities are plotted versus each other, default is \code{FALSE}.
@@ -36,11 +35,22 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. The limits \code{trunclower} and \code{truncupper} are obtained from the \code{\link{SpliceFit}} object.
+The PP-plot consists of the points
+\deqn{(1-\hat{F}^{TB}(y_i), 1-\hat{F}_{spliced}(y_i)))}
+for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{y_i=\hat{Q}^{TB}(p_i)} where \eqn{\hat{Q}^{TB}} is the empirical quantile function obtained using the Turnbull estimator,
+\eqn{\hat{F}^{TB}} the Turnbull estimator for the distribution function and \eqn{\hat{F}_{spliced}} the fitted spliced distribution function.
+The minus-log version of the PP-plot consists of
+\deqn{(-\log(1-\hat{F}^{TB}(y_i)), -\log(1-\hat{F}_{spliced}(y_i)))).}
+
+
+
+Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. The limits \code{trunclower} and \code{truncupper} are obtained from the \code{\link{SpliceFit}} object.
 
 If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
 Use \code{\link{SplicePP}} for non-censored data. 
+
+See Section 4.3 of Albrecher et al. (2016) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -108,7 +118,5 @@ SplicePP_TB(L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
 
 # QQ-plot using Turnbull survival function and fitted survival function
 SpliceQQ_TB(L=Z, U=U, censored=censored, splicefit=splicefit)
-# Add 45 degree line
-abline(0,1)
 }
 }

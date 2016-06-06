@@ -30,7 +30,16 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
+The PP-plot consists of the points
+\deqn{(1-\hat{F}(x_{i,n}), 1-\hat{F}_{spliced}(x_{i,n})))}
+for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{x_{i,n}} the \eqn{i}-th smallest observation,
+\eqn{\hat{F}} the empirical distribution function and \eqn{\hat{F}_{spliced}} the fitted spliced distribution function.
+The minus-log version of the PP-plot consists of
+\deqn{(-\log(1-\hat{F}(x_{i,n})), -\log(1-\hat{F}_{spliced}(x_{i,n})))).}
+
 Use \code{\link{SplicePP_TB}} for censored data. 
+
+See Section 4.3 of Albrecher et al. (2016) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -56,7 +65,7 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 
 
-x <- seq(0,20,0.01)
+x <- seq(0, 20, 0.01)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -73,14 +82,13 @@ SpliceECDF(x, X, splicefit)
 SpliceLL(x, X, splicefit)
 
 # PP-plot of empirical survival function and fitted survival function
-SplicePP(x, X, splicefit)
+SplicePP(X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit, log=TRUE)
+SplicePP(X, splicefit, log=TRUE)
 
 # Splicing QQ-plot
 SpliceQQ(X, splicefit)
-
 }
 }

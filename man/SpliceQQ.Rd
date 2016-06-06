@@ -31,6 +31,11 @@ Title for the plot, default is \code{"Splicing QQ-plot"}.
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
+\details{
+This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model and \eqn{\hat{Q}} is the empirical quantile function and \eqn{p_j=j/(n+1)}. 
+
+See Section 4.3 of Albrecher et al. (2016) for details.
+}
 \value{
 A list with following components:
 \item{sqq.the}{Vector of the theoretical quantiles of the fitted spliced distribution.}
@@ -60,7 +65,7 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 
 
-x <- seq(0,20,0.01)
+x <- seq(0, 20, 0.01)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -77,14 +82,13 @@ SpliceECDF(x, X, splicefit)
 SpliceLL(x, X, splicefit)
 
 # PP-plot of empirical survival function and fitted survival function
-SplicePP(x, X, splicefit)
+SplicePP(X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit, log=TRUE)
+SplicePP(X, splicefit, log=TRUE)
 
 # Splicing QQ-plot
 SpliceQQ(X, splicefit)
-
 }
 }
