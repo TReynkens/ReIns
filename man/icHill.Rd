@@ -32,13 +32,13 @@ Upper truncation point. Default is \code{Inf} (no upper truncation).
 Logical indicating if the estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
  \item{plot}{
-Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
 }
   \item{add}{
-Logical indicating if the estimates of \eqn{\gamma_1} should be added to an existing plot, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of EVI"}.
+Title for the plot, default is \code{"Hill estimates of EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -76,7 +76,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{cHill}}, \code{\link{Hill}}, \code{\link{MeanExcess_TB}}, \code{\link{Turnbull}}, \code{\link[interval]{icfit}}
+\code{\link{cHill}}, \code{\link{Hill}}, \code{\link{MeanExcess_TB}}, \code{\link{icParetoQQ}}, \code{\link{Turnbull}}, \code{\link[interval]{icfit}}
 }
 \examples{
 # Pareto random sample

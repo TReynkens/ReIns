@@ -116,6 +116,70 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
 }
 
 
+# Pareto QQ-plot adapted for interval censoring using Turnbull estimator
+icParetoQQ <- function(L, U = L, censored, trunclower=0, truncupper=Inf, plot = TRUE, main = "Pareto QQ-plot", ...) {
+  
+  # Check if L and U are numeric
+  if (!is.numeric(L)) stop("L should be a numeric vector.")
+  if (!is.numeric(U)) stop("U should be a numeric vector.")
+  
+  
+  # Check lengths
+  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  
+  if (length(censored)==1) censored <- rep(censored, length(L))
+  
+  if (length(censored)!=length(L)) {
+    stop("censored should have length 1 or the same length as L and U.")
+  }
+  
+  # Turnbull survival function
+  if (requireNamespace("interval", quietly = TRUE) & !all(censored==rep(0, length(L)))) {
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower,
+                                  truncupper=truncupper)
+    
+  } else {
+    
+    # Special warning when no censoring
+    if (all(censored==rep(0, length(L)))) {
+      warning("Turnbull survival function from the \"survival\" package is used.", 
+              call.=FALSE)
+    } else {
+      warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+              call.=FALSE)
+    }
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=trunclower,
+                                 truncupper=truncupper)
+  }
+  
+  
+  # Probabilities
+  n <- length(L)
+  p <- (1:n) / (n+1)
+  # Empirical quantiles
+  x <- SurvTB$fquant(p)
+  
+  # Remove 1 if infinite endpoint
+  if(is.infinite(truncupper)) {
+    pqq.emp <- log(x)[p<1-10^(-5)]
+    p <- p[p<1-10^(-5)]
+  } else {
+    pqq.emp <- log(x)
+  }
+  
+  
+  # Quantiles of fitted distribution
+  pqq.the <- -log(1 - p)
+  
+  .plotfun(pqq.the, pqq.emp, type="p", xlab="Quantiles of standard exponential", ylab="Log. of empirical quantiles", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  
+  # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=FALSE)
+}
+
+################################################################################################
 
 # Estimator for gamma using Turnbull estimator
 icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf, 

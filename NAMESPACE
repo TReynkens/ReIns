@@ -87,7 +87,7 @@ export("cgenHill", "cProbGH", "cQuantGH", "cReturnGH")
 export("cMoment", "cProbMOM", "cQuantMOM", "cReturnMOM")
 export("cGPDmle", "cPOT", "cProbGPD", "cQuantGPD", "cReturnGPD")
 
-export("icHill")
+export("icHill", "icParetoQQ")
 
 #########################
 # Truncation estimators
