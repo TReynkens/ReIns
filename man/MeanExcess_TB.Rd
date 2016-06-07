@@ -59,7 +59,7 @@ Use \code{\link{MeanExcess}} for non-censored data.
 \value{
 A list with following components:
 \item{k}{Vector of the values of the tail parameter \code{k}.}
-\item{X}{Vector of the empirical quantiles, computed using the Turnbull estimator, corresponding to \code{(n-k+1)/(n+1)}.}
+\item{X}{Vector of the empirical quantiles, computed using the Turnbull estimator, corresponding to \code{(n-k)/(n+1)=1-(k+1)/(n+1)}.}
 \item{e}{Vector of the mean excess values corresponding to the tail parameters in \code{k}.}
 }
 \references{
