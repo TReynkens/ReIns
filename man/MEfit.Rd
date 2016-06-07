@@ -13,7 +13,7 @@ MEfit(p, shape, theta, M, M_initial = NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p}{
-Vector of mixing weights.
+Vector of mixing weights, denoted by \eqn{\alpha} in Verbelen et al. (2015).
 }
   \item{shape}{
 Vector of shape parameters \eqn{r}.
@@ -31,7 +31,7 @@ Initial value provided for \code{M}. When \code{NULL} (default), not included in
 \details{
 The rate paremeter \eqn{\lambda} used in Albrecher et al. (2016) is equal to \eqn{1/\theta}.
 
-The mixing weights are denoted by \eqn{\alpha} (no truncation) or \eqn{\beta} (truncation) in Verbelen et al. (2015).
+See Section 4.5 of Albrecher et al. (2016) for more details
 }
 \value{
 An S3 object which contains the input arguments in a list.
@@ -50,17 +50,17 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFit}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}}
+\code{\link{SpliceFit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}}
 }
 \examples{
 # Create MEfit object
 mefit <- MEfit(p=c(0.65,0.35), shape=c(39,58), theta=16.19, M=2)
 
 # Create EVTfit object
-evtfit <- EVTfit(gamma=c(0.76,0.64))
+evtfit <- EVTfit(gamma=c(0.76,0.64), endpoint=c(39096, Inf))
 
 # Create SpliceFit object
-splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","Pa","Pa"),
+splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","TPa","Pa"),
                        MEfit=mefit, EVTfit=evtfit)
 
 # Show summary

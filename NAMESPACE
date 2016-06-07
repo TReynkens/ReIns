@@ -97,7 +97,7 @@ export("trParetoQQ")
 #####################################
 # Splicing
 
-export("SpliceFitPareto", "SpliceFitHill", "SpliceFitciPareto", "SpliceFitGPD")
+export("SpliceFitPareto", "SpliceFitHill", "SpliceFiticPareto", "SpliceFitGPD")
 export("dSplice", "pSplice", "qSplice", "rSplice")
 export("SpliceECDF", "SpliceTB", "SplicePP", "SplicePP_TB", 
        "SpliceQQ", "SpliceQQ_TB", "SpliceLL", "SpliceLL_TB", "MeanExcess_TB")

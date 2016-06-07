@@ -197,9 +197,9 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   K2 <- K[!is.na(gamma1[K])]
   
   # Kaplan-Meier estimator for CDF in X[n-K]
-  km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
 
-  prob[K2] <- (1-km) * (1-pepd(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2]))
+  prob[K2] <- km * (1-pepd(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2]))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -237,9 +237,9 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   K2 <- K[!is.na(gamma1[K])]
   
   # Kaplan-Meier estimator for CDF in X[n-K]
-  km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
   
-  R[K2] <- 1 / ((1-km) * (1-pepd(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2])))
+  R[K2] <- 1 / (km * (1-pepd(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2])))
   R[R<1] <- NA
   
   # plots if TRUE

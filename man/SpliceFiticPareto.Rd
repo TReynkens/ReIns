@@ -1,5 +1,5 @@
-\name{SpliceFitciPareto}
-\alias{SpliceFitciPareto}
+\name{SpliceFiticPareto}
+\alias{SpliceFiticPareto}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Splicing of mixed Erlang and Pareto for interval censored data
@@ -9,18 +9,17 @@ Splicing of mixed Erlang and Pareto for interval censored data
 Fit spliced distribution of a mixed Erlang distribution and a Pareto distribution adapted for interval censoring and truncation.
 }
 \usage{
-SpliceFitciPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
+SpliceFiticPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
                   truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"), 
                   reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{L}{
-Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
+Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundary of the intervals. In an 
-insurance context, these are the incurred values.
+Vector of length \eqn{n} with the upper boundary of the intervals.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
@@ -64,9 +63,9 @@ Maximum number of iterations in a single EM algorithm execution. Default is \cod
 }
 }
 \details{
-See Albrecher et al. (2016) and Verbelen et al. (2015a) for details. The code follows the notation of the latter.
+See Section 4.3 of Albrecher et al. (2016) and Verbelen et al. (2015a) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2015b).
 
-Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. 
+Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 }
 \value{
 A \code{\link{SpliceFit}} object.
@@ -109,7 +108,7 @@ U <- Z
 U[censored] <- Inf
 
 # Splice ME and Pareto
-splicefit <- SpliceFitciPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
+splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0.9))
 
 
 
@@ -139,8 +138,6 @@ SplicePP_TB(L=Z, U=U, censored=censored, splicefit=splicefit, log=TRUE)
 
 # QQ-plot using Turnbull survival function and fitted survival function
 SpliceQQ_TB(L=Z, U=U, censored=censored, splicefit=splicefit)
-# Add 45 degree line
-abline(0,1)
 }
 }
 

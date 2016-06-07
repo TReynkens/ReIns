@@ -23,7 +23,7 @@ Vector of scale estimates for the GPD. When \code{NULL} (default), not included 
 }
 }
 \details{
-See Albrecher et al. (2016) for more details.
+See Section 4.5 of Albrecher et al. (2016) for details
 }
 \value{
 An S3 object containg the above input arguments.
@@ -38,17 +38,17 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFit}}, \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}}, \code{\link{SpliceFitGPD}}
+\code{\link{SpliceFit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}}
 }
 \examples{
 # Create MEfit object
 mefit <- MEfit(p=c(0.65,0.35), shape=c(39,58), theta=16.19, M=2)
 
 # Create EVTfit object
-evtfit <- EVTfit(gamma=c(0.76,0.64))
+evtfit <- EVTfit(gamma=c(0.76,0.64), endpoint=c(39096, Inf))
 
 # Create SpliceFit object
-splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","Pa","Pa"),
+splicefit <- SpliceFit(const=c(0.5,0.996), trunclower=0, t=c(1020,39096), type=c("ME","TPa","Pa"),
                        MEfit=mefit, EVTfit=evtfit)
 
 # Show summary

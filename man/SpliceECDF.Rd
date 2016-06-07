@@ -33,6 +33,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 Use \code{\link{SpliceTB}} for censored data. 
 
 Confidence bounds are determined using the Dvoretzky-Kiefer-Wolfowitz inequality.
+
+See Section 4.3 in Albrecher et al. (2016) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -50,7 +52,6 @@ Tom Reynkens
 \examples{
 \dontrun{
 
-
 # Pareto random sample
 X <- rpareto(1000, shape = 2)
 
@@ -59,7 +60,7 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 
 
-x <- seq(0,20,0.01)
+x <- seq(0, 20, 0.01)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -76,14 +77,13 @@ SpliceECDF(x, X, splicefit)
 SpliceLL(x, X, splicefit)
 
 # PP-plot of empirical survival function and fitted survival function
-SplicePP(x, X, splicefit)
+SplicePP(X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit, log=TRUE)
+SplicePP(X, splicefit, log=TRUE)
 
 # Splicing QQ-plot
 SpliceQQ(X, splicefit)
-
 }
 }

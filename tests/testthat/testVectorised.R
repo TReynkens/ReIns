@@ -93,7 +93,7 @@ test_that("Censored estimators for-loops", {
 	  
   pqq.the3 <- numeric(n-1)
   for (j in 1:(n-1)) { 
-    pqq.the3[j] <- -log(1-KaplanMeier(X[n-j+1],X,censored))
+    pqq.the3[j] <- -log(KaplanMeier(X[n-j+1],X,censored)$surv)
   }
   
   expect_true(max(abs(cParetoQQ(X,censored=censored,plot=FALSE)$pqq.the- pqq.the3 )/ pqq.the3 ,

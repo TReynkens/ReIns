@@ -55,7 +55,7 @@ Maximum number of iterations in a single EM algorithm  execution (ME part). Defa
 }
 }
 \details{
-See Albrecher et al. (2016) and Verbelen et al. (2015a) for details. The code follows the notation of the latter.
+See Section 4.3 of Albrecher et al. (2016) and Verbelen et al. (2015a) for details. The code follows the notation of the latter.
 Initial values follow from Verbelen et al. (2015b).
 }
 \value{
@@ -77,7 +77,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitPareto}}, \code{\link{SpliceFitciPareto}}, \code{\link[=pSplice]{Splice}},
+\code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link[=pSplice]{Splice}},
 \code{\link{GPDfit}}
 }
 \examples{
@@ -91,7 +91,7 @@ splicefit <- SpliceFitGPD(X, 0.6)
 
 
 
-x <- seq(0,20,0.01)
+x <- seq(0, 20, 0.01)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -108,14 +108,13 @@ SpliceECDF(x, X, splicefit)
 SpliceLL(x, X, splicefit)
 
 # PP-plot of empirical survival function and fitted survival function
-SplicePP(x, X, splicefit)
+SplicePP(X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit, log=TRUE)
+SplicePP(X, splicefit, log=TRUE)
 
 # Splicing QQ-plot
 SpliceQQ(X, splicefit)
-
 }
 }

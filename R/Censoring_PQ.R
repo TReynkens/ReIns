@@ -36,10 +36,10 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Kaplan-Meier estimator for survival function in X[n-K]
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   # Weissman estimator for probabilities
-  prob[K] <- (1-km) * (q/X[n-K])^(-1/gamma1[K])
+  prob[K] <- km * (q/X[n-K])^(-1/gamma1[K])
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -74,10 +74,10 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Kaplan-Meier estimator for survival function in X[n-K]
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   # Weissman estimator for probabilities
-  R[K] <- 1 / ( (1-km) * (q/X[n-K])^(-1/gamma1[K]) )
+  R[K] <- 1 / ( km * (q/X[n-K])^(-1/gamma1[K]) )
   R[R<1] <- NA
   
   # plots if TRUE
@@ -128,10 +128,10 @@ cQuant <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   # Weisman estimator for quantiles
-  quant[K] <- X[n-K] * ((1-km)/p)^(gamma1[K])
+  quant[K] <- X[n-K] * (km/p)^(gamma1[K])
   
   # plots if TRUE
   .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
@@ -173,11 +173,11 @@ cQuantGH <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   a <- X[n-K] * H[K] * (1-pmin(gamma1[K],0)) / pk[K]
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   
   # Estimator for extreme quantiles
-  quant[K] <- X[n-K] + a/gamma1[K] * ( ((1-km)/p)^gamma1[K] - 1 )
+  quant[K] <- X[n-K] + a/gamma1[K] * ( (km/p)^gamma1[K] - 1 )
   
   # plots if TRUE
   .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
@@ -222,9 +222,9 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   a <- X[n-K] * H[K] * (1-pmin(gamma1[K],0)) / pk[K]
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
-  prob[K] <- (1-km) * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K])
+  prob[K] <- km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K])
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -269,9 +269,9 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   a <- X[n-K] * H[K] * (1-pmin(gamma1[K],0)) / pk[K]
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
-  R[K] <- 1 / ( (1-km) * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K]) )
+  R[K] <- 1 / ( km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K]) )
   R[R<1] <- NA
   
   # plots if TRUE
@@ -316,11 +316,11 @@ cQuantGPD <- function(data, censored, gamma1, sigma1, p, plot = FALSE, add = FAL
   a <- sigma1[K]/pk
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   
   # Estimator for extreme quantiles
-  quant[K] <- X[n-K] + a/gamma1[K] * ( ((1-km)/p)^gamma1[K] - 1 )
+  quant[K] <- X[n-K] + a/gamma1[K] * ( (km/p)^gamma1[K] - 1 )
   
   # plots if TRUE
   .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
@@ -360,10 +360,10 @@ cProbGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALS
   a <- sigma1[K]/pk
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
 
-  prob[K] <- (1-km) * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K])
+  prob[K] <- km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K])
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -405,10 +405,10 @@ cReturnGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FA
   a <- sigma1[K]/pk
   
   # Kaplan-Meier estimator for CDF
-  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])
+  km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   
-  R[K] <- 1 / ( (1-km) * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K]) )
+  R[K] <- 1 / ( km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K]) )
   R[R<1] <- NA
   
   # plots if TRUE

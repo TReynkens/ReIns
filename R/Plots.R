@@ -352,7 +352,7 @@ cExpQQ <- function(data, censored, plot = TRUE, main = "Exponential QQ-plot", ..
   
   
   # -log of Kaplan-Meier estimator for the survival function in Z_[n-K+1]
-  eqq.the <- -log( 1 - KaplanMeier(X[n-K+1], data = X, censored = censored[sortix]) )
+  eqq.the <- -log(KaplanMeier(X[n-K+1], data = X, censored = censored[sortix])$surv )
   eqq.emp <- X[n-K+1]
   
   
@@ -380,8 +380,8 @@ cLognormalQQ <- function(data, censored, plot = TRUE, main = "Log-normal QQ-plot
   
   # calculate theoretical and empirical quantiles
   
-  # -log of Kaplan-Meier estimator for the survival function in Z_[i]
-  lnqq.the <- qnorm(KaplanMeier(X, data = X, censored = censored[sortix]) )
+  #  qnorm of Kaplan-Meier estimator for the survival function in Z_[i]
+  lnqq.the <- qnorm(1-KaplanMeier(X, data = X, censored = censored[sortix])$surv )
   lnqq.emp <- log(X)
   
   # plots if TRUE
@@ -414,7 +414,7 @@ cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...)
   
   
   # -log of Kaplan-Meier estimator for the survival function in Z_[n-K+1]
-  pqq.the <- -log( 1 - KaplanMeier(X[n-K+1], data = X, censored = censored[sortix]) )
+  pqq.the <- -log( KaplanMeier(X[n-K+1], data = X, censored = censored[sortix])$surv )
   pqq.emp <- log(X[n-K+1])
   
   

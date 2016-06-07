@@ -9,7 +9,7 @@ This function plots the logarithm of the empirical survival function (determined
 Moreover, the logarithm of the fitted survival function of the spliced distribution is added.
 }
 \usage{
-SpliceLL(x = sort(X), X, splicefit, ...)
+SpliceLL(x = sort(X), X, splicefit, plot = TRUE, main = "Splicing LL-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,12 +22,35 @@ Data used for fitting the distribution.
   \item{splicefit}{
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
+  \item{plot}{
+Logical indicating if the splicing LL-plot should be made, default is \code{TRUE}.
+}
+  \item{main}{
+Title for the plot, default is \code{"Splicing LL-plot"}.
+}
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
 \details{
-Use \code{\link{SpliceLL_TB}} for censored data. 
+The LL-plot consists of the points
+\deqn{(\log(x_{i,n}), \log(1-\hat{F}(x_{i,n})))}
+for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{x_{i,n}} the \eqn{i}-th smallest observation
+and \eqn{\hat{F}} the empirical distribution function.
+Then, the line 
+\deqn{(log(x), \log(1-\hat{F}_{spliced}(x))),}
+with \eqn{\hat{F}_{spliced}} the fitted spliced distribution function, is added.
+
+Use \code{\link{SpliceLL_TB}} for censored data.
+
+See Section 4.3 of Albrecher et al. (2016) for more details.
+}
+\value{
+A list with following components:
+\item{logX}{Vector of the logarithms of the sorted data.}
+\item{sll.the}{Vector of the theoretical log-probabilities \eqn{\log(1-\hat{F}_{spliced}(x))}.}
+\item{logx}{Vector of the logarithms of the points to plot the fitted survival function at.}
+\item{sll.emp}{Vector of the empirical log-probabilities \eqn{\log(1-\hat{F}(x_{i,n}))}.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -45,7 +68,6 @@ Tom Reynkens
 \examples{
 \dontrun{
 
-
 # Pareto random sample
 X <- rpareto(1000, shape = 2)
 
@@ -54,7 +76,7 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 
 
-x <- seq(0,20,0.01)
+x <- seq(0, 20, 0.01)
 
 # Plot of splicing CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
@@ -71,14 +93,13 @@ SpliceECDF(x, X, splicefit)
 SpliceLL(x, X, splicefit)
 
 # PP-plot of empirical survival function and fitted survival function
-SplicePP(x, X, splicefit)
+SplicePP(X, splicefit)
 
 # PP-plot of empirical survival function and 
 # fitted survival function with log-scales
-SplicePP(x, X, splicefit, log=TRUE)
+SplicePP(X, splicefit, log=TRUE)
 
 # Splicing QQ-plot
 SpliceQQ(X, splicefit)
-
 }
 }

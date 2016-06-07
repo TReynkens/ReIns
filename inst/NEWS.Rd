@@ -31,6 +31,7 @@
         \item Type \code{"tPa"} is changed to \code{"TPa"} when using splicefit objects. \code{"tPa"} is however still supported.
         \item Add mean excess plot adapted for censoring using Turnbull estimator.
         \item Add Fréchet distribution.
+        \item Rename \code{SpliceFitciPareto} to \code{SpliceFiticPareto} (only dummy is included).
       }
     }
     \subsection{Documentation changes:}{

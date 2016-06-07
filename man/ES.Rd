@@ -16,7 +16,7 @@ ES(p, splicefit)
 The probability associated with the ES (we estimate  \eqn{ES_p}).
 }
   \item{splicefit}{
-Output list from \code{\link{SpliceFitHill}}, \code{\link{SpliceFitciPareto}} or \code{\link{SpliceFitGPD}}.
+A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{
@@ -27,10 +27,10 @@ where \eqn{I(u)=E((X-u)_+)} is the premium of an excess-loss insurance with rete
 If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
 \eqn{TVaR} the Tail Value-at-Risk.
 
-See Section 3.3 of Albrecher et al. (2016) for details.
+See Section 4.5 of Albrecher et al. (2016) for more details.
 }
 \value{
-Vector with the ES associated with each element of p.
+Vector with the ES corresponding to each element of \eqn{p}.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -44,7 +44,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{ExcessSplice}}
+\code{\link{qSplice}}, \code{\link{ExcessSplice}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}} 
 }
 \examples{
 \dontrun{
@@ -53,7 +53,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 X <- rpareto(1000, shape = 2)
 
 # Splice ME and Pareto
-splicefit <- SpliceFitHill(X, 0.6)
+splicefit <- SpliceFitPareto(X, 0.6)
 
 p <- seq(0.01, 0.99, 0.01)
 # Plot of expected shortfall

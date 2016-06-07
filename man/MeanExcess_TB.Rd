@@ -46,11 +46,11 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The mean excess values are given by
 \deqn{\hat{e}^{TB}(v)=(\int_v^{\infty} 1-\hat{F}^{TB}(u) du)/(1-\hat{F}^{TB}(u))}
 where \eqn{\hat{F}^{TB}} is the Turnbull estimator for the CDF.
-More specifically, we use the values \eqn{v=\hat{Q}^{TB}(p)} for \eqn{p=1/(n+1), \ldots, (n-1)/(n+1)} where
+More specifically, we use the values \eqn{v=\hat{Q}^{TB}(p)} for \eqn{p=1/(n+1), \ldots, n/(n+1)} where
 \eqn{\hat{Q}^{TB}(p)} is the empirical quantile function corresponding to the Turnbull estimator.
-See Albrecher et al. (2016) for more details.
+See Section 4.3 in Albrecher et al. (2016) for more details.
 
-Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{U=u}. 
+Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 
 If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
@@ -81,7 +81,7 @@ X <- rpareto(500, shape=2)
 Y  <- rpareto(500, shape=1)
 
 # Observed sample
-Z <- pmin(X,Y)
+Z <- pmin(X, Y)
 
 # Censoring indicator
 censored <- (X>Y)
