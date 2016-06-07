@@ -44,7 +44,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The mean excess values are given by
-\deqn{\hat{e}^{TB}(v)=(\int_v^{\infty} 1-\hat{F}^{TB}(u) du)/(1-\hat{F}^{TB}(u))}
+\deqn{\hat{e}^{TB}(v)=(\int_v^{\infty} 1-\hat{F}^{TB}(u) du)/(1-\hat{F}^{TB}(v))}
 where \eqn{\hat{F}^{TB}} is the Turnbull estimator for the CDF.
 More specifically, we use the values \eqn{v=\hat{Q}^{TB}(p)} for \eqn{p=1/(n+1), \ldots, (n-1)/(n+1)} where
 \eqn{\hat{Q}^{TB}(p)} is the empirical quantile function corresponding to the Turnbull estimator.
