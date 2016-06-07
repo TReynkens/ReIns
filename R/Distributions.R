@@ -1,5 +1,22 @@
 
-###############################################################
+# This file contains implementations of several distributions that are useful for EVT:
+#
+# The Burr distribution (type XII).
+# The Extended Pareto Distribution (EPD).
+# The Fréchet distribution.
+# The Generalised Pareto Distribution (GPD).
+# The Pareto distribution.
+# 
+# The truncated Burr distribution.
+# The truncated exponential distribution.
+# The truncated Fréchet distribution.
+# The truncated GPD.
+# The truncated log-normal distribution.
+# The truncated Pareto distribution.
+# The truncated Weibull distribution.
+
+###########################################################################
+
 # Pareto
 
 dpareto <- function(x, shape, scale = 1, log = FALSE) {

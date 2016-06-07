@@ -1,16 +1,10 @@
 
+# This file contains implementations of estimators that are suitable for a truncated
+# Pareto distribution.
 
+###################################################################################################
 
-
-
-####################################################################
-############### Truncated estimators (1st paper) ##################
-####################################################################
-
-
-
-### estimation of gamma
-
+# Estimation of extreme value index of truncated Pareto model
 trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = FALSE, add = FALSE, 
                          main="Estimates of EVI", ...) {
   
@@ -25,7 +19,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
   R <- numeric(n)
   K <- r:(n-1)
   
-  ### Truncated Hill estimator 
+  # Truncated Hill estimator 
   
   # Trimmed Hill
   H[K] <- cumsum(log(X[(n-r+1):(n-tail(K,1)+1)]))/(K-r+1) - log(X[n-K]) 
@@ -35,7 +29,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
   
   R[K] <- X[n-K]/X[n-r+1]
   
-  ### Newton-Raphson to obtain estimates of gamma
+  # Newton-Raphson to obtain estimates of gamma
   for (k in (n-1):r) {  
     # Note that y = gamma = 1/alpha
     #y <- H1[k]
@@ -57,23 +51,22 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
   
   gamma[gamma<=0] <- NA
   
-  ### plots if TRUE  
+  # plots if TRUE  
   if (logk) {
     .plotfun(log(K), gamma[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
     .plotfun(K, gamma[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
-  ### output list with values of k and
-  ### corresponding estimates for gamma
+  # output list with values of k and
+  # corresponding estimates for gamma
   
   .output(list(k=K, gamma=gamma[K], H=H[K]),plot=plot,add=add)
   
 }
 
 
-### estimation of DT
-
+# Estimator for odds ratio DT
 trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE, 
                       main="Estimates of DT", ...) {
   
@@ -95,17 +88,18 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
   
   DT[K] <-  pmax( (K+1)/(n+1) * (R^A-r/(K+1)) / (1-R^A), 0)
   
-  ### plots if TRUE  
+  # plots if TRUE  
   .plotfun(K, DT[K], type="l", xlab="k", ylab=expression(D[T]), main=main, plot=plot, add=add, ...)
   
   
-  ### output list with values of k and
-  ### corresponding estimates for DT
+  # output list with values of k and
+  # corresponding estimates for DT
   
   .output(list(k=K, DT=DT[K]),plot=plot,add=add)
   
 }
 
+# Estimator for endpoint
 trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE, 
                       main = "Estimates of Endpoint", ...) {
   
@@ -130,17 +124,17 @@ trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE,
   
   Tk[K] <- pmax(X[n-K] * (1+(K+1)/((n+1)*DT))^gamma, X[n])
   
-  ### plots if TRUE  
+  # plots if TRUE  
   .plotfun(K, Tk[K], type="l", xlab="k", ylab=expression(T[k]), main=main, plot=plot, add=add, ...)
   
-  ### output list with values of k and
-  ### corresponding estimates for DT
+  # output list with values of k and
+  # corresponding estimates for DT
   
   .output(list(k=K, Tk=Tk[K]),plot=plot,add=add)
   
 }
 
-### quantile estimation
+# Estimator for extremes quantile
 # rough indicates if we are in the rough truncation case
 trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add = FALSE,
                          main="Estimates of extreme quantile", ...) {
@@ -154,7 +148,7 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
   quant <- numeric(n)
   K <- r:(n-1)
   
-  ### Estimator for extreme quantiles
+  # Estimator for extreme quantiles
 
   if (rough) {
     #quant[K] <- X[n-K] * ((K+1)/((n+1)*p))^gamma * ((1+DT*(n+1)/(K+1))/(1+DT/p))^gamma
@@ -166,18 +160,18 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
 
 
   
-  ### plots if TRUE
+  # plots if TRUE
   
   .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
-  ### output list with values of k, corresponding quantile estimates 
-  ### and the considered small tail probability p
+  # output list with values of k, corresponding quantile estimates 
+  # and the considered small tail probability p
   
   .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
   
 }
 
-# Quantiles of original data W
+# Estimator for extreme quantile of original data W
 trQuantW <- function(data, gamma, DT, p, plot = FALSE, add = FALSE,
                     main="Estimates of extreme quantile", ...) {
   
@@ -190,19 +184,19 @@ trQuantW <- function(data, gamma, DT, p, plot = FALSE, add = FALSE,
   quant <- numeric(n)
   K <- 1:(n-1)
   
-  ### Estimator for extreme quantiles
+  # Estimator for extreme quantiles
   
   
   quant[K] <- X[n-K] * ((DT+(K+1)/(n+1))/(p*(1+DT)))^gamma[K]
     
  
   
-  ### plots if TRUE
+  # plots if TRUE
   
   .plotfun(K, quant[K], type="l", xlab="k", ylab=expression(Q[W](1-p)), main=main, plot=plot, add=add, ...)
   
-  ### output list with values of k, corresponding quantile estimates 
-  ### and the considered small tail probability p
+  # output list with values of k, corresponding quantile estimates 
+  # and the considered small tail probability p
   
   .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
   
@@ -211,7 +205,7 @@ trQuantW <- function(data, gamma, DT, p, plot = FALSE, add = FALSE,
 
 
 
-### exceedance probability estimation
+# Estimator of exceedance probability
 trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = FALSE,
                          main="Estimates of small exceedance probability", ...) {
   
@@ -225,7 +219,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
   
   R <- X[n-K]/X[n-r+1]
   
-  ### Estimator for exceedance probability
+  # Estimator for exceedance probability
   prob[K] <- (K+1)/(n+1) * ( (q/X[n-K])^(-1/gamma) - R^(1/gamma) ) / (1-R^(1/gamma))
   
   if (q > max(data) & warnings) {
@@ -235,21 +229,21 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
   
   prob[prob<0 | prob>1] <- NA
   
-  ### plots if TRUE
+  # plots if TRUE
   
   if( !all(is.na(prob[K])) ) {
     .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   }
   
   
-  ### output list with values of k, exceedance probabilitye estimates 
-  ### and the considered high quantile q
+  # output list with values of k, exceedance probabilitye estimates 
+  # and the considered high quantile q
   
   .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
   
 }
 
-
+# Pareto QQ-plot adapted for truncation
 trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa QQ-plot", ...) {
   
   # Check input arguments
@@ -326,7 +320,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
 }
 
 
-#Test for non-truncated vs. truncated Pareto-type tails
+# Test for non-truncated vs. truncated Pareto-type tails
 trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation", ...) {
   
   # Check input arguments
@@ -339,7 +333,7 @@ trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation"
   
   H <- Hill(X)$gamma
   
-  #Compute L(H_{k,n})
+  # Compute L(H_{k,n})
   E <- numeric(n)
 
   for(k in K) {
@@ -348,20 +342,19 @@ trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation"
     
   L <- (E[K]-0.5)/(1-E[K])
   
-  #Test value
+  # Test value
   tv <- sqrt(12*K)*L
   
-  #Critical value
+  # Critical value
   cv <- qnorm(alpha)
   
-  #Reject
+  # Reject
   reject <- (tv<=cv)
   
-  #P-values
+  # P-values
   Pval <- pnorm(tv)
   
-  #Plot P-values 
-  
+  # Plot P-values 
   .plotfun(K, Pval[K], ylim=c(0,1), type="l", xlab="k", ylab="P-value", main=main, plot=plot, add=FALSE, ...)
   if (plot) abline(h=alpha, col="blue", ...)
   

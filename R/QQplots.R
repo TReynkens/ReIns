@@ -1,5 +1,5 @@
 
-
+# This file contains implementation of QQ-plots and their derivative plots.
 
 ##############################################################################################
 

@@ -1,4 +1,9 @@
 
+# This file contains the functions for the Kaplan-Meier and Turnbull estimators.
+
+###########################################################################
+
+
 # Kaplan-Meier estimator for the CDF evaluated in x
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary sample CDF

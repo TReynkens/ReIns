@@ -1,4 +1,8 @@
 
+# This file contains the implementation of the generalised Hill estimator.
+
+###########################################################################
+
 # Computes the Hill estimates of gamma (Section 5.2.3 in Beirlant et al. (2004)) 
 # for a numeric vector of observations (data) and as a
 # function of k

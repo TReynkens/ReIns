@@ -1,5 +1,8 @@
+
 # Computes the Peaks-Over-Threshold estimates of gamma using ML (Section 5.3.2 in Beirlant et al. (2004)) 
 # Based on POT_KH.R (written by Klaus Herrmann) and POT.R.
+
+###########################################################################
 
 # minus log-likelihood for a (univariate sample Y) of iid GP random variables
 .POTneglogL <- function(theta, Y) {

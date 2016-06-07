@@ -1,6 +1,7 @@
 
+# This file contains the methods for approximating a CDF.
 
-
+###########################################################################
 
 # Classical approximations for the aggregate claim size distribution
 pClas <- function(x, mean = 0, variance = 1, skewness = NULL, 

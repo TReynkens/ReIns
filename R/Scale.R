@@ -1,5 +1,9 @@
 
-#Scale estimator
+# This file contains implementations of scale estimators.
+
+###########################################################################
+
+# Scale estimator
 Scale <- function(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE, 
                     main = "Estimates of scale parameter", ...) {
   
@@ -32,7 +36,7 @@ Scale <- function(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE,
 }
 
 
-#Bias-reduced scale estimator
+# Bias-reduced scale estimator using Hill.2oQV
 Scale.2o <- function(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FALSE,
                        main = "Estimates of scale parameter", ...) {
   
@@ -60,6 +64,7 @@ Scale.2o <- function(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FAL
 }
 
 
+# Bias-reduced scale estimator using EPD
 ScaleEPD <- function (data, gamma, kappa, logk = FALSE, plot = FALSE, add = FALSE, 
                       main = "Estimates of scale parameter", ...) {
   

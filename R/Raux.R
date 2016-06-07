@@ -1,7 +1,7 @@
 
-###################################
-#Several auxiliary functions
-###################################
+# This file contains several auxiliary functions.
+
+###########################################################################
 
 # Auxiliary function to handle plots for all estimators
 .plotfun <- function(x, y, type, xlab, ylab, main, plot, add, ... ){

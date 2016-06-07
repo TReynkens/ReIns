@@ -1,3 +1,4 @@
+
 # Computes bias reduced estimates of gamma based on the
 # quantile view (Section 4.5.1 in Beirlant et al. (2004)) for a numeric vector of 
 # observations (data) and as a function of k

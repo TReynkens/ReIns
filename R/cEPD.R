@@ -1,4 +1,9 @@
 
+# This file contains the implementation of the EPD estimator adapted for right censored data.
+
+###########################################################################
+
+
 # Proportion of non-censored observations
 .p.hat.fun <- function(delta.n){
   

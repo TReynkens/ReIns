@@ -1,5 +1,10 @@
 
 
+# This file contains implementations of several regression estimators.
+
+###########################################################################
+
+
 # Regression on scale parameter with constant gamma (estimator for A(s))
 #
 # s is the point in which the estimated scale function is evaluated

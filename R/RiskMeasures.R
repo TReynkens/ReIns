@@ -1,6 +1,8 @@
 
+# This file contains implementations of the risk measures: excess-loss premiums (for the splicing model
+# and several EVT models), and Value-at-Risk (VaR) and Expected Shortfall (ES) for the splicing model.
 
-
+###########################################################################
 
 # Integrated tail function of (truncated) Pareto distribution using Hill estimates
 .IntTailPareto <- function(data, gamma, R, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,

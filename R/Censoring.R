@@ -1,5 +1,7 @@
 
-# Estimators for quantiles, small probabilities and return periods are in Censoring_PQ.R
+# This file contains EVT methods suitable for right censored data.
+# Estimators for quantiles, small probabilities and return periods are in Censoring_PQ.R.
+# Estimators suitable for interval censored data are in IntervalCensoring.R
 
 #####################################################################
 

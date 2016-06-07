@@ -32,6 +32,7 @@
         \item Add mean excess plot adapted for censoring using Turnbull estimator.
         \item Add Fréchet distribution.
         \item Rename \code{SpliceFitciPareto} to \code{SpliceFiticPareto} (only dummy is included).
+        \item Re-organise code.
       }
     }
     \subsection{Documentation changes:}{

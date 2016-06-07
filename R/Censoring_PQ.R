@@ -1,4 +1,10 @@
 
+# This file contains the estimators for quantiles, small probabilities and return periods
+# suitable for right censored data.
+
+###########################################################################
+
+
 # Computes estimates of small exceedance probability 1-F(q) 
 # for a numeric vector of observations 
 # (data) and as a function of k
