@@ -1,5 +1,5 @@
 
-# Estimators for quantiles, small probabalities and return periods are in Censoring_PQ.R
+# Estimators for quantiles, small probabilities and return periods are in Censoring_PQ.R
 
 #####################################################################
 

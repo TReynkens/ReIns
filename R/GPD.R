@@ -225,3 +225,41 @@ QuantGPD <- function(data, gamma, sigma, p, plot = FALSE, add = FALSE,
   
   .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
 }
+
+##############################################################################
+
+# GPD residual plot when applying POT with threshold t
+GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residual plot", ...) {
+  
+  # Check input arguments
+  .checkInput(data)
+  
+  
+  if (length(gamma)!=1 | length(sigma)!=1) {
+    stop("gamma and sigma should have length 1.")
+  }
+  
+  Y <- data[data>t]-t
+  n <- length(Y)
+  
+  if (abs(gamma) < .Machine$double.eps) {
+    R <- Y/sigma
+  } else {
+    R <- 1/gamma*log(1+gamma/sigma*Y)
+  }
+  
+  # calculate theoretical and empirical quantiles)
+  res.the <- -log( 1 - (1:n) / (n+1))
+  res.emp<- sort(R)
+  
+  
+  # plots if TRUE
+  .plotfun(res.the, res.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="R", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  # output list with theoretical quantiles gqq.the
+  # and empirical quantiles gqq.emp
+  .output(list(res.the=res.the, res.emp=res.emp), plot=plot, add=FALSE)
+  
+  
+}
