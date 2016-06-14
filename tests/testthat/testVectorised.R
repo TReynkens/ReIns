@@ -283,20 +283,17 @@ test_that("Truncation (gamma pos) for-loops", {
   Tk <- numeric(n)
   R <- numeric(n)
   G <- numeric(n)
-  Dt <- numeric(n)
   
   gamma <- trHill(X,r=r)$gamma
-  gamma <- abs(gamma)
+  G[K] <- abs(gamma)
   
-  DT <- trDT(X,gamma=gamma,r=r)$DT
-  Dt[K] <- DT
-  G[K] <- gamma
+  R[K] <- X[n-K] / X[n]
   
   for (k in (n-1):r) {
-    Tk[k] <- max(X[n-k] * (1+(k+1)/((n+1)*Dt[k]))^G[k], X[n])
+    Tk[k] <- max(X[n-k] * ((R[k]^(1/G[k])-1/(k+1)) / (1-1/(k+1)))^(-G[k]), X[n])
   }
   
-  expect_true(max(abs(trEndpoint(X,gamma=gamma,DT=DT,r=r)$Tk-Tk[K]),na.rm=TRUE)<eps)
+  expect_true(max(abs(trEndpoint(X,gamma=gamma,r=r)$Tk-Tk[K]),na.rm=TRUE)<eps)
   
   
   

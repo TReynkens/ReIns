@@ -34,6 +34,7 @@
         \item Rename \code{SpliceFitciPareto} to \code{SpliceFiticPareto} (only dummy is included).
         \item Re-organise code.
         \item Add Hill estimator (\code{icHill}) and Pareto QQ-plot (\code{icParetoQQ}) for interval censored data.
+        \item Remove \code{DT} argument from \code{trEndpoint}.
       }
     }
     \subsection{Documentation changes:}{

@@ -100,11 +100,11 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
 }
 
 # Estimator for endpoint
-trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE, 
+trEndpoint <- function(data, r = 1, gamma, plot = FALSE, add = FALSE, 
                       main = "Estimates of Endpoint", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma=gamma,DT=DT,r=r)
+  .checkInput(data,gamma=gamma,r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -117,12 +117,9 @@ trEndpoint <- function(data, r = 1, gamma, DT, plot = FALSE, add = FALSE,
     stop(paste("gamma should have length", length(K)))
   }
   
-  if(length(DT)!=length(K)) {
-    stop(paste("DT should have length", length(K)))
-  }
+  R <- X[n-K] / X[n]
   
-  
-  Tk[K] <- pmax(X[n-K] * (1+(K+1)/((n+1)*DT))^gamma, X[n])
+  Tk[K] <- pmax(X[n-K] * ((R^(1/gamma)-1/(K+1)) / (1-1/(K+1)))^(-gamma), X[n])
   
   # plots if TRUE  
   .plotfun(K, Tk[K], type="l", xlab="k", ylab=expression(T[k]), main=main, plot=plot, add=add, ...)
