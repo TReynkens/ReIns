@@ -17,6 +17,8 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
     stop("censored should have length 1 or the same length as L and U.")
   }
   
+  kplot <- k
+  
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE)) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
@@ -102,7 +104,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   # Plot estimates
   if (plot) {
     
-    if (k) {
+    if (kplot) {
       .plotfun(K, me[K], type="p", xlab="k", ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
     } else {
       .plotfun(ic[n-K], me[K], xlab=bquote(X["n-k,n"]), type="p", ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
