@@ -36,7 +36,7 @@ an optimal mixed Erlang fit using an information criterion.
 }
   \item{s}{
 Vector of spread factors for the EM algorithm, default is \code{1:10}. We loop over these factors when determining
-an optimal mixed Erlang fit using an information criterion, see Verbelen et al. (2015b).
+an optimal mixed Erlang fit using an information criterion, see Verbelen et al. (2016).
 }
   \item{trunclower}{
 Lower truncation point. Default is 0.
@@ -68,8 +68,8 @@ Maximum number of iterations in a single EM algorithm execution (ME part). Defau
 }
 }
 \details{
-See Section 4.3 of Albrecher et al. (2016) and Verbelen et al. (2015a) for details. The code follows the notation of the latter.
-Initial values follow from Verbelen et al. (2015b).
+See Section 4.3 of Albrecher et al. (2016) and Verbelen et al. (2015) for details. The code follows the notation of the latter.
+Initial values follow from Verbelen et al. (2016).
 
 The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
 
@@ -87,8 +87,8 @@ Pareto-type Distributions." \emph{Extremes}, accepted.
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758.
 
-Verbelen, R., Antonio, K. and Claeskens, G. (2015). "Multivariate Mixtures
-of Erlangs for Density Estimation Under Censoring." \emph{Lifetime Data Analysis}, accepted.
+Verbelen, R., Antonio, K. and Claeskens, G. (2016). "Multivariate Mixtures
+of Erlangs for Density Estimation Under Censoring." \emph{Lifetime Data Analysis}, 22, 429--455.
 }
 \author{
 Tom Reynkens with \code{R} code from Roel Verbelen for fitting the mixed Erlang distribution.

@@ -20,7 +20,7 @@
         \item Add Weibull QQ-plot and derivative plot.
         \item Rename input argument \code{M} to \code{R} for excess-loss functions.
         \item Correct AIC and BIC for truncated splicing fits (if more than two parts).
-        \item Change initial values of ME distribution to the ones used in Verbelen et al. (2015b) (multivariate ME).
+        \item Change initial values of ME distribution to the ones used in Verbelen et al. (2016) (multivariate ME).
         \item Add option to plot estimates for EVI as function of \eqn{log(k)} instead of \eqn{k}.
         \item Improve ME quantile function.
         \item Plot points instead of lines in PP-plots.
@@ -50,6 +50,7 @@
         \item Fix typo in documentation of \code{log} option in \code{SplicePP} and \code{SplicePP_TB}.
         \item Rename input argument \code{u} to \code{R} for excess-loss functions.
         \item Update Beirlant et al. (2015) reference.
+        \item Update Verbelen et al. (2016) reference.
       }
     }
     \subsection{Miscellaneous changes:}{
