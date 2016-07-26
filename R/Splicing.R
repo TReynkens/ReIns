@@ -439,7 +439,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
 
 ###############################################################################
 
-# Fit splicing of mixed Erlang and (truncated) Pareto
+# Fit mixed Erlang and (truncated) Pareto splicing model to uncensored data
 SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, EVTtruncation = FALSE, 
                             ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, 
                             eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
@@ -656,7 +656,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   }
   
   # Convert to object of class EVTfit
-  EVTfit <- structure(EVTfit, class="EVTfit")
+  EVTfit <- EVTfit(gamma=EVTfit$gamma, endpoint=EVTfit$endpoint, sigma=NULL)
   
   
   ##
@@ -674,13 +674,10 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   ic <- c(aic, bic)
   names(ic) <- c("AIC", "BIC")
   
-  # Add to SpliceFit object
-  sf$loglik <- loglik
-  sf$IC <- ic
-  
   ##
   # Return SpliceFit object
-  return( sf )
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), 
+                    MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
 }
 # Include for compatibility with old versions
 SpliceFitHill <- SpliceFitPareto
@@ -708,17 +705,18 @@ SpliceFitHill <- SpliceFitPareto
 
 ##################################
 
-# Fit splicing of ME and Pareto distribution to interval censored data
+# Fit mixed Erlang and Pareto splicing model to interval censored data
 SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
                               criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
   
-  warning("This function has not yet been implemented.")
+  # return(.SpliceFiticPareto(L=L, U=U, censored=censored, tsplice=tsplice, M=M, s=s, trunclower=trunclower, truncupper=truncupper,
+  #                           ncores=ncores, criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
 }
 
 
 ##################################
 
-# Fit splicing of mixed Erlang and GPD (POT)
+# Fit mixed Erlang and GPD splicing model (to uncensored data)
 # No truncation implemented, so only use with one GPD part!
 SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
                          criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
@@ -856,7 +854,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   }
 
   # Convert to object of class EVTfit
-  EVTfit <- structure(EVTfit, class="EVTfit")
+  EVTfit <- EVTfit(gamma=EVTfit$gamma, endpoint=EVTfit$endpoint, sigma=EVTfit$sigma)
   
   # Make SpliceFit object
   sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
@@ -871,14 +869,10 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   ic <- c(aic, bic)
   names(ic) <- c("AIC", "BIC")
   
-  # Add to SpliceFit object
-  sf$loglik <- loglik
-  sf$IC <- ic
-  
-  
   ##
   # Return SpliceFit object
-  return( sf )
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), 
+                    MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
 }
 
 
