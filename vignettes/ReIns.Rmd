@@ -56,7 +56,7 @@ It contains implementations of
 * VaR, expected shortfall and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
-We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [splicing](#splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of distribution function](#approximations-of-distribution-function)*.
+We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [splicing](#splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
 
 # Datasets
 
@@ -81,13 +81,13 @@ plot(year, size, xlab="Year", ylab="Size")
 
 # Graphical methods
 
-QQ-plots and their derivative plots are an essential part of extreme value theory. We focus on three important types: the Exponential QQ-plot, Pareto QQ-plot and log-normal QQ-plot.
+QQ-plots and their derivative plots are an essential part of extreme value theory. We focus on four important types: the exponential QQ-plot, Pareto QQ-plot, log-normal QQ-plot and Weibull QQ-plot.
 
 ## Exponential QQ-plot
 
-The **exponential QQ-plot** can be easily drawn using `ExpQQ`. Its derivative plot, also dubbed **mean excess plot** is key in determining what type of distribution the data comes from. The mean excess values $e_{k,n}$ are plotted using `MeanExcess` and one has the choice to plot them versus the order statistics $X_{n-k,n}$ (`k=FALSE`) or versus the number of exceedances $k$ (`k=TRUE`).
+The **exponential QQ-plot** can be easily drawn using `ExpQQ`. Its derivative plot, also dubbed **mean excess plot**, is key in determining what type of distribution the data comes from. The mean excess values $e_{k,n}$ are plotted using `MeanExcess` and one has the choice to plot them versus the order statistics $X_{n-k,n}$ (`k=FALSE`) or versus the number of exceedances $k$ (`k=TRUE`).
 
-In this case we see that the mean-excess plot is more or less linearly increasing as a function of  $X_{n-k,n}$ which indicates that the data may come from a Pareto distribution. The exponential QQ-plot is not linear at all but concave which reinforces the conclusion drawn from the mean excess plot.
+In this case we see that the mean excess plot is more or less linearly increasing as a function of  $X_{n-k,n}$ which indicates that the data may come from a Pareto distribution. The exponential QQ-plot is not linear at all but concave which reinforces the conclusion drawn from the mean excess plot.
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
@@ -190,7 +190,7 @@ genQQ(size, gamma=H$gamma)
 ```
 
 
-The **generalised Hill estimator** (`genHill`) can then be defined which is an estimator for the slope of the generalised QQ-plot.
+The **generalised Hill estimator** (`genHill`) is an estimator for the slope of the generalised QQ-plot.
 Alternatively, one can also consider the **moment estimator** (`Moment`) and the **Peaks-Over-Threshold estimator** (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
 
 The generalised Hill estimator and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
@@ -256,10 +256,10 @@ legend("bottomright", c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 
 The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
 wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution (body)
-and an extreme value distribution, Pareto or GPD, for the tail. The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
-1. `SpliceFitPareto`: splicing of ME and Pareto distribution(s), possibly adapted for (upper) truncation.  
-2. `SpliceFitGPD`: splicing of ME and GPD's, this cannot handle (upper) truncation.   
-3. `SpliceFitcHill`: splicing of ME and a Pareto distribution adapted for right- or interval-censoring.  
+and an extreme value distribution: Pareto or GPD, for the tail. The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
+1. `SpliceFitPareto`: splicing of ME and Pareto distribution(s), possibly adapted for truncation.  
+2. `SpliceFitGPD`: splicing of ME and GPD, this cannot handle (upper) truncation.   
+3. `SpliceFiticHill`: splicing of ME and a Pareto distribution adapted for censored data (and truncation).  
 
 
 At first, one has to determine (a) suitable splicing point(s).
@@ -274,9 +274,9 @@ abline(v=quantile(size, c(0.5,0.996)))
 ```
 
 For the Norwegian fire insurance data, we choose splicing points at the 50\% and 99.6\% quantile.
-This means that we the spliced distribution is a ME distribution between 0 and the first splicing point, a Pareto distribution between the first and second splicing point and another Pareto distribution after the second splicing point.
+This means that the spliced distribution is a ME distribution between 0 and the first splicing point, a (truncated) Pareto distribution between the first and second splicing point and another Pareto distribution after the second splicing point.
 
-Using `SpliceFitPareto` we can fit this spliced distribution. This can take some time so we create a `SpliceFit` object using the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the spliced distribution.
+Using `SpliceFitPareto` we can fit this spliced distribution. This can take some time so we create a `SpliceFit` object with the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the spliced distribution.
 
 ```{r, eval=FALSE}
 
@@ -304,8 +304,10 @@ summary(splicefit)
 
 To see how well the spliced distribution fits the data, we use 2 tools:  
 1. `SpliceECDF`: plot of the fitted survival function and the empirical survival function with confidence bounds.  
-2. `SplicePP`: plot of fitted survival function vs. empirical survival function. The plot with minus-log scales is most informative for the tails.
+2. `SplicePP`: plot of fitted survival function vs. empirical survival function. The plot with minus-log scales is most informative for the tails. 
 3. `SpliceQQ`: plot of fitted quantile function vs. empirical quantiles. 
+
+Similar functions for censored data are implemented as well: `SpliceTB`, `SplicePP_TB` and `SpliceQQ_TB`.
 
 We see that the fitted spliced distribution approximates the empirical distribution quite well.
 
@@ -355,7 +357,7 @@ legend("topright", c(expression("L"==infinity),expression("L"==2*"R")), lty=1:2,
 
 
 ## Value-at-Risk
-A commonly used risk measure is the **Value-at-Risk** (`VaR`). This is nothing more than the quantiles $Q(1-p)$ of a distribution.
+A commonly used risk measure is the **Value-at-Risk** (`VaR`). This is nothing more than the quantile $Q(1-p)$ of a distribution.
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
 # Take small values for p
@@ -385,7 +387,7 @@ plot(p, es, xlab="p", ylab=expression(ES[p]), type="l")
 
 
 ## Simulations
-Simulation of losses is useful for aggregate loss calculations, e.g. when losses are not independent, and to determine risk measures.
+Simulation of losses is useful for aggregate loss calculations, e.g. when losses are not independent, and to determine risk measures. The function `rSplice` simulates data from the fitted spliced distribution.
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
 # Simulate sample of size 1000
@@ -416,7 +418,7 @@ Moreover, several upper truncated distributions are included:
 * The truncated Pareto distribution: `tpareto`.
 * The truncated Weibull distribution: `tweibull`.
 
-# Approximations of distribution function
+# Approximations of the distribution function
 
 It is often very useful to approximate a distribution using the first moments.
 Several classical approximations are implemented in the function `pClas`: 
