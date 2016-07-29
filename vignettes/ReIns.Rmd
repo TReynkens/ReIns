@@ -56,7 +56,7 @@ It contains implementations of
 * VaR, expected shortfall and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
-We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [splicing](#splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
+We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [censored data](#censored-data), [splicing](#splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
 
 # Datasets
 
@@ -249,6 +249,69 @@ ReturnMOM(size, gamma=M$gamma, q=q, add=TRUE, lty=2)
 
 legend("bottomright", c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ```
+
+# Censored data
+
+## Right censored data
+Several EVT estimators for right censored data are included:
+
+* `cExpQQ`, `cLognormalQQ`, `cParetoQQ`: QQ-plots adapted for right censoring.
+* `cHill`, `cEPD`, `cgenHill`, `cGPD`, `cMoment`: estimators for the EVI.
+* `cQuant`, `cQuantGH`, `cQuantGPD`, `cQuantMOM`: estimators for extreme quantiles.
+* `cProb`, `cProbEPD`, `cProbGH`, `cProbGPD`, `cProbMOM`: estimators for small exceedence probabilities.
+
+In the example below we plot estimates for the EVI for a simulated sample of right censored data.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
+
+# Censoring indicator
+censored <- (X>Y)
+
+# Mean excess plot
+cHill(Z, censored, plot=TRUE)
+```
+
+## Interval censored data
+We also implemented a mean excess plot (`MeanExcess_TB`) and an estimator for (positive) EVI (`icHill`) for the more general case of interval censored data. 
+
+In the example below we make the mean excess plot for a simulated sample of right censored data.
+
+```{r, fig.width=5, fig.height=3.5, fig.align='center'}
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
+
+# Censoring indicator
+censored <- (X>Y)
+
+# Right boundary
+U <- Z
+U[censored] <- Inf
+
+# Mean excess plot
+MeanExcess_TB(Z, U, censored, k=FALSE)
+```
+
+
 
 # Splicing
 

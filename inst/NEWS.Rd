@@ -2,10 +2,10 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
-\section{Changes in version 0.5-01 (yyyy-mm-dd)}{
+\section{Changes in version 0.6-00 (yyyy-mm-dd)}{
     \subsection{Changes in \code{R} code:}{
       \itemize{
-        \item Fix problem with reduction of number of Erlangs when some beta's are small.
+        \item Fix problem with reduction of number of Erlangs when some betas are small.
         \item Remove \code{print} option in \code{.MEtune}.
         \item Remove history of \code{theta} and \code{loglikelihood} in \code{.ME_em}.
         \item Improve while-loops in \code{.ME_shape_adj}.
@@ -57,6 +57,7 @@
       \itemize{
         \item Reformat NEWS file.
         \item Update splicing part in vignette.
+        \item Add part on censored data to vignette.
         \item Update authors.
         \item Reformat NAMESPACE file.
       }
