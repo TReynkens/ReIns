@@ -1,4 +1,4 @@
-\name{EP distribution}
+\name{Extended Pareto}
 \alias{depd}
 \alias{pepd}
 \alias{qepd}
