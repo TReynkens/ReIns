@@ -1,5 +1,5 @@
 
-#Tests to see if vectorised versions give same result as slower for-loops
+# Tests to see if vectorised versions give same result as slower for-loops
 context("Vectorisation")
 
 eps <- sqrt(.Machine$double.eps)
@@ -10,34 +10,10 @@ n <- length(X)
 censored <- sample(c(0,1),length(secura$size),replace=TRUE)
 
 ##############################################
-#CensoredEstimators.R
+# Censoring.R
 
 test_that("Censored estimators for-loops", {
   
-  
-  ##################################################
-  # Kaplan-Meier
-  
-#   delta <- !censored
-#   
-#   x <- secura$size[50]
-#   
-#   est <- 1
-#   for (j in 1:n) {
-#     #Stop if X[j] larger than x
-#     if (X[j]>x) {
-#       break
-#     } else {
-#       est <- est * ( 1 - delta[j]/(n-j+1))
-#     }
-#   }
-#   
-#   # Estimator for CDF, not survival function
-#   est  <-  1 - est
-#   
-#   expect_true(max(abs(KaplanMeier(x=x,data=X,censored=censored)-est)/est,
-#                   na.rm=TRUE)<eps)
-#   
   
   ###################################################
   # cHill
@@ -160,7 +136,7 @@ test_that("LStail for-loop", {
   UH.scores[K] <- X[n-K] * Hill(X)$gamma[K]
   
   
-  #Obtain LS estimators for gamma and b using full model Z_j = gamma + b*(j/k)^(-rho) + eps_j
+  # Obtain LS estimators for gamma and b using full model Z_j = gamma + b*(j/k)^(-rho) + eps_j
   for (k in (n-1):1) {
     Z <- ((1:k)+1)*log(UH.scores[(1:k)]/UH.scores[(1:k)+1])
     par2[k,2] <- ((1-par2[k,3])^2*(1-2*par2[k,3])/par2[k,3]^2)*sum((((1:k)/k)^(-par2[k,3])-1/(1-par2[k,3]))*Z)/k
@@ -175,7 +151,7 @@ test_that("LStail for-loop", {
   
   
   ###################################################################
-  #Test with rho a vector
+  # Test with rho a vector
   
   res <- LStail(X,rho=NULL)
   
@@ -187,7 +163,7 @@ test_that("LStail for-loop", {
   UH.scores[K] <- X[n-K] * Hill(X)$gamma[K]
   
   
-  #Obtain LS estimators for gamma and b using full model Z_j = gamma + b*(j/k)^(-rho) + eps_j
+  # Obtain LS estimators for gamma and b using full model Z_j = gamma + b*(j/k)^(-rho) + eps_j
   for (k in (n-1):1) {
     Z <- ((1:k)+1)*log(UH.scores[(1:k)]/UH.scores[(1:k)+1])
     par2[k,2] <- ((1-par2[k,3])^2*(1-2*par2[k,3])/par2[k,3]^2)*sum((((1:k)/k)^(-par2[k,3])-1/(1-par2[k,3]))*Z)/k
@@ -220,7 +196,7 @@ test_that("Moment for-loop", {
 })
 
 ##############################################
-# Plots.R
+# QQplots.R
 
 test_that("MeanExcess for-loop", {
   # Slow for-loop
@@ -346,35 +322,3 @@ test_that("Truncation (gamma pos) for-loops", {
   expect_true(max(abs(trTest(X,plot=FALSE)$testVal-tv[K]),na.rm=TRUE)<eps)
   
 })
-
-
-# 
-# test_that("Truncation for-loop", {
-#   
-#   
-#   K <- 1:(n-1)
-#   
-#   #tr.beta
-# 
-#   DT <- tr.DT(X)$DT
-#   
-#   Dt <- numeric(n)
-#   Dt[K] <- DT
-# 
-#   H <- numeric(n)
-#   H[K] <- cumsum(log(X[n-K+1])) / K - log(X[n-K])
-#   
-#   beta2 = rep(0,n)
-#   for (k in 1:(n-2)) {
-#     Z1.values <- log(X[n:(n-k+1)]/X[n-k])
-#     H[k] <- (1/k)*sum(Z1.values)
-#     beta2[k] <- H[k]/(1-n*Dt[k]/(k+1)*log(1+(k+1)/(n*Dt[k])))
-#   }
-# 
-#   
-#   expect_true(max(abs(tr.beta(X,DT=DT)$beta-beta2[K]),na.rm=TRUE)<eps)
-#   
-#   
-# })
-# 
-
