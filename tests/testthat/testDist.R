@@ -197,3 +197,29 @@ test_that("pqtExp", {
   expect_true( max(abs(x-quant)) < eps )
   
 })
+
+
+test_that("pqtFrechet", {
+  
+  shape <- 2
+  
+  endpoint <- qfrechet(0.9, shape=shape)
+  
+  ##
+  p <- seq(0,1,0.01)
+  
+  quant <- qtfrechet(p, shape=shape, endpoint=endpoint)
+  prob <- ptfrechet(quant, shape=shape, endpoint=endpoint)
+  
+  expect_true( max(abs(prob-p)) < eps )
+  
+  
+  ##
+  x <- seq(0.1,endpoint,0.01)
+  
+  prob <- ptfrechet(x, shape=shape, endpoint=endpoint)
+  quant <- qtfrechet(prob, shape=shape, endpoint=endpoint)
+  
+  expect_true( max(abs(x-quant)) < eps )
+  
+})
