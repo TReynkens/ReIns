@@ -72,19 +72,29 @@ Tom Reynkens
 }
 
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Moment estimator adapted for right censoring
-cmom <- cMoment(secura$size, censored=censored, plot=TRUE)
+cmom <- cMoment(Z, censored=censored, plot=TRUE)
 
 # Small exceedance probability
-q <- 10^7
-cProbMOM(secura$size, censored=censored, gamma1=cmom$gamma1, q=q, plot=TRUE)
+q <- 10
+cProbMOM(Z, censored=censored, gamma1=cmom$gamma1, q=q, plot=TRUE)
 
 # Return period
-cReturnMOM(secura$size, censored=censored, gamma1=cmom$gamma1, q=q, plot=TRUE)
+cReturnMOM(Z, censored=censored, gamma1=cmom$gamma1, q=q, plot=TRUE)
 }
 

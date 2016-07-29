@@ -56,11 +56,21 @@ Tom Reynkens
 \code{\link{ParetoQQ}}, \code{cExpQQ}, \code{cLognormalQQ}, \code{\link{cHill}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Pareto QQ-plot adapted for right censoring
-cParetoQQ(secura$size, censored=censored)
+cParetoQQ(Z, censored=censored)
 }

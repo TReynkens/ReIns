@@ -71,18 +71,28 @@ Tom Reynkens
 \code{\link{cQuantGH}}, \code{\link{cgenHill}}, \code{\link{ProbGH}}, \code{\link{cProbMOM}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Generalised Hill estimator adapted for right censoring
-cghill <- cgenHill(secura$size, censored=censored, plot=TRUE)
+cghill <- cgenHill(Z, censored=censored, plot=TRUE)
 
 # Small exceedance probability
-q <- 10^7
-cProbGH(secura$size, censored=censored, gamma1=cghill$gamma1, q=q, plot=TRUE)
+q <- 10
+cProbGH(Z, censored=censored, gamma1=cghill$gamma1, q=q, plot=TRUE)
 
 # Return period
-cReturnGH(secura$size, censored=censored, gamma1=cghill$gamma1, q=q, plot=TRUE)
+cReturnGH(Z, censored=censored, gamma1=cghill$gamma1, q=q, plot=TRUE)
 }

@@ -70,19 +70,29 @@ Tom Reynkens
 \code{\link{cHill}}, \code{\link{cQuant}}, \code{\link{Prob}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Hill estimator adapted for right censoring
-chill <- cHill(secura$size, censored=censored, plot=TRUE)
+chill <- cHill(Z, censored=censored, plot=TRUE)
 
 # Small exceedance probability
-q <- 10^7
-cProb(secura$size, censored=censored, gamma1=chill$gamma1, q=q, plot=TRUE)
+q <- 10
+cProb(Z, censored=censored, gamma1=chill$gamma1, q=q, plot=TRUE)
 
 # Return period
-cReturn(secura$size, censored=censored, gamma1=chill$gamma1, q=q, plot=TRUE)
+cReturn(Z, censored=censored, gamma1=chill$gamma1, q=q, plot=TRUE)
 }
 

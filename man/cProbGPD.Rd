@@ -73,20 +73,30 @@ Tom Reynkens
 \code{\link{cQuantGPD}}, \code{\link{cGPDmle}}, \code{\link{ProbGPD}}, \code{\link{Prob}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # GPD-MLE estimator adapted for right censoring
-cpot <- cGPDmle(secura$size, censored=censored, plot=TRUE)
+cpot <- cGPDmle(Z, censored=censored, plot=TRUE)
 
 # Exceedance probability
-q <- 10^7
-cProbGPD(secura$size, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
+q <- 10
+cProbGPD(Z, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
          censored=censored, q=q, plot=TRUE)
          
 # Return period
-cReturnGPD(secura$size, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
+cReturnGPD(Z, gamma1=cpot$gamma1, sigma1=cpot$sigma1,
          censored=censored, q=q, plot=TRUE)         
 }

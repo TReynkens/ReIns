@@ -65,16 +65,25 @@ Tom Reynkens
 \code{\link{cProbGH}}, \code{\link{cgenHill}}, \code{\link{QuantGH}}, \code{\link{Quant}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Generalised Hill estimator adapted for right censoring
-cghill <- cgenHill(secura$size, censored=censored, plot=TRUE)
-
+cghill <- cgenHill(Z, censored=censored, plot=TRUE)
 
 # Large quantile
 p <- 10^(-4)
-cQuantGH(secura$size, gamma1=cghill$gamma, censored=censored, p=p, plot=TRUE)
+cQuantGH(Z, gamma1=cghill$gamma, censored=censored, p=p, plot=TRUE)
 }

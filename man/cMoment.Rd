@@ -60,11 +60,21 @@ Tom Reynkens
 \code{\link{Moment}}, \code{\link{cProbMOM}}, \code{\link{cQuantMOM}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Moment estimator adapted for right censoring
-cmom <- cMoment(secura$size, censored=censored, plot=TRUE)
+cmom <- cMoment(Z, censored=censored, plot=TRUE)
 }

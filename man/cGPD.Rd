@@ -73,11 +73,21 @@ Tom Reynkens
 \code{\link{GPDmle}}, \code{\link{cProbGPD}}, \code{\link{cQuantGPD}}, \code{\link{cEPD}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # GPD-ML estimator adapted for right censoring
-cpot <- cGPDmle(secura$size, censored=censored, plot=TRUE)
+cpot <- cGPDmle(Z, censored=censored, plot=TRUE)
 }

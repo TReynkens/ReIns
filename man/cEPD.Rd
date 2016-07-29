@@ -72,11 +72,21 @@ Tom Reynkens based on \code{R} code from A. Bardoutsos.
 \code{\link{EPD}}, \code{\link{cProbEPD}}, \code{\link{cGPDmle}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # EPD estimator adapted for right censoring
-cepd <- cEPD(secura$size, censored=censored, plot=TRUE)
+cepd <- cEPD(Z, censored=censored, plot=TRUE)
 }

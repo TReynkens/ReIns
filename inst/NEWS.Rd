@@ -51,6 +51,7 @@
         \item Rename input argument \code{u} to \code{R} for excess-loss functions.
         \item Update Beirlant et al. (2015) reference.
         \item Update Verbelen et al. (2016) reference.
+        \item Update examples for estimators adapted for right censoring.
       }
     }
     \subsection{Miscellaneous changes:}{

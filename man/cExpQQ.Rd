@@ -57,11 +57,21 @@ Tom Reynkens
 \code{\link{ExpQQ}}, \code{\link{cLognormalQQ}}, \code{\link{cParetoQQ}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # Exponential QQ-plot adapted for right censoring
-cExpQQ(secura$size, censored=censored)
+cExpQQ(Z, censored=censored)
 }

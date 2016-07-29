@@ -77,21 +77,31 @@ Tom Reynkens.
 \code{\link{cEPD}}, \code{\link{ProbEPD}}, \code{\link{Prob}}, \code{\link{KaplanMeier}}
 }
 \examples{
-data(secura)
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+X <- rpareto(500, shape=2)
+
+# Censoring variable
+Y  <- rpareto(500, shape=1)
+
+# Observed sample
+Z <- pmin(X, Y)
 
 # Censoring indicator
-censored <- sample(0:1, length(secura$size), replace=TRUE)
+censored <- (X>Y)
 
 # EPD estimator adapted for right censoring
-cepd <- cEPD(secura$size, censored=censored, plot=TRUE)
+cepd <- cEPD(Z, censored=censored, plot=TRUE)
 
 # Small exceedance probability
-q <- 10^7
-cProbEPD(secura$size, censored=censored, gamma1=cepd$gamma1,
+q <- 10
+cProbEPD(Z, censored=censored, gamma1=cepd$gamma1,
         kappa1=cepd$kappa1, beta=cepd$beta, q=q, plot=TRUE)
 
 # Return period
-cReturnEPD(secura$size, censored=censored, gamma1=cepd$gamma1,
+cReturnEPD(Z, censored=censored, gamma1=cepd$gamma1,
         kappa1=cepd$kappa1, beta=cepd$beta, q=q, plot=TRUE)        
 }
 
