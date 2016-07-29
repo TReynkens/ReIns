@@ -283,7 +283,11 @@ cHill(Z, censored, plot=TRUE)
 ```
 
 ## Interval censored data
-We also implemented a mean excess plot (`MeanExcess_TB`) and an estimator for (positive) EVI (`icHill`) for the more general case of interval censored data. 
+We also implemented EVT functions for the more general case of interval censored data:
+
+* `MeanExcess_TB`: mean excess plot adapted for interval censoring.
+* `icParetoQQ`: Pareto QQ-plot adapted for interval censoring.
+* `icHill`: estimator for (positive) EVI. 
 
 In the example below we make the mean excess plot for a simulated sample of right censored data.
 
