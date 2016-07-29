@@ -68,7 +68,6 @@ Tom Reynkens.
 \code{\link[=ptfrechet]{tFréchet}},  \code{\link[stats]{Distributions}}
 }
 \examples{
-
 # Plot of the PDF
 x <- seq(1,10,0.01)
 plot(x, dfrechet(x, shape=2), xlab="x", ylab="PDF", type="l")

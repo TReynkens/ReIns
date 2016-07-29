@@ -63,7 +63,6 @@ Tom Reynkens.
 \code{\link[stats]{Exponential}},  \code{\link[stats]{Distributions}}
 }
 \examples{
-
 # Plot of the PDF
 x <- seq(0, 10, 0.01)
 plot(x, dtexp(x, rate = 2, endpoint=5), xlab="x", ylab="PDF", type="l")

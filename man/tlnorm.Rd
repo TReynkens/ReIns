@@ -66,7 +66,6 @@ Tom Reynkens.
 \code{\link[stats]{Lognormal}},  \code{\link[stats]{Distributions}}
 }
 \examples{
-
 # Plot of the PDF
 x <- seq(0, 10, 0.01)
 plot(x, dtlnorm(x, endpoint=9), xlab="x", ylab="PDF", type="l")
