@@ -2,7 +2,7 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
-\section{Changes in version 0.6-00 (yyyy-mm-dd)}{
+\section{Changes in version 0.6-00 (2016-08-05)}{
     \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Fix problem with reduction of number of Erlangs when some betas are small.
@@ -31,10 +31,10 @@
         \item Type \code{"tPa"} is changed to \code{"TPa"} when using splicefit objects. \code{"tPa"} is however still supported.
         \item Add mean excess plot adapted for censoring using Turnbull estimator (\code{MeanExcess_TB}).
         \item Add Fréchet distribution.
-        \item Rename \code{SpliceFitciPareto} to \code{SpliceFiticPareto} (only dummy is included).
         \item Re-organise code.
         \item Add Hill estimator (\code{icHill}) and Pareto QQ-plot (\code{icParetoQQ}) for interval censored data.
         \item Remove \code{DT} argument from \code{trEndpoint}.
+        \item Add fitting procedure of ME-Pa splicing model for censored data in \code{SpliceFiticPareto}.
       }
     }
     \subsection{Documentation changes:}{

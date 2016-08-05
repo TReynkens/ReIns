@@ -709,8 +709,9 @@ SpliceFitHill <- SpliceFitPareto
 SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
                               criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
   
-  # return(.SpliceFiticPareto(L=L, U=U, censored=censored, tsplice=tsplice, M=M, s=s, trunclower=trunclower, truncupper=truncupper,
-  #                           ncores=ncores, criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
+  # Call function from Splicing_EM.R
+  return(.SpliceFiticPareto(L=L, U=U, censored=censored, tsplice=tsplice, M=M, s=s, trunclower=trunclower, truncupper=truncupper,
+                            ncores=ncores, criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
 }
 
 
