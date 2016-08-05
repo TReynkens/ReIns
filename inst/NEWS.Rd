@@ -3,63 +3,70 @@
 \encoding{UTF-8}
 
 \section{Changes in version 0.6-00 (2016-08-05)}{
-    \subsection{Changes in \code{R} code:}{
+
+
+    \subsection{Major changes in \code{R} code:}{
       \itemize{
+        \item Add fitting procedure of ME-Pa splicing model for censored data (\code{SpliceFiticPareto}).
+        \item Change initial values of ME distribution to the ones used in Verbelen et al. (2016) (multivariate ME).
+        \item Add splicing QQ-plot using Turnbull estimator (\code{SpliceQQ_TB}).
+        \item Remove all old estimators for interval censored data.
+        \item Remove all old estimators that can handle data that is both censored and truncated.
+        \item Improve Turnbull estimator using \pkg{interval} package.
+        \item Add mean excess plot adapted for (interval) censoring using Turnbull estimator (\code{MeanExcess_TB}).
+        \item Add Hill estimator (\code{icHill}) and Pareto QQ-plot (\code{icParetoQQ}) for interval censored data.
+        \item Add classical approximations for CDF.
+      }
+    }
+    \subsection{Minor changes in \code{R} code:}{
+      \itemize{
+        \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
+        \item Add warning, and only use last element, if \code{EVTtruncation} argument of \code{SpliceFitPareto} has                more than one element.
+        \item Correct AIC and BIC for truncated splicing fits (if more than two parts).
+        \item Type \code{"tPa"} is changed to \code{"TPa"} when using SpliceFit objects. \code{"tPa"} is however still supported.
+        \item \code{SpliceFitPareto:} Correct IC for ME-Pa splicing model when endpoint is provided (and does not need to be estimated).
+        \item Change order of argument \code{x} in \code{SplicePP} and \code{SplicePP_TB}.
+        \item Plot points instead of lines in PP-plots.
+        
         \item Fix problem with reduction of number of Erlangs when some betas are small.
         \item Remove \code{print} option in \code{.MEtune}.
         \item Remove history of \code{theta} and \code{loglikelihood} in \code{.ME_em}.
         \item Improve while-loops in \code{.ME_shape_adj}.
-        \item Use \code{X}, not \code{log(X)} (as indicated in the documentation) when computing the derivative plots                of the Pareto QQ-plot and the lognormal QQ-plot.
-        \item Remove all estimators for interval censoring (except QQ-plots).
-        \item Remove all estimators that can handle data that is both censored and truncated.
-        \item Rename \code{ExcessHill} to \code{ExcessPareto}, old name is still included for compatibility issues.
-        \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
-        \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
-        \item Remove QQ-plots with Turnbull estimator for Pareto, Exponential and Lognormal distributions.
-        \item Add warning, and only used last element, if \code{EVTtruncation} argument of \code{SpliceFitPareto} has                more than one element.
-        \item Add Weibull QQ-plot and derivative plot.
-        \item Rename input argument \code{M} to \code{R} for excess-loss functions.
-        \item Correct AIC and BIC for truncated splicing fits (if more than two parts).
-        \item Change initial values of ME distribution to the ones used in Verbelen et al. (2016) (multivariate ME).
-        \item Add option to plot estimates for EVI as function of \eqn{log(k)} instead of \eqn{k}.
         \item Improve ME quantile function.
-        \item Plot points instead of lines in PP-plots.
-        \item Change order of argument \code{x} in \code{SplicePP} and \code{SplicePP_TB}.
-        \item Improve Turnbull estimator using \pkg{interval}.
-        \item Add classical approximations for CDF.
-        \item Add argument \code{raw} to \code{pGC} and \code{pEdge} to define which moments are given the argument \code{moments}.
-        \item Type \code{"tPa"} is changed to \code{"TPa"} when using splicefit objects. \code{"tPa"} is however still supported.
-        \item Add mean excess plot adapted for censoring using Turnbull estimator (\code{MeanExcess_TB}).
+        
+        \item Add Weibull QQ-plot and derivative plot.
+        \item Add option to plot estimates for EVI as function of \eqn{log(k)} instead of \eqn{k}.
+        
+        \item Rename \code{ExcessHill} to \code{ExcessPareto}, old name is still included for compatibility issues.
+        \item Rename input argument \code{M} to \code{R} for excess-loss functions.
+
+
+        \item Add argument \code{raw} to \code{pGC} and \code{pEdge} to define which moments are given in the argument \code{moments}.
+
         \item Add Fréchet distribution.
-        \item Re-organise code.
-        \item Add Hill estimator (\code{icHill}) and Pareto QQ-plot (\code{icParetoQQ}) for interval censored data.
+        
         \item Remove \code{DT} argument from \code{trEndpoint}.
-        \item Add fitting procedure of ME-Pa splicing model for censored data in \code{SpliceFiticPareto}.
-        \item \code{SpliceFitPareto:} Correct IC for ME-Pa splicing model when endpoint is provided (and does not need to be estimated).
+                
+        \item Re-organise code.
       }
     }
     \subsection{Documentation changes:}{
       \itemize{
         \item Change reference of Albrecher et al. from 2015 to 2016.
-        \item Remove all estimators for interval censoring (except QQ-plots).
-        \item Remove all estimators that can handle data that is both censored and truncated.
-        \item Add argument \code{truncupper} for \code{SpliceFitPareto}.
-        \item Add splicing QQ-plot using Turnbull estimator: \code{SpliceQQ_TB}.
         \item Update reference for EPD for censored data (Beirlant et al., 2016).
         \item Update documentation of QQ-plots adapted for right-censored data.
-        \item Add Weibull QQ-plot and derivative plot.
         \item Fix typo in documentation of \code{log} option in \code{SplicePP} and \code{SplicePP_TB}.
-        \item Rename input argument \code{u} to \code{R} for excess-loss functions.
         \item Update Beirlant et al. (2015) reference.
         \item Update Verbelen et al. (2016) reference.
         \item Update examples for estimators adapted for right censoring.
+        \item Add Reynkens et al. (2016) reference.
       }
     }
     \subsection{Miscellaneous changes:}{
       \itemize{
         \item Reformat NEWS file.
         \item Update splicing part in vignette.
-        \item Add part on censored data to vignette.
+        \item Add extra parts to vignette: censored data, distributions and approximations of the distribution function.
         \item Update authors.
         \item Reformat NAMESPACE file.
       }
