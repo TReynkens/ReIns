@@ -667,13 +667,13 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
 
-  # Compute ICs, parameters: alpha (-1 since sums to 1), r, theta, gamma's, last endpoint (if finite), pi's
-  df <- 2*MEfit$M-1 + 1 + length(EVTfit$gamma) + is.finite(EVTfit$endpoint[length(EVTfit$endpoint)]) + length(const)
+  # Compute ICs, parameters: alpha (-1 since sums to 1), r, theta, gamma's, last endpoint (if finite and not given), pi's
+  df <- 2*MEfit$M-1 + 1 + length(EVTfit$gamma) + (is.finite(EVTfit$endpoint[length(EVTfit$endpoint)]) &  is.infinite(truncupper)) + length(const)
   aic <- -2*loglik + 2*df
   bic <- -2*loglik + log(n)*df
   ic <- c(aic, bic)
   names(ic) <- c("AIC", "BIC")
-  
+
   ##
   # Return SpliceFit object
   return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), 

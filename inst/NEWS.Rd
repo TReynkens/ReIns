@@ -35,6 +35,7 @@
         \item Add Hill estimator (\code{icHill}) and Pareto QQ-plot (\code{icParetoQQ}) for interval censored data.
         \item Remove \code{DT} argument from \code{trEndpoint}.
         \item Add fitting procedure of ME-Pa splicing model for censored data in \code{SpliceFiticPareto}.
+        \item \code{SpliceFitPareto:} Correct IC for ME-Pa splicing model when endpoint is provided (and does not need to be estimated).
       }
     }
     \subsection{Documentation changes:}{
