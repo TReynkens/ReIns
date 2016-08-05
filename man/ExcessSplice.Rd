@@ -28,13 +28,16 @@ The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{
 \deqn{E(\min{(X-R)_+, L}) = I(R) - I(R+L)}
 where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function.  When \eqn{L=\infty}, the premium is equal to \eqn{I(R)}.
 
-See Section 4.5 of Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2016) for more details.
 }
 \value{
 An estimate for the premium is returned (for every value of \code{R}).
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
+Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
+a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758

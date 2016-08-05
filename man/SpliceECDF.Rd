@@ -32,12 +32,17 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 Use \code{\link{SpliceTB}} for censored data. 
 
-Confidence bounds are determined using the Dvoretzky-Kiefer-Wolfowitz inequality.
+Confidence bounds are determined using the Dvoretzky-Kiefer-Wolfowitz inequality (Massart, 1990).
 
-See Section 4.3 in Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
+Massart, P. (1990). The Tight Constant in the Dvoretzky-Kiefer-Wolfowitz Inequality.  \emph{Annals of Probability}, 18, 1269--1283.
+
+Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
+a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758.

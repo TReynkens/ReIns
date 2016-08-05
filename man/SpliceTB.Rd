@@ -40,10 +40,13 @@ Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and
 
 Use \code{\link{SpliceECDF}} for non-censored data. 
 
-See Section 4.3 of Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
+Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
+a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758

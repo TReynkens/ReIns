@@ -20,7 +20,7 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
 }
 }
 \details{ 
-See Section 4.5 of Albrecher et al. (2016) for details.
+See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2016) for details.
 
 Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, lower.tail = FALSE)}.
 }
@@ -29,6 +29,9 @@ Vector of quantiles \eqn{VaR_p=Q(1-p)}.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
+Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
+a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.
 
 Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mixtures of
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758
@@ -64,5 +67,5 @@ plot(p, VaR(p, splicefit), type="l", xlab="p", ylab=bquote(VaR[p]))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ distribution }
+
 
