@@ -2,6 +2,16 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 0.6-01 (2016-xx-yy)}{
+
+
+    \subsection{Changes in \code{R} code:}{
+      \itemize{
+        \item Change labels of splicing plots adapted for interval censoring.
+    }
+  }
+}
+
 \section{Changes in version 0.6-00 (2016-08-05)}{
 
 

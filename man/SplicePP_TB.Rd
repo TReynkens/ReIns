@@ -44,7 +44,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The PP-plot consists of the points
 \deqn{(1-\hat{F}^{TB}(y_i), 1-\hat{F}_{spliced}(y_i)))}
-for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{y_i=\hat{Q}^{TB}(p_i)} where \eqn{\hat{Q}^{TB}} is the empirical quantile function obtained using the Turnbull estimator,
+for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{y_i=\hat{Q}^{TB}(p_i)} where \eqn{\hat{Q}^{TB}} is the quantile function obtained using the Turnbull estimator,
 \eqn{\hat{F}^{TB}} the Turnbull estimator for the distribution function and \eqn{\hat{F}_{spliced}} the fitted spliced distribution function.
 The minus-log version of the PP-plot consists of
 \deqn{(-\log(1-\hat{F}^{TB}(y_i)), -\log(1-\hat{F}_{spliced}(y_i)))).}

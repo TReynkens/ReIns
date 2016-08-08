@@ -156,13 +156,13 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
     spp.the <- -log(1-pSplice(x[ind],splicefit=splicefit))
     spp.emp <- -log(surv[ind])
     .plotfun(spp.emp, spp.the, type="p",
-             xlab="-log(Empirical survival probability)",
+             xlab="-log(Turnbull survival probability)",
              ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
     spp.the <- 1-pSplice(x,splicefit=splicefit)
     spp.emp <- surv
-    .plotfun(spp.emp, spp.the, type="p", xlab="Empirical survival probability",
+    .plotfun(spp.emp, spp.the, type="p", xlab="Turnbull survival probability",
              ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
   # Add 45 degree line
@@ -316,7 +316,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
-  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Turnbull quantiles", 
            main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line

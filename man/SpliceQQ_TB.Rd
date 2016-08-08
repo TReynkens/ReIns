@@ -39,7 +39,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model, \eqn{\hat{Q}^{TB}} the empirical quantile function obtained using the Turnbull estimator and \eqn{p_j=j/(n+1)}. 
+This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model, \eqn{\hat{Q}^{TB}} the quantile function obtained using the Turnbull estimator and \eqn{p_j=j/(n+1)}. 
 
 If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
