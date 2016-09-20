@@ -9,6 +9,7 @@
       \itemize{
         \item Change labels of splicing plots adapted for interval censoring.
         \item Improve random sample generation from ME-Pa splicing model.
+        \item Fix issues with computation of ME quantiles.
     }
   }
 }

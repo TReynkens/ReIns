@@ -608,7 +608,12 @@
             interval[2] <- min(VaR[i+1], interval[2])
           }
         }
-        
+        if (all(is.finite(interval))) {
+          # Interval might be a single number, set to whole possible range
+          if (interval[2]-interval[1]==0) interval <- c(trunclower, 
+                                                        ifelse(is.finite(truncupper), truncupper, 10^20))
+        }
+  
       }
       
       if(is.null(start0)) {
@@ -618,7 +623,8 @@
         } else {
           start <- qgamma(p[i], shape = shape[which.max(alpha)], scale = theta)
         }
-        
+        # Problems if start is infinite
+        if (is.infinite(start)) start <- 10^20
       }
       
       if(p[i]==1){
@@ -646,7 +652,7 @@
             interval[2] <- min(VaR[i+1], interval[2])
           }
           for(j in 1:length(shape)){
-            VaR_nlm[[j]] <- nlm(f = objective, p = qgamma(p[i], shape = shape[j], scale = theta))    
+            VaR_nlm[[j]] <- nlm(f = objective, p = qgamma(p[i], shape = shape[j], scale = theta))
             VaR_optimise[[j]] <- optimise(f = objective, interval = interval[c(1, j+1)])
           }
           VaR_nlm <- sapply(VaR_nlm, with, estimate)[which.min(sapply(VaR_nlm, with, minimum))]
