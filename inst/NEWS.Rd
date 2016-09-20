@@ -8,6 +8,7 @@
     \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Change labels of splicing plots adapted for interval censoring.
+        \item Improve random sample generation from ME-Pa splicing model.
     }
   }
 }

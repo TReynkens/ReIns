@@ -1104,6 +1104,31 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
 # Random numbers from spliced distribution
 rSplice <- function(n, splicefit) {
   
-  return(qSplice(runif(n), splicefit=splicefit))
+  # Use quantile function directly if more than 1 Pareto piece
+  if (length(splicefit$EVTfit$gamma)>1) {
+    return(qSplice(runif(n), splicefit=splicefit))
+    
+  } else {
+    
+    mefit <- splicefit$MEfit
+    evtfit <- splicefit$EVTfit
+    
+    # Random Bernoulli to select ME or Pareto
+    ind <- sample(1:2, size=n, replace=TRUE, prob=splicefit$pi)
+    
+    splice_sample <- numeric(n)
+    
+    # Sample from ME
+    ind1 <- which(ind==1)
+    splice_sample[ind1] <- .ME_random(length(ind1), theta=mefit$theta, shape=mefit$shape, alpha=mefit$p, 
+                                      trunclower=splicefit$trunclower, truncupper=splicefit$t)
+    
+    # Sample from Pareto
+    ind2 <- which(ind==2)
+    splice_sample[ind2] <- rtpareto(length(ind2), shape=1/evtfit$gamma, scale=splicefit$t, endpoint=evtfit$endpoint)
+
+    return(splice_sample)
+  }
+  
 }
 

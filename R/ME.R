@@ -718,6 +718,24 @@
 .ME_VaR_old <- Vectorize(.ME_VaR_old, vectorize.args = c("p", "start"))
 
 
+# Random generation of univariate mixture of Erlangs
+.ME_random <- function(n, theta, shape, alpha, trunclower = 0, truncupper = Inf){  
+  
+  # Transform alpha to beta
+  beta <- alpha * (pgamma(truncupper, shape=shape, scale=theta) - pgamma(trunclower, shape=shape, scale=theta)) /
+    (.ME_cdf(truncupper, theta=theta, shape=shape, alpha=alpha) - .ME_cdf(trunclower, theta=theta, shape=shape, alpha=alpha))
+  
+  # Sample shapes using multinomial distribution with probabilities beta
+  shapes <- sample(shape, size=n, replace=TRUE, prob=beta)
+  
+  # Sample from truncated Gamma distribution with selected shapes
+  # as truncated ME can be seen as mixture of truncated Erlangs with mixing weights beta
+  Ftl <- pgamma(trunclower, shape = shapes, scale = theta)
+  Ft <- pgamma(truncupper, shape = shapes, scale = theta)
+  return( qgamma(Ftl + runif(n) * (Ft-Ftl), shape=shapes, scale=theta) )
+}
+
+
 ## Excess-of-loss reinsurance premium: L xs R
 
 ## Excess-of-loss reinsurance premium: C xs R (Retention R, Cover C, Limit L = R+C)
