@@ -21,8 +21,8 @@ numtol <- .Machine$double.eps^0.5
   
   ######
   # Check input
-  .spliceEM_checkInput(L=L, U=U, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper, censored=censored,
-                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  .spliceEM_checkInput(L=L, U=U, censored=censored, trunclower=trunclower, tsplice=tsplice, 
+                       truncupper=truncupper, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
@@ -90,6 +90,11 @@ numtol <- .Machine$double.eps^0.5
   ##
   # Check censored
   if (!is.null(censored)) {
+    
+    if (!is.logical(censored)) {
+      stop("censored should be a logical vector.")
+    }
+    
     if (length(censored)!=length(L)) {
       stop("censored should have the same length as L.")
     }
@@ -231,7 +236,7 @@ numtol <- .Machine$double.eps^0.5
     
     all_model <- foreach(i = 1:nrow(tuning_parameters), .export=export, .errorhandling = 'pass') %do% {
       
-      suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored, 
+      suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored,
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                      M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
                                      criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
@@ -473,7 +478,7 @@ numtol <- .Machine$double.eps^0.5
 # Shape adjustments (4.2 in Verbelen et al. 2015)
 .spliceEM_shape_adj <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf, 
                                 pi, theta, shape, beta, gamma, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
-  
+
 
   # Fit model with shape equal to the initial value (and M=length(shape))
   fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice,  truncupper=truncupper, 
@@ -647,8 +652,8 @@ numtol <- .Machine$double.eps^0.5
   c5_probs <- L$c5_probs
 
   # Compute log-likelihood
-  loglikelihood <- .splice_loglikelihood(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs,
-                                         no_censoring, censoring)
+  loglikelihood <- .splice_loglikelihood(x1_dens=x1_dens, x2_dens=x2_dens, c3_probs=c3_probs, c4_probs=c4_probs, c5_probs=c5_probs, 
+                                         no_censoring=no_censoring, censoring=censoring)
  
   
   iteration <- 1
@@ -689,7 +694,9 @@ numtol <- .Machine$double.eps^0.5
     if(length(ind1)!=0) {
       # Matrix of z_{ij} with i for rows and j for columns
       z1 <- .spliceEM_i_z(x1_dens_nosum=x1_dens_nosum, M=M)
-      
+      # sum_{i in S_{i.}} x_i
+      E1_ME <- sum(lower1)
+        
     } else {
       z1 <- as.matrix(c(0,0))
     }
@@ -697,8 +704,8 @@ numtol <- .Machine$double.eps^0.5
 
     if (length(ind3)!=0) {
       z3 <- .spliceEM_iii_z(c3_probs_nosum=c3_probs_nosum, M=M)
-      # sum_{j=1}^m z3 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<u_i<=t)
-      E3_ME <- rowSums(z3 * .spliceEM_Estep_ME_iii(lower3=lower3, upper3=upper3, shape=shape, theta=theta))
+      # sum_{i in S_{iii.}} sum_{j=1}^m z3 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<u_i<=t)
+      E3_ME <- sum(rowSums(z3 * .spliceEM_Estep_ME_iii(lower3=lower3, upper3=upper3, shape=shape, theta=theta)))
       
     } else {
       z3 <- as.matrix(c(0,0))
@@ -706,10 +713,11 @@ numtol <- .Machine$double.eps^0.5
     }
 
     if (length(ind5)!=0) {
-      z5 <- .spliceEM_v_z(c5_probs_nosum=c5_probs_nosum, tsplice=tsplice, alpha_tilde=alpha_tilde, theta=theta, shape=shape, M=M)
-      # P_{1,i} * sum_{j=1}^m z3 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<t<u_i)
-      E5_ME <- P1 * rowSums(z5 * .spliceEM_Estep_ME_v(lower5=lower5, tsplice=tsplice, 
-                                                     pi=pi, gamma=gamma, shape=shape, theta=theta))
+      z5 <- .spliceEM_v_z(c5_probs_nosum=c5_probs_nosum, tsplice=tsplice, alpha_tilde=alpha_tilde, 
+                          theta=theta, shape=shape, M=M)
+      # sum_{i in S_{v.}} P_{1,i} * sum_{j=1}^m z5 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<t<u_i)
+      E5_ME <- sum(P1 * rowSums(z5 * .spliceEM_Estep_ME_v(lower5=lower5, tsplice=tsplice, 
+                                                          pi=pi, gamma=gamma, shape=shape, theta=theta)))
       
     } else {
       z5 <- as.matrix(c(0,0))
@@ -720,16 +728,26 @@ numtol <- .Machine$double.eps^0.5
     ##
     # gamma
     
-
+    if (length(ind2)!=0) {
+      # sum_{i in S_{ii.}} ln(x_i/t)
+      E2_Pa <- sum(log(lower2/tsplice))
+      
+    } else {
+      E2_Pa <- 0
+    }
+    
+    
     if (length(ind4)!=0) {
-      E4_Pa <- .spliceEM_Estep_Pa_iv(lower4=lower4, upper4=upper4, gamma=gamma, tsplice=tsplice)
+      # sum_{i in S_{iv.}} E( ln(X_i/t) | t^l<t<=l_i<u_i, gamma^{(h-1)})
+      E4_Pa <- sum(.spliceEM_Estep_Pa_iv(lower4=lower4, upper4=upper4, gamma=gamma, tsplice=tsplice))
       
     } else {
       E4_Pa <- 0
     }
     
     if (length(ind5)!=0) {
-      E5_Pa <- P2 * .spliceEM_Estep_Pa_v(upper5=upper5, gamma=gamma, tsplice=tsplice)
+      # sum_{i in S_{v.}} P_{2,i} * E( ln(X_i/t) | t^l<l_i<=t<u_i, gamma^{(h-1)})
+      E5_Pa <- sum(P2 * .spliceEM_Estep_Pa_v(upper5=upper5, gamma=gamma, tsplice=tsplice))
       
     } else {
       E5_Pa <- 0
@@ -746,8 +764,7 @@ numtol <- .Machine$double.eps^0.5
     
     ##
     # ME
-
-    beta <- (colSums(z1) + colSums(z3) + colSums(z5*P1)) / n1_h
+    beta <- (colSums(z1) + colSums(z3) + colSums(z5 * P1)) / n1_h
 
     # Remove small beta's
     if(min(beta) < beta_tol){
@@ -757,7 +774,7 @@ numtol <- .Machine$double.eps^0.5
     }
     
     # Estimate theta
-    theta <- exp(nlm(.spliceEM_theta_nlm, log(theta), x1=lower1, E3_ME=E3_ME, E5_ME=E5_ME, 
+    theta <- exp(nlm(.spliceEM_theta_nlm, log(theta), E1_ME=E1_ME, E3_ME=E3_ME, E5_ME=E5_ME, 
                      n1_h=n1_h, beta=beta, shape=shape, trunclower=trunclower, truncupper=tsplice)$estimate)
  
     ##
@@ -765,7 +782,7 @@ numtol <- .Machine$double.eps^0.5
     
     gamma_old <- gamma
     
-    gamma = 1/n2_h * ( sum(log(lower2/tsplice)) + sum(E4_Pa) + sum(E5_Pa) )
+    gamma = 1/n2_h * (E2_Pa + E4_Pa + E5_Pa)
       
 
     # Solve equation numerically 
@@ -812,8 +829,9 @@ numtol <- .Machine$double.eps^0.5
     c5_probs_nosum <- L$c5_probs_nosum 
     c5_probs <- L$c5_probs
    
-    loglikelihood <- .splice_loglikelihood(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs,
-                                           no_censoring, censoring)
+    # Compute log-likelihood
+    loglikelihood <- .splice_loglikelihood(x1_dens=x1_dens, x2_dens=x2_dens, c3_probs=c3_probs, c4_probs=c4_probs, c5_probs=c5_probs,
+                                           no_censoring=no_censoring, censoring=censoring)
   }
   
   # Compute ICs
@@ -903,8 +921,7 @@ numtol <- .Machine$double.eps^0.5
 
   
 # Splicing log-likelihood
-.splice_loglikelihood <- function(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs,
-                                  no_censoring, censoring) {
+.splice_loglikelihood <- function(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs, no_censoring, censoring) {
 
   likelihood_contribution <- numeric(0)
 
@@ -923,7 +940,7 @@ numtol <- .Machine$double.eps^0.5
   # loglikelihood_contribution[!ind0] <- log(likelihood_contribution[!ind0]) 
   # loglikelihood_contribution[ind0] <- -1000
   loglikelihood_contribution <- ifelse(likelihood_contribution>0, log(likelihood_contribution), -1000)
-  
+ 
   # log-likelihood
   return(sum(loglikelihood_contribution))
 }
@@ -1030,12 +1047,12 @@ numtol <- .Machine$double.eps^0.5
 # Auxiliary functions used to estimate theta in the M-step
 
 # This function returns log of optimal theta!
-.spliceEM_theta_nlm <- function(ltheta, x1, E3_ME, E5_ME, n1_h, beta, shape, trunclower, truncupper) {
+.spliceEM_theta_nlm <- function(ltheta, E1_ME, E3_ME, E5_ME, n1_h, beta, shape, trunclower, truncupper) {
   
   theta <- exp(ltheta)
   TT <- .spliceEM_T(trunclower=trunclower, truncupper=truncupper, shape=shape, theta=theta, beta=beta)
   
-  return( (theta - ((sum(x1)+sum(E3_ME)+sum(E5_ME))/n1_h-TT) / sum(beta*shape)) ^ 2 )
+  return( (theta - ((E1_ME + E3_ME + E5_ME)/n1_h-TT) / sum(beta*shape)) ^ 2 )
 }
 
 .spliceEM_T <- function(trunclower, truncupper, shape, theta, beta) {
