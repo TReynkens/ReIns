@@ -699,6 +699,7 @@ numtol <- .Machine$double.eps^0.5
         
     } else {
       z1 <- as.matrix(c(0,0))
+	    E1_ME <- 0
     }
     
 
