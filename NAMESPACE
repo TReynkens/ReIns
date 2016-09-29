@@ -1,3 +1,5 @@
+# Make C code recognisable
+useDynLib("ReIns")
 
 importFrom("stats", "approxfun", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecdf", "knots",
             "nlm", "optim", "optimise", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", 
@@ -5,6 +7,8 @@ importFrom("stats", "approxfun", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dw
 importFrom("graphics", "abline", "legend", "lines", "par", "plot")
 importFrom("survival", "Surv", "survfit")
 importFrom("utils", "tail")
+# Import function from Rcpp to import registered functions
+importFrom("Rcpp", "sourceCpp")
 
 # Splicing
 importFrom("parallel", "detectCores", "makePSOCKcluster", "stopCluster")

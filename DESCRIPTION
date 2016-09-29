@@ -1,7 +1,7 @@
 Package: ReIns
 Type: Package
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
-Version: 0.6-01
+Version: 0.7-00
 Date: 2016-09-29
 Authors@R: c(person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = c("aut", "cre")),
           person("Roel", "Verbelen", role = "aut", comment="R code for Mixed Erlang distribution"),
@@ -13,8 +13,10 @@ Description: Functions and datasets from the book "Reinsurance: Actuarial and St
 License: GPL (>= 2)
 URL: https://github.com/TReynkens/ReIns
 BugReports: https://github.com/TReynkens/ReIns/issues
-Depends: R (>= 2.10)
-Imports: stats, graphics, survival, utils, parallel, foreach, doParallel
+Depends: R (>= 3.1)
+Imports: stats, graphics, survival, utils, parallel, foreach, doParallel, Rcpp (>= 0.12.7)
 Suggests: testthat, knitr, interval, Icens
+LinkingTo: Rcpp
+NeedsCompilation: yes
 VignetteBuilder: knitr
 Encoding: UTF-8

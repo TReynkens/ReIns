@@ -13,5 +13,12 @@ ReIns.Rproj
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+# C++ object file
+src/*.o
+# dll file
+src/*.dll
+# Rcpp export files
+src/RcppExports.cpp
+R/RcppExports.R
 >>>>>>> f88277f2f35786c5ee5a9202c0ad3e8ce917a15e
 inst/doc
