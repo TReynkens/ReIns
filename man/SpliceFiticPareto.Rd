@@ -11,7 +11,8 @@ Fit spliced distribution of a mixed Erlang distribution and a Pareto distributio
 \usage{
 SpliceFiticPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, 
                   truncupper = Inf, ncores = NULL, criterium = c("BIC", "AIC"), 
-                  reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
+                  reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, 
+                  cpp = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -59,7 +60,10 @@ Covergence threshold used in the EM algorithm. Default is \code{10^(-3)}
 Threshold for the mixing weights below which the corresponding shape parameter vector is considered neglectable (ME part). Default is \code{10^(-5)}.
 }
  \item{maxiter}{
-Maximum number of iterations in a single EM algorithm execution. Default is \code{Inf} meaning no maximum.
+Maximum number of iterations in a single EM algorithm execution. Default is \code{Inf} meaning no maximum number of iterations.
+}
+ \item{cpp}{
+Use \code{C++} implementation (\code{cpp=TRUE}) or \code{R} implementation (\code{cpp=FALSE}) of the algorithm. Default is \code{FALSE} meaning the plain \code{R} implementation is used.
 }
 }
 \details{

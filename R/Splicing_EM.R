@@ -10,7 +10,7 @@ numtol <- .Machine$double.eps^0.5
 
 # Fit splicing model of mixed Erlang and Pareto to interval censored data
 .SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
-                               criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+                               criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   tsplice <- as.numeric(tsplice)
   
@@ -37,7 +37,7 @@ numtol <- .Machine$double.eps^0.5
   
   fit <- .spliceEMtune(lower=L, upper=U, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                        M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
-                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+                       eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp)
   
   # Output as MEfit object
   MEfit <- .MEoutput(fit)
@@ -212,7 +212,7 @@ numtol <- .Machine$double.eps^0.5
 
 ## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
 .spliceEMtune <- function(lower, upper = lower, censored = NULL, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, 
-                          nCores = detectCores(), criterium = "BIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+                          nCores = detectCores(), criterium = "BIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   # Censoring indicator for each observation
   if(is.null(censored)) {
@@ -239,7 +239,7 @@ numtol <- .Machine$double.eps^0.5
       suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored,
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                      M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
-                                     criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
+                                     criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
     }
     
     
@@ -258,7 +258,7 @@ numtol <- .Machine$double.eps^0.5
       suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored, 
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper, 
                                      M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
-                                     criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
+                                     criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
     }
     stopCluster(cl) 
   }
@@ -282,7 +282,7 @@ numtol <- .Machine$double.eps^0.5
       NA
     }
   } 
-  
+
   M_res <-  sapply(all_model, f2)
   performances <- data.frame(tuning_parameters[,1], tuning_parameters[,2], crit, M_res)
   colnames(performances) = c('M_initial', 's', criterium, 'M')
@@ -302,22 +302,39 @@ numtol <- .Machine$double.eps^0.5
 
 # Fit splicing model using EM algorithm including shape adjustment and reduction of number of Erlangs
 .spliceEM_fit <- function(lower, upper = lower, censored, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, criterium="AIC", reduceM = TRUE, 
-                          eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf){
+                          eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE){
   
   # Get initial values
   initial <- .spliceEM_initial(lower=lower, upper=upper, censored=censored, trunclower=trunclower,
                                tsplice=tsplice, truncupper=truncupper, M=M, s=s)
   
-  # Reduction of the shape combinations
-  fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
-                             pi=initial$pi, theta=initial$theta, shape=initial$shape, beta=initial$beta, gamma=initial$gamma, 
-                             criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
-  
-  # Subsequent adjustment and reduction of the shape combinations
-  fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
-                             pi=fit$pi, theta=fit$theta, shape=fit$shape, beta=fit$beta, gamma=fit$gamma,
-                             criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
-  
+  if (cpp) {
+    # Use C++ version
+    
+    # Reduction of the shape combinations
+    fit <- .spliceEM_shape_red_cpp(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                                   pi=initial$pi, theta=initial$theta, shape=initial$shape, beta=initial$beta, gamma=initial$gamma, 
+                                   criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
+    
+    # Subsequent adjustment and reduction of the shape combinations
+    fit <- .spliceEM_shape_red_cpp(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                                   pi=fit$pi, theta=fit$theta, shape=fit$shape, beta=fit$beta, gamma=fit$gamma,
+                                   criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
+    
+  } else {
+    # Use R version
+    
+    # Reduction of the shape combinations
+    fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                               pi=initial$pi, theta=initial$theta, shape=initial$shape, beta=initial$beta, gamma=initial$gamma, 
+                               criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
+    
+    # Subsequent adjustment and reduction of the shape combinations
+    fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                               pi=fit$pi, theta=fit$theta, shape=fit$shape, beta=fit$beta, gamma=fit$gamma,
+                               criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
+  }
+
   # Return fitted parameters of splicing model
   return(list(pi = fit$pi, alpha = fit$alpha, beta = fit$beta, shape = fit$shape, theta = fit$theta, gamma = fit$gamma, 
               loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s)) 
