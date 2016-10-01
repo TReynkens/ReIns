@@ -33,6 +33,6 @@ NumericVector spliceEM_Estep_Pa_iv(const NumericVector &lower4, const NumericVec
                                    const double gamma, const double tsplice);
 
 // E-step for Pareto: part of E(ln f_2(X_i;t) | t^l<l_i<=t<u_i, Theta^{(h-1)}) not depending on gamma    
-NumericVector spliceEM_Estep_Pa_v(const NumericVector upper5, const double gamma, const double tsplice);
+NumericVector spliceEM_Estep_Pa_v(const NumericVector &upper5, const double gamma, const double tsplice);
       
 #endif
