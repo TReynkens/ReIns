@@ -4,7 +4,7 @@
 // M-step ME
 
 // Function to compute root of in spliceEM_theta
-double f_theta(const double ltheta, const double D, const double br_sum, const NumericVector beta, const NumericVector shape,
+double f_theta(const double ltheta, const double D, const double br_sum, const NumericVector beta, const IntegerVector shape,
                const double trunclower, const double tsplice) {
 
   double theta = exp(ltheta);
@@ -54,7 +54,7 @@ double f_theta(const double ltheta, const double D, const double br_sum, const N
 }
 
 // Derivative of f_theta
-double f_theta_der(const double ltheta, const double br_sum, const NumericVector beta, const NumericVector shape,
+double f_theta_der(const double ltheta, const double br_sum, const NumericVector beta, const IntegerVector shape,
                    const double trunclower, const double tsplice) {
 
   double theta = exp(ltheta);
@@ -142,7 +142,7 @@ double f_theta_der(const double ltheta, const double br_sum, const NumericVector
 
 // Compute log(theta) in M-step of ME
 double spliceEM_theta(const double ltheta, const double E1_ME, const double E3_ME, const double E5_ME,
-                      const double n1_h, const NumericVector beta, const NumericVector shape, const double trunclower, const double tsplice) {
+                      const double n1_h, const NumericVector beta, const IntegerVector shape, const double trunclower, const double tsplice) {
   
   int M = beta.size();
   

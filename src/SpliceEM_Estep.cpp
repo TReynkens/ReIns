@@ -5,7 +5,7 @@
 // Use pi^{(h-1)}, gamma^{(h-1)}, ...
 NumericVector spliceEM_probs(const NumericVector &lower5, const NumericVector &upper5, 
                              const double trunclower, const double tsplice, const double truncupper, 
-                             const double pi, const double theta, const NumericVector shape, const NumericVector alpha, const double gamma) {
+                             const double pi, const double theta, const IntegerVector shape, const NumericVector alpha, const double gamma) {
 
   // CDF of ME evaluated in l_i (for all i with t^l<=l_i<=t<u_i)
   NumericVector p1 = pME_vec(lower5, theta, shape, alpha, trunclower, tsplice);
@@ -56,7 +56,7 @@ NumericMatrix spliceEM_iii_z(const NumericMatrix &c3_probs_nosum, const int M) {
 
 // ^{v.}z_{ij}^{(h)}: posterior probabilities (censored)
 NumericMatrix spliceEM_v_z(const NumericMatrix &c5_probs_nosum, const double tsplice, const NumericVector alpha_tilde, 
-                           const NumericVector shape, const double theta,  const int M) {
+                           const IntegerVector shape, const double theta,  const int M) {
 
   NumericVector pt(M);
   
@@ -87,7 +87,7 @@ NumericMatrix spliceEM_v_z(const NumericMatrix &c5_probs_nosum, const double tsp
 
 // Expected value of censored observations with l_i<u_i<t for ME
 NumericMatrix spliceEM_Estep_ME_iii(const NumericVector &lower3, const NumericVector &upper3, 
-                                    const NumericVector shape, const double theta) {
+                                    const IntegerVector shape, const double theta) {
 
   int n3 = lower3.size();
   int M = shape.size();
@@ -118,7 +118,7 @@ NumericMatrix spliceEM_Estep_ME_iii(const NumericVector &lower3, const NumericVe
 
 // Expected value of censored observations with l_i<t<u_i for ME
 NumericMatrix spliceEM_Estep_ME_v(const NumericVector &lower5, const double tsplice, 
-                                  const NumericVector shape, const double theta) {
+                                  const IntegerVector shape, const double theta) {
 
   return spliceEM_Estep_ME_iii(lower5, rep(tsplice, lower5.size()), shape, theta);
 

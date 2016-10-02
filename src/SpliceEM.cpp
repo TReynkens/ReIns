@@ -110,7 +110,7 @@ void spliceEM_densprob(NumericMatrix &x1_dens_nosum, NumericVector &x1_dens, Num
                        const NumericVector &lower1, const NumericVector &lower2, const NumericVector &lower3, const NumericVector &lower4, const NumericVector &lower5,
                        const NumericVector &upper3, const NumericVector &upper4, const NumericVector &upper5,
                        const double trunclower, const double tsplice, const double truncupper,
-                       const double pi, const double theta, const NumericVector shape, const NumericVector alpha_tilde, const double gamma) {
+                       const double pi, const double theta, const IntegerVector shape, const NumericVector alpha_tilde, const double gamma) {
   
   int M = shape.size();
   int n1 = lower1.size();
@@ -186,7 +186,7 @@ void spliceEM_densprob(NumericMatrix &x1_dens_nosum, NumericVector &x1_dens, Num
 // Additional input: eps = numerical tolerance for EM algorithm (stopping criterion),
 // beta_tol = numerical tolerence to discard beta's,
 // maxiter = maximal number of EM iterations
-List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const NumericVector shape_in, const NumericVector beta_in, const double gamma_in,
+List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const IntegerVector shape_in, const NumericVector beta_in, const double gamma_in,
                             const NumericVector &lower1, const NumericVector &lower2, const NumericVector &lower3, const NumericVector &lower4, const NumericVector &lower5, 
                             const NumericVector &upper3, const NumericVector &upper4, const NumericVector &upper5, 
                             const double trunclower, const double tsplice, const double truncupper,
@@ -195,7 +195,7 @@ List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const Num
   double pi = pi_in;
   double theta = theta_in;
   // Clone vectors to avoid changing it in R (or C++)
-  NumericVector shape = clone(shape_in);
+  IntegerVector shape = clone(shape_in);
   NumericVector beta = clone(beta_in);
   double gamma = gamma_in;
   
@@ -453,7 +453,7 @@ List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const Num
 
 // Fit splicing model using EM algorithm for given M and shapes (export to R)
 // [[Rcpp::export]]
-List spliceEM_splicefit_raw_Rexport(const double pi, const double theta, const NumericVector shape, const NumericVector beta, const double gamma, 
+List spliceEM_splicefit_raw_Rexport(const double pi, const double theta, const IntegerVector shape, const NumericVector beta, const double gamma, 
                                     const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, 
                                     const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, 
                                     const double trunclower, const double tsplice, const double truncupper,
@@ -470,7 +470,7 @@ List spliceEM_splicefit_raw_Rexport(const double pi, const double theta, const N
 
 
 // Shape adjustments (4.2 in Verbelen et al. 2015)
-List spliceEM_shape_adj(const double pi_in, const double theta_in, const NumericVector shape_in, const NumericVector beta_in, const double gamma_in, 
+List spliceEM_shape_adj(const double pi_in, const double theta_in, const IntegerVector shape_in, const NumericVector beta_in, const double gamma_in, 
                         const NumericVector &lower1, const NumericVector &lower2, const NumericVector &lower3, const NumericVector &lower4, const NumericVector &lower5, 
                         const NumericVector &upper3, const NumericVector &upper4, const NumericVector &upper5, 
                         const double trunclower, const double tsplice, const double truncupper,
@@ -479,7 +479,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
   double pi = pi_in;
   double theta = theta_in;
   // Clone vectors to avoid changing it in R (and C++)
-  NumericVector shape = clone(shape_in);
+  IntegerVector shape = clone(shape_in);
   NumericVector beta = clone(beta_in);
   double gamma = gamma_in;
   
@@ -491,7 +491,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
   double loglikelihood = as<double>(fit["loglikelihood"]);
   pi = as<double>(fit["pi"]);
   theta = as<double>(fit["theta"]);
-  shape = as<NumericVector>(fit["shape"]);
+  shape = as<IntegerVector>(fit["shape"]);
   beta = as<NumericVector>(fit["beta"]);
   NumericVector alpha = as<NumericVector>(fit["alpha"]);
   gamma = as<double>(fit["gamma"]);
@@ -520,7 +520,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
       while( improve && (i==(M-1) || test) ) {
         
         // Clone vector to avoid changing original one
-        NumericVector new_shape = clone(shape);
+        IntegerVector new_shape = clone(shape);
         
         // Increase i-th shape by 1
         new_shape[i] = new_shape[i] + 1;
@@ -534,7 +534,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
         if (new_loglikelihood > loglikelihood + eps) {
           loglikelihood = new_loglikelihood;
           pi = as<double>(fit["pi"]);
-          shape = as<NumericVector>(fit["shape"]);
+          shape = as<IntegerVector>(fit["shape"]);
           theta = as<double>(fit["theta"]);
           beta = as<NumericVector>(fit["beta"]);
           alpha = as<NumericVector>(fit["alpha"]);
@@ -571,7 +571,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
       while( improve && (i==0 || test) && test2 ) {
         
         // Clone vector to avoid changing original one
-        NumericVector new_shape = clone(shape);
+        IntegerVector new_shape = clone(shape);
         
         // Decrease i-th shape by 1
         new_shape[i] = new_shape[i] - 1;
@@ -586,7 +586,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
           loglikelihood = new_loglikelihood;
           pi = as<double>(fit["pi"]);
           theta = as<double>(fit["theta"]);
-          shape = as<NumericVector>(fit["shape"]);
+          shape = as<IntegerVector>(fit["shape"]);
           beta = as<NumericVector>(fit["beta"]);
           alpha = as<NumericVector>(fit["alpha"]);
           gamma = as<double>(fit["gamma"]);
@@ -640,7 +640,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Numeric
 
 // Shape adjustments (export to R)
 // [[Rcpp::export]]
-List spliceEM_shape_adj_Rexport(const double pi, const double theta, const NumericVector shape, const NumericVector beta, const double gamma, 
+List spliceEM_shape_adj_Rexport(const double pi, const double theta, const IntegerVector shape, const NumericVector beta, const double gamma, 
                                 const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, 
                                 const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, 
                                 const double trunclower, const double tsplice, const double truncupper,
@@ -655,7 +655,7 @@ List spliceEM_shape_adj_Rexport(const double pi, const double theta, const Numer
 
 // Shape reduction (4.3 in Verbelen et al. 2015)
 // [[Rcpp::export]]
-List spliceEM_shape_red(const double pi_in, const double theta_in, const NumericVector shape_in, const NumericVector beta_in, const double gamma_in, 
+List spliceEM_shape_red(const double pi_in, const double theta_in, const IntegerVector shape_in, const NumericVector beta_in, const double gamma_in, 
                         const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, 
                         const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, 
                         const double trunclower, const double tsplice, const double truncupper, const String criterium, bool improve,
@@ -664,7 +664,7 @@ List spliceEM_shape_red(const double pi_in, const double theta_in, const Numeric
   double pi = pi_in;
   double theta = theta_in;
   // Clone vectors to avoid changing it in R (and C++)
-  NumericVector shape = clone(shape_in);
+  IntegerVector shape = clone(shape_in);
   NumericVector beta = clone(beta_in);
   double gamma = gamma_in;
   
@@ -691,7 +691,7 @@ List spliceEM_shape_red(const double pi_in, const double theta_in, const Numeric
   double IC = as<double>(fit[criterium]);
   pi = as<double>(fit["pi"]);
   theta = as<double>(fit["theta"]);
-  shape = as<NumericVector>(fit["shape"]);
+  shape = as<IntegerVector>(fit["shape"]);
   beta = as<NumericVector>(fit["beta"]);
   NumericVector alpha = as<NumericVector>(fit["alpha"]);
   gamma = as<double>(fit["gamma"]);
@@ -702,7 +702,7 @@ List spliceEM_shape_red(const double pi_in, const double theta_in, const Numeric
   while( improve && shape.size()>1 ) {
 
     // Remove shape with smallest beta
-    NumericVector new_shape = shape[beta != min(beta)];
+    IntegerVector new_shape = shape[beta != min(beta)];
     NumericVector new_beta = beta[beta != min(beta)];
     // Ensure that new beta's sum to 1
     new_beta = new_beta / sum(new_beta);
@@ -727,7 +727,7 @@ List spliceEM_shape_red(const double pi_in, const double theta_in, const Numeric
       loglikelihood = as<double>(fit["loglikelihood"]);
       pi = as<double>(fit["pi"]);
       theta = as<double>(fit["theta"]);
-      shape = as<NumericVector>(fit["shape"]);
+      shape = as<IntegerVector>(fit["shape"]);
       beta = as<NumericVector>(fit["beta"]);
       alpha = as<NumericVector>(fit["alpha"]);
       gamma = as<double>(fit["gamma"]);

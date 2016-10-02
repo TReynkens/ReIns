@@ -45,9 +45,9 @@ NumericVector ptpareto_vec(const NumericVector x, const double gamma, const doub
 
 
 // CDF of Mixed Erlang distribution and vector input version
-double pME(const double x, const double theta, const NumericVector shape, 
+double pME(const double x, const double theta, const IntegerVector shape, 
            const NumericVector alpha, const double trunclower, const double truncupper);
-NumericVector pME_vec(const NumericVector x, const double theta, const NumericVector shape, 
+NumericVector pME_vec(const NumericVector x, const double theta, const IntegerVector shape, 
                       const NumericVector alpha, const double trunclower, const double truncupper);
 
 #endif
