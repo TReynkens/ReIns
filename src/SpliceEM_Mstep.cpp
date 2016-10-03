@@ -188,7 +188,7 @@ double spliceEM_theta(const double ltheta, const double E1_ME, const double E3_M
       f_der = f_theta_der(m_old, br_sum, beta, shape, trunclower, tsplice);
 
       // Problems when f is infinite or NaN
-      if (!R_finite(f) | R_IsNaN(f)) {
+      if (!R_finite(f) || R_IsNaN(f)) {
         f = DBL_MAX;
       }
 
@@ -196,7 +196,7 @@ double spliceEM_theta(const double ltheta, const double E1_ME, const double E3_M
       if (std::abs(f_der) < pow(10, -14.0)) break;
 
       // Problems when derivative is infinite or NaN
-      if (!R_finite(f_der) | R_IsNaN(f_der)) {
+      if (!R_finite(f_der) || R_IsNaN(f_der)) {
         f_der = DBL_MAX;
       }
 
@@ -266,7 +266,7 @@ double spliceEM_Mstep_Pareto(const double lgamma, const double H, const double t
     f_der = f_Mgamma_der(m_old, H, beta_trunc) * exp(m_old);
     
     // Problems when f is infinite or NaN
-    if (!R_finite(f) | R_IsNaN(f)) {
+    if (!R_finite(f) || R_IsNaN(f)) {
       f = DBL_MAX;
     }
     
@@ -274,7 +274,7 @@ double spliceEM_Mstep_Pareto(const double lgamma, const double H, const double t
     if (std::abs(f_der) < pow(10, -14.0)) break;
     
     // Problems when derivative is infinite or NaN
-    if (!R_finite(f_der) | R_IsNaN(f_der)) {
+    if (!R_finite(f_der) || R_IsNaN(f_der)) {
       f_der = DBL_MAX;
     }
     
