@@ -33,10 +33,19 @@ numtol <- .Machine$double.eps^0.5
   # Match input argument for criterium
   criterium <- match.arg(criterium)
   
-  # Interval censoring
+  ##
+  # Initial value for pi
+  # Faster to already compute it here
+  if (requireNamespace("interval", quietly = TRUE)) {
+    pi_initial <- 1-.Turnbull2(tsplice, L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
+    
+  } else {
+    pi_initial <- 1-Turnbull(tsplice, L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
+  }
   
+  ## Fit model
   fit <- .spliceEMtune(lower=L, upper=U, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
-                       M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
+                       M=M, s=s, pi_initial=pi_initial, nCores=ncores, criterium=criterium, reduceM=reduceM, 
                        eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp)
   
   # Output as MEfit object
@@ -211,7 +220,7 @@ numtol <- .Machine$double.eps^0.5
 
 
 ## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
-.spliceEMtune <- function(lower, upper = lower, censored = NULL, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, 
+.spliceEMtune <- function(lower, upper = lower, censored = NULL, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, pi_initial = NULL,
                           nCores = detectCores(), criterium = "BIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   # Censoring indicator for each observation
@@ -238,7 +247,7 @@ numtol <- .Machine$double.eps^0.5
       
       suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored,
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
-                                     M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
+                                     M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], pi_initial=pi_initial,
                                      criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
     }
     
@@ -257,7 +266,7 @@ numtol <- .Machine$double.eps^0.5
       
       suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored, 
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper, 
-                                     M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
+                                     M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], pi_initial=pi_initial,
                                      criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
     }
     stopCluster(cl) 
@@ -301,12 +310,12 @@ numtol <- .Machine$double.eps^0.5
 
 
 # Fit splicing model using EM algorithm including shape adjustment and reduction of number of Erlangs
-.spliceEM_fit <- function(lower, upper = lower, censored, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, criterium="AIC", reduceM = TRUE, 
+.spliceEM_fit <- function(lower, upper = lower, censored, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, pi_initial = NULL, criterium="AIC", reduceM = TRUE, 
                           eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE){
-  
+
   # Get initial values
   initial <- .spliceEM_initial(lower=lower, upper=upper, censored=censored, trunclower=trunclower,
-                               tsplice=tsplice, truncupper=truncupper, M=M, s=s)
+                               tsplice=tsplice, truncupper=truncupper, M=M, s=s, pi_initial=pi_initial)
   
   if (cpp) {
     # Use C++ version
@@ -340,21 +349,27 @@ numtol <- .Machine$double.eps^0.5
               loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s)) 
 }
 
-# Initial values for parameters
-.spliceEM_initial <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1) {
+# Initial values for parameters. 
+# Initial value for pi can be provided. When NULL (default), it will be computed using the Turnbull estimator.
+.spliceEM_initial <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, pi_initial = NULL) {
   
   ##
   # Initial value for pi
-  if (requireNamespace("interval", quietly = TRUE)) {
-    pi <- 1-.Turnbull2(tsplice, L=lower, R=upper, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
+  if (is.null(pi_initial)) {
+    # Use Turnbull estimator
+    
+    if (requireNamespace("interval", quietly = TRUE)) {
+      pi_initial <- 1-.Turnbull2(tsplice, L=lower, R=upper, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
+      
+    } else {
+      pi_initial <- 1-Turnbull(tsplice, L=lower, R=upper, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
+    }
     
   } else {
-    pi <- 1-Turnbull(tsplice, L=lower, R=upper, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
+    # Use provided value
+    pi <- pi_initial
   }
-  
-  
-  
-  
+
   ##
   # Initial values for ME parameters, see Section 4.1 in Verbelen et al. (2016)
   
