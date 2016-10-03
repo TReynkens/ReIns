@@ -468,9 +468,7 @@
     
     i <- 1
  
-    all_model <- foreach(i = 1:nrow(tuning_parameters), 
-                         .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
-                         .errorhandling = 'pass') %do% {
+    all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %do% {
                            
       suppressWarnings(.ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                                M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
@@ -488,9 +486,7 @@
     registerDoParallel(cl)  
 
     i <- 1
-    all_model <- foreach(i = 1:nrow(tuning_parameters), 
-                         .export=c(".ME_initial", ".ME_loglikelihood", ".ME_u_z", ".ME_c_z", ".ME_expected_c", ".ME_T", ".theta_nlm", ".ME_em", ".ME_shape_adj", ".ME_shape_red", ".ME_fit"), 
-                         .errorhandling = 'pass') %dopar% {
+    all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %dopar% {
                            
                            .ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                                    M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 

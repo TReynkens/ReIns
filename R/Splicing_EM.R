@@ -231,19 +231,13 @@ numtol <- .Machine$double.eps^0.5
   # All combinations of M and s
   tuning_parameters <- expand.grid(M, s)
   
-  # Export used functions for foreach
-  export <- c(".spliceEM_fit", ".spliceEM_initial", ".spliceEM_shape_red", ".spliceEM_shape_adj", 
-              ".spliceEM_fit_raw", ".spliceEM_densprob", ".splice_loglikelihood", ".spliceEM_probs", ".spliceEM_i_z", ".spliceEM_iii_z", ".spliceEM_v_z",
-              ".spliceEM_Estep_ME_iii", ".spliceEM_Estep_ME_v", ".spliceEM_Estep_Pa_iv", ".spliceEM_Estep_Pa_v", ".spliceEM_theta_nlm", ".spliceEM_T", 
-              ".Hillinternal", ".pME", ".dpareto", ".dtpareto", ".ppareto", ".ptpareto")
-  
   if(nCores==1) {
     
     # Special case when nCores=1 without any cluster
     
     i <- 1
     
-    all_model <- foreach(i = 1:nrow(tuning_parameters), .export=export, .errorhandling = 'pass') %do% {
+    all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %do% {
       
       suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored,
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
@@ -262,7 +256,7 @@ numtol <- .Machine$double.eps^0.5
     registerDoParallel(cl)  
     
     i <- 1
-    all_model <- foreach(i = 1:nrow(tuning_parameters), .export=export, .errorhandling = 'pass') %dopar% {
+    all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %dopar% {
       
       suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored, 
                                      trunclower=trunclower, tsplice=tsplice, truncupper=truncupper, 
