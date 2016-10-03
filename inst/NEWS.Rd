@@ -16,6 +16,7 @@
         \item Improve random sample generation from ME-Pa splicing model.
         \item Fix issues with computation of ME quantiles.
         \item Compute initial value of \code{pi} already in \code{.SpliceFiticPareto}.
+        \item Fix bug with endpoints in \code{dSplice}.
       }
     }
 }

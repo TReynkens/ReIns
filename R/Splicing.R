@@ -940,7 +940,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
       stop("Invalid type.")
     }
     # PDF is 0 after endpoint
-    d[x>=EVTfit$endpoint[i]] <- 0
+    d[x>EVTfit$endpoint[i]] <- 0
   }
   
   if (log) d <- log(d)
