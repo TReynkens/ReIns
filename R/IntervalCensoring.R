@@ -54,6 +54,9 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   ic[which(diff(ic)<=eps)+1] <- NA
   ic <- ic[!is.na(ic)]
   
+  # Remove infinite elements
+  ic <- ic[is.finite(ic)]
+  
   
   n <- length(ic)
   K <- 1:(n-1)
