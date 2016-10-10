@@ -2,7 +2,7 @@
 
 # Mean excess plot using Turnbull estimator
 MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf, 
-                          plot = TRUE, k = TRUE, main = "Mean excess plot", ...) {
+                          plot = TRUE, k = TRUE, intervalpkg = TRUE, main = "Mean excess plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
@@ -20,7 +20,8 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   kplot <- k
   
   # Turnbull survival function
-  if (requireNamespace("interval", quietly = TRUE)) {
+  # Use interval package if available and if requested by user
+  if (requireNamespace("interval", quietly = TRUE) & intervalpkg) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$xall
@@ -28,8 +29,12 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
     m <- length(x)
     
   } else {
-    warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
-            call.=FALSE)
+    # Issue warning if interval package requested by user but not available
+    if (intervalpkg) {
+      warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
+              call.=FALSE)
+    }
+
     
     SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     

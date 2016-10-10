@@ -9,7 +9,8 @@ Computes mean excess values using the Turnbull estimator. These mean excess valu
 }
 \usage{
 MeanExcess_TB(L, U = L, censored, trunclower = 0, truncupper = Inf, 
-              plot = TRUE, k = TRUE, main = "Mean excess plot", ...)
+              plot = TRUE, k = TRUE, intervalpkg = TRUE, 
+              main = "Mean excess plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -35,6 +36,9 @@ Logical indicating if the mean excess values should be plotted in a mean excess 
   \item{k}{
 Logical indicating if the mean excess values are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of the empirical quantiles computed using the Turnbull estimator (\code{k=FALSE}). Default is \code{FALSE}.
 }
+  \item{intervalpkg}{
+Logical indicating if the Turnbull estimator is computed using the implementation in the \pkg{interval} package if this package is installed. Default is \code{TRUE}.
+}
   \item{main}{
 Title for the plot, default is \code{"Mean excess plot"}.
 }
@@ -52,7 +56,7 @@ See Section 4.3 in Albrecher et al. (2016) for more details.
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 
-If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
+If the \pkg{interval} package is installed and \code{intervalpkg=TRUE}, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
 Use \code{\link{MeanExcess}} for non-censored data. 
 }
