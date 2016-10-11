@@ -75,7 +75,8 @@ export("ProbGPD", "QuantGPD","ReturnGPD")
 # Regression estimators
 
 export("ScaleReg")
-export("ProbReg","QuantReg")
+export("ProbReg", "QuantReg")
+export("crHill", "crSurv", "crParetoQQ")
 
 #########################
 # Censoring estimators
