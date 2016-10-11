@@ -21,6 +21,12 @@
         \item Add option to choose if the implementation of the Turnbull estimator in the package \pkg{interval} should be used in \code{MeanExcess_TB}.
       }
     }
+    
+   \subsection{Documentation changes:}{
+      \itemize{
+        \item Update Beirlant et al. (2016) reference.
+      }
+    }
 }
 
 \section{Changes in version 0.6-00 (2016-08-05)}{

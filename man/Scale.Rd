@@ -5,7 +5,7 @@
 Scale estimator
 }
 \description{
-Computes the estimator for the scale parameter as described in Beirlant et al. (201x).
+Computes the estimator for the scale parameter as described in Beirlant et al. (2016).
 }
 \usage{
 Scale(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE, 
@@ -52,8 +52,11 @@ A list with following components:
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
-Beirlant, J., Schoutens, W., De Spiegeleer, J., Reynkens, T. and Herrmann, K. (201x). 
-"Hunting for Black Swans in the European Banking Sector." \emph{}, , --.
+Beirlant, J., De Spiegeleer, J., Schoutens, W., Reynkens, T. and Herrmann, K. (2016).
+"Hunting for Black Swans in the European Banking Sector using Extreme Value Analysis."
+In: Jan Kallsen and Antonis Papapantoleon (eds.), \emph{Advanced Modeling in Mathematical
+Finance: In honour of Ernst Eberlein}, Springer International Publishing, Switzerland,
+accepted.
 }
 \author{
 Tom Reynkens
