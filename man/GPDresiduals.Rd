@@ -43,7 +43,7 @@ otherwise.
 We can assess the goodness-of-fit of the GPD when modelling POT values \eqn{Y=X-t} by 
 constructing an exponential QQ-plot of the transformed variable \eqn{R} since \eqn{R} is standard exponentially distributed if \eqn{Y} follows the GPD.
 
-See Section 4.2.2 in Albrecher et al. (2016) for more details.
+See Section 4.2.2 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -51,7 +51,7 @@ A list with following components:
 \item{res.emp}{Vector of the empirical quantiles of \eqn{R}, see Details.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

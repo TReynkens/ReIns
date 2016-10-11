@@ -46,7 +46,7 @@ The minus-log version of the PP-plot consists of
 
 Use \code{\link{SplicePP_TB}} for censored data. 
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -54,7 +54,7 @@ A list with following components:
 \item{spp.emp}{Vector of the empirical probabilities \eqn{1-\hat{F}(x_{i,n})}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
 a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.

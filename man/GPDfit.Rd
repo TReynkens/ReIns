@@ -24,13 +24,13 @@ Logical indicating if possible warnings from the optimisation function are shown
 }
 }
 \details{
-See Section 4.2.2 in Albrecher et al. (2016) for more details.
+See Section 4.2.2 in Albrecher et al. (2017) for more details.
 }
 \value{
 A vector with the MLE estimate for the \eqn{\gamma} parameter of the GPD as the first component and the MLE estimate for the \eqn{\sigma} parameter of the GPD as the second component.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }

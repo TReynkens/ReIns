@@ -43,7 +43,7 @@ The generalised Hill estimator is an estimator for the slope of the \eqn{k} last
 with \eqn{UH_{j,n}=X_{n-j,n}H_{j,n}} the UH scores and \eqn{H_{j,n}} the Hill estimates.
 This is analogous to the (ordinary) Hill estimator which is the estimator of the slope of the \eqn{k} last points of the Pareto QQ-plot when using constrained least squares. 
 
-See Section 4.2.2 of Albrecher et al. (2016) for more details.
+See Section 4.2.2 of Albrecher et al. (2017) for more details.
 }
 
 \value{
@@ -52,7 +52,7 @@ A list with following components:
 \item{gamma}{Vector of the corresponding generalised Hill estimates.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 

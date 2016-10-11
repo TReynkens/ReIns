@@ -39,7 +39,7 @@ The estimator is defined as
 \deqn{\hat{Q}_i(1-p) = Z_{n-k,n} ((k+1)/((n+1)*p) \hat{A}(i/n))^{H_{k,n}},}
 with \eqn{H_{k,n}} the Hill estimator. Here, it is assumed that we have equidistant covariates \eqn{x_i=i/n}.
 
-See Section 4.4 in Albrecher et al. (2016) for more details. 
+See Section 4.4 in Albrecher et al. (2017) for more details. 
 }
 \value{
 A list with following components:
@@ -48,7 +48,7 @@ A list with following components:
 \item{p}{The used exceedance probability.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens.

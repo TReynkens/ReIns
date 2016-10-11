@@ -40,7 +40,7 @@ The endpoint is estimated as
 \deqn{\hat{T}_{k,n} = \max(X_{n-k,n}  ( ((X_{n-k,n}/X_{n,n})^{1/\hat{\gamma}_k} - 1/(k+1)) / (1-1/(k+1)))^{-\hat{\gamma}_k}, X_{n,n})}
 with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation.
 
-See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -48,7 +48,7 @@ A list with following components:
 \item{Tk}{Vector of the corresponding estimates for the endpoint \eqn{T}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.

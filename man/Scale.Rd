@@ -41,7 +41,7 @@ The scale estimates are computed based on the following model for the CDF:
 \deqn{\hat{A}_{k,n}=(k+1)/(n+1) X_{n-k,n}^(1/H_{k,n})}
 where \eqn{H_{k,n}} are the Hill estimates.
 
-See Section 4.2.1 of Albrecher et al. (2016) for more details.
+See Section 4.2.1 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -50,7 +50,7 @@ A list with following components:
 \item{C}{Vector of the corresponding estimates for \eqn{C}, see details.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., De Spiegeleer, J., Schoutens, W., Reynkens, T. and Herrmann, K. (2016).
 "Hunting for Black Swans in the European Banking Sector using Extreme Value Analysis."

@@ -61,7 +61,7 @@ We estimate the integrated tail function by
 \hat{\kappa}/(\hat{\gamma}X_{n-k,n}^{\hat{\tau}})(1/\hat{\gamma}-\hat{\tau}-1)^{-1}u^{1+\hat{\tau}-1/\hat{\gamma}})}
 with \eqn{\hat{\gamma}, \hat{\kappa}} and \eqn{\hat{\tau}} the estimates for the parameters of the EPD.
 
-See Section 4.5 of Albrecher et al. (2016) for more details.
+See Section 4.5 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -71,7 +71,7 @@ A list with following components:
 \item{L}{The limit of the (re-)insurance.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

@@ -30,7 +30,7 @@ The Weibull QQ-plot is given by
 \deqn{(\log(-\log(1-i/(n+1))),\log X_{i,n})}
 for \eqn{i=1,...,n,} with \eqn{X_{i,n}} the \eqn{i}-th order statistic of the data.
 
-See Section 4.1 of Albrecher et al. (2016) for more details.
+See Section 4.1 of Albrecher et al. (2017) for more details.
 }
 
 \value{
@@ -40,7 +40,7 @@ A list with following components:
 }
 
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens.

@@ -59,13 +59,13 @@ Here, we need again that \eqn{\gamma>0}.
 for \eqn{z\ge 1}, where \eqn{z=(x-\mu)/\sigma}. We need again that \eqn{\gamma>0}.
 }
 
-See Section 6.2 of Albrecher et al. (2016) for more details.
+See Section 6.2 of Albrecher et al. (2017) for more details.
 }
 \value{
 Vector of estimates for the probabilities \eqn{F(x)=P(X\le x)}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

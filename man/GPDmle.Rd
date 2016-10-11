@@ -50,7 +50,7 @@ The \code{POT} function is the same function but with a different name for compa
 For each value of \code{k}, we look at the exceedances over the \eqn{k+1}th largest observations:
 \eqn{X_{n-k+j,n}-X_{n-k,n}} for \eqn{j=1,...,k}, with \eqn{X_{j,n}} the \eqn{j}th largest observation and \eqn{n} the sample size. The GPD is then fitted to these k exceedances using MLE which yields estimates for the parameters of the GPD: \eqn{\gamma} and \eqn{\sigma}.
 
-See Section 4.2.2 in Albrecher et al. (2016) for more details.
+See Section 4.2.2 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -59,7 +59,7 @@ A list with following components:
 \item{sigma}{Vector of the corresponding MLE estimates for the \eqn{\sigma} parameter of the GPD.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }

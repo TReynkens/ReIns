@@ -40,7 +40,7 @@ This vector should have length 1, 2 or 3 when included.
 }
 }
 \details{
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for details.
 }
 \value{
 An S3 object containg the above input arguments and values for \eqn{\pi}, the splicing weights.
@@ -50,7 +50,7 @@ These splicing weights are equal to \deqn{\pi_1=const_1,   \pi_2=const_2-const_1
 A summary method is available.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
 a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.

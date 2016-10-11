@@ -34,7 +34,7 @@ The derivative plot of a Weibull QQ-plot is \deqn{(k, H_{k,n}/W_{k,n})} or \deqn
 with \eqn{H_{k,n}} the Hill estimates and
 \deqn{W_{k,n}=1/k*\sum_{j=1}^k \log(\log((n+1)/j))  -  \log(\log((n+1)/(k+1))).}
 
-See Section 4.1 of Albrecher et al. (2016) for more details.
+See Section 4.1 of Albrecher et al. (2017) for more details.
 }
 
 \value{
@@ -44,7 +44,7 @@ A list with following components:
 }
 
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens.

@@ -44,7 +44,7 @@ where \eqn{z_{\alpha}} is the \eqn{100(1-\alpha)\%} quantile of a standard norma
 The corresponding P-value is thus given by
 \deqn{\Phi(T_{k,n})} with \eqn{\Phi} the CDF of a standard normal distribution.
 
-See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -55,7 +55,7 @@ A list with following components:
 \item{Reject}{Logical vector indicating if the null hypothesis is rejected for a certain value of \code{k}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.

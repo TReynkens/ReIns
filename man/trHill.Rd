@@ -53,7 +53,7 @@ The equation that needs to be solved is
 \deqn{H_{r,k,n} = \gamma + R_{r,k,n}^{1/\gamma} \log(R_{r,k,n}) / (1-R_{r,k,n}^{1/\gamma})}
 with \eqn{R_{r,k,n} = X_{n-k,n} / X_{n-r+1,n}}.
 
-See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -65,7 +65,7 @@ A list with following components:
 Aban, I.B., Meerschaert, M.M. and Panorska, A.K. (2006). "Parameter Estimation for the Truncated
 Pareto Distribution." \emph{Journal of the American Statistical Association}, 101, 270--277.
 
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.

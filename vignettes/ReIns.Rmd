@@ -15,7 +15,7 @@ references:
   publisher: Wiley, Chichester
   type: book
   issued:
-    year: 2016
+    year: 2017
 - id: soe
   title: "Statistics of Extremes: Theory and Applications"
   author:
@@ -43,7 +43,7 @@ vignette: >
 # Introduction
 
 
-The *ReIns* package contains functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
+The *ReIns* package contains functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) of Hansjörg Albrecher, Jan Beirlant and Jef Teugels.
 
 It contains implementations of
 
@@ -81,7 +81,7 @@ plot(year, size, xlab="Year", ylab="Size")
 
 # Graphical methods
 
-QQ-plots and their derivative plots are an essential part of extreme value theory. We focus on four important types: the exponential QQ-plot, Pareto QQ-plot, log-normal QQ-plot and Weibull QQ-plot, see Section 4.1 in Albrecher et al. (2016).
+QQ-plots and their derivative plots are an essential part of extreme value theory. We focus on four important types: the exponential QQ-plot, Pareto QQ-plot, log-normal QQ-plot and Weibull QQ-plot, see Section 4.1 in Albrecher et al. (2017).
 
 ## Exponential QQ-plot
 
@@ -159,7 +159,7 @@ WeibullQQ_der(size, k=TRUE)
 
 # Estimators of the EVI
 
-More details on the estimators described in this section can be found in Section 4.2 in Albrecher et al. (2016).
+More details on the estimators described in this section can be found in Section 4.2 in Albrecher et al. (2017).
 
 ## Estimators of $\gamma>0$
 The most famous estimator for the EVI $\gamma$ is the **Hill estimator** which can be obtained by fitting the Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
@@ -209,7 +209,7 @@ legend("bottomright", c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ```
 
 # Estimators of quantiles and return periods
-The previously discussed estimators can be used to estimate large quantiles or small exceedance probabilities and corresponding high return periods. These estimators are also described in Section 4.2 in Albrecher et al. (2016).
+The previously discussed estimators can be used to estimate large quantiles or small exceedance probabilities and corresponding high return periods. These estimators are also described in Section 4.2 in Albrecher et al. (2017).
 
 ## Estimators of quantiles
 We can for example estimate the 99.5% quantile using Hill estimates (`Quant`) or using generalised Hill estimates (`QuantGH`), GPD estimates (`QuantGPD`) and moment estimates (`QuantMOM`).
@@ -325,7 +325,7 @@ MeanExcess_TB(Z, U, censored, k=FALSE)
 
 The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
 wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution (body)
-and an extreme value distribution: Pareto or GPD, for the tail, see Section 4.3 in Albrecher et al. (2016). The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
+and an extreme value distribution: Pareto or GPD, for the tail, see Section 4.3 in Albrecher et al. (2017). The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
 1. `SpliceFitPareto`: splicing of ME and Pareto distribution(s), possibly adapted for truncation.  
 2. `SpliceFitGPD`: splicing of ME and GPD, this cannot handle (upper) truncation.   
 3. `SpliceFiticHill`: splicing of ME and a Pareto distribution adapted for censored data (and truncation).  
@@ -402,7 +402,7 @@ SpliceQQ(size, splicefit)
 # Risk measures
 
 Using the fitted spliced distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
-Expected Shortfall (ES). Moreover, data can be simulated from the spliced distribution. See Section 4.5 in Albrecher et al. (2016) for more details.
+Expected Shortfall (ES). Moreover, data can be simulated from the spliced distribution. See Section 4.5 in Albrecher et al. (2017) for more details.
 
 
 ## Excess-loss premiums
@@ -489,7 +489,7 @@ Moreover, several upper truncated distributions are included:
 
 # Approximations of the distribution function
 
-It is often very useful to approximate a distribution using the first moments. See Section 6.2 in Albrecher et al. (2016) for more details on the approximations discussed in this section.
+It is often very useful to approximate a distribution using the first moments. See Section 6.2 in Albrecher et al. (2017) for more details on the approximations discussed in this section.
 
 ## Classical approximations
 Several classical approximations are implemented in the function `pClas`: 

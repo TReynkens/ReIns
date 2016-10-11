@@ -27,13 +27,13 @@ where \eqn{I(u)=E((X-u)_+)} is the premium of an excess-loss insurance with rete
 If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
 \eqn{TVaR} the Tail Value-at-Risk.
 
-See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2017) for more details.
 }
 \value{
 Vector with the ES corresponding to each element of \eqn{p}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
 a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.

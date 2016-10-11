@@ -32,7 +32,7 @@ with \eqn{X_{i,n}} the \eqn{i}-th order statistic of the data.
 
 Note that the mean excess plot is the derivative plot of the Exponential QQ-plot.
 
-See Section 4.1 of Albrecher et al. (2016) for more details.
+See Section 4.1 of Albrecher et al. (2017) for more details.
 }
 
 \value{
@@ -41,7 +41,7 @@ A list with following components:
 \item{eqq.emp}{Vector of the empirical quantiles from the data.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }

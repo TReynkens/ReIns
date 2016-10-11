@@ -46,7 +46,7 @@ Right censored data should be entered as \code{L=l} and \code{R=truncupper}, and
 
 This function calls \code{survfit.formula} from \pkg{survival}.
 
-See Section 4.3 in Albrecher et al. (2016) for more details.
+See Section 4.3 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -55,7 +55,7 @@ A list with following components:
 }
 
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Turnbull, B. W. (1974). "Nonparametric Estimation of a Survivorship Function with Doubly Censored Data." \emph{Journal of the American Statistical Association}, 69, 169--173.
 

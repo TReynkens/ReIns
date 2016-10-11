@@ -33,7 +33,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The derivative plot of a Pareto QQ-plot is \deqn{(k,H_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates.
 
-See Section 4.1 of Albrecher et al. (2016) for more details.
+See Section 4.1 of Albrecher et al. (2017) for more details.
 }
 
 \value{
@@ -43,7 +43,7 @@ A list with following components:
 }
 
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }

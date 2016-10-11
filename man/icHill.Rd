@@ -58,7 +58,7 @@ If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} fu
 
 Use \code{\link{Hill}} for non-censored data or \code{\link{cHill}} for right censored data. 
 
-See Section 4.3 in Albrecher et al. (2016) for more details.
+See Section 4.3 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -68,7 +68,7 @@ A list with following components:
 }
 
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

@@ -68,7 +68,7 @@ Maximum number of iterations in a single EM algorithm execution (ME part). Defau
 }
 }
 \details{
-See Reynkens et al. (2016), Section 4.3 of Albrecher et al. (2016) and Verbelen et al. (2015) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2016).
+See Reynkens et al. (2016), Section 4.3 of Albrecher et al. (2017) and Verbelen et al. (2015) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2016).
 
 The \code{SpliceFitHill} function is the same function but with a different name for compatibility with old versions of the package.
 
@@ -78,7 +78,7 @@ Use \code{\link{SpliceFiticPareto}} when censoring is present.
 A \code{\link{SpliceFit}} object.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.

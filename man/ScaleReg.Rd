@@ -46,7 +46,7 @@ The scale estimator is computed as
 with \eqn{K_h(x)=K(x/h)/h,} \eqn{K} the kernel function and \eqn{h} the bandwidth.
 Here, it is assumed that we have equidistant covariates \eqn{x_i=i/n}.
 
-See Section 4.4 in Albrecher et al. (2016) for more details.
+See Section 4.4 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -54,7 +54,7 @@ A list with following components:
 \item{A}{Vector of the corresponding scale estimates.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens

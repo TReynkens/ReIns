@@ -45,13 +45,13 @@ The Edgeworth approximation for the CDF of \eqn{X} (\eqn{F(x)}) is given by
 with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z}, \eqn{h_5(z)=z^5-10z^3+15z} and \eqn{z=(x-\mu)/\sigma}.
 
 
-See Section 6.2 of Albrecher et al. (2016) for more details.
+See Section 6.2 of Albrecher et al. (2017) for more details.
 }
 \value{
 Vector of estimates for the probabilities \eqn{F(x)=P(X\le x)}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Cheah, P.K., Fraser, D.A.S. and Reid, N. (1993). "Some Alternatives to Edgeworth." \emph{The Canadian Journal of Statistics}, 21(2), 131--138.
 }

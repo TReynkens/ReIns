@@ -64,7 +64,7 @@ To decide between light and rough truncation, one can use the test implemented i
 The quantiles for \eqn{W} are estimated using
 \deqn{\hat{Q}_W(1-p)=X_{n-k,n} ( (\hat{D}_T + (k+1)/(n+1)) / (p(1+\hat{D}_T))^{\hat{\gamma}_k}.}
 
-See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2016) for more details.
+See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -73,7 +73,7 @@ A list with following components:
 \item{p}{The used exceedance probability.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
 Pareto-type Distributions." \emph{Extremes}, accepted.

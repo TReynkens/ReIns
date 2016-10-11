@@ -38,7 +38,7 @@ The UH scores are defined as \eqn{UH_{j,n}=X_{n-j,n}H_{j,n}} with \eqn{H_{j,n}} 
 \deqn{(\log((n+1)/(k+1)), \log(X_{n-k,n}H_{k,n}))}
 for \eqn{k=1,\ldots,n-1}.
 
-See Section 4.2.2 of Albrecher et al. (2016) for more details.
+See Section 4.2.2 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -46,7 +46,7 @@ A list with following components:
 \item{gqq.emp}{Vector of the empirical quantiles from the logarithm of the UH scores.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 

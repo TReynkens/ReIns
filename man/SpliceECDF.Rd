@@ -34,10 +34,10 @@ Use \code{\link{SpliceTB}} for censored data.
 
 Confidence bounds are determined using the Dvoretzky-Kiefer-Wolfowitz inequality (Massart, 1990).
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Massart, P. (1990). The Tight Constant in the Dvoretzky-Kiefer-Wolfowitz Inequality.  \emph{Annals of Probability}, 18, 1269--1283.
 

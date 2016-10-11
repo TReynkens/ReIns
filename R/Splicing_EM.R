@@ -1,7 +1,7 @@
 
 # This file contains the procedure to fit the mixed Erlang - Pareto splicing model
 # to interval censored data as described in Reynkens et al. (2016) and 
-# Section 4.3 in Albrecher et al. (2016).
+# Section 4.3 in Albrecher et al. (2017).
 
 ###########################################################################
 

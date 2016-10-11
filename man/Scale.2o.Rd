@@ -45,7 +45,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The scale estimates are computed based on the following model for the CDF:
 \eqn{1-F(x) = A x^{-1/\gamma} ( 1+ bx^{-\beta}(1+o(1)) )}, where \eqn{A:= C^{1/\gamma}} is the scale parameter.
 
-See Section 4.2.1 of Albrecher et al. (2016) for more details.
+See Section 4.2.1 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -54,7 +54,7 @@ A list with following components:
 \item{C}{Vector of the corresponding estimates for \eqn{C}, see details.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant, J., De Spiegeleer, J., Schoutens, W., Reynkens, T. and Herrmann, K. (2016).
 "Hunting for Black Swans in the European Banking Sector using Extreme Value Analysis."

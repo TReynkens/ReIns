@@ -44,13 +44,13 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
  }
 }
 \details{ 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for details.
 }
 \value{
 Vector of densities \eqn{f(x)} for \code{dSplice}, vector of probabilities \eqn{F(x)=P(X\le x)} for \code{pSplice},  vector of quantiles \eqn{Q(p)} for \code{qSplice} and a random sample of length \eqn{n} for \code{rSplice}.
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
 a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.

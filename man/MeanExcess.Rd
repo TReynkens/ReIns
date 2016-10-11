@@ -32,7 +32,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The mean excess plot is \deqn{(k,e_{k,n})} or \deqn{(X_{n-k,n}, e_{k,n})}
 with \deqn{e_{k,n}=1/k\sum_{j=1}^k X_{n-j+1,n}-X_{n-k,n}.}
 
-See Section 4.1 of Albrecher et al. (2016) for more details. 
+See Section 4.1 of Albrecher et al. (2017) for more details. 
 Note that the mean excess plot is the derivative plot of the Exponential QQ-plot.
 }
 \value{
@@ -42,7 +42,7 @@ A list with following components:
 \item{e}{Vector of the mean excess values corresponding to the tail parameters in \code{k}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
 }

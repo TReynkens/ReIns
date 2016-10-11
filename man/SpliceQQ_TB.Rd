@@ -47,7 +47,7 @@ Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and
 
 Use \code{\link{SpliceQQ}} for non-censored data. 
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2016) for more details.
+See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -55,7 +55,7 @@ A list with following components:
 \item{sqq.emp}{Vector of the empirical quantiles from the data (based on the Turnbull estimator).}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
 Reynkens, T., Verbelen, R., Beirlant, J. and Antonio, K. (2016). "Modeling Censored Losses Using Splicing:
 a Global Fit Strategy With Mixed Erlang and Extreme Value Distributions". \emph{arXiv:1608.01566}.

@@ -9,7 +9,7 @@ Authors@R: c(person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = 
           person("Dries", "Cornilly", role = "ctb", comment="Original R code for EVT estimators for truncated data"),
           person("Yuri", "Goegebeur", role = "ctb", comment="Original S-Plus code for basic EVT estimators"))
 Maintainer: Tom Reynkens <tomreynkens@hotmail.com>
-Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2016) of Albrecher, Beirlant and Teugels.
+Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) of Albrecher, Beirlant and Teugels.
 License: GPL (>= 2)
 URL: https://github.com/TReynkens/ReIns
 BugReports: https://github.com/TReynkens/ReIns/issues

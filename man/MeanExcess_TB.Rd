@@ -52,7 +52,7 @@ The mean excess values are given by
 where \eqn{\hat{F}^{TB}} is the Turnbull estimator for the CDF.
 More specifically, we use the values \eqn{v=\hat{Q}^{TB}(p)} for \eqn{p=1/(n+1), \ldots, (n-1)/(n+1)} where
 \eqn{\hat{Q}^{TB}(p)} is the empirical quantile function corresponding to the Turnbull estimator.
-See Section 4.3 in Albrecher et al. (2016) for more details.
+See Section 4.3 in Albrecher et al. (2017) for more details.
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 
@@ -67,7 +67,7 @@ A list with following components:
 \item{e}{Vector of the mean excess values corresponding to the tail parameters in \code{k}.}
 }
 \references{
-Albrecher, H., Beirlant, J. and Teugels, J. (2016). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 }
 \author{
 Tom Reynkens
