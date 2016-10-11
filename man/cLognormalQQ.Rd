@@ -54,7 +54,7 @@ Tom Reynkens
 
 
 \seealso{
-\code{\link{LognormalQQ}}, \code{\link{cExpQQ}}, \code{\link{cParetoQQ}}, \code{\link{KaplanMeier}}
+\code{\link{LognormalQQ}}, \code{\link{cExpQQ}}, \code{\link{cParetoQQ}}, \code{\link{cWeibullQQ}}, \code{\link{KaplanMeier}}
 }
 \examples{
 # Set seed

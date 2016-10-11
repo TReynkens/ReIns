@@ -53,7 +53,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ParetoQQ}}, \code{cExpQQ}, \code{cLognormalQQ}, \code{\link{cHill}}, \code{\link{KaplanMeier}}
+\code{\link{ParetoQQ}}, \code{cExpQQ}, \code{cLognormalQQ}, \code{\link{cWeibullQQ}}, \code{\link{cHill}}, \code{\link{KaplanMeier}}
 }
 \examples{
 # Set seed

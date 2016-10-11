@@ -101,6 +101,36 @@ cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...)
   
 }
 
+# Weibull QQ-plot
+cWeibullQQ <- function(data, censored, plot = TRUE, main = "Weibull QQ-plot", ...) {
+  
+  # Check input arguments
+  .checkInput(data)
+  censored <- .checkCensored(censored, length(data))
+  
+  s <- sort(data, index.return = TRUE)
+  X <- s$x
+  sortix <- s$ix
+  n <- length(X)
+  
+  
+  K <- 1:(n-1)
+  
+  # calculate theoretical and empirical quantiles
+  
+  # log of -log of Kaplan-Meier estimator for the survival function in Z_[n-K+1]
+  wqq.the <- log(-log(KaplanMeier(X[n-K+1], data = X, censored = censored[sortix])$surv))
+  wqq.emp <- log(X[n-K+1])
+  
+  # plots if TRUE
+  .plotfun(wqq.the, wqq.emp, type="p", xlab="log of -log of Kaplan-Meier estimator", ylab="log(Z)", 
+           main=main, plot=plot, add=FALSE, ...)
+  
+  # output list with theoretical quantiles wqq.the and empirical quantiles wqq.emp
+  .output(list(wqq.the=wqq.the, wqq.emp=wqq.emp), plot=plot, add=FALSE)
+  
+}
+
 
 ##################################################################################
 
