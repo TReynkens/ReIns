@@ -2,7 +2,7 @@
 
 # Mean excess plot using Turnbull estimator
 MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf, 
-                          plot = TRUE, k = TRUE, intervalpkg = TRUE, main = "Mean excess plot", ...) {
+                          plot = TRUE, k = FALSE, intervalpkg = TRUE, main = "Mean excess plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")

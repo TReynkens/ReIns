@@ -9,7 +9,7 @@ Computes mean excess values using the Turnbull estimator. These mean excess valu
 }
 \usage{
 MeanExcess_TB(L, U = L, censored, trunclower = 0, truncupper = Inf, 
-              plot = TRUE, k = TRUE, intervalpkg = TRUE, 
+              plot = TRUE, k = FALSE, intervalpkg = TRUE, 
               main = "Mean excess plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
