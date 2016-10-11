@@ -130,7 +130,7 @@ ParetoQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot o
   .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
           main=main, plot=plot, add=FALSE, ...)
   
-  # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
+  # output list with x- and y-values
   .output(list(xval=xval, yval=yval), plot=plot, add=FALSE)
   
 }
@@ -188,7 +188,7 @@ LognormalQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plo
   .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
           main=main, plot=plot, add=FALSE, ...)
   
-  # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
+  # output list with x- and y-values
   .output(list(xval=xval, yval=yval), plot=plot, add=FALSE)
   
 }
@@ -212,7 +212,7 @@ WeibullQQ <- function(data, plot = TRUE, main = "Weibull QQ-plot", ...) {
   .plotfun(wqq.the, wqq.emp, type="p", xlab="Quantiles of Standard Weibull", ylab="log(X)", 
            main=main, plot=plot, add=FALSE, ...)
   
-  # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
+  # output list with theoretical quantiles wqq.the and empirical quantiles wqq.emp
   .output(list(wqq.the=wqq.the, wqq.emp=wqq.emp), plot=plot, add=FALSE)
   
 }
@@ -244,7 +244,7 @@ WeibullQQ_der <- function(data, k = FALSE, plot = TRUE, main = "Derivative plot 
   .plotfun(xval, yval, type="p", xlab=xlab, ylab="Derivative", 
            main=main, plot=plot, add=FALSE, ...)
   
-  # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
+  # output list with x- and y-values
   .output(list(xval=xval, yval=yval), plot=plot, add=FALSE)
   
 }
