@@ -49,14 +49,14 @@ It contains implementations of
 
 * Basic extreme value theory (EVT) estimators and graphical methods as described in "Statistics of Extremes: Theory and Applications" (2004) of Jan Beirlant, Yuri Goegebeur, Johan Segers and Jef Teugels.
 
-* EVT estimators and graphical methods adapted for censored or truncated data.
+* EVT estimators and graphical methods adapted for censored and/or truncated data.
 
 * Splicing of mixed Erlang distributions with EVT distributions (Pareto, GPD).
 
 * VaR, expected shortfall and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
-We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [censored data](#censored-data), [splicing](#splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
+We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [censored data](#censored-data), [global fits using splicing](#global-fits-using-splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
 
 # Datasets
 
@@ -70,7 +70,7 @@ library("ReIns")
 data("norwegianfire")
 
 # Claim year
-year <- norwegianfire$year+1900
+year <- norwegianfire$year + 1900
 
 # Claim size
 size <- norwegianfire$size
@@ -164,9 +164,9 @@ More details on the estimators described in this section can be found in Section
 ## Estimators of $\gamma>0$
 The most famous estimator for the EVI $\gamma$ is the **Hill estimator** which can be obtained by fitting the Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
 
-The bias of the Hill estimator can be problematic so one can consider a **bias-reduced estimator** which uses a regression type approach (`Hill.2oQV`). An other solution is to use the **EPD estimator** (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
+The bias of the Hill estimator can be problematic, hence one can consider a **bias-reduced estimator** which uses a regression type approach (`Hill.2oQV`). Another solution is to use the **EPD estimator** (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
 
-Using these bias-reduced estimators can give an idea about a good choice for $k$. Suitable choices of $k$ are values where the two plots intersect and which are not too low (otherwise the variance is too high). This yields an estimate for $\gamma$ around 0.75 (and $k$ around 3000).
+Using these bias-reduced estimators can give an idea about a good choice for $k$. Suitable choices of $k$ are values where the two plots intersect and which are not too low (otherwise the variance is too high). This yields an estimate for $\gamma$ around 0.75 (and $k$ around 3500).
 
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
@@ -181,7 +181,7 @@ legend("bottomright", c("Hill","EPD"), col=c("blue","orange"), lty=1:2)
 ```
 
 ## General estimators
-The previous estimators can only be used when $\gamma$ is strictly positive. Therefore, the **generalised QQ-plot** was proposed. This QQ-plot is a generalisation of the Pareto QQ-plot and can also have negative slopes. The function `genQQ` needs the Hill estimates as input.
+The previous estimators can only be used when $\gamma$ is strictly positive. Therefore, the **generalised QQ-plot** was proposed. This QQ-plot is a generalisation of the Pareto QQ-plot and can also have negative, or zero, slopes. The function `genQQ` needs the Hill estimates as input.
 
 We see that the generalised QQ-plot is strictly increasing which indicates a strictly positive $\gamma$.
 
@@ -193,7 +193,7 @@ genQQ(size, gamma=H$gamma)
 
 
 The **generalised Hill estimator** (`genHill`) is an estimator for the slope of the generalised QQ-plot.
-Alternatively, one can also consider the **moment estimator** (`Moment`) and the **Peaks-Over-Threshold estimator** (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The POT can however be very time consuming on large datasets!
+Alternatively, one can also consider the **moment estimator** (`Moment`) and the **Peaks-Over-Threshold estimator** (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The Peaks-Over-Threshold estimator can however be very time consuming on large datasets!
 
 The generalised Hill estimator and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
 
@@ -233,7 +233,7 @@ legend("topright", c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ```
 
 ## Estimators of return periods
-Estimating the return period of the value 100 000 000 NOK using the same three estimators (using `Return`, `ReturnGH` and `returnMOM`) gives an estimate around 800 (claims).
+Estimating the return period of the value 100 000 000 NOK using the same three estimators (using `Return`, `ReturnGH` and `ReturnMOM`) gives an estimate around 800 (claims).
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 
@@ -257,7 +257,7 @@ legend("bottomright", c("genHill","Moment"), col=c("blue","black"), lty=1:2)
 ## Right censored data
 Several EVT estimators for right censored data are included:
 
-* `cExpQQ`, `cLognormalQQ`, `cParetoQQ`: QQ-plots adapted for right censoring.
+* `cExpQQ`, `cLognormalQQ`, `cParetoQQ`, `cWeibullQQ`: QQ-plots adapted for right censoring.
 * `cHill`, `cEPD`, `cgenHill`, `cGPD`, `cMoment`: estimators for the EVI.
 * `cQuant`, `cQuantGH`, `cQuantGPD`, `cQuantMOM`: estimators for extreme quantiles.
 * `cProb`, `cProbEPD`, `cProbGH`, `cProbGPD`, `cProbMOM`: estimators for small exceedence probabilities.
@@ -280,7 +280,7 @@ Z <- pmin(X, Y)
 # Censoring indicator
 censored <- (X>Y)
 
-# Mean excess plot
+# Hill estimates adapted for right censoring
 cHill(Z, censored, plot=TRUE)
 ```
 
@@ -319,16 +319,16 @@ MeanExcess_TB(Z, U, censored, k=FALSE)
 
 
 
-# Splicing
+# Global fits using splicing
 
 ## Fitting a spliced distribution
 
 The previous sections dealt with fitting a suitable distribution for the tail of the data. One usually
-wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution (body)
-and an extreme value distribution: Pareto or GPD, for the tail, see Section 4.3 in Albrecher et al. (2017). The method can possibly be adapted for truncation and/or censoring. We consider three possible fitting procedures:  
-1. `SpliceFitPareto`: splicing of ME and Pareto distribution(s), possibly adapted for truncation.  
-2. `SpliceFitGPD`: splicing of ME and GPD, this cannot handle (upper) truncation.   
-3. `SpliceFiticHill`: splicing of ME and a Pareto distribution adapted for censored data (and truncation).  
+wants a fit for the whole distribution. We therefore propose the **splicing** of a Mixed Erlang (ME) distribution for the body and an extreme value distribution, i.e. Pareto or GPD, for the tail. See Section 4.3 in Albrecher et al. (2017) for more details. We consider three possible fitting procedures:  
+
+* `SpliceFitPareto`: fits a splicing model with a ME distribution and Pareto distribution(s) to possibly truncated data.  
+* `SpliceFitGPD`: fits a splicing model with a ME distribution and a GPD to possibly lower truncated data. This procedure cannot handle upper truncation.
+* `SpliceFiticPareto`: fits a splicing model with a ME distribution and a Pareto distribution to possibly censored and/or truncated data.  
 
 
 At first, one has to determine (a) suitable splicing point(s).
@@ -371,10 +371,11 @@ summary(splicefit)
 
 ## Checking adequacy of fitted spliced distribution
 
-To see how well the spliced distribution fits the data, we use 2 tools:  
-1. `SpliceECDF`: plot of the fitted survival function and the empirical survival function with confidence bounds.  
-2. `SplicePP`: plot of fitted survival function vs. empirical survival function. The plot with minus-log scales is most informative for the tails. 
-3. `SpliceQQ`: plot of fitted quantile function vs. empirical quantiles. 
+To see how well the spliced distribution fits the data, we use three tools:  
+
+* `SpliceECDF`: plot of the fitted survival function and the empirical survival function with confidence bounds.  
+* `SplicePP`: plot of the fitted survival function vs. the empirical survival function. The plot with minus-log scales is most informative for the tails.
+* `SpliceQQ`: plot of the fitted quantile function vs. the empirical quantile function. 
 
 Similar functions for censored data are implemented as well: `SpliceTB`, `SplicePP_TB` and `SpliceQQ_TB`.
 
@@ -419,7 +420,7 @@ e2 <- ExcessSplice(R, L=2*R, splicefit=splicefit)
 
 
 # Plot premiums
-plot(R, e, type="l", xlab="R", ylab="I(R)-I(R+L)", ylim=c(0,10^3))
+plot(R, e, type="l", xlab="R", ylab=expression(Pi(R)-Pi(R+L)), ylim=c(0,10^3))
 lines(R, e2, lty=2)
 legend("topright", c(expression("L"==infinity),expression("L"==2*"R")), lty=1:2, lwd=2)
 ```
@@ -443,6 +444,7 @@ plot(p, VaR, xlab="p", ylab=expression(VaR[p]), type="l")
 ## Expected shortfall
 In recent years, the **Expected Shortfall** (`ES`) is gaining importance. It is the conditional expectation of the data
 above a certain VaR. It is therefore always a larger than the corresponding VaR.
+When the CDF is continuous, which is the case for the ME-Pa and ME-GPD splicing models, the ES is equal to the Tail Value-at-Risk (TVaR).
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Small values for p
 p <- seq(0.0001, 0.01, 0.0001)
@@ -496,7 +498,7 @@ Several classical approximations are implemented in the function `pClas`:
 
 * The __normal approximation__ (`method="normal"`) for the CDF of the r.v. $X$ is defined as
 $$F_X(x) \approx \Phi((x-\mu)/\sigma)$$
-where $\mu$ and $\sigma^2$ are the mean and variance of $X$, respectively.
+where $\mu$ and $\sigma^2$ are the mean and variance of $X$, respectively, and $\Phi$ is the CDF of the standard normal distribution.
 
 * This approximation can be improved when the skewness parameter  
 $$\gamma=E((X-\mu)^3/\sigma^3)$$
@@ -550,7 +552,7 @@ Another commonly used approximation is the __Edgeworth expansion__ (`pEdge`).
 
 Denote the standard normal PDF and CDF respectively by $\phi$ and $\Phi$.
 Let $\mu$ be the first moment, $\sigma^2=E((X-\mu)^2)$ the variance, $\mu_3=E((X-\mu)^3)$ the third central moment and $\kappa_4=E((X-\mu)^4)$ the fourth central moment of the random variable $X$.
-The corresponding cumulants are given by $\kappa_1=\mu$, $\kappa_2=\sigma^2$, $\kappa_3=\mu_3$ and $\kappa_4=\mu_4-3\sigma^4$.Now consider the random variable $Z=(X-\mu)/\sigma$, which has cumulants
+The corresponding cumulants are given by $\kappa_1=\mu$, $\kappa_2=\sigma^2$, $\kappa_3=\mu_3$ and $\kappa_4=\mu_4-3\sigma^4$. Now consider the random variable $Z=(X-\mu)/\sigma$, which has cumulants
 0, 1, $\gamma_3=\kappa_3/\sigma^3$  and $\gamma_4=\kappa_4/\sigma^4=\mu_4/\sigma^4-3$.
 
 The __Gram-Charlier approximation__ (`pGC`) for the CDF of $X$ is given by
@@ -561,7 +563,7 @@ The __Edgeworth expansion__ (`pEdge`) for the CDF of $X$ is given by
 $$\hat{F}_{E}(x) = \Phi(z) + \phi(z) (-\gamma_3/6 h_2(z)- (3\gamma_4h_3(z)+\gamma_3^2h_5(z))/72)$$
 with $h_2(z)=z^2-1$, $h_3(z)=z^3-3z$, $h_5(z)=z^5-10z^3+15z$ and $z=(x-\mu)/\sigma$.
 
-Both approximations need the first four raw moments as input when `raw=TRUE` or otherwise the mean, variance, skewness coefficient and kurtosis. Applying the two moments to the same chi-squared sample as before gives following plot.
+Both approximations need the first four raw moments as input when `raw=TRUE` or otherwise the mean, variance, skewness coefficient and kurtosis. Applying the two approximations to the same chi-squared sample as before gives following plot.
 ```{r, fig.width=8.27, fig.height=5.83, fig.align='center', warning=FALSE}
 x <- seq(0, 10, 0.01)
 
