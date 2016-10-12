@@ -36,12 +36,12 @@ Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "
 }
 }
 \details{
-We estimate the conditional survival function \deqn{1-\hat{F}_{Y|X}(y|x)} using the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n} where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
+We estimate the conditional survival function \deqn{1-F_{Y|X}(y|x)} using the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n}, where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
 
 The estimator is given by
-\deqn{1-\hat{F}_{Y|X}(y|x) = \prod_{\tilde{Y}_i \le y} (1-(W_{n,i}(x;h_n))/(\sum_{j=1}^nW_{n,j}(x;h_n) I\{\tilde{Y}_j \ge \tilde{Y}_i\}))^{\Delta_i}}
-where \eqn{\Delta_i} indicates if \eqn{(\tilde{X}_i, \tilde{Y}_i)} is censored, and the weights are given by
-\deqn{W_{n,i}(x;h_n) = K((x-\tilde{X}_i)/h_n)/\sum_{\Delta_j=1}K((x-\tilde{X}_j)/h_n)} \eqn{\Delta_i=1} and 0 otherwise.
+\deqn{1-\hat{F}_{Y|X}(y|x) = \prod_{\tilde{Y}_i \le y} (1-(W_{n,i}(x;h_n))/(\sum_{j=1}^nW_{n,j}(x;h_n) I\{\tilde{Y}_j \ge \tilde{Y}_i\}))^{\Delta_{i,n}}}
+where \eqn{\Delta_i} indicates if \eqn{(\tilde{X}_i, \tilde{Y}_i)} is censored and \eqn{\Delta_{i,n}} corresponds to the i-th order statistic \eqn{\tilde{Y}_{i,n}}. The weights are given by
+\deqn{W_{n,i}(x;h_n) = K((x-\tilde{X}_{i,n})/h_n)/\sum_{\Delta_j=1}K((x-\tilde{X}_j)/h_n)} when \eqn{\Delta_{i,n}=1} and 0 otherwise, where \eqn{\tilde{X}_{i,n}} is the (censored) value of the conditioning variable corresponding to the i-th order statistic \eqn{\tilde{Y}_{i,n}}.
 
 See Section 4.4.3 in Albrecher et al. (2017) for more details.
 }

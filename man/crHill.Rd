@@ -33,7 +33,7 @@ Bandwidth of the non-parametric estimator.
 Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform" and "epanechnikov".
 }
   \item{logk}{
-Logical indicating if the Hill-type estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k} when \code{k=TRUE}. Default is \code{FALSE}.
+Logical indicating if the Hill-type estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.
@@ -49,7 +49,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-This is a Hill-type estimator of the EVI of \eqn{Y} given \eqn{X=x}. The estimator uses the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n} where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
+This is a Hill-type estimator of the EVI of \eqn{Y} given \eqn{X=x}. The estimator uses the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n}, where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
 
 See Section 4.4.3 in Albrecher et al. (2017) for more details.
 }
@@ -95,7 +95,7 @@ Xtilde <- X
 Xtilde[censored] <- X[censored] - runif(sum(censored), 0, 1)
 
 
-# Pareto QQ-plot
+# Conditional Pareto QQ-plot
 crParetoQQ(x=1, Xtilde=Xtilde, Ytilde=Ytilde, censored=censored, h=2)
 
 # Plot Hill-type estimates

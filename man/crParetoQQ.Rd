@@ -27,10 +27,10 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
  A logical vector of length \eqn{n} indicating if an observation is censored.
 }
   \item{h}{
-Bandwidth of the non-parametric estimator.
+Bandwidth of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}).
 }
   \item{kernel}{
-Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform" and "epanechnikov".
+Kernel of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}). One of "biweight" (default), "normal", "uniform" and "epanechnikov".
 }
  \item{plot}{
 Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
@@ -49,7 +49,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-We construct a Pareto QQ-plot for \eqn{Y} conditional on \eqn{X=x} using the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n} where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
+We construct a Pareto QQ-plot for \eqn{Y} conditional on \eqn{X=x} using the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n}, where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
 
 The conditional Pareto QQ-plot adapted for right censoring is given by
 \deqn{( -\log(1-\hat{F}_{Y|X}(\tilde{Y}_{j,n}|x)), \log \tilde{Y}_{j,n} )}
@@ -105,7 +105,7 @@ Xtilde <- X
 Xtilde[censored] <- X[censored] - runif(sum(censored), 0, 1)
 
 
-# Pareto QQ-plot
+# Conditional Pareto QQ-plot
 crParetoQQ(x=1, Xtilde=Xtilde, Ytilde=Ytilde, censored=censored, h=2)
 
 # Plot Hill-type estimates
