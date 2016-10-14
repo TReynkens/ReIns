@@ -89,7 +89,7 @@ set.seed(29072016)
 Y <- rpareto(200, shape=2)
 
 # Censoring variable
-C  <- rpareto(200, shape=1)
+C <- rpareto(200, shape=1)
 
 # Observed (censored) sample of variable Y
 Ytilde <- pmin(Y, C)
