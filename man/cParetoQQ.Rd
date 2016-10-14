@@ -35,7 +35,7 @@ for \eqn{j=1,\ldots,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
 Hence, it has the same empirical quantiles as an ordinary Pareto QQ-plot but replaces the theoretical quantiles \eqn{-\log(1-j/(n+1))} by \eqn{-\log(1-F_{km}(Z_{j,n}))}.
 
-This QQ-plot is only suitable for right censored data, use \code{link{ciParetQQ}} for interval censored data.
+This QQ-plot is only suitable for right censored data, use \code{\link{icParetoQQ}} for interval censored data.
 }
 
 \value{
@@ -53,7 +53,7 @@ Tom Reynkens
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ParetoQQ}}, \code{cExpQQ}, \code{cLognormalQQ}, \code{\link{cWeibullQQ}}, \code{\link{cHill}}, \code{\link{KaplanMeier}}
+\code{\link{ParetoQQ}}, \code{\link{icParetoQQ}}, \code{cExpQQ}, \code{cLognormalQQ}, \code{\link{cWeibullQQ}}, \code{\link{cHill}}, \code{\link{KaplanMeier}}
 }
 \examples{
 # Set seed
