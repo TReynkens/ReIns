@@ -40,6 +40,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The Hill estimator adapted for right censored data is equal to the ordinary Hill estimator \eqn{H_{k,n}} divided by the proportion of the \eqn{k} largest observations that is non-censored.
 
 This estimator is only suitable for right censored data, use \code{\link{icHill}} for interval censored data.
+
+See Section 4.4.3 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
@@ -48,7 +50,9 @@ A list with following components:
 }
 
 \references{
- Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
+Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
+
+Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
 }
 \author{
 Tom Reynkens
