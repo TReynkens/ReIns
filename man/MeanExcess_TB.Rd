@@ -52,13 +52,14 @@ The mean excess values are given by
 where \eqn{\hat{F}^{TB}} is the Turnbull estimator for the CDF.
 More specifically, we use the values \eqn{v=\hat{Q}^{TB}(p)} for \eqn{p=1/(n+1), \ldots, (n-1)/(n+1)} where
 \eqn{\hat{Q}^{TB}(p)} is the empirical quantile function corresponding to the Turnbull estimator.
-See Section 4.3 in Albrecher et al. (2017) for more details.
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 
 If the \pkg{interval} package is installed and \code{intervalpkg=TRUE}, the \code{\link[interval]{icfit}} function is used to compute the Turnbull estimator. Otherwise, \code{\link[survival]{survfit.formula}} from \pkg{survival} is used.
 
 Use \code{\link{MeanExcess}} for non-censored data. 
+
+See Section 4.3 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
