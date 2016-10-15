@@ -9,7 +9,7 @@ Hill-type estimator for the conditional Extreme Value Index (EVI) adapted for ce
 }
 \usage{
 crHill(x, Xtilde, Ytilde, censored, h, 
-       kernel = c("biweight", "normal", "uniform", "epanechnikov"), 
+       kernel = c("biweight", "normal", "uniform", "triangular", "epanechnikov"), 
        logk = FALSE, plot = FALSE, add = FALSE, main = "", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -30,7 +30,7 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
 Bandwidth of the non-parametric estimator.
 }
   \item{kernel}{
-Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform" and "epanechnikov".
+Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform", "triangular" and "epanechnikov".
 }
   \item{logk}{
 Logical indicating if the Hill-type estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.

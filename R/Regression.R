@@ -14,9 +14,8 @@
 # kernel is the kernel function used and h is the bandwidth
 # If h is equal to NULL, a bandwidth will be selected (similar to density).
 
-ScaleReg <- function(s, Z, kernel =  c("gaussian", "epanechnikov", "rectangular",
-                                       "triangular", "biweight", "cosine", "optcosine"), 
-                     h = NULL, plot = TRUE, add = FALSE, 
+ScaleReg <- function(s, Z, kernel = c("normal", "uniform", "triangular", "epanechnikov", "biweight"), 
+                     h, plot = TRUE, add = FALSE, 
                      main = "Estimates of scale parameter", ...) {
   
   # Check input arguments
@@ -50,7 +49,11 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(Z, scale=A)
+  .checkInput(Z, scale=A, scalepos=FALSE)
+  # Check if no negative elements in A
+  if (min(A, na.rm=TRUE)<0) {
+    stop("A can only contain positive values.")
+  }
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -86,7 +89,11 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
                      main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(Z, scale=A)
+  .checkInput(Z, scale=A, scalepos=FALSE)
+  # Check if no negative elements in A
+  if (min(A, na.rm=TRUE)<0) {
+    stop("A can only contain positive values.")
+  }
   
   .checkProb(p)
   
@@ -112,55 +119,31 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
 
 
 # Auxiliary function to select kernel and returns K_h(x) = kernel(x/h)/h
-# h is the chosen bandwidth and if equal to NULL, a bandwidth will be selected
-# (similar to density)
-.kernel_aux <- function(kernel =  c("gaussian", "epanechnikov", "rectangular",
-                                   "triangular", "biweight", "cosine", "optcosine"), h = NULL) {
+# h is the chosen bandwidth
+.kernel_aux <- function(kernel = c("normal", "uniform", "triangular", "epanechnikov", "biweight"), h) {
   
   kernel <- match.arg(kernel)
   
   # Set default bandwidth
-  if(is.null(h) | !is.numeric(h)) {
-    bw <- switch(kernel,
-                 gaussian = 1/(2*sqrt(pi)),
-                 rectangular = sqrt(3)/6,
-                 triangular  = sqrt(6)/9,
-                 epanechnikov= 3/(5*sqrt(5)),
-                 biweight    = 5*sqrt(7)/49,
-                 cosine      = 3/4*sqrt(1/3 - 2/pi^2),
-                 optcosine   = sqrt(1-8/pi^2)*pi^2/16
-    )
-  } else {
-    bw <- h
+  if(!is.numeric(h)) {
+    stop("h should be numeric.")
   }
-  
+ 
   # Select kernel function
   kernelfun <- switch(kernel,
-                  gaussian = function(x) { dnorm(x, sd = bw) },
-                  ## In the following, a := bw / sigma(K0), where
-                  ##	K0() is the unscaled kernel below
-                  rectangular =  function(x) {
-                    a <- bw*sqrt(3)
-                    return( ifelse(abs(x) < a, .5/a, 0)  ) },
-                  triangular =  function(x) {
-                    a <- bw*sqrt(6) ; ax <- abs(x)
-                    return( ifelse(ax < a, (1 - ax/a)/a, 0)  ) },
-                  epanechnikov =  function(x) {
-                    a <- bw*sqrt(5) ; ax <- abs(x)
-                    return( ifelse(ax < a, 3/4*(1 - (ax/a)^2)/a, 0)  ) },
-                  biweight =  function(x) { ## aka quartic
-                    a <- bw*sqrt(7) ; ax <- abs(x)
-                    return( ifelse(ax < a, 15/16*(1 - (ax/a)^2)^2/a, 0)  ) },
-                  cosine =  function(x) {
-                    a <- bw/sqrt(1/3 - 2/pi^2)
-                    return( ifelse(abs(x) < a, (1+cos(pi*x/a))/(2*a),0) ) },
-                  optcosine =  function(x) {
-                    a <- bw/sqrt(1-8/pi^2)
-                    return( ifelse(abs(x) < a, pi/4*cos(pi*x/(2*a))/a, 0) ) }
+                  normal = function(x) { dnorm(x) },
+                  uniform = function(x) {
+                    0.5 * (abs(x)<=1)  },
+                  triangular = function(x) {
+                    (1-abs(x)) * (abs(x)<=1) },
+                  epanechnikov = function(x) {
+                    0.75 * (1-x^2) * (abs(x)<=1) },
+                  biweight = function(x) {
+                    15/16 * (1-x^2)^2 * (abs(x)<=1) }
   )
   
   # K_h(x) = K(x/h)/h
-  kh <- function(x) { kernelfun(x/bw) / bw}
+  kh <- function(x) { kernelfun(x/h) / h}
   
   return(kh)
 }

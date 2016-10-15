@@ -8,9 +8,8 @@ Scale estimator in regression
 Estimator of the scale parameter in the regression case where \eqn{\gamma} is constant and the regression modelling is thus placed solely on the scale parameter.
 }
 \usage{
-ScaleReg(s, Z, kernel = c("gaussian", "epanechnikov", "rectangular", 
-        "triangular", "biweight", "cosine", "optcosine"), h = NULL, 
-         plot = TRUE, add = FALSE, main = "Estimates of scale parameter", ...)
+ScaleReg(s, Z, kernel = c("normal", "uniform", "triangular", "epanechnikov", "biweight"), 
+         h, plot = TRUE, add = FALSE, main = "Estimates of scale parameter", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,8 +20,7 @@ Point to evaluate the scale estimator in.
 Vector of \eqn{n} observations (from the response variable). 
 }
   \item{kernel}{
-The kernel used in the estimator. One of \code{"gaussian", "epanechnikov", "rectangular", 
-        "triangular", "biweight", "cosine" or "optcosine"}, see \code{\link[stats]{density}}.
+The kernel used in the estimator. One of \code{"normal", "uniform", "triangular", "epanechnikov", "biweight"}.
 }
   \item{h}{
 The bandwidth used in the kernel function.

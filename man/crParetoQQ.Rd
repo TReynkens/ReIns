@@ -9,7 +9,7 @@ Conditional Pareto QQ-plot adapted for right censored data.
 }
 \usage{
 crParetoQQ(x, Xtilde, Ytilde, censored, h, 
-           kernel = c("biweight", "normal", "uniform", "epanechnikov"), 
+           kernel = c("biweight", "normal", "uniform", "triangular", "epanechnikov"), 
            plot = TRUE, add = FALSE, main = "Pareto QQ-plot", type = "p", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -30,7 +30,7 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
 Bandwidth of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}).
 }
   \item{kernel}{
-Kernel of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}). One of "biweight" (default), "normal", "uniform" and "epanechnikov".
+Kernel of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}). One of "biweight" (default), "normal", "uniform", "triangular" and "epanechnikov".
 }
  \item{plot}{
 Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.

@@ -1,19 +1,11 @@
 
 ########################################
-# Kernels
-Knormal <- function(u) dnorm(u)                # Gaussian kernel  
-Kuniform <- function(u) 0.5 * (abs(u)<=1)          # Uniform kernel
-Kepanechnikov <- function(u) 0.75 * (1-u^2) * (abs(u)<=1) # Epanechnikov kernel
-Kbiweight  <- function(u) 15/16 * (1-u^2)^2 * (abs(u)<=1)  # Biweight kernel
-
-
-########################################
 # Compute estimate of 1-F_{Y|X}(y|x)
 # censored indicates if an observation is uncensored
 # y can be a vector
 # x is a single number or a vector with the same length as y. In the latter case
 # 1-F_{Y|X}(y|x) is computed for all n_y pairs (x,y) with n_y the length of y
-crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel=c("biweight", "normal", "uniform", "epanechnikov")) {
+crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "normal", "uniform", "triangular", "epanechnikov")) {
   
   # Check input
   n <- length(Xtilde)
@@ -50,11 +42,9 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel=c("biweight", "norm
     stop("x needs to have length 1 or the same length as y.")
   }
   
-  # Check if valid input for kernel
-  kernel <- match.arg(kernel)
-  
   # Set kernel to function with this name
-  kernel <- get(paste0("K", kernel))
+  kernel <- match.arg(kernel)
+  kernel <- .kernel_aux(kernel, h=1)
   
   # Convert censored to Delta
   Delta <- !as.logical(censored)
@@ -93,7 +83,7 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel=c("biweight", "norm
 }
 
 # Pareto QQ-plot adapted for censoring and regression
-crParetoQQ <- function(x, Xtilde, Ytilde, censored, h, kernel=c("biweight", "normal", "uniform", "epanechnikov"), 
+crParetoQQ <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "normal", "uniform", "triangular", "epanechnikov"), 
                        plot = TRUE, add = FALSE, main = "Pareto QQ-plot", type = "p", ...) {
   
 
@@ -122,7 +112,7 @@ crParetoQQ <- function(x, Xtilde, Ytilde, censored, h, kernel=c("biweight", "nor
 # Compute estimates of gamma using a Hill-type estimator
 # censored indicates if an observation is censored
 # x is a single number
-crHill <- function(x, Xtilde, Ytilde, censored, h, kernel=c("biweight", "normal", "uniform", "epanechnikov"), 
+crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "normal", "uniform", "triangular", "epanechnikov"), 
                    logk = FALSE, plot = FALSE, add = FALSE, main = "", ...) {
 
   # Check input
@@ -153,12 +143,9 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel=c("biweight", "normal"
     stop("x needs to have length 1.")
   }
   
-  # Check if valid input for kernel
-  kernel <- match.arg(kernel)
-  
   # Set kernel to function with this name
-  kernel <- get(paste0("K", kernel))
-  
+  kernel <- match.arg(kernel)
+  kernel <- .kernel_aux(kernel, h=1)
 
   # Convert censored to Delta
   Delta <- !as.logical(censored)

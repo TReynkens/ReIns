@@ -9,7 +9,7 @@ Non-parametric estimator of the conditional survival function of \eqn{Y} given \
 }
 \usage{
 crSurv(x, y, Xtilde, Ytilde, censored, h, 
-       kernel = c("biweight", "normal", "uniform", "epanechnikov"))
+       kernel = c("biweight", "normal", "uniform", "triangular", "epanechnikov"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,7 +32,7 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
 Bandwidth of the non-parametric estimator.
 }
   \item{kernel}{
-Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform" or "epanechnikov".
+Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform", "triangular" and "epanechnikov".
 }
 }
 \details{
