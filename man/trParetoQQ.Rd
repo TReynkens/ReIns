@@ -60,8 +60,7 @@ A list with following components:
 }
 
 \references{
-Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
-Pareto-type Distributions." \emph{Extremes}, accepted.
+Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated and Non-truncated Pareto-type Distributions." \emph{Extremes}, 19, 429--462.
 }
 \author{
 Tom Reynkens.

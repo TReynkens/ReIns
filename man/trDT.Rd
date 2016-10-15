@@ -52,8 +52,7 @@ A list with following components:
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
-Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated
-Pareto-type Distributions." \emph{Extremes}, accepted.
+Beirlant, J., Fraga Alves, M.I. and Gomes, M.I. (2016). "Tail fitting for Truncated and Non-truncated Pareto-type Distributions." \emph{Extremes}, 19, 429--462.
 }
 \author{
 Tom Reynkens based on \code{R} code of Dries Cornilly.
