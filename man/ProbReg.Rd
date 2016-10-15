@@ -40,7 +40,7 @@ The estimator is defined as
 \deqn{1-\hat{F}_i(q) = \hat{A}(i/n) (k+1)/(n+1) (q/Z_{n-k,n})^{-1/H_{k,n}},}
 with \eqn{H_{k,n}} the Hill estimator. Here, it is assumed that we have equidistant covariates \eqn{x_i=i/n}.
 
-See Section 4.4 in Albrecher et al. (2017) for more details. 
+See Section 4.4.1 in Albrecher et al. (2017) for more details. 
 }
 \value{
 A list with following components:
