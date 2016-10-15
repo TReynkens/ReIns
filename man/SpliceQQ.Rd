@@ -34,7 +34,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model and \eqn{\hat{Q}} is the empirical quantile function and \eqn{p_j=j/(n+1)}. 
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
+See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:

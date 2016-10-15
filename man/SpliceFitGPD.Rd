@@ -55,7 +55,7 @@ Maximum number of iterations in a single EM algorithm  execution (ME part). Defa
 }
 }
 \details{
-See Reynkens et al. (2016), Section 4.3 of Albrecher et al. (2017) and Verbelen et al. (2015) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2016).
+See Reynkens et al. (2016), Section 4.3.1 of Albrecher et al. (2017) and Verbelen et al. (2015) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2016).
 }
 \value{
 A \code{\link{SpliceFit}} object.

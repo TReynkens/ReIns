@@ -43,7 +43,7 @@ with \eqn{\hat{F}_{spliced}} the fitted spliced distribution function, is added.
 
 Use \code{\link{SpliceLL_TB}} for censored data.
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
+See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:

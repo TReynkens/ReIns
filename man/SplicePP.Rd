@@ -46,7 +46,7 @@ The minus-log version of the PP-plot consists of
 
 Use \code{\link{SplicePP_TB}} for censored data. 
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
+See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:

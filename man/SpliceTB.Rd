@@ -40,7 +40,7 @@ Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and
 
 Use \code{\link{SpliceECDF}} for non-censored data. 
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
+See Reynkens et al. (2016) and Section 4.3.2 in Albrecher et al. (2017) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.

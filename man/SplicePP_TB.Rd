@@ -57,7 +57,7 @@ If the \pkg{interval} package is installed, the \code{\link[interval]{icfit}} fu
 
 Use \code{\link{SplicePP}} for non-censored data. 
 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for more details.
+See Reynkens et al. (2016) and Section 4.3.2 in Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:
