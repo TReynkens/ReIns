@@ -18,7 +18,7 @@ double f_theta(const double ltheta, const double D, const double br_sum, const N
 
 
   // Avoid NaN
-  if (::R_finite(tsplice)) {
+  if (R_FINITE(tsplice)) {
 
     for(int j = 0; j < M; j++) {
 
@@ -72,7 +72,7 @@ double f_theta_der(const double ltheta, const double br_sum, const NumericVector
   double FE_t;
 
   // Avoid NaN
-  if (::R_finite(tsplice)) {
+  if (R_FINITE(tsplice)) {
 
     for(int j = 0; j < M; j++) {
 
@@ -173,7 +173,7 @@ double spliceEM_theta(const double ltheta, const double E1_ME, const double E3_M
   double f_der;
   
   // No optimisation needed when no truncation
-  if (trunclower==0 && !R_finite(tsplice)) {
+  if (trunclower==0 && !R_FINITE(tsplice)) {
     m = log(D);
 
   } else {
@@ -188,7 +188,7 @@ double spliceEM_theta(const double ltheta, const double E1_ME, const double E3_M
       f_der = f_theta_der(m_old, br_sum, beta, shape, trunclower, tsplice);
 
       // Problems when f is infinite or NaN
-      if (!R_finite(f) || R_IsNaN(f)) {
+      if (!R_FINITE(f)) {
         f = DBL_MAX;
       }
 
@@ -196,7 +196,7 @@ double spliceEM_theta(const double ltheta, const double E1_ME, const double E3_M
       if (std::abs(f_der) < pow(10, -14.0)) break;
 
       // Problems when derivative is infinite or NaN
-      if (!R_finite(f_der) || R_IsNaN(f_der)) {
+      if (!R_FINITE(f_der)) {
         f_der = DBL_MAX;
       }
 
@@ -266,7 +266,7 @@ double spliceEM_Mstep_Pareto(const double lgamma, const double H, const double t
     f_der = f_Mgamma_der(m_old, H, beta_trunc) * exp(m_old);
     
     // Problems when f is infinite or NaN
-    if (!R_finite(f) || R_IsNaN(f)) {
+    if (!R_FINITE(f)) {
       f = DBL_MAX;
     }
     
@@ -274,7 +274,7 @@ double spliceEM_Mstep_Pareto(const double lgamma, const double H, const double t
     if (std::abs(f_der) < pow(10, -14.0)) break;
     
     // Problems when derivative is infinite or NaN
-    if (!R_finite(f_der) || R_IsNaN(f_der)) {
+    if (!R_FINITE(f_der)) {
       f_der = DBL_MAX;
     }
     

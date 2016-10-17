@@ -400,7 +400,7 @@ List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const Int
     
     
     // Solve equation numerically 
-    if (::R_finite(truncupper)) {
+    if (R_FINITE(truncupper)) {
       // spliceEM_Mstep_Pareto gives back log(gamma_opt)
       gamma = exp(spliceEM_Mstep_Pareto(log(gamma_old), gamma, tsplice, truncupper));
     } 

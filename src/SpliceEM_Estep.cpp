@@ -100,7 +100,7 @@ NumericMatrix spliceEM_Estep_ME_iii(const NumericVector &lower3, const NumericVe
       E3_ME(i,j) = shape[j] * theta * (pGamma(upper3[i], shape[j]+1, theta) - pGamma(lower3[i], shape[j]+1, theta)) / (pGamma(upper3[i], shape[j], theta) - pGamma(lower3[i], shape[j], theta));
     
       // replace numerical 0/0 (NaN) or Inf by correct expected value
-      if (::R_IsNaN(E3_ME(i,j)) || !::R_finite(E3_ME(i,j))) {
+      if (R_IsNaN(E3_ME(i,j)) || !R_FINITE(E3_ME(i,j))) {
         
         if (lower3[i] > shape[j]*theta) {
           E3_ME(i,j) = lower3[i];
@@ -135,7 +135,7 @@ NumericVector spliceEM_Estep_Pa_iv(const NumericVector &lower4, const NumericVec
   
   for (int i = 0; i < upper4.size(); ++i) {
 
-    if (::R_finite(upper4[i])) {
+    if (R_FINITE(upper4[i])) {
       
       u4[i] = upper4[i]/tsplice;
       u4_gamma[i] = pow(upper4[i]/tsplice, -1/gamma);
