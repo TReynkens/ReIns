@@ -104,3 +104,9 @@
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, 
         trunclower, tsplice, truncupper, criterium, improve, eps, beta_tol, maxiter, adj)
 }
+
+
+# Unload package DLL when package is unloaded
+.onUnload <- function (libpath) {
+  library.dynam.unload("ReIns", libpath)
+}
