@@ -30,7 +30,7 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
 Bandwidth of the non-parametric estimator.
 }
   \item{kernel}{
-Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform", "triangular" and "epanechnikov".
+Kernel of the non-parametric estimator. One of \code{"biweight"} (default), \code{"normal"}, \code{"uniform"}, \code{"triangular"} and \code{"epanechnikov"}.
 }
   \item{logk}{
 Logical indicating if the Hill-type estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.

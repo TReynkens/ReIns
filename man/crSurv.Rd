@@ -32,7 +32,7 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
 Bandwidth of the non-parametric estimator.
 }
   \item{kernel}{
-Kernel of the non-parametric estimator. One of "biweight" (default), "normal", "uniform", "triangular" and "epanechnikov".
+Kernel of the non-parametric estimator. One of \code{"biweight"} (default), \code{"normal"}, \code{"uniform"}, \code{"triangular"} and \code{"epanechnikov"}.
 }
 }
 \details{

@@ -20,7 +20,7 @@ Point to evaluate the scale estimator in.
 Vector of \eqn{n} observations (from the response variable). 
 }
   \item{kernel}{
-The kernel used in the estimator. One of \code{"normal", "uniform", "triangular", "epanechnikov", "biweight"}.
+The kernel used in the estimator. One of \code{"normal"} (default), \code{"uniform"}, \code{"triangular"}, \code{"epanechnikov"} and \code{"biweight"}.
 }
   \item{h}{
 The bandwidth used in the kernel function.

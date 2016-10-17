@@ -30,7 +30,7 @@ Vector of length \eqn{n} containing the censored sample  of the variable \eqn{Y}
 Bandwidth of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}).
 }
   \item{kernel}{
-Kernel of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}). One of "biweight" (default), "normal", "uniform", "triangular" and "epanechnikov".
+Kernel of the non-parametric estimator for the conditional survival function (\code{\link{crSurv}}). One of \code{"biweight"} (default), \code{"normal"}, \code{"uniform"}, \code{"triangular"} and \code{"epanechnikov"}.
 }
  \item{plot}{
 Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, default is \code{TRUE}.
