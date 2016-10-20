@@ -33,8 +33,8 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
       method <- "normal"
     }  
     
-    if (method!="normal" & skewness<0) { 
-      stop(paste0("The skewness coefficient should be positive when using \"", method, "\"."))
+    if (method %in% c("shifted Gamma", "shifted Gamma normal") & skewness<0) { 
+      stop(paste0("The skewness coefficient should be strictly positive when using \"", method, "\"."))
     }
 
   }
@@ -61,7 +61,17 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
       ind <- 1:length(x)
     }
 
-    p[ind] <- pnorm(sqrt(9/skewness^2 + 6*z[ind]/skewness + 1) - 3/skewness)
+    # Problems with negative values in root
+    if (any((9/skewness^2 + 6*z[ind]/skewness + 1)<0)) {
+      ind2 <- ind[which((9/skewness^2 + 6*z[ind]/skewness + 1)>=0)]
+      warning("Only estimates for F(x) for values of x where \'9/nu^2 + 6*(x-mu)/sigma/nu + 1 > 0\' are provided.")
+      p[-ind2] <- NaN
+      
+    } else {
+      ind2 <- ind
+    }
+    
+    p[ind2] <- pnorm(sqrt(9/skewness^2 + 6*z[ind2]/skewness + 1) - 3/skewness)
     
   } else if (method=="shifted Gamma") {
     

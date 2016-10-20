@@ -45,18 +45,18 @@ where \eqn{\mu} and \eqn{\sigma^2} are the mean and variance of \eqn{X}, respect
 
 
 \item This approximation can be improved when the skewness parameter  
-\deqn{\gamma=E((X-\mu)^3/\sigma^3)}
+\deqn{\nu=E((X-\mu)^3)/\sigma^3}
 is available. The \emph{normal-power approximation} of the CDF is then given by
-\deqn{F_X(x) \approx \Phi(\sqrt{9/\gamma^2 + 6z/\gamma+1}-3/\gamma)}
-for \eqn{z\ge 1}, where \eqn{z=(x-\mu)/\sigma}. We need that \eqn{\gamma>0}.
+\deqn{F_X(x) \approx \Phi(\sqrt{9/\nu^2 + 6z/\nu+1}-3/\nu)}
+for \eqn{z=(x-\mu)/\sigma\ge 1} and \eqn{9/\nu^2 + 6z/\nu+1\ge 0}.
 
 \item The \emph{shifted Gamma approximation} uses the approximation
-\deqn{X \approx \Gamma(4/\gamma^2, 2/(\gamma*\sigma)) + \mu -2\sigma/\gamma.}
-Here, we need again that \eqn{\gamma>0}.
+\deqn{X \approx \Gamma(4/\nu^2, 2/(\nu*\sigma)) + \mu -2\sigma/\nu.}
+Here, we need that \eqn{\nu>0}.
 
 \item The \emph{normal approximation to the shifted Gamma distribution} approximates the CDF of \eqn{X} as
-\deqn{F_X(x) \approx \Phi(\sqrt{16/\gamma^2 + 8z/\gamma}-\sqrt{16/\gamma^2-1})}
-for \eqn{z\ge 1}, where \eqn{z=(x-\mu)/\sigma}. We need again that \eqn{\gamma>0}.
+\deqn{F_X(x) \approx \Phi(\sqrt{16/\nu^2 + 8z/\nu}-\sqrt{16/\nu^2-1})}
+for \eqn{z=(x-\mu)/\sigma\ge 1}. We need again that \eqn{\nu>0}.
 }
 
 See Section 6.2 of Albrecher et al. (2017) for more details.

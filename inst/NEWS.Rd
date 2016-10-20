@@ -29,6 +29,7 @@
         \item Update Beirlant, De Spiegeleer, Schoutens, Reynkens and Herrmann (2016) reference.
         \item Change reference of Albrecher et al. from 2016 to 2017.
         \item Update Beirlant, Fraga Alves and Gomes (2016) reference.
+        \item Improve documentation of approximations for the CDF.
       }
     }
 }

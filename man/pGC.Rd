@@ -17,7 +17,7 @@ Vector of points to approximate the CDF in.
 }
   \item{moments}{
 The first four raw moments if \code{raw=TRUE}, by default the first four raw moments of the standard normal distribution are used.
-When \code{raw=FALSE}, the mean \eqn{\mu=E(X)}, variance \eqn{\sigma^2=E((X-\mu)^2)}, skewness (third standardised moment, \eqn{E((X-\mu)^3)/\sigma^3}) and kurtosis (fourth standardised moment, \eqn{E((X-\mu)^4)/\sigma^4}).
+When \code{raw=FALSE}, the mean \eqn{\mu=E(X)}, variance \eqn{\sigma^2=E((X-\mu)^2)}, skewness (third standardised moment, \eqn{\nu=E((X-\mu)^3)/\sigma^3}) and kurtosis (fourth standardised moment, \eqn{k=E((X-\mu)^4)/\sigma^4}).
 }
   \item{raw}{
 When \code{TRUE} (default), the first four raw moments are provided in \code{moments}. Otherwise, the mean, variance, skewness and kurtosis are provided in \code{moments}. 
@@ -31,17 +31,17 @@ When \code{TRUE} (default), the first four raw moments are provided in \code{mom
 }
 \details{ 
 Denote the standard normal PDF and CDF respectively by \eqn{\phi} and \eqn{\Phi}.
-Let \eqn{\mu} be the first moment, \eqn{\sigma^2=E((X-\mu)^2)} the variance, \eqn{\mu_3=E((X-\mu)^3)} the third central moment and \eqn{\kappa_4=E((X-\mu)^4)} the fourth central moment of the random variable \eqn{X}.
+Let \eqn{\mu} be the first moment, \eqn{\sigma^2=E((X-\mu)^2)} the variance, \eqn{\mu_3=E((X-\mu)^3)} the third central moment and \eqn{\mu_4=E((X-\mu)^4)} the fourth central moment of the random variable \eqn{X}.
 The corresponding cumulants are given by \eqn{\kappa_1=\mu}, \eqn{\kappa_2=\sigma^2}, \eqn{\kappa_3=\mu_3} and \eqn{\kappa_4=\mu_4-3\sigma^4}. 
 
 
 Now consider the random variable \eqn{Z=(X-\mu)/\sigma}, which has cumulants
-0, 1, \eqn{\gamma_3=\kappa_3/\sigma^3}  and \eqn{\gamma_4=\kappa_4/\sigma^4=\mu_4/\sigma^4-3}.
+0, 1, \eqn{\nu=\kappa_3/\sigma^3}  and \eqn{k=\kappa_4/\sigma^4=\mu_4/\sigma^4-3}.
 
 
 
 The Gram-Charlier approximation for the CDF of \eqn{X} (\eqn{F(x)}) is given by
-\deqn{\hat{F}_{GC}(x) = \Phi(z) + \phi(z) (-\gamma_3/6 h_2(z)- \gamma_4/24h_3(z))}
+\deqn{\hat{F}_{GC}(x) = \Phi(z) + \phi(z) (-\nu/6 h_2(z)- k/24h_3(z))}
 with \eqn{h_2(z)=z^2-1}, \eqn{h_3(z)=z^3-3z} and \eqn{z=(x-\mu)/\sigma}.
 
 See Section 6.2 of Albrecher et al. (2017) for more details.
