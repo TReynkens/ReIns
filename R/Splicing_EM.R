@@ -376,10 +376,10 @@ numtol <- .Machine$double.eps^0.5
   # Left censored
   ind <- which(lower[censored]==trunclower)
   ic[ind] <- (upper[censored])[ind]
-  # Remove ic equal to 0
-  ic[ic==0] <- NA
   # Combine
   initial_data <- c(uc,ic)
+  # Remove initial_data equal to 0 since they cause first shape to be 0
+  initial_data[initial_data==0] <- NA
   
   initial_dataME <- initial_data[initial_data<=tsplice]
   
