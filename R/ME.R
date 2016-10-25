@@ -365,7 +365,7 @@
 
 
 
-## Check input arguments for .MEtune
+## Check input arguments for .ME_tune
 .ME_checkInput  <- function(lower, upper, trunclower, truncupper, eps, beta_tol, maxiter) {
 
   nl <- length(lower)
@@ -452,8 +452,8 @@
 
 
 ## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
-.MEtune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, 
-                    nCores = detectCores(), criterium = "AIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+.ME_tune <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1, 
+                     nCores = detectCores(), criterium = "AIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
  
   ######
   # Check input

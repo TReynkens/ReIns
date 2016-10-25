@@ -61,7 +61,7 @@
         \item Plot points instead of lines in PP-plots.
         
         \item Fix problem with reduction of number of Erlangs when some betas are small.
-        \item Remove \code{print} option in \code{.MEtune}.
+        \item Remove \code{print} option in \code{.ME_tune}.
         \item Remove history of \code{theta} and \code{loglikelihood} in \code{.ME_em}.
         \item Improve while-loops in \code{.ME_shape_adj}.
         \item Improve ME quantile function.
@@ -191,7 +191,7 @@
         \item Fixed bug in computation of ME quantiles.
         \item Add Burr and truncated Burr distribution (type XII).
         \item Add truncated exponential, truncated Weibull and truncated log-normal distribution.
-        \item Use BIC instead of AIC in \code{MEtune}.
+        \item Use BIC instead of AIC in \code{ME_tune}.
         \item Remove \code{stats::} in calls to \code{qgamma} in \code{ME_VaR}.
         \item Rename internal functions (starting with \code{.}).
         \item Fix bug in \code{.dEPD} and \code{.pEPD}.

@@ -422,7 +422,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
 
 
 
-# Only keep necessary parts from .MEtune output
+# Only keep necessary parts from .ME_tune output
 .MEoutput <- function(fit_tune) {
   
   # Obtain best model
@@ -597,9 +597,9 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   MEind <- (X<=t1) 
   
   # Upper truncated at threshold t
-  fit_tune <- .MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
-                      M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
-                      eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
+                       M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
+                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   # Output as MEfit object
   MEfit <- .MEoutput(fit_tune)
   
@@ -820,9 +820,9 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   MEind <- (X<=t1) 
   
   # Upper truncated at threshold t
-  fit_tune <- .MEtune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
-                     M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
-                     eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
+                       M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
+                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   # Output as MEfit object
   MEfit <- .MEoutput(fit_tune)
   
