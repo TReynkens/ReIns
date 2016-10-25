@@ -12,7 +12,7 @@ The *ReIns* package contains functions from the book "Reinsurance: Actuarial and
 
 -   VaR, expected shortfall and excess-loss premium estimates.
 
-The package is not yet available on CRAN but you can install the latest development version from GitHub using
+The package is not yet available on CRAN but you can install the latest development version from GitHub. If you work on Windows, make sure first that \[Rtools\]{<https://cran.r-project.org/bin/windows/Rtools/>} is installed. Then, install the latest development version of *ReIns* using
 
     install.packages("devtools")
 
