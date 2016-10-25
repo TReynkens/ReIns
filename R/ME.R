@@ -15,7 +15,9 @@
   lc <- upper[is.na(lower)]
   rc <- lower[is.na(upper)]
   ic <- (lower[lower!=upper & !is.na(lower!=upper)] + upper[lower!=upper & !is.na(lower!=upper)]) / 2
-  initial_data = c(uc, lc, rc, ic)
+  initial_data <- c(uc, lc, rc, ic)
+  # replace 0 initial data (= right censored at 0) by NA, since they don't add any information and will cause initial shape = 0
+  initial_data[initial_data == 0] <- NA
   
   # Initial value of theta using spread factor s
   theta <- max(initial_data, na.rm=TRUE) / s
@@ -44,21 +46,21 @@
 
 ## Log likelihood
 
-.ME_loglikelihood <- function(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring) {
+.ME_loglikelihood <- function(x_densities, c_probabilities, beta, t_probabilities) {
   
   likelihood_contribution <- numeric(0)
-  if(no_censoring){  
+  #if(no_censoring){  
     # matrix containing alpha*density (uncensored)
     x_components <-  t(t(x_densities)*beta/t_probabilities)
     # likelihood contribution (uncensored)
     likelihood_contribution <- rowSums(x_components) 
-  }   
-  if(censoring){  
+  #}   
+  #if(censoring){  
     # matrix containing alpha*probabilities (censored)
     c_components <- t(t(c_probabilities)*beta/t_probabilities)
     # likelihood contribution (censored)
     likelihood_contribution <- c(likelihood_contribution, rowSums(c_components)) 
-  }   
+  #}   
   loglikelihood_contribution <- ifelse(likelihood_contribution>0, log(likelihood_contribution), -1000)
   # loglikelihood
   sum(loglikelihood_contribution)
@@ -146,17 +148,17 @@
   no_censoring <- (length(x) != 0)  
   censoring <- (length(lower) != 0)  
   iteration <- 1
-  if(no_censoring){  
+  #if(no_censoring){  
     # matrix containing densities (uncensored)
     x_densities <- outer(x,shape,dgamma, scale=theta)
-  }   
-  if(censoring){  
+  #}   
+  #if(censoring){  
     # matrix containing censoring probabilities (censored)
     c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
-  } 
+  #} 
   # truncation probabilities
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
-  loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
+  loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities)
   old_loglikelihood <- -Inf
   
   while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter){
@@ -189,17 +191,17 @@
     theta <- exp(nlm(.theta_nlm, log(theta), x, c_exp, n, beta, shape, trunclower, truncupper)$estimate)
 
     iteration <- iteration + 1
-    if(no_censoring){  
+    #if(no_censoring){  
       # matrix containing densities (uncensored)
       x_densities <- outer(x,shape,dgamma, scale=theta)
-    }   
-    if(censoring){  
+    #}   
+    #if(censoring){  
       # matrix containing censoring probabilities (censored)
       c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
-    } 
+    #} 
      # truncation probabilities
     t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
-    loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
+    loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities)
     
   }
   # beta to alpha
