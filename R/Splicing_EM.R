@@ -44,7 +44,7 @@ numtol <- .Machine$double.eps^0.5
   }
   
   ## Fit model
-  fit <- .spliceEMtune(lower=L, upper=U, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+  fit <- .spliceEM_tune(lower=L, upper=U, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                        M=M, s=s, pi_initial=pi_initial, nCores=ncores, criterium=criterium, reduceM=reduceM, 
                        eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp)
   
@@ -220,7 +220,7 @@ numtol <- .Machine$double.eps^0.5
 
 
 ## Tune the initialising parameters M and s using a grid search over the supplied parameter ranges
-.spliceEMtune <- function(lower, upper = lower, censored = NULL, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, pi_initial = NULL,
+.spliceEM_tune <- function(lower, upper = lower, censored = NULL, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, pi_initial = NULL,
                           nCores = detectCores(), criterium = "BIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   # Censoring indicator for each observation
@@ -623,8 +623,8 @@ numtol <- .Machine$double.eps^0.5
   uncensored <- !censored
 
   # Boolean for having uncensored and censored observations
-  no_censoring <- (sum(uncensored) != 0)  
-  censoring <- (sum(censored) != 0)  
+  #no_censoring <- (sum(uncensored) != 0)  
+  #censoring <- (sum(censored) != 0)  
   
 
   # Indices for the five different cases
@@ -661,8 +661,7 @@ numtol <- .Machine$double.eps^0.5
   L <- .spliceEM_densprob(lower1=lower1, lower2=lower2, lower3=lower3, lower4=lower4, lower5=lower5,
                           upper3=upper3, upper4=upper4, upper5=upper5,
                           pi=pi, shape=shape, theta=theta, alpha_tilde=alpha_tilde, gamma=gamma, 
-                          trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
-                          censoring=censoring, no_censoring=no_censoring)
+                          trunclower=trunclower, tsplice=tsplice, truncupper=truncupper)
   
   x1_dens_nosum <- L$x1_dens_nosum
   x1_dens <- L$x1_dens
@@ -678,8 +677,7 @@ numtol <- .Machine$double.eps^0.5
   c5_probs <- L$c5_probs
 
   # Compute log-likelihood
-  loglikelihood <- .splice_loglikelihood(x1_dens=x1_dens, x2_dens=x2_dens, c3_probs=c3_probs, c4_probs=c4_probs, c5_probs=c5_probs, 
-                                         no_censoring=no_censoring, censoring=censoring)
+  loglikelihood <- .splice_loglikelihood(x1_dens=x1_dens, x2_dens=x2_dens, c3_probs=c3_probs, c4_probs=c4_probs, c5_probs=c5_probs)
  
   
   iteration <- 1
@@ -840,8 +838,7 @@ numtol <- .Machine$double.eps^0.5
     L <- .spliceEM_densprob(lower1=lower1, lower2=lower2, lower3=lower3, lower4=lower4, lower5=lower5,
                             upper3=upper3, upper4=upper4, upper5=upper5, 
                             pi=pi, shape=shape, theta=theta, alpha_tilde=alpha_tilde, gamma=gamma, 
-                            trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
-                            censoring=censoring, no_censoring=no_censoring)
+                            trunclower=trunclower, tsplice=tsplice, truncupper=truncupper)
     
     x1_dens_nosum <- L$x1_dens_nosum
     x1_dens <- L$x1_dens
@@ -857,8 +854,7 @@ numtol <- .Machine$double.eps^0.5
     c5_probs <- L$c5_probs
    
     # Compute log-likelihood
-    loglikelihood <- .splice_loglikelihood(x1_dens=x1_dens, x2_dens=x2_dens, c3_probs=c3_probs, c4_probs=c4_probs, c5_probs=c5_probs,
-                                           no_censoring=no_censoring, censoring=censoring)
+    loglikelihood <- .splice_loglikelihood(x1_dens=x1_dens, x2_dens=x2_dens, c3_probs=c3_probs, c4_probs=c4_probs, c5_probs=c5_probs)
   }
   
   # Compute ICs
@@ -875,7 +871,7 @@ numtol <- .Machine$double.eps^0.5
 # Compute densities and probabilities for observations from the 5 classes
 .spliceEM_densprob <- function(lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, 
                                pi, shape, theta, alpha_tilde, gamma, 
-                               trunclower, tsplice, truncupper, censoring, no_censoring) {
+                               trunclower, tsplice, truncupper) {
   
   n1 <- length(lower1)
   n3 <- length(lower3)
@@ -883,83 +879,72 @@ numtol <- .Machine$double.eps^0.5
   
   L <- list()
   
-  if(no_censoring){  
+  if (n1!=0) {
+    # Matrix containing Erlang densities for uncensored observations in ME part and all M values of shape
+    # Note F_1(x) = sum_{j=1}^M beta_j F_E^t(x) = sum_{j=1}^M beta_j F_E(x)/(F_E(t)-F_E(t^l))
+    # and alpha_tilde = beta/(F_E(t)-F_E(t^l))
+    L$x1_dens_nosum <- t(t(outer(lower1, shape, dgamma, scale=theta))*alpha_tilde)
+    # Combine into density vector (multiply with pi because splicing density)
+    L$x1_dens <- pi * rowSums(L$x1_dens_nosum)
     
-    if (n1!=0) {
-      # Matrix containing Erlang densities for uncensored observations in ME part and all M values of shape
-      # Note F_1(x) = sum_{j=1}^M beta_j F_E^t(x) = sum_{j=1}^M beta_j F_E(x)/(F_E(t)-F_E(t^l))
-      # and alpha_tilde = beta/(F_E(t)-F_E(t^l))
-      L$x1_dens_nosum <- t(t(outer(lower1, shape, dgamma, scale=theta))*alpha_tilde)
-      # Combine into density vector (multiply with pi because splicing density)
-      L$x1_dens <- pi * rowSums(L$x1_dens_nosum)
-      
-    } else {
-      L$x1_dens_nosum <- as.matrix(c(0,0))
-      L$x1_probs <- numeric(0)
-    }
-
-    
-    # Densities of uncensored observations in EVT part
-    # No problem when ind2=numeric(0)
-    L$x2_dens <- (1-pi) * .dtpareto(lower2, gamma=gamma, tsplice=tsplice, truncupper=truncupper)
-  }   
-  
-  
-  if(censoring){  
-   
-    if(n3!=0) {
-      # Matrix containing Erlang probabilities for censored observations of type 3 and all M values of shape
-      L$c3_probs_nosum <- t(t(outer(upper3, shape, pgamma, scale=theta))*alpha_tilde) - t(t(outer(lower3, shape, pgamma, scale=theta))*alpha_tilde)
-      
-      # Combine into probability vector (multiply with pi because splicing density): F(u)-F(l)
-      L$c3_probs <- pi * rowSums(L$c3_probs_nosum)
-      
-    } else {
-      # Problem when only right-censoring
-      L$c3_probs_nosum <- as.matrix(c(0,0))
-      L$c3_probs <- numeric(0)
-    }
-
-    
-    # Vector of probabilities for uncensored observations of type 4: F(u)-F(l)
-    # No problem when ind4=numeric(0)
-    L$c4_probs <- pi + (1-pi) * (.ptpareto(upper4, gamma=gamma, tsplice=tsplice, truncupper=truncupper)-
-                                 .ptpareto(lower4, gamma=gamma, tsplice=tsplice, truncupper=truncupper))
-
-
-    if(n5!=0) {
-      # Matrix containing Erlang probabilities for censored observations of type 5 and all M values of shape
-      L$c5_probs_nosum <- t(t(outer(lower5, shape, pgamma, scale=theta))*alpha_tilde)
-      
-      # Vector of probabilities for uncensored observations of type 5: F(u)-F(l)
-      L$c5_probs <- pi + (1-pi) * .ptpareto(upper5, gamma=gamma, tsplice=tsplice, truncupper=truncupper) - pi * rowSums(L$c5_probs_nosum)
-      
-    } else {
-      # Problem when no intervals over splicing point
-      L$c5_probs_nosum <- as.matrix(c(0,0))
-      L$c5_probs <- numeric(0)
-    } 
-  
+  } else {
+    L$x1_dens_nosum <- as.matrix(c(0,0))
+    L$x1_dens <- numeric(0)
   }
+
   
+  # Densities of uncensored observations in EVT part
+  # No problem when ind2=numeric(0)
+  L$x2_dens <- (1-pi) * .dtpareto(lower2, gamma=gamma, tsplice=tsplice, truncupper=truncupper)
+
+  if(n3!=0) {
+    # Matrix containing Erlang probabilities for censored observations of type 3 and all M values of shape
+    L$c3_probs_nosum <- t(t(outer(upper3, shape, pgamma, scale=theta))*alpha_tilde) - t(t(outer(lower3, shape, pgamma, scale=theta))*alpha_tilde)
+    
+    # Combine into probability vector (multiply with pi because splicing density): F(u)-F(l)
+    L$c3_probs <- pi * rowSums(L$c3_probs_nosum)
+    
+  } else {
+    # Problem when only right-censoring
+    L$c3_probs_nosum <- as.matrix(c(0,0))
+    L$c3_probs <- numeric(0)
+  }
+
+  
+  # Vector of probabilities for uncensored observations of type 4: F(u)-F(l)
+  # No problem when ind4=numeric(0)
+  L$c4_probs <- pi + (1-pi) * (.ptpareto(upper4, gamma=gamma, tsplice=tsplice, truncupper=truncupper)-
+                               .ptpareto(lower4, gamma=gamma, tsplice=tsplice, truncupper=truncupper))
+
+
+  if(n5!=0) {
+    # Matrix containing Erlang probabilities for censored observations of type 5 and all M values of shape
+    L$c5_probs_nosum <- t(t(outer(lower5, shape, pgamma, scale=theta))*alpha_tilde)
+    
+    # Vector of probabilities for uncensored observations of type 5: F(u)-F(l)
+    L$c5_probs <- pi + (1-pi) * .ptpareto(upper5, gamma=gamma, tsplice=tsplice, truncupper=truncupper) - pi * rowSums(L$c5_probs_nosum)
+    
+  } else {
+    # Problem when no intervals over splicing point
+    L$c5_probs_nosum <- as.matrix(c(0,0))
+    L$c5_probs <- numeric(0)
+  } 
+
   return(L)
 }
 
 
   
 # Splicing log-likelihood
-.splice_loglikelihood <- function(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs, no_censoring, censoring) {
+.splice_loglikelihood <- function(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs) {
 
   likelihood_contribution <- numeric(0)
 
-  if (no_censoring) {  
-    likelihood_contribution <- c(x1_dens, x2_dens) 
-  }   
-  
-  if (censoring) {  
-    # likelihood contribution (censored)
-    likelihood_contribution <- c(likelihood_contribution, c3_probs, c4_probs, c5_probs) 
-  }   
+  # likelihood contribution (uncensored)
+  likelihood_contribution <- c(x1_dens, x2_dens) 
+
+  # likelihood contribution (censored)
+  likelihood_contribution <- c(likelihood_contribution, c3_probs, c4_probs, c5_probs) 
 
   # Compute log-likelihood and put negative contributions equal to -1000
   # ind0 <- which(likelihood_contribution<=0)
