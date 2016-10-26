@@ -322,3 +322,95 @@ test_that("Truncation (gamma pos) for-loops", {
   expect_true(max(abs(trTest(X,plot=FALSE)$testVal-tv[K]),na.rm=TRUE)<eps)
   
 })
+
+
+########################################
+# crHill
+
+
+# Set seed
+set.seed(29072016)
+
+# Pareto random sample
+Y <- rpareto(100, shape=2)
+
+# Censoring variable
+C <- rpareto(100, shape=1)
+
+# Observed (censored) sample of variable Y
+Ytilde <- pmin(Y, C)
+
+# Censoring indicator
+censored <- (Y>C)
+
+# Conditioning variable
+X <- seq(1, 10, length.out=length(Y))
+
+# Observed (censored) sample of conditioning variable
+Xtilde <- X
+Xtilde[censored] <- X[censored] - runif(sum(censored), 0, 1)
+
+# Bandwidth
+h <- 5
+
+# Kernel
+Kernel = "biweight"
+
+# Value of covariate
+x <- 2
+
+test_that("crHill for-loop", {
+  
+  ###
+  # Slower old function
+  
+  n <- length(Xtilde)
+  kernel <- .kernel_aux(Kernel, h=1)
+  
+  # Convert censored to Delta
+  Delta <- !as.logical(censored)
+  
+  
+  # Sort data according to Ytilde values
+  s <- sort(Ytilde, index.return=TRUE)
+  Ytilde_sort <- s$x
+  Xtilde_sort <- Xtilde[s$ix]
+  Delta_sort <- Delta[s$ix]
+  
+  # Nadaraya weights, only non-zero when uncensored
+  # Sorted with Ytilde!
+  weights_sort <- numeric(n)
+  weights_sort[Delta_sort] <- kernel((x-Xtilde_sort[Delta_sort])/h)
+  weights_sort <- weights_sort / sum(weights_sort)
+  
+  K <- 1:(n-1)
+  H2 <- numeric(n-1)
+  
+  # Compute cumulative sum of weights,
+  # add 0 to avoid problems when ind is empty
+  wsum <- c(0, cumsum(weights_sort))
+  
+  # Avoid numerical problems
+  wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
+  
+  for (k in 1:(n-1)) {
+    
+    prods <- numeric(k)
+    
+    # Compute products for i=1,...,k
+    for (i in 1:k) {
+      ind <- 1:(n-i)
+      # Note that wsum[1]=0 !
+      prods[i] <- prod((1 - weights_sort[ind] / (1-wsum[ind]))^Delta_sort[ind])
+    }
+    H2[k] <- sum(prods * (log(Ytilde_sort[n-(1:k)+1])-log(Ytilde_sort[n-(1:k)]))) / prods[k]
+  }
+  
+  ###
+  # Faster new version
+  H <- crHill(x=x, Xtilde=Xtilde, Ytilde=Ytilde, censored=censored, h=h, kernel=Kernel)$gamma
+  
+  expect_true(max(abs(H-H2)/H2,na.rm=TRUE)<eps)
+})
+
+
