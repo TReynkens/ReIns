@@ -79,6 +79,7 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "no
     # Avoid numerical problems
     wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
 
+    # Compute estimate for conditional survival function
     surv[i] <- prod((1-weights_sort[ind] / (1-wsum[-length(wsum)]))^Delta_sort[ind])
   }
 
@@ -176,17 +177,24 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "norma
   # Avoid numerical problems
   wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
   
+  # for (k in 1:(n-1)) {
+  # 
+  #   prods <- numeric(k)
+  #   
+  #   # Compute products for i=1,...,k
+  #   for (i in 1:k) {
+  #     ind <- 1:(n-i)
+  #     # Note that wsum[1]=0 !
+  #     prods[i] <- prod((1 - weights_sort[ind] / (1-wsum[ind]))^Delta_sort[ind])
+  #   }
+  #   H[k] <- sum(prods * (log(Ytilde_sort[n-(1:k)+1])-log(Ytilde_sort[n-(1:k)]))) / prods[k]
+  # }
+  
+  # Faster version using cumulative products
+  prods <- cumprod((1-weights_sort / (1-wsum[1:(length(wsum)-1)]))^Delta_sort)
+  
   for (k in 1:(n-1)) {
-
-    prods <- numeric(k)
-    
-    # Compute products for i=1,...,k
-    for (i in 1:k) {
-      ind <- 1:(n-i)
-      # Note that wsum[1]=0 !
-      prods[i] <- prod((1 - weights_sort[ind] / (1-wsum[ind]))^Delta_sort[ind])
-    }
-    H[k] <- sum(prods * (log(Ytilde_sort[n-(1:k)+1])-log(Ytilde_sort[n-(1:k)]))) / prods[k]
+    H[k] <- sum(prods[n-(1:k)] * (log(Ytilde_sort[n-(1:k)+1])-log(Ytilde_sort[n-(1:k)]))) / prods[n-k]
   }
   
   # Plots
