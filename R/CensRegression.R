@@ -75,6 +75,9 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "no
     # Compute cumulative sum of weights,
     # add 0 to avoid problems when ind is empty
     wsum <- c(0, cumsum(weights_sort[ind]))
+    
+    # Avoid numerical problems
+    wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
 
     surv[i] <- prod((1-weights_sort[ind] / (1-wsum[-length(wsum)]))^Delta_sort[ind])
   }
@@ -169,6 +172,9 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "norma
   # Compute cumulative sum of weights,
   # add 0 to avoid problems when ind is empty
   wsum <- c(0, cumsum(weights_sort))
+  
+  # Avoid numerical problems
+  wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
   
   for (k in 1:(n-1)) {
 
