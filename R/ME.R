@@ -46,21 +46,21 @@
 
 ## Log likelihood
 
-.ME_loglikelihood <- function(x_densities, c_probabilities, beta, t_probabilities) {
+.ME_loglikelihood <- function(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring) {
   
   likelihood_contribution <- numeric(0)
-  #if(no_censoring){  
+  if(no_censoring){  
     # matrix containing alpha*density (uncensored)
     x_components <-  t(t(x_densities)*beta/t_probabilities)
     # likelihood contribution (uncensored)
     likelihood_contribution <- rowSums(x_components) 
-  #}   
-  #if(censoring){  
+  }   
+  if(censoring){  
     # matrix containing alpha*probabilities (censored)
     c_components <- t(t(c_probabilities)*beta/t_probabilities)
     # likelihood contribution (censored)
     likelihood_contribution <- c(likelihood_contribution, rowSums(c_components)) 
-  #}   
+  }   
   loglikelihood_contribution <- ifelse(likelihood_contribution>0, log(likelihood_contribution), -1000)
   # loglikelihood
   sum(loglikelihood_contribution)
@@ -158,7 +158,7 @@
   #} 
   # truncation probabilities
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
-  loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities)
+  loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
   old_loglikelihood <- -Inf
   
   while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter){
@@ -199,9 +199,9 @@
       # matrix containing censoring probabilities (censored)
       c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
     #} 
-     # truncation probabilities
+    # truncation probabilities
     t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
-    loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities)
+    loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
     
   }
   # beta to alpha
