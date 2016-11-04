@@ -30,6 +30,7 @@
         \item Change reference of Albrecher et al. from 2016 to 2017.
         \item Update Beirlant, Fraga Alves and Gomes (2016) reference.
         \item Improve documentation of approximations for the CDF.
+        \item Add comment to role of Anastasios Bardoutsos in DESCRIPTION.
       }
     }
 }

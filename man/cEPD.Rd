@@ -62,7 +62,7 @@ Beirlant, J., Bardoutsos, A., de Wet, T. and Gijbels, I. (2016). "Bias Reduced T
 Fraga Alves, M.I. , Gomes, M.I. and de Haan, L. (2003). "A New Class of Semi-parametric Estimators of the Second Order Parameter." \emph{Portugaliae Mathematica}, 60, 193--214.
 }
 \author{
-Tom Reynkens based on \code{R} code from A. Bardoutsos.
+Tom Reynkens based on \code{R} code from Anastasios Bardoutsos.
 }
 
 
