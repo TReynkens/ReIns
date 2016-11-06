@@ -25,8 +25,8 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
 }
 \details{ 
 The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{L} is given by
-\deqn{E(\min{(X-R)_+, L}) = I(R) - I(R+L)}
-where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function.  When \eqn{L=\infty}, the premium is equal to \eqn{I(R)}.
+\deqn{E(\min{(X-R)_+, L}) = \Pi(R) - \Pi(R+L)}
+where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}.  When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
 See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2017) for more details.
 }

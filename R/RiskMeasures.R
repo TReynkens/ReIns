@@ -5,6 +5,7 @@
 ###########################################################################
 
 # Integrated tail function of (truncated) Pareto distribution using Hill estimates
+# Pi(R)
 .IntTailPareto <- function(data, gamma, R, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                     main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -64,6 +65,7 @@
 
 
 # Integrated tail function using EPD estimates
+# Pi(R)
 .IntTailEPD <- function(data, gamma, kappa, tau, R, warnings = TRUE, plot = TRUE, add = FALSE,
                     main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -108,6 +110,7 @@
 
 
 # Integrated tail function using GPD-MLE estimates
+# Pi(R)
 .IntTailGPD <- function(data, gamma, sigma, R, warnings = TRUE, plot = TRUE, add = FALSE,
                       main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -172,6 +175,7 @@
 
 
 # Premium of excess-loss insurance with retention R and limit L using Hill estimates (in Pareto model)
+# Pi(R) - Pi(R+L)
 ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                         main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -216,6 +220,7 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
 ExcessHill <- ExcessPareto
 
 # Premium of excess-loss insurance with retention R and limit L using GPD-MLE estimates
+# Pi(R) - Pi(R+L)
 ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                        main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -257,6 +262,7 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
 }
 
 # Premium of excess-loss insurance with retention R and limit L using EPD estimates
+# Pi(R) - Pi(R+L)
 ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                       main="Estimates for premium of excess-loss insurance", ...) {
   
@@ -302,6 +308,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
 #######################################################
 
 # Integrated tail function of splicing of ME and (truncated) Pareto
+# Pi(R)
 .IntTailSplicePareto <- function(R, splicefit) {
   
   MEfit <- splicefit$MEfit
@@ -405,6 +412,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
 
 
 # Integrated tail function of splicing of ME and GPD
+# Pi(R)
 .IntTailSpliceGPD <- function(R, splicefit) {
   
   
@@ -505,6 +513,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
 
 
 # Premium of excess-loss insurance with retention R and limit L
+# Pi(R) - Pi(R+L)
 ExcessSplice <- function(R, L=Inf, splicefit) {
   
   if (any(R<0)) {

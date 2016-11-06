@@ -21,8 +21,8 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
 }
 \details{
 The Expected Shortfall is defined as
-\deqn{ES_p = E(X | X>Q(1-p)) = E(X | X>VaR_p) = VaR_p + 1/p I(VaR_p),}
-where \eqn{I(u)=E((X-u)_+)} is the premium of an excess-loss insurance with retention u.
+\deqn{ES_p = E(X | X>Q(1-p)) = E(X | X>VaR_p) = VaR_p + \Pi(VaR_p)/p,}
+where \eqn{\Pi(u)=E((X-u)_+)} is the premium of the excess-loss insurance with retention u.
 
 If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
 \eqn{TVaR} the Tail Value-at-Risk.

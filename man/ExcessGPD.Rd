@@ -50,11 +50,11 @@ If this is not the case, we return \code{NA} for the premium. A warning will be 
 that case if \code{warnings=TRUE}. One should then use globale fits: \code{\link{ExcessSplice}}.
 
 The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{L} is given by
-\deqn{E(\min{(X-R)_+, L}) = I(R) - I(R+L)}
-where \eqn{I(u)=\int_u^{\infty} (1-F(z)) dz} is the integrated tail function. When \eqn{L=\infty}, the premium is equal to \eqn{I(R)}.
+\deqn{E(\min{(X-R)_+, L}) = \Pi(R) - \Pi(R+L)}
+where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}. When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
-We estimate the integrated tail function by
-\deqn{ \hat{I}(u) = (k+1)/(n+1) * \hat{\sigma}_k/ (1-\hat{\gamma}_k) * (1+\hat{\gamma}_k/\hat{\sigma}_k (u-X_{n-k,n}))^{1-1/\hat{\gamma}_k},}
+We estimate \eqn{\Pi} by
+\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) * \hat{\sigma}_k/ (1-\hat{\gamma}_k) * (1+\hat{\gamma}_k/\hat{\sigma}_k (u-X_{n-k,n}))^{1-1/\hat{\gamma}_k},}
 with \eqn{\hat{\gamma}_k} and \eqn{\hat{\sigma}_k} the estimates for the parameters of the GPD.
 
 See Section 4.5 of Albrecher et al. (2017) for more details.
