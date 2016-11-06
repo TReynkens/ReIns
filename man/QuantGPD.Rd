@@ -9,7 +9,7 @@ Computes estimates of of an extreme quantile \eqn{Q(1-p)} using the GPD fit for 
 }
 \usage{
 QuantGPD(data, gamma, sigma, p, plot = FALSE, add = FALSE, 
-        main = "Estimates of extreme quantile", ...)
+         main = "Estimates of extreme quantile", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

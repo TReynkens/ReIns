@@ -10,10 +10,10 @@ Computes estimates of a small exceedance probability \eqn{P(X>q)} or return peri
 }
 \usage{
 cProbMOM(data, censored, gamma1, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of small exceedance probability", ...)
+         main = "Estimates of small exceedance probability", ...)
 
 cReturnMOM(data, censored, gamma1, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of return period", ...)        
+           main = "Estimates of return period", ...)        
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

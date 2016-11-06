@@ -9,7 +9,7 @@ Computes the generalised Hill estimates adapted for right censored data.
 }
 \usage{
 cgenHill(data, censored, logk = FALSE, plot = FALSE, add = FALSE, 
-        main = "Generalised Hill estimates of EVI", ...)
+         main = "Generalised Hill estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

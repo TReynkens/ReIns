@@ -12,16 +12,16 @@ Compute estimates of a small exceedance probability \eqn{P(X>q)} or return perio
 }
 \usage{
 Prob(data, gamma, q, plot = FALSE, add = FALSE, 
-          main = "Estimates of small exceedance probability", ...)
+     main = "Estimates of small exceedance probability", ...)
           
 Return(data, gamma, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of return period", ...)
+       main = "Estimates of return period", ...)
         
 Weissman.p(data, gamma, q, plot = FALSE, add = FALSE, 
-          main = "Estimates of small exceedance probability", ...)
+           main = "Estimates of small exceedance probability", ...)
           
 Weissman.r(data, gamma, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of return period", ...)
+           main = "Estimates of return period", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

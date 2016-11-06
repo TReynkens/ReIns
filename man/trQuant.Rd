@@ -13,7 +13,7 @@ trQuant(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add = FALSE,
         main = "Estimates of extreme quantile", ...)
         
 trQuantW(data, gamma, DT, p, plot = FALSE, add = FALSE, 
-        main = "Estimates of extreme quantile", ...)        
+         main = "Estimates of extreme quantile", ...)        
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

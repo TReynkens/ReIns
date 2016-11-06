@@ -11,7 +11,7 @@ Compute second order refined Weissman estimator of extreme quantiles \eqn{Q(1-p)
 }
 \usage{
 Quant.2oQV(data, gamma, b, beta, p, plot = FALSE, add = FALSE, 
-                main = "Estimates of extreme quantile", ...)
+           main = "Estimates of extreme quantile", ...)
                 
 Weissman.q.2oQV(data, gamma, b, beta, p, plot = FALSE, add = FALSE, 
                 main = "Estimates of extreme quantile", ...)

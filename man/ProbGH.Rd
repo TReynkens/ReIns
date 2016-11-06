@@ -10,10 +10,10 @@ Computes estimates of a small exceedance probability \eqn{P(X>q)} or return peri
 }
 \usage{
 ProbGH(data, gamma, q, plot = FALSE, add = FALSE, 
-      main = "Estimates of small exceedance probability", ...)
+       main = "Estimates of small exceedance probability", ...)
 
 ReturnGH(data, gamma, q, plot = FALSE, add = FALSE, 
-                   main = "Estimates of return period", ...)
+         main = "Estimates of return period", ...)
 }
 \arguments{
  \item{data}{

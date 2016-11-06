@@ -13,7 +13,7 @@ ProbMOM(data, gamma, q, plot = FALSE, add = FALSE,
         main = "Estimates of small exceedance probability", ...)
 
 ReturnMOM(data, gamma, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of return period", ...)
+          main = "Estimates of return period", ...)
 }
 \arguments{
  \item{data}{

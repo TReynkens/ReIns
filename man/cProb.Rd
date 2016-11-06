@@ -14,7 +14,7 @@ cProb(data, censored, gamma1, q, plot = FALSE, add = FALSE,
       main = "Estimates of small exceedance probability", ...)
       
 cReturn(data, censored, gamma1, q, plot = FALSE, add = FALSE, 
-      main = "Estimates of return period", ...)      
+        main = "Estimates of return period", ...)      
 }
 
 %- maybe also 'usage' for other objects documented here.

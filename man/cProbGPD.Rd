@@ -11,10 +11,10 @@ Computes estimates of a small exceedance probability \eqn{P(X>q)} or return peri
 }
 \usage{
 cProbGPD(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALSE,
-        main = "Estimates of small exceedance probability", ...)
+         main = "Estimates of small exceedance probability", ...)
 
 cReturnGPD(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALSE,
-        main = "Estimates of return period", ...)        
+           main = "Estimates of return period", ...)        
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -10,10 +10,10 @@ Computes ML estimates of fitting GPD to a peaks over a threshold adapted for rig
 }
 \usage{
 cGPDmle(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
-      plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
+        plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
       
 cPOT(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
-      plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
+     plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

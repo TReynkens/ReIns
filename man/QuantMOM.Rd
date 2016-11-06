@@ -9,7 +9,7 @@ Compute estimates of an extreme quantile \eqn{Q(1-p)} using the Method of Moment
 }
 \usage{
 QuantMOM(data, gamma, p, plot = FALSE, add = FALSE, 
-        main = "Estimates of extreme quantile", ...)
+         main = "Estimates of extreme quantile", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

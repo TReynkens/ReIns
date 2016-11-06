@@ -9,8 +9,8 @@ Fit spliced distribution of a mixed Erlang distribution and a Generalised Pareto
 }
 \usage{
 SpliceFitGPD(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, 
-            ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE,
-            eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
+             ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE,
+             eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

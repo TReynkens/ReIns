@@ -32,6 +32,7 @@
         \item Improve documentation of approximations for the CDF.
         \item Add comment to role of Anastasios Bardoutsos in DESCRIPTION.
         \item Replace \eqn{I} by \eqn{\Pi} as notation for excess-loss premium function.
+        \item Correct alignment in usage sections of documentation.
       }
     }
 }

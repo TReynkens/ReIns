@@ -9,7 +9,7 @@ Computes the derivative plot of the log-normal QQ-plot. These values can be plot
 }
 \usage{
 LognormalQQ_der(data, k = FALSE, plot = TRUE, 
-            main = "Derivative plot of log-normal QQ-plot", ...)
+                main = "Derivative plot of log-normal QQ-plot", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

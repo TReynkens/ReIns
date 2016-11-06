@@ -11,10 +11,10 @@ Computes the Least Squares (LS) estimates of the EVI based on the last \eqn{k} o
 }
 \usage{
 LStail(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
-            main = "LS estimates of EVI", ...)
+       main = "LS estimates of EVI", ...)
             
 TSfraction(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
-            main = "LS estimates of EVI", ...)
+           main = "LS estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -10,7 +10,7 @@ Optionally, these estimates are plotted as a function of \eqn{k}.
 }
 \usage{
 genHill(data, gamma, logk = FALSE, plot = FALSE, add = FALSE, 
-         main = "Generalised Hill estimates of EVI", ...)
+        main = "Generalised Hill estimates of EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

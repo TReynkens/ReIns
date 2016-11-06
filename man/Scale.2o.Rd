@@ -9,7 +9,7 @@ Computes the bias-reduced estimator for the scale parameter using the second ord
 }
 \usage{
 Scale.2o(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FALSE, 
-        main = "Estimates of scale parameter", ...)
+         main = "Estimates of scale parameter", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

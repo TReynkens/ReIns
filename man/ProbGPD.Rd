@@ -13,7 +13,7 @@ ProbGPD(data, gamma, sigma, q, plot = FALSE, add = FALSE,
         main = "Estimates of small exceedance probability", ...)
 
 ReturnGPD(data, gamma, sigma, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of return period", ...)
+          main = "Estimates of return period", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

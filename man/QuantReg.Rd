@@ -9,7 +9,7 @@ Estimator of extreme quantile \eqn{Q_i(1-p)} in the regression case where \eqn{\
 }
 \usage{
 QuantReg(Z, A, p, plot = FALSE, add = FALSE, 
-        main = "Estimates of extreme quantile", ...)
+         main = "Estimates of extreme quantile", ...)
 }
 \arguments{
   \item{Z}{
