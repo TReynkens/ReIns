@@ -124,3 +124,9 @@ export("VaR", "ES")
 # Approximations
 
 export("pClas", "pGC", "pEdge")
+
+
+######################################
+# Multivariate
+
+export("stdf", "stdf2")

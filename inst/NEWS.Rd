@@ -21,6 +21,7 @@
         \item Add option to choose if the implementation of the Turnbull estimator in the package \pkg{interval} should be used in \code{MeanExcess_TB}.
         \item Add Weibull QQ-plot adapted for censored data (\code{cWeibullQQ}).
         \item Add estimators for regression extremes with censored data.
+        \item Add estimators for stable tail dependence function (STDF).
       }
     }
     
