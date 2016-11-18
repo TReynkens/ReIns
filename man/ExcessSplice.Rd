@@ -43,7 +43,7 @@ Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mi
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758
 }
 \author{
-Tom Reynkens with \code{R} code from Roel Verbelen for the excess-loss of the mixed Erlang distribution.
+Tom Reynkens with \code{R} code from Roel Verbelen for the estimates for the excess-loss premiums using the mixed Erlang distribution.
 }
 
 

@@ -20,7 +20,7 @@ EPDfit(data, tau, start = c(0.1, 1), warnings = FALSE)
 }
   \item{start}{
 Vector of length 2 containing the starting values for the optimisation. The first element
-is the starting value for the estimator of \eqn{\gamma} and the second element is the starting value for the estimator of \eqn{\sigma}. Default is \code{c(0.1,1)}.
+is the starting value for the estimator of \eqn{\gamma} and the second element is the starting value for the estimator of \eqn{\kappa}. Default is \code{c(0.1,1)}.
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
@@ -49,7 +49,7 @@ Tom Reynkens
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Fit EPD to last 500 observations

@@ -47,7 +47,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 We need that \eqn{u \ge X_{n-k,n}}, the \eqn{(k+1)}-th largest observation.
 If this is not the case, we return \code{NA} for the premium. A warning will be issued in
-that case if \code{warnings=TRUE}. One should then use globale fits: \code{\link{ExcessSplice}}.
+that case if \code{warnings=TRUE}. One should then use global fits: \code{\link{ExcessSplice}}.
 
 The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{L} is given by
 \deqn{E(\min{(X-R)_+, L}) = \Pi(R) - \Pi(R+L)}

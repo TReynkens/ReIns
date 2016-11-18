@@ -51,14 +51,14 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 We need that \eqn{u \ge X_{n-k,n}}, the \eqn{(k+1)}-th largest observation.
 If this is not the case, we return \code{NA} for the premium. A warning will be issued in
-that case if \code{warnings=TRUE}. One should then use globale fits: \code{\link{ExcessSplice}}.
+that case if \code{warnings=TRUE}. One should then use global fits: \code{\link{ExcessSplice}}.
 
 The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{L} is given by
 \deqn{E(\min{(X-R)_+, L}) = \Pi(R) - \Pi(R+L)}
 where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}. When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
 We estimate \eqn{\Pi} (for the untruncated Pareto distribution) by
-\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) / (1/H_{k,n}-1) * (X_{n-k,n})^{1/H_{k,n}} u^{1-1/H_{k,n}}),}
+\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) / (1/H_{k,n}-1) * (X_{n-k,n}^{1/H_{k,n}} u^{1-1/H_{k,n}}),}
 with \eqn{H_{k,n}} the Hill estimator.
 
 The \code{ExcessHill} function is the same function but with a different name for compatibility with old versions of the package.

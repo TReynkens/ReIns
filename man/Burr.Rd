@@ -54,7 +54,7 @@ The Cumulative Distribution Function (CDF) of the Burr distribution is equal to
 Beirlant et al. (2004) uses parameters \eqn{\eta, \tau, \lambda} which correspond to \eqn{\eta},  \eqn{\tau=-\rho*\alpha} and \eqn{\lambda=-1/\rho}.
 }
 \value{
-\code{dburr} gives the density function evaluated in \eqn{x}, \code{pburr} the CDF evaluated in \code{x} and \code{qburr} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{dburr} gives the density function evaluated in \eqn{x}, \code{pburr} the CDF evaluated in \eqn{x} and \code{qburr} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{rburr} returns a random sample of length \eqn{n}.
 }

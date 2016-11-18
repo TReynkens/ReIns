@@ -50,10 +50,10 @@ Scale parameter of the Fréchet distribution, default is 1.
 }
 \details{
 The Cumulative Distribution Function (CDF) of the Fréchet distribution is equal to
-\eqn{F(x) = exp(-((x-loc)/scale)^{-shape})} for all \eqn{x \ge loc} and \eqn{F(x)=0} otherwise. Both \code{shape} and \code{scale} need to be strictly positive.
+\eqn{F(x) = \exp(-((x-loc)/scale)^{-shape})} for all \eqn{x \ge loc} and \eqn{F(x)=0} otherwise. Both \code{shape} and \code{scale} need to be strictly positive.
 }
 \value{
-\code{dfrechet} gives the density function evaluated in \eqn{x}, \code{pfrechet} the CDF evaluated in \code{x} and \code{qfrechet} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{dfrechet} gives the density function evaluated in \eqn{x}, \code{pfrechet} the CDF evaluated in \eqn{x} and \code{qfrechet} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{rfrechet} returns a random sample of length \eqn{n}.
 }

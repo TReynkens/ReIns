@@ -16,17 +16,17 @@ EVTfit(gamma, endpoint = NULL, sigma = NULL)
 Vector of estimates for \eqn{\gamma}.
 }
   \item{endpoint}{
-Vector of endpoints. When \code{NULL} (default), a vector containing \code{Inf} for each value of \code{gamma} will be used.
+Vector of endpoints (with the same length as \code{gamma}). When \code{NULL} (default), a vector containing \code{Inf} for each value of \code{gamma} will be used.
 }
   \item{sigma}{
-Vector of scale estimates for the GPD. When \code{NULL} (default), not included in the object. 
+Vector of scale estimates for the GPD (with the same length as \code{gamma}). When \code{NULL} (default), not included in the object. 
 }
 }
 \details{
 See Reynkens et al. (2016) and Section 4.3 of Albrecher et al. (2017) for details.
 }
 \value{
-An S3 object containg the above input arguments.
+An S3 object containing the above input arguments.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.

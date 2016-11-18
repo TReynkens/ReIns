@@ -32,7 +32,7 @@ Number of observations.
 The \eqn{\gamma} parameter of the EPD, a strictly positive number.
 }
   \item{kappa}{
-The \eqn{\kappa} parameter of the EPD. It should be larger than \eqn{\max{-1,1/\tau}}.
+The \eqn{\kappa} parameter of the EPD. It should be larger than \eqn{\max\{-1,1/\tau\}}.
 }
   \item{tau}{
 The \eqn{\tau} parameter of the EPD, a strictly negative number. Default is -1.
@@ -48,13 +48,13 @@ The \eqn{\tau} parameter of the EPD, a strictly negative number. Default is -1.
  }
 }
 \details{
-The Cumulative Distribution Function (CDF) of the EPD for is equal to
-\eqn{F(x) = 1-(x(1+\kappa-\kappa x^{\tau})^{-1/\gamma}} for all \eqn{x > 1} and \eqn{F(x)=0} otherwise.
+The Cumulative Distribution Function (CDF) of the EPD is equal to
+\eqn{F(x) = 1-(x(1+\kappa-\kappa x^{\tau}))^{-1/\gamma}} for all \eqn{x > 1} and \eqn{F(x)=0} otherwise.
 
 Note that an EPD random variable with \eqn{\tau=-1} and \eqn{\kappa=\gamma/\sigma-1} is GPD distributed with \eqn{\mu=1}, \eqn{\gamma} and \eqn{\sigma}.
 }
 \value{
-\code{depd} gives the density function evaluated in \eqn{x}, \code{pepd} the CDF evaluated in \code{x} and \code{qepd} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{depd} gives the density function evaluated in \eqn{x}, \code{pepd} the CDF evaluated in \eqn{x} and \code{qepd} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{repd} returns a random sample of length \eqn{n}.
 }

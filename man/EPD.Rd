@@ -23,10 +23,10 @@ when strictly positive or choice(s) for \eqn{\rho} if negative. Default is \code
 }
   \item{start}{
 Vector of length 2 containing the starting values for the optimisation. The first element
-is the starting value for the estimator of \eqn{\gamma} and the second element is the starting value for the estimator of \eqn{\kappa}. This argument is only used when \code{direct=FALSE}. Default is \code{c(0.1,1)}.
+is the starting value for the estimator of \eqn{\gamma} and the second element is the starting value for the estimator of \eqn{\kappa}. This argument is only used when \code{direct=TRUE}. Default is \code{NULL} meaning the initial value for \eqn{\gamma} is the Hill estimator and the initial value for \eqn{\kappa} is 0.
 }
   \item{direct}{
-Logical indication if the parameters are obtained by directly maximising the log-likelihood function, see Details. Default is \code{TRUE.}
+Logical indicating if the parameters are obtained by directly maximising the log-likelihood function, see Details. Default is \code{FALSE}.
 }
   \item{warnings}{
 Logical indicating if possible warnings from the optimisation function are shown, default is \code{FALSE}.
@@ -49,8 +49,8 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 We fit the Extended Pareto distribution to the relative excesses over a threshold (X/u).
-The EPD has distribution function \eqn{F(x) = 1-(x(1+\kappa-\kappa x^{\tau})^{-1/\gamma}} 
-with \eqn{\tau = \rho/\gamma <0<\gamma} and \eqn{\kappa>max(-1,1/\tau)}. 
+The EPD has distribution function \eqn{F(x) = 1-(x(1+\kappa-\kappa x^{\tau}))^{-1/\gamma}} 
+with \eqn{\tau = \rho/\gamma <0<\gamma} and \eqn{\kappa>\max(-1,1/\tau)}. 
 
 The parameters are determined using MLE and there are two possible approaches:
 maximise the log-likelihood directly (\code{direct=TRUE}) or follow the approach detailed in
