@@ -47,7 +47,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The \code{POT} function is the same function but with a different name for compatibility with the old \code{S-Plus} code. 
 
-For each value of \code{k}, we look at the exceedances over the \eqn{k+1}th largest observations:
+For each value of \code{k}, we look at the exceedances over the \eqn{(k+1)}th largest observation:
 \eqn{X_{n-k+j,n}-X_{n-k,n}} for \eqn{j=1,...,k}, with \eqn{X_{j,n}} the \eqn{j}th largest observation and \eqn{n} the sample size. The GPD is then fitted to these k exceedances using MLE which yields estimates for the parameters of the GPD: \eqn{\gamma} and \eqn{\sigma}.
 
 See Section 4.2.2 in Albrecher et al. (2017) for more details.
@@ -77,7 +77,7 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code f
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Plot GPD-ML estimates as a function of k

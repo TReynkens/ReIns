@@ -43,7 +43,7 @@ This vector should have length 1, 2 or 3 when included.
 See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for details.
 }
 \value{
-An S3 object containg the above input arguments and values for \eqn{\pi}, the splicing weights.
+An S3 object containing the above input arguments and values for \eqn{\pi}, the splicing weights.
 These splicing weights are equal to \deqn{\pi_1=const_1,   \pi_2=const_2-const_1, ...,\pi_{l+1}=1-const_l=1-(\pi_1+...+\pi_l)} when \eqn{l\ge 2} and
 \deqn{\pi_1=const_1, \pi_2=1-const_1=1-\pi_1} when \eqn{l=1} where  \eqn{l} is the length of \code{const}.
 

@@ -45,7 +45,7 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur and \code{R} code f
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Fit GPD to last 500 observations

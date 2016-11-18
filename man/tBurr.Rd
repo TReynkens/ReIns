@@ -55,7 +55,7 @@ The Cumulative Distribution Function (CDF) of the truncated Burr distribution is
 \eqn{F_T(x) = F(x) / F(T)} where \eqn{F} is the CDF of the ordinary Burr distribution and \eqn{T} is the endpoint (truncation point) of the truncated Burr distribution.
 }
 \value{
-\code{dtburr} gives the density function evaluated in \eqn{x}, \code{ptburr} the CDF evaluated in \code{x} and \code{qtburr} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{dtburr} gives the density function evaluated in \eqn{x}, \code{ptburr} the CDF evaluated in \eqn{x} and \code{qtburr} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{rtburr} returns a random sample of length \eqn{n}.
 }

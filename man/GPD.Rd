@@ -48,13 +48,13 @@ The \eqn{\sigma} parameter of the GPD, a strictly positive number.
  }
 }
 \details{
-The Cumulative Distribution Function (CDF) of the GPD for \eqn{\gamma != 0} is equal to
+The Cumulative Distribution Function (CDF) of the GPD for \eqn{\gamma \neq 0} is equal to
 \eqn{F(x) = 1-(1+\gamma (x-\mu)/\sigma)^{-1/\gamma}} for all \eqn{x \ge \mu} and \eqn{F(x)=0} otherwise.
 When \eqn{\gamma=0}, the CDF is given by 
 \eqn{F(x) = 1-\exp((x-\mu)/\sigma)} for all \eqn{x \ge \mu} and \eqn{F(x)=0} otherwise.
 }
 \value{
-\code{dgpd} gives the density function evaluated in \eqn{x}, \code{pgpd} the CDF evaluated in \code{x} and \code{qgpd} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{dgpd} gives the density function evaluated in \eqn{x}, \code{pgpd} the CDF evaluated in \eqn{x} and \code{qgpd} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{rgpd} returns a random sample of length \eqn{n}.
 }

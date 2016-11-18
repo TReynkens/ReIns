@@ -102,7 +102,7 @@ Tom Reynkens based on \code{R} code from Roel Verbelen for fitting the mixed Erl
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X,Y)

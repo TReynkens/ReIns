@@ -48,7 +48,7 @@ The Cumulative Distribution Function (CDF) of the Pareto distribution is equal t
 \eqn{F(x) = 1-(x/scale)^{-shape}} for all \eqn{x \ge scale} and \eqn{F(x)=0} otherwise. Both \code{shape} and \code{scale} need to be strictly positive.
 }
 \value{
-\code{dpareto} gives the density function evaluated in \eqn{x}, \code{ppareto} the CDF evaluated in \code{x} and \code{qpareto} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{dpareto} gives the density function evaluated in \eqn{x}, \code{ppareto} the CDF evaluated in \eqn{x} and \code{qpareto} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{rpareto} returns a random sample of length \eqn{n}.
 }

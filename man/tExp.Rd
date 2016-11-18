@@ -48,7 +48,7 @@ The Cumulative Distribution Function (CDF) of the truncated exponential distribu
 \eqn{F_T(x) = F(x) / F(T)} where \eqn{F} is the CDF of the ordinary exponential distribution and \eqn{T} is the endpoint (truncation point) of the truncated exponential distribution.
 }
 \value{
-\code{dtexp} gives the density function evaluated in \eqn{x}, \code{ptexp} the CDF evaluated in \code{x} and \code{qtexp} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \code{x} or \code{p}.
+\code{dtexp} gives the density function evaluated in \eqn{x}, \code{ptexp} the CDF evaluated in \eqn{x} and \code{qtexp} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
 
 \code{rtexp} returns a random sample of length \eqn{n}.
 }

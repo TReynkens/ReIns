@@ -18,7 +18,7 @@ Hill(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE,
 Vector of \eqn{n} observations.  
 }
   \item{k}{
-Logical indicating if the Hill estimates are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of \eqn{log X_{n-k}}. Default is \code{TRUE}.
+Logical indicating if the Hill estimates are plotted as a function of the tail parameter \eqn{k} (\code{k=TRUE}) or as a function of \eqn{\log(X_{n-k})}. Default is \code{TRUE}.
 }
   \item{logk}{
 Logical indicating if the Hill estimates are plotted as a function of \eqn{\log(k)} (\code{logk=TRUE}) or as a function of \eqn{k} (\code{logk=FALSE}) when \code{k=TRUE}. Default is \code{FALSE}.
@@ -38,7 +38,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 
 \details{
-The Hill estimator can be seen as the estimator of slope in the upper right corner (\eqn{k} last points) of the Pareto QQ-plot when using constrained least squares (the regression line has to pass through the point \eqn{-\log((k+1)/(n+1)),\log X_{n-k}}). It is given by
+The Hill estimator can be seen as the estimator of slope in the upper right corner (\eqn{k} last points) of the Pareto QQ-plot when using constrained least squares (the regression line has to pass through the point \eqn{(-\log((k+1)/(n+1)),\log X_{n-k})}). It is given by
 \deqn{H_{k,n}=1/k\sum_{j=1}^k \log X_{n-j+1,n}- \log X_{n-k,n}.}
 
 See Section 4.2.1 of Albrecher et al. (2017) for more details.
