@@ -39,7 +39,7 @@ Kernel of the non-parametric estimator. One of \code{"biweight"} (default), \cod
 We estimate the conditional survival function \deqn{1-F_{Y|X}(y|x)} using the censored sample \eqn{(\tilde{X}_i, \tilde{Y}_i)}, for \eqn{i=1,\ldots,n}, where \eqn{X} and \eqn{Y} are censored at the same time. We assume that \eqn{Y} and the censoring variable are conditionally independent given \eqn{X}.
 
 The estimator is given by
-\deqn{1-\hat{F}_{Y|X}(y|x) = \prod_{\tilde{Y}_i \le y} (1-(W_{n,i}(x;h_n))/(\sum_{j=1}^nW_{n,j}(x;h_n) I\{\tilde{Y}_j \ge \tilde{Y}_i\}))^{\Delta_i}}
+\deqn{1-\hat{F}_{Y|X}(y|x) = \prod_{\tilde{Y}_i \le y} (1-W_{n,i}(x;h_n)/(\sum_{j=1}^nW_{n,j}(x;h_n) I\{\tilde{Y}_j \ge \tilde{Y}_i\}))^{\Delta_i}}
 where \eqn{\Delta_i=1} when \eqn{(\tilde{X}_i, \tilde{Y}_i)} is censored and 0 otherwise. The weights are given by
 \deqn{W_{n,i}(x;h_n) = K((x-\tilde{X}_i)/h_n)/\sum_{\Delta_j=1}K((x-\tilde{X}_j)/h_n)} when \eqn{\Delta_i=1} and 0 otherwise.
 
@@ -88,5 +88,5 @@ Xtilde[censored] <- X[censored] - runif(sum(censored), 0, 1)
 x <- 5
 y <- seq(0, 5, 1/100)
 plot(y, crSurv(x, y, Xtilde=Xtilde, Ytilde=Ytilde, censored=censored, h=5), type="l", 
-    xlab="y", ylab="Conditional survival function")
+     xlab="y", ylab="Conditional survival function")
 }

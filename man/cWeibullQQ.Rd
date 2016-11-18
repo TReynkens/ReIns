@@ -29,10 +29,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The Weibull QQ-plot adapted for right censoring is given by
-\deqn{( \log(-\log(1-F_{km}(Z_{j,n}))),  log(Z_{j,n}) )}
+\deqn{( \log(-\log(1-F_{km}(Z_{j,n}))),  \log(Z_{j,n}) )}
 for \eqn{j=1,\ldots,n-1,}
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data and \eqn{F_{km}} the Kaplan-Meier estimator for the CDF.
-Hence, it has the same empirical quantiles as an ordinary Weibull QQ-plot but replaces the theoretical quantiles \eqn{ log(-log(1-j/(n+1)))} by \eqn{log(-log(1-F_{km}(Z_{j,n})))}.
+Hence, it has the same empirical quantiles as an ordinary Weibull QQ-plot but replaces the theoretical quantiles \eqn{ \log(-\log(1-j/(n+1)))} by \eqn{\log(-\log(1-F_{km}(Z_{j,n})))}.
 
 This QQ-plot is only suitable for right censored data.
 
@@ -64,7 +64,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)

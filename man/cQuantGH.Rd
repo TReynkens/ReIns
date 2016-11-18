@@ -41,7 +41,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The quantile is estimated as 
 \deqn{\hat{Q}(1-p)= Z_{n-k,n} + a_{k,n} ( ( (1-km)/p)^{\hat{\gamma}_1} -1 ) / \hat{\gamma}_1)} 
-ith \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
+with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
 \deqn{a_{k,n} = Z_{n-k,n} H_{k,n} (1-\min(\hat{\gamma}_1,0)) / \hat{p}_k} with \eqn{H_{k,n}} the ordinary Hill estimator
 and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored.
 }
@@ -72,7 +72,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)

@@ -6,7 +6,7 @@
 GPD-ML estimator for right censored data
 }
 \description{
-Computes ML estimates of fitting GPD to a peaks over a threshold adapted for right censoring.
+Computes ML estimates of fitting GPD to peaks over a threshold adapted for right censoring.
 }
 \usage{
 cGPDmle(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
@@ -80,7 +80,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)

@@ -52,7 +52,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The probability is estimated as \deqn{\hat{P}(X>q)= (1-km) * (1-F(q))} with \eqn{F}
-the CDF of the EPD with parameters \eqn{\gamma}, \eqn{\kappa} and \eqn{\tau=-\beta}
+the CDF of the EPD with estimated parameters \eqn{\hat{\gamma}_1}, \eqn{\hat{\kappa}_1} and \eqn{\hat{\tau}=-\hat{\beta}}
 and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}} (the \eqn{(k+1)}-th largest data point).
 }
 
@@ -84,7 +84,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)

@@ -42,7 +42,7 @@ In Beirlant et al. (2007), only a Pareto QQ-plot adapted for right-censored data
 \value{
 A list with following components:
 \item{eqq.the}{Vector of the theoretical quantiles, see Details.}
-\item{eqq.emp}{Vector of the empirical quantiles from the log-transformed data.}
+\item{eqq.emp}{Vector of the empirical quantiles from the data.}
 }
 \references{
 Beirlant, J., Guillou, A., Dierckx, G. and Fils-Villetard, A. (2007). "Estimation of the Extreme Value Index and Extreme Quantiles Under Random Censoring." \emph{Extremes}, 10, 151--174.
@@ -64,7 +64,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)

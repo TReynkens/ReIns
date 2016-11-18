@@ -43,7 +43,7 @@ This estimator is only suitable for right censored data!
 \value{
 A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
-\item{gamma1}{Vector of the corresponding Hill estimates.}
+\item{gamma1}{Vector of the corresponding generalised Hill estimates.}
 }
 
 \references{
@@ -65,7 +65,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)

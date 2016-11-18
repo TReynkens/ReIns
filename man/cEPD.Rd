@@ -53,7 +53,7 @@ A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
 \item{gamma1}{Vector of the corresponding estimates for the \eqn{\gamma} parameter of the EPD.}
 \item{kappa1}{Vector of the corresponding MLE estimates for the \eqn{\kappa} parameter of the EPD.}
-\item{beta}{Vector values for the \eqn{\beta} parameter of the EPD.}
+\item{beta}{Vector of estimates for (or values of) the \eqn{\beta} parameter of the EPD.}
 \item{Delta}{Difference between \code{gamma1} and the Hill estimator for censored data.}
 }
 \references{
@@ -79,7 +79,7 @@ set.seed(29072016)
 X <- rpareto(500, shape=2)
 
 # Censoring variable
-Y  <- rpareto(500, shape=1)
+Y <- rpareto(500, shape=1)
 
 # Observed sample
 Z <- pmin(X, Y)
