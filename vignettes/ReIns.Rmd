@@ -56,7 +56,7 @@ It contains implementations of
 * VaR, expected shortfall and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
-We split this in several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [censored data](#censored-data), [global fits using splicing](#global-fits-using-splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
+We split this into several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [censored data](#censored-data), [global fits using splicing](#global-fits-using-splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
 
 # Datasets
 
@@ -162,9 +162,9 @@ WeibullQQ_der(size, k=TRUE)
 More details on the estimators described in this section can be found in Section 4.2 in Albrecher et al. (2017).
 
 ## Estimators of $\gamma>0$
-The most famous estimator for the EVI $\gamma$ is the **Hill estimator** which can be obtained by fitting the Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
+The most famous estimator for the EVI $\gamma$ is the **Hill estimator** which can be obtained by fitting the (strict) Pareto distribution to the relative excesses $X/X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The typical Hill plot can be made using `Hill`.
 
-The bias of the Hill estimator can be problematic, hence one can consider a **bias-reduced estimator** which uses a regression type approach (`Hill.2oQV`). Another solution is to use the **EPD estimator** (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
+The bias of the Hill estimator can be problematic, hence one can consider a **bias-reduced estimator** which uses a regression-type approach (`Hill.2oQV`). Another solution is to use the **EPD estimator** (`EPD`) which fits the extended Pareto distribution instead of the ordinary Pareto distribution to the relative excesses.
 
 Using these bias-reduced estimators can give an idea about a good choice for $k$. Suitable choices of $k$ are values where the two plots intersect and which are not too low (otherwise the variance is too high). This yields an estimate for $\gamma$ around 0.75 (and $k$ around 3500).
 
@@ -193,7 +193,7 @@ genQQ(size, gamma=H$gamma)
 
 
 The **generalised Hill estimator** (`genHill`) is an estimator for the slope of the generalised QQ-plot.
-Alternatively, one can also consider the **moment estimator** (`Moment`) and the **Peaks-Over-Threshold estimator** (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The Peaks-Over-Threshold estimator can however be very time consuming on large datasets!
+Alternatively, one can also consider the **moment estimator** (`Moment`) and the **Peaks-Over-Threshold estimator** (`GPDmle`) which fits the Generalised Pareto Distribution (GPD) to the excesses $X-X_{n-k,n}$ using Maximum Likelihood Estimation (MLE). The Peaks-Over-Threshold estimator can however be very time consuming on large datasets! Therefore, it is omitted in this example.
 
 The generalised Hill estimator and the moment estimator indicate that values for $\gamma$ around 0.75 are indeed suitable.
 
@@ -287,7 +287,7 @@ cHill(Z, censored, plot=TRUE)
 ## Interval censored data
 We also implemented EVT functions for the more general case of interval censored data:
 
-* `MeanExcess_TB`: mean excess plot adapted for interval censoring.
+* `MeanExcess_TB`: mean excess plot adapted for interval censoring (using the Turnbull estimator for the survival function).
 * `icParetoQQ`: Pareto QQ-plot adapted for interval censoring.
 * `icHill`: estimator for (positive) EVI. 
 
@@ -335,14 +335,14 @@ At first, one has to determine (a) suitable splicing point(s).
 We do this using the mean excess plot. Linear upward pieces indicate that the Pareto distribution is suitable, linear downward pieces suggest a truncated Pareto distribution.
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
-# Mean-excess plot
+# Mean excess plot
 MeanExcess(size)
 
 # Add vertical line at 50% and 99.6% quantiles of the data
-abline(v=quantile(size, c(0.5,0.996)))
+abline(v=quantile(size, c(0.5,0.996)), lty=2)
 ```
 
-For the Norwegian fire insurance data, we choose splicing points at the 50\% and 99.6\% quantile.
+For the Norwegian fire insurance data, we choose splicing points at the 50\% and 99.6\% quantiles.
 This means that the spliced distribution is a ME distribution between 0 and the first splicing point, a (truncated) Pareto distribution between the first and second splicing point and another Pareto distribution after the second splicing point.
 
 Using `SpliceFitPareto` we can fit this spliced distribution. This can take some time so we create a `SpliceFit` object with the obtained parameters to use in the remainder. A `summary` method is available for these objects which summarises the spliced distribution.
@@ -351,7 +351,7 @@ Using `SpliceFitPareto` we can fit this spliced distribution. This can take some
 
 # Splicing of Mixed Erlang (ME) and 2 Pareto pieces
 # Use 3 as initial value for M
-spliceFit <- SpliceFitPareto(size, const=c(0.5,0.996))
+spliceFit <- SpliceFitPareto(size, const=c(0.5,0.996), M=3)
 ```
 
 ```{r}
@@ -385,12 +385,10 @@ We see that the fitted spliced distribution approximates the empirical distribut
 # Points to look at
 x <- seq(0, 5*10^5, 10^2)
 
-# Plot of fitted survival function
-# and empirical survival function
+# Plot of fitted survival function and empirical survival function
 SpliceECDF(x, size, splicefit, ylim=c(0,0.1))
 
-# PP-plot with fitted survival function
-# and empirical survival function 
+# PP-plot with fitted survival function and empirical survival function 
 SplicePP(size, splicefit)
 
 # PP-plot with log-scales
