@@ -1104,6 +1104,9 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
 # Random numbers from spliced distribution
 rSplice <- function(n, splicefit) {
   
+  # Check input
+  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  
   # Use quantile function directly if more than 1 Pareto piece
   if (length(splicefit$EVTfit$gamma)>1) {
     return(qSplice(runif(n), splicefit=splicefit))

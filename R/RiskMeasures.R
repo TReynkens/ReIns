@@ -530,6 +530,9 @@ ExcessSplice <- function(R, L=Inf, splicefit) {
     }
   }
   
+  # Check input
+  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  
   
   type <- splicefit$type
   
@@ -583,6 +586,7 @@ VaR <- function(p, splicefit) {
 # Expected Shortfall (ES)
 ES <- function(p, splicefit) {
   
+  
   # Check input
   if (!is.numeric(p)) {
     stop("p should be numeric.")
@@ -591,6 +595,8 @@ ES <- function(p, splicefit) {
   if (any(p<=0) | any(p>1)) {
     stop("All elements of p should be in (0,1].")
   }
+  
+  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   # VaR
   VaR <- VaR(p=p, splicefit=splicefit)
