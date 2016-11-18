@@ -33,7 +33,7 @@ Bandwidth of the non-parametric estimator.
 Kernel of the non-parametric estimator. One of \code{"biweight"} (default), \code{"normal"}, \code{"uniform"}, \code{"triangular"} and \code{"epanechnikov"}.
 }
   \item{logk}{
-Logical indicating if the Hill-type estimates are plotted as a function of \eqn{log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
+Logical indicating if the Hill-type estimates are plotted as a function of \eqn{\log(k)} (\code{logk=TRUE}) or as a function of \eqn{k}. Default is \code{FALSE}.
 }
   \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.
