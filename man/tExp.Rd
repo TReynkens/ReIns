@@ -34,13 +34,13 @@ The rate parameter for the exponential distribution, default is 1.
 Endpoint of the truncated exponential distribution. The default value is \code{Inf} for which the truncated exponential distribution corresponds to the ordinary exponential distribution.
 }
  \item{log}{
-  Logical indicating if the densities are given as \eqn{log(f)}, default is \code{FALSE}.
+  Logical indicating if the densities are given as \eqn{\log(f)}, default is \code{FALSE}.
  }
  \item{lower.tail}{
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
  }
   \item{log.p}{
-  Logical indicating if the probabilities are given as \eqn{log(p)}, default is \code{FALSE}.
+  Logical indicating if the probabilities are given as \eqn{\log(p)}, default is \code{FALSE}.
  }
 }
 \details{

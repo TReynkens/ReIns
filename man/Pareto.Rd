@@ -34,13 +34,13 @@ The shape parameter of the Pareto distribution, a strictly positive number.
 The scale parameter of the Pareto distribution, a strictly positive number. Its default value is \code{1}.
 }
  \item{log}{
-  Logical indicating if the densities are given as \eqn{log(f)}, default is \code{FALSE}.
+  Logical indicating if the densities are given as \eqn{\log(f)}, default is \code{FALSE}.
  }
  \item{lower.tail}{
  Logical indicating if the probabilities are of the form \eqn{P(X\le x)} (\code{TRUE}) or \eqn{P(X>x)} (\code{FALSE}). Default is \code{TRUE.}
  }
   \item{log.p}{
-  Logical indicating if the probabilities are given as \eqn{log(p)}, default is \code{FALSE}.
+  Logical indicating if the probabilities are given as \eqn{\log(p)}, default is \code{FALSE}.
  }
 }
 \details{
