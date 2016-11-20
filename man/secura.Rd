@@ -9,7 +9,7 @@ Automobile claims from 1988 to 2001, gathered from several European insurance co
 }
 \usage{data("secura")}
 \format{
-  A data frame with 371 observations on the following 2 variables.
+  A data frame with 371 observations on the following 2 variables:
   \describe{
     \item{\code{year}}{Year of claim occurence.}
     \item{\code{size}}{Size of automobile insurance claim (in EUR).}
@@ -28,7 +28,7 @@ ExpQQ(secura$size)
 # Pareto QQ-plot of Secura data
 ParetoQQ(secura$size)
 
-#Mean excess plot of Secura data (function of k)
+# Mean excess plot of Secura data (function of k)
 MeanExcess(secura$size, k=TRUE)
 
 # Mean excess plot of Secura data (function of order statistics)

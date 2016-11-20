@@ -47,7 +47,9 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
 See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for details.
 }
 \value{
-Vector of densities \eqn{f(x)} for \code{dSplice}, vector of probabilities \eqn{F(x)=P(X\le x)} for \code{pSplice},  vector of quantiles \eqn{Q(p)} for \code{qSplice} and a random sample of length \eqn{n} for \code{rSplice}.
+\code{dSplice} gives the density function evaluated in \eqn{x}, \code{pSplice} the CDF evaluated in \eqn{x} and \code{qSplice} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.
+
+\code{rSplice} returns a random sample of length \eqn{n}.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -59,14 +61,14 @@ Verbelen, R., Gong, L., Antonio, K., Badescu, A. and Lin, S. (2015). "Fitting Mi
 Erlangs to Censored and Truncated Data Using the EM Algorithm." \emph{Astin Bulletin}, 45, 729--758.
 }
 \author{
-Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang CDF, PDF and quantiles.
+Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang PDF, CDF and quantiles.
 }
 
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{VaR}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}},
+\code{\link{VaR}}, \code{\link{SpliceFit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}}, \code{\link{SpliceFitGPD}},
 \code{\link{SpliceECDF}}, \code{\link{SpliceLL}}, \code{\link{SplicePP}}
 }
 

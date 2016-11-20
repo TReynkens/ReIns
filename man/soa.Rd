@@ -9,7 +9,7 @@ The SOA Group Medical Insurance Large Claims Database records, among others, all
 }
 \usage{data("soa")}
 \format{
-  A data frame with 75789 observations on the following variable.
+  A data frame with 75789 observations on the following variable:
   \describe{
     \item{\code{size}}{Claim size (in USD).}
   }

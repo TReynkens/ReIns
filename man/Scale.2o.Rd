@@ -5,7 +5,7 @@
 Bias-reduced scale estimator using second order Hill estimator
 }
 \description{
-Computes the bias-reduced estimator for the scale parameter using the second order Hill estimator.
+Computes the bias-reduced estimator for the scale parameter using the second-order Hill estimator.
 }
 \usage{
 Scale.2o(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FALSE, 

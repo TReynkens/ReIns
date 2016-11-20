@@ -10,7 +10,7 @@ Fire insurance claims for a Norwegian insurance company for the period 1972 to 1
 }
 \usage{data("norwegianfire")}
 \format{
-  A data frame with 9181 observations on the following 2 variables.
+  A data frame with 9181 observations on the following 2 variables:
   \describe{
     \item{\code{size}}{Size of fire insurance claim (in 1000 NOK).}
     \item{\code{year}}{Year of claim occurence (expressed as \eqn{yy} instead of \eqn{19yy}).}

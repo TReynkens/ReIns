@@ -38,7 +38,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The scale estimates are computed based on the following model for the CDF:
 \eqn{1-F(x) = A x^{-1/\gamma}}, where \eqn{A:= C^{1/\gamma}} is the scale parameter:
-\deqn{\hat{A}_{k,n}=(k+1)/(n+1) X_{n-k,n}^(1/H_{k,n})}
+\deqn{\hat{A}_{k,n}=(k+1)/(n+1) X_{n-k,n}^{1/H_{k,n}}}
 where \eqn{H_{k,n}} are the Hill estimates.
 
 See Section 4.2.1 of Albrecher et al. (2017) for more details.
@@ -47,7 +47,7 @@ See Section 4.2.1 of Albrecher et al. (2017) for more details.
 A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
 \item{A}{Vector of the corresponding scale estimates.}
-\item{C}{Vector of the corresponding estimates for \eqn{C}, see details.}
+\item{C}{Vector of the corresponding estimates for \eqn{C}, see Details.}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
