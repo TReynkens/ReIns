@@ -14,7 +14,7 @@ cProb(data, censored, gamma1, q, plot = FALSE, add = FALSE,
       main = "Estimates of small exceedance probability", ...)
       
 cReturn(data, censored, gamma1, q, plot = FALSE, add = FALSE, 
-        main = "Estimates of return period", ...)      
+        main = "Estimates of large return period", ...)      
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -39,7 +39,7 @@ Logical indicating if the estimates should be added to an existing plot, default
 }
   \item{main}{
 Title for the plot, default is \code{"Estimates of small exceedance probability"} for \code{cProb}
-and \code{"Estimates of return period"} for \code{cReturn}.
+and \code{"Estimates of large return period"} for \code{cReturn}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

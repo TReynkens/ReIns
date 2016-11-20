@@ -222,7 +222,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
 # Estimator for return periods for (right) censored data
 # using EPD estimates for (right) censored data
 cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add = FALSE,
-                     main = "Estimates of return period",...) {
+                     main = "Estimates of large return period",...) {
   
   # Check input arguments
   .checkInput(data)

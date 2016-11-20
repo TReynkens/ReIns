@@ -60,7 +60,7 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
 
 
 cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE, 
-                  main = "Estimates of return period", ...) {
+                  main = "Estimates of large return period", ...) {
   
   # Check input arguments
   .checkInput(data,gamma1)
@@ -246,7 +246,7 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
 
 #Estimate return periods using the censored generalised Hill estimator for gamma1
 cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE, 
-                    main = "Estimates of return period", ...) {
+                    main = "Estimates of large return period", ...) {
   
   # Check input arguments
   .checkInput(data,gamma1,gammapos=FALSE)
@@ -385,7 +385,7 @@ cProbGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALS
 
 #Estimate return period using the censored POT estimator for gamma1
 cReturnGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALSE, 
-                     main = "Estimates of return period", ...) {
+                     main = "Estimates of large return period", ...) {
   
   # Check input arguments
   .checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)

@@ -121,7 +121,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
 
 
 ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE, 
-                     main = "Estimates of return period", ...) {
+                     main = "Estimates of large return period", ...) {
   
   # Check input arguments
   .checkInput(data,gamma,gammapos=FALSE)

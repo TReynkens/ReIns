@@ -15,13 +15,13 @@ Prob(data, gamma, q, plot = FALSE, add = FALSE,
      main = "Estimates of small exceedance probability", ...)
           
 Return(data, gamma, q, plot = FALSE, add = FALSE, 
-       main = "Estimates of return period", ...)
+       main = "Estimates of large return period", ...)
         
 Weissman.p(data, gamma, q, plot = FALSE, add = FALSE, 
            main = "Estimates of small exceedance probability", ...)
           
 Weissman.r(data, gamma, q, plot = FALSE, add = FALSE, 
-           main = "Estimates of return period", ...)
+           main = "Estimates of large return period", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,8 +41,8 @@ Logical indicating if the estimates should be plotted as a function of \eqn{k}, 
 Logical indicating if the estimates should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of extreme quantile"} for \code{Weissman.p}
-and \code{"Estimates of return period"} for \code{Weissman.r}.
+Title for the plot, default is \code{"Estimates of extreme quantile"} for \code{Prob}
+and \code{"Estimates of large return period"} for \code{Return}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -56,8 +56,8 @@ See Section 4.2.1 of Albrecher et al. (2017) for more details.
 \value{
 A list with following components:
 \item{k}{Vector of the values of the tail parameter \eqn{k}.}
-\item{P}{Vector of the corresponding probability estimates, only returned for \code{Weissman.p}.}
-\item{R}{Vector of the corresponding estimates for the return period, only returned for \code{Weissman.r}.}
+\item{P}{Vector of the corresponding probability estimates, only returned for \code{Prob}.}
+\item{R}{Vector of the corresponding estimates for the return period, only returned for \code{Return}.}
 \item{q}{The used large quantile.}
 }
 \references{
@@ -80,7 +80,7 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Hill estimator

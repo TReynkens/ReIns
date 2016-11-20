@@ -153,7 +153,7 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
 
 
 ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE, 
-                    main = "Estimates of return period", ...) {
+                    main = "Estimates of large return period", ...) {
                       
     # Check input arguments
     .checkInput(data,gamma,gammapos=FALSE)

@@ -355,7 +355,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
 
 
 ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE, 
-                      main = "Estimates of return period", ...) {
+                      main = "Estimates of large return period", ...) {
   # Check input arguments
   .checkInput(data)
   

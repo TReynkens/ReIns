@@ -13,7 +13,7 @@ ProbGH(data, gamma, q, plot = FALSE, add = FALSE,
        main = "Estimates of small exceedance probability", ...)
 
 ReturnGH(data, gamma, q, plot = FALSE, add = FALSE, 
-         main = "Estimates of return period", ...)
+         main = "Estimates of large return period", ...)
 }
 \arguments{
  \item{data}{
@@ -32,7 +32,7 @@ Logical indicating if the estimates should be plotted as a function of \eqn{k}, 
 Logical indicating if the estimates should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of small exceedance probability"} for \code{ProbGH} and \code{"Estimates of return period"} for \code{ReturnGH}.
+Title for the plot, default is \code{"Estimates of small exceedance probability"} for \code{ProbGH} and \code{"Estimates of large return period"} for \code{ReturnGH}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -67,7 +67,7 @@ Tom Reynkens.
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Hill estimator
@@ -76,11 +76,11 @@ H <- Hill(SOAdata)
 gH <- genHill(SOAdata, H$gamma)
 
 # Exceedance probability
-q = 10^7
+q <- 10^7
 ProbGH(SOAdata, gamma=gH$gamma, q=q, plot=TRUE)
 
 # Return period
-q = 10^7
+q <- 10^7
 ReturnGH(SOAdata, gamma=gH$gamma, q=q, plot=TRUE)
 }
 

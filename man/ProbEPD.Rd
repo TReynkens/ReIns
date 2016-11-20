@@ -14,7 +14,7 @@ ProbEPD(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
         main = "Estimates of small exceedance probability", ...)
 
 ReturnEPD(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE, 
-          main = "Estimates of return period", ...)
+          main = "Estimates of large return period", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,16 +41,13 @@ Logical indicating if the estimates should be added to an existing plot, default
 }
   \item{main}{
 Title for the plot, default is \code{"Estimates of small exceedance probability"} for \code{ProbEPD}
-and \code{"Estimates of return period"} for \code{ReturnEPD}.
+and \code{"Estimates of large return period"} for \code{ReturnEPD}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
 \details{
-The return period is estimated as \deqn{(n+1)/(k+1) / (1-F(x))} with \eqn{F}
-the CDF of the EPD with parameters \eqn{\gamma}, \eqn{\kappa} and \eqn{\tau}.
-
 See Section 4.2.1 of Albrecher et al. (2017) for more details.
 }
 

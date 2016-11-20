@@ -13,7 +13,7 @@ ProbGPD(data, gamma, sigma, q, plot = FALSE, add = FALSE,
         main = "Estimates of small exceedance probability", ...)
 
 ReturnGPD(data, gamma, sigma, q, plot = FALSE, add = FALSE, 
-          main = "Estimates of return period", ...)
+          main = "Estimates of large return period", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,7 +37,7 @@ Logical indicating if the estimates should be added to an existing plot, default
 }
   \item{main}{
 Title for the plot, default is \code{"Estimates of small exceedance probability"} for \code{ProbGPD}
-and \code{"Estimates of return period"} for \code{ReturnGPD}.
+and \code{"Estimates of large return period"} for \code{ReturnGPD}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -70,18 +70,18 @@ Tom Reynkens.
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # GPD-ML estimator
 pot <- GPDmle(SOAdata)
 
 # Exceedance probability
-q = 10^7
+q <- 10^7
 ProbGPD(SOAdata, gamma=pot$gamma, sigma=pot$sigma, q=q, plot=TRUE)
 
 # Return period
-q = 10^7
+q <- 10^7
 ReturnGPD(SOAdata, gamma=pot$gamma, sigma=pot$sigma, q=q, plot=TRUE)
 }
 

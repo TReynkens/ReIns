@@ -13,7 +13,7 @@ cProbEPD(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add = FALSE,
          main = "Estimates of small exceedance probability", ...)
 
 cReturnEPD(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add = FALSE,
-           main = "Estimates of return period", ...)          
+           main = "Estimates of large return period", ...)          
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -43,7 +43,7 @@ Logical indicating if the estimates should be added to an existing plot, default
 }
   \item{main}{
 Title for the plot, default is \code{"Estimates of small exceedance probability"} for \code{cProbEPD}
-and \code{"Estimates of return period"} for \code{cReturnEPD}.
+and \code{"Estimates of large return period"} for \code{cReturnEPD}.
 
 }
   \item{\dots}{
