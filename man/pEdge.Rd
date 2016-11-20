@@ -17,7 +17,7 @@ pEdge(x, moments = c(0, 1, 0, 3), raw = TRUE, lower.tail = TRUE, log.p = FALSE)
 Vector of points to approximate the CDF in.
 }
   \item{moments}{
-The first four raw moments if \code{raw=TRUE}, by default the first four raw moments of the standard normal distribution are used.
+The first four raw moments if \code{raw=TRUE}. By default the first four raw moments of the standard normal distribution are used.
 When \code{raw=FALSE}, the mean \eqn{\mu=E(X)}, variance \eqn{\sigma^2=E((X-\mu)^2)}, skewness (third standardised moment, \eqn{\nu=E((X-\mu)^3)/\sigma^3}) and kurtosis (fourth standardised moment, \eqn{k=E((X-\mu)^4)/\sigma^4}).
 }
   \item{raw}{

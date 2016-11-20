@@ -51,7 +51,7 @@ is available. The \emph{normal-power approximation} of the CDF is then given by
 for \eqn{z=(x-\mu)/\sigma\ge 1} and \eqn{9/\nu^2 + 6z/\nu+1\ge 0}.
 
 \item The \emph{shifted Gamma approximation} uses the approximation
-\deqn{X \approx \Gamma(4/\nu^2, 2/(\nu*\sigma)) + \mu -2\sigma/\nu.}
+\deqn{X \approx \Gamma(4/\nu^2, 2/(\nu\times\sigma)) + \mu -2\sigma/\nu.}
 Here, we need that \eqn{\nu>0}.
 
 \item The \emph{normal approximation to the shifted Gamma distribution} approximates the CDF of \eqn{X} as

@@ -15,11 +15,10 @@ MeanExcess_TB(L, U = L, censored, trunclower = 0, truncupper = Inf,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{L}{
-Vector of length \eqn{n} with the lower boundaries of the intervals for interval censored data or the observed data for right censored data. In an insurance context, these are the paid amounts.
+Vector of length \eqn{n} with the lower boundaries of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundaries of the intervals. In an 
-insurance context, these are the incurred values. By default, they are equal to \code{L}.
+Vector of length \eqn{n} with the upper boundaries of the intervals. By default, they are equal to \code{L}.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.

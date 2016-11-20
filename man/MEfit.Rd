@@ -29,7 +29,7 @@ Initial value provided for \code{M}. When \code{NULL} (default), not included in
 }
 }
 \details{
-The rate paremeter \eqn{\lambda} used in Albrecher et al. (2017) is equal to \eqn{1/\theta}.
+The rate parameter \eqn{\lambda} used in Albrecher et al. (2017) is equal to \eqn{1/\theta}.
 
 See Reynkens et al. (2016) and Section 4.3 of Albrecher et al. (2017) for more details
 }

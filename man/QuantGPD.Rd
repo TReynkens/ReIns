@@ -5,7 +5,7 @@
 Estimator of extreme quantiles using GPD-MLE
 }
 \description{
-Computes estimates of of an extreme quantile \eqn{Q(1-p)} using the GPD fit for the peaks over a threshold.
+Computes estimates of an extreme quantile \eqn{Q(1-p)} using the GPD fit for the peaks over a threshold.
 }
 \usage{
 QuantGPD(data, gamma, sigma, p, plot = FALSE, add = FALSE, 

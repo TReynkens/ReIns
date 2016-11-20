@@ -76,8 +76,8 @@ Tom Reynkens based on \code{S-Plus} code from Yuri Goegebeur.
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
-SOAdata = sort(soa$size)[length(soa$size)-(0:499)]
+# Look at last 500 observations of SOA data
+SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # Hill estimator
 H <- Hill(SOAdata)
@@ -87,11 +87,11 @@ H_QV <- Hill.2oQV(SOAdata)
 # Exceedance probability
 p <- 10^(-5)
 # Weissman estimator
-Quant(SOAdata,gamma=H$gamma,p=p,plot=TRUE)
+Quant(SOAdata, gamma=H$gamma, p=p, plot=TRUE)
 
 # Second order Weissman estimator (QV)
-Quant.2oQV(SOAdata,gamma=H_QV$gamma,beta=H_QV$beta,b=H_QV$b,p=p,
-                add=TRUE,lty=2)
+Quant.2oQV(SOAdata, gamma=H_QV$gamma, beta=H_QV$beta, b=H_QV$b, p=p,
+           add=TRUE, lty=2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
