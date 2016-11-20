@@ -5,10 +5,10 @@
 \alias{Weissman.r}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Weissman estimator of small exceedance probabilities and return periods
+Weissman estimator of small exceedance probabilities and large return periods
 }
 \description{
-Compute estimates of a small exceedance probability \eqn{P(X>q)} or return period \eqn{1/P(X>q)} using the approach of Weissman (1978).
+Compute estimates of a small exceedance probability \eqn{P(X>q)} or large return period \eqn{1/P(X>q)} using the approach of Weissman (1978).
 }
 \usage{
 Prob(data, gamma, q, plot = FALSE, add = FALSE, 

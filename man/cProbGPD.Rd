@@ -4,10 +4,10 @@
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Estimator of small exceedance probabilities and return periods using censored GPD-MLE
+Estimator of small exceedance probabilities and large return periods using censored GPD-MLE
 }
 \description{
-Computes estimates of a small exceedance probability \eqn{P(X>q)} or return period \eqn{1/P(X>q)} using the GPD-ML estimator adapted for right censoring.
+Computes estimates of a small exceedance probability \eqn{P(X>q)} or large return period \eqn{1/P(X>q)} using the GPD-ML estimator adapted for right censoring.
 }
 \usage{
 cProbGPD(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALSE,

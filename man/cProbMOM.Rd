@@ -3,10 +3,10 @@
 \alias{cReturnMOM}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Estimator of small exceedance probabilities and return periods using censored MOM
+Estimator of small exceedance probabilities and large return periods using censored MOM
 }
 \description{
-Computes estimates of a small exceedance probability \eqn{P(X>q)} or return period \eqn{1/P(X>q)} using the Method of Moments estimates for the EVI adapted for right censoring.
+Computes estimates of a small exceedance probability \eqn{P(X>q)} or large return period \eqn{1/P(X>q)} using the Method of Moments estimates for the EVI adapted for right censoring.
 }
 \usage{
 cProbMOM(data, censored, gamma1, q, plot = FALSE, add = FALSE, 

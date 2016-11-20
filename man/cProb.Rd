@@ -4,10 +4,10 @@
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Estimator of small exceedance probabilities and return periods using censored Hill
+Estimator of small exceedance probabilities and large return periods using censored Hill
 }
 \description{
-Computes estimates of a small exceedance probability \eqn{P(X>q)} or return period \eqn{1/P(X>q)} using the estimates for the EVI obtained from the Hill estimator adapted for right censoring.
+Computes estimates of a small exceedance probability \eqn{P(X>q)} or large return period \eqn{1/P(X>q)} using the estimates for the EVI obtained from the Hill estimator adapted for right censoring.
 }
 \usage{
 cProb(data, censored, gamma1, q, plot = FALSE, add = FALSE, 

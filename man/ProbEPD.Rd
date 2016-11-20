@@ -3,10 +3,10 @@
 \alias{ReturnEPD}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Estimator of small exceedance probabilities and return periods using EPD
+Estimator of small exceedance probabilities and large return periods using EPD
 }
 \description{
-Computes estimates of a small exceedance probability \eqn{P(X>q)} or return period \eqn{1/P(X>q)} using the parameters from the EPD fit.
+Computes estimates of a small exceedance probability \eqn{P(X>q)} or large return period \eqn{1/P(X>q)} using the parameters from the EPD fit.
 }
 \usage{
 
