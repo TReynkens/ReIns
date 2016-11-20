@@ -17,10 +17,10 @@ SpliceFiticPareto(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{L}{
-Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data.
+Vector of length \eqn{n} with the lower boundaries of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundary of the intervals.
+Vector of length \eqn{n} with the upper boundaries of the intervals.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.

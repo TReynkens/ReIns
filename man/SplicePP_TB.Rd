@@ -14,10 +14,10 @@ SplicePP_TB(L, U = L, censored, splicefit, x = NULL, log = FALSE, plot = TRUE,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{L}{
-Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data.
+Vector of length \eqn{n} with the lower boundaries of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundary of the intervals. By default, they are equal to \code{L}.
+Vector of length \eqn{n} with the upper boundaries of the intervals. By default, they are equal to \code{L}.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.

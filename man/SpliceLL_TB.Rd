@@ -18,10 +18,10 @@ SpliceLL_TB(x = sort(L), L, U = L, censored, splicefit, plot = TRUE,
 Vector of points to plot the fitted survival function at. By default we plot it at the points \code{L}.
 }
   \item{L}{
-Vector of length \eqn{n} with the lower boundary of the intervals for interval censored data or the observed data for right censored data.
+Vector of length \eqn{n} with the lower boundaries of the intervals for interval censored data or the observed data for right censored data.
 }
   \item{U}{
-Vector of length \eqn{n} with the upper boundary of the intervals. By default, they are equal to \code{L}.
+Vector of length \eqn{n} with the upper boundaries of the intervals. By default, they are equal to \code{L}.
 }
   \item{censored}{
  A logical vector of length \eqn{n} indicating if an observation is censored.
