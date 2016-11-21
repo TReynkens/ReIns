@@ -50,7 +50,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the estimates for the exc
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}}  
+\code{\link{SpliceFit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}}  
 }
 \examples{
 \dontrun{

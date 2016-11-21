@@ -47,7 +47,7 @@ Tom Reynkens with \code{R} code from Roel Verbelen for the mixed Erlang quantile
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{qSplice}}, \code{\link{ExcessSplice}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}} 
+\code{\link{qSplice}}, \code{\link{ExcessSplice}}, \code{\link{SpliceFit}}, \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}},  \code{\link{SpliceFitGPD}} 
 }
 \examples{
 \dontrun{

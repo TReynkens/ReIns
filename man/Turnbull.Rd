@@ -17,10 +17,10 @@ Turnbull(x, L, R, censored, trunclower = 0, truncupper = Inf,
 Vector with points to evaluate the estimator in.
 }
   \item{L}{
-Vector of length \eqn{n} with the left boundary of the intervals.
+Vector of length \eqn{n} with the lower boundaries of the intervals.
 }
   \item{R}{
-Vector of length \eqn{n} with the right boundary of the intervals.
+Vector of length \eqn{n} with the upper boundaries of the intervals.
 }
   \item{censored}{
 Vector of \eqn{n} logicals indicating if an observation is interval censored. 

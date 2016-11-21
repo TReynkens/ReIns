@@ -32,7 +32,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The derivative plot of a Weibull QQ-plot is \deqn{(k, H_{k,n}/W_{k,n})} or \deqn{(\log X_{n-k,n}, H_{k,n}/W_{k,n})}
 with \eqn{H_{k,n}} the Hill estimates and
-\deqn{W_{k,n}=1/k*\sum_{j=1}^k \log(\log((n+1)/j))  -  \log(\log((n+1)/(k+1))).}
+\deqn{W_{k,n}=1/k\sum_{j=1}^k \log(\log((n+1)/j))  -  \log(\log((n+1)/(k+1))).}
 
 See Section 4.1 of Albrecher et al. (2017) for more details.
 }
