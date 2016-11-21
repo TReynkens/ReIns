@@ -50,7 +50,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   } else if (plot | add) {
     # Add lines
     for(j in 2:length(rho)) {
-      lines(K,EPD$gamma[K,j],lty=j)
+      lines(K, EPD$gamma[K,j], lty=j)
     }
   }
   
@@ -82,7 +82,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   H <- Hill(data, plot=FALSE)$gamma
   
   if (all(rho>0) & nrho==1) {
-    rho <- .rhoEst(data,alpha=1,tau=rho)$rho
+    rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
 
   } else if (all(rho<0)) {
@@ -93,9 +93,9 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   }
   
   
-  gamma <- matrix(0,n-1,nrho)
-  kappa <- matrix(0,n-1,nrho)
-  tau <- matrix(0,n-1,nrho)
+  gamma <- matrix(0, n-1, nrho)
+  kappa <- matrix(0, n-1, nrho)
+  tau <- matrix(0, n-1, nrho)
   
   beta <- -rho
   
@@ -105,17 +105,17 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     if (nrho==1 & all(rho.orig>0)) {
       # Estimates for rho of Fraga Alves et al. (2003) used 
       # and hence a different value of beta for each k
-      tau[K,1] <- -beta[K]/H[K]
+      tau[K, 1] <- -beta[K]/H[K]
       
       # rho differs with k
       rhovec <- rho
     } else {
       # rho is provided => beta is constant over k
       # (but differs with rho)
-      tau[K,j] <- -beta[j]/H[K]
+      tau[K, j] <- -beta[j]/H[K]
       
       # rho is constant over k
-      rhovec <- rep(rho[j],n-1)
+      rhovec <- rep(rho[j], n-1)
     }
 
     # kappa
@@ -159,7 +159,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   H <- Hill(data, plot=FALSE)$gamma
   
   if (all(rho>0) & nrho==1) {
-    rho <- .rhoEst(data,alpha=1,tau=rho)$rho
+    rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
     
   } else if (all(rho<0)) {
@@ -169,9 +169,9 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     stop("rho should be a single positive number or a vector (of length >=1) of negative numbers.")
   }
   
-  gamma <- matrix(0,n-1,nrho)
-  kappa <- matrix(0,n-1,nrho)
-  tau <- matrix(0,n-1,nrho)
+  gamma <- matrix(0, n-1, nrho)
+  kappa <- matrix(0, n-1, nrho)
+  tau <- matrix(0, n-1, nrho)
   
   for(j in 1:nrho) {
 
@@ -222,14 +222,14 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     
   }
   
-  return(list(gamma=gamma,kappa=kappa))
+  return(list(gamma=gamma, kappa=kappa))
 }
 
 
 
 # Fit EPD to data using MLE.
 # start is the starting value for optimisation: (gamma_start,kappa_start)
-EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
+EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   
   if (is.numeric(start) & length(start)==2) {
     gamma_start <- start[1]
@@ -239,12 +239,12 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   }
   
   
-  if (ifelse(length(data)>1,var(data)==0,0)) {
-    sg <- c(NA,NA)
+  if (ifelse(length(data)>1, var(data)==0, 0)) {
+    sg <- c(NA, NA)
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit <- optim(par=c(gamma_start,kappa_start), fn=.EPDneglogL, Y=data, tau=tau)
+    fit <- optim(par=c(gamma_start, kappa_start), fn=.EPDneglogL, Y=data, tau=tau)
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg <- fit$par
     
@@ -267,7 +267,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   # Makes sure that sigma is positive
   kappa <- theta[2]
 
-  if (kappa<=max(-1,1/tau) | gamma<=0) {
+  if (kappa<=max(-1, 1/tau) | gamma<=0) {
     logL <- -10^6
   } else {
     logL <- sum( log(depd(Y, gamma=gamma, kappa=kappa, tau=tau)) )
@@ -323,7 +323,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
 
 
 ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
-                    main = "Estimates of small exceedance probability",...) {
+                    main = "Estimates of small exceedance probability", ...) {
   # Check input arguments
   .checkInput(data)
   

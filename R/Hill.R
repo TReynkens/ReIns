@@ -45,7 +45,7 @@ Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main =
   
   # output list with values of k and corresponding Hill estimates
   
-  .output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=Hill[K]), plot=plot, add=add)
 
 }
 
@@ -68,7 +68,7 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
                  main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma)
+  .checkInput(data, gamma)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -91,7 +91,7 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, P=wp[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=wp[K], q=q), plot=plot, add=add)
 }
 
 Weissman.p <- Prob
@@ -101,7 +101,7 @@ Weissman.p <- Prob
 Return <- function(data, gamma, q, plot = FALSE, add = FALSE, 
                    main = "Estimates of large return period", ...) {
   # Check input arguments
-  .checkInput(data,gamma)
+  .checkInput(data, gamma)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -124,7 +124,7 @@ Return <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, R=wr[K], q=q),plot=plot,add=add)
+  .output(list(k=K, R=wr[K], q=q), plot=plot, add=add)
 }
 
 Weissman.r <- Return 
@@ -148,7 +148,7 @@ Quant <- function(data, gamma, p, plot = FALSE, add = FALSE,
                   main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma)
+  .checkInput(data, gamma)
   
   .checkProb(p)
   
@@ -167,7 +167,7 @@ Quant <- function(data, gamma, p, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=wq[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=wq[K], p=p), plot=plot, add=add)
 }
 
 Weissman.q <- Quant

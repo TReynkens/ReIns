@@ -53,7 +53,7 @@ Moment <- function(data, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment
   
   # output list with values of k and
   # corresponding estimates for gamma, b and beta
-  .output(list(k=K, gamma=Mom[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=Mom[K]), plot=plot, add=add)
   
   
 }
@@ -126,7 +126,7 @@ ReturnMOM <- ReturnGH
 #   # output list with values of k, corresponding return period estimates 
 #   # and the considered large quantile q
 #   
-#   .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+#   .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
 #   
 # }
 

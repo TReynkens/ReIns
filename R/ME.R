@@ -26,7 +26,7 @@
   shape <- unique(ceiling(quantile(initial_data, probs = seq(0, 1, length.out = M), na.rm = TRUE)/theta))
   
   # Initial value for alpha's
-  alpha <- rep(0,length(shape))
+  alpha <- rep(0, length(shape))
   alpha[1] <- sum(initial_data <= shape[1]*theta)
   if (length(shape)>1) {
     for (i in 2:length(shape)) {
@@ -150,11 +150,11 @@
   iteration <- 1
   #if (no_censoring) {  
     # matrix containing densities (uncensored)
-    x_densities <- outer(x,shape,dgamma, scale=theta)
+    x_densities <- outer(x, shape, dgamma, scale=theta)
   #}   
   #if (censoring) {  
     # matrix containing censoring probabilities (censored)
-    c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
+    c_probabilities <- outer(upper, shape, pgamma, scale=theta)-outer(lower, shape, pgamma, scale=theta)
   #} 
   # truncation probabilities
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
@@ -170,10 +170,10 @@
       c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)      
     } else if (no_censoring) {
       u_z <- .ME_u_z(x_densities, beta, t_probabilities, M)
-      c_z <- as.matrix(c(0,0))
-      c_exp <- as.matrix(c(0,0))
+      c_z <- as.matrix(c(0, 0))
+      c_exp <- as.matrix(c(0, 0))
     } else {
-      u_z <- as.matrix(c(0,0))
+      u_z <- as.matrix(c(0, 0))
       c_z <- .ME_c_z(c_probabilities, beta, t_probabilities, M)
       c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)
     }
@@ -193,11 +193,11 @@
     iteration <- iteration + 1
     #if (no_censoring) {  
       # matrix containing densities (uncensored)
-      x_densities <- outer(x,shape,dgamma, scale=theta)
+      x_densities <- outer(x, shape, dgamma, scale=theta)
     #}   
     #if (censoring) {  
       # matrix containing censoring probabilities (censored)
-      c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
+      c_probabilities <- outer(upper, shape, pgamma, scale=theta)-outer(lower, shape, pgamma, scale=theta)
     #} 
     # truncation probabilities
     t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
@@ -207,7 +207,7 @@
   # beta to alpha
   alpha_tilde <- beta / t_probabilities
   alpha <- alpha_tilde / sum(alpha_tilde)
- list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
+ list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, iteration = iteration, AIC=-2*loglikelihood+2*(2*length(alpha)), BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
 }
 
 ## Shape adjustments
@@ -285,7 +285,7 @@
     after_loglikelihood <- loglikelihood  
     iteration <- iteration + 1
   }
-  list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(length(lower))) 
+  list(alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)), BIC=-2*loglikelihood+(2*length(alpha))*log(length(lower))) 
 }
 
 ## Reduction of M based on an information criterium: AIC and BIC implemented
@@ -335,7 +335,7 @@
       improve <- FALSE
     }        
   }
-  list(M = M, alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)),BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
+  list(M = M, alpha = alpha, beta = beta, shape = shape, theta = theta, loglikelihood = loglikelihood, AIC=-2*loglikelihood+2*(2*length(alpha)), BIC=-2*loglikelihood+(2*length(alpha))*log(n)) 
 }
 
 ## Calibration procedure for mixtures of Erlangs by repeatedly using the EM algorithm while adjusting and reducing the shape parameters based on an information criterium (AIC and BIC implemented)
@@ -500,7 +500,7 @@
   # Initial values for s and M and obtained values for information criterium and M
   # Return NA when an error occured in fitting
   f1 <- function(x) {
-    if (exists(criterium,x)) {
+    if (exists(criterium, x)) {
       with(x, get(criterium))
     } else {
       NA
@@ -509,7 +509,7 @@
   crit <- sapply(all_model, f1)
   
   f2 <- function(x) {
-    if (exists("M",x)) {
+    if (exists("M", x)) {
       x$M
     } else {
       NA
@@ -520,7 +520,7 @@
   colnames(performances) <- c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit==min(crit,na.rm=TRUE))[1]
+  best_index <- which(crit==min(crit, na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   list(best_model = best_model, performances = performances, all_model = all_model)

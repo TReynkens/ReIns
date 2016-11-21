@@ -25,7 +25,7 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                         main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma1)
+  .checkInput(data, gamma1)
   censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
@@ -55,7 +55,7 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
 }
 
 
@@ -63,7 +63,7 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                   main = "Estimates of large return period", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma1)
+  .checkInput(data, gamma1)
   censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
@@ -93,7 +93,7 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, R=R[K], q=q),plot=plot,add=add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
 }
 
 
@@ -120,7 +120,7 @@ cQuant <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   
   
   # Check input arguments
-  .checkInput(data,gamma1)
+  .checkInput(data, gamma1)
   censored <- .checkCensored(censored, length(data))
   .checkProb(p)
   
@@ -145,7 +145,7 @@ cQuant <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
 }
 
 
@@ -156,7 +156,7 @@ cQuantGH <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
                      main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma1,gammapos=FALSE)
+  .checkInput(data, gamma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   .checkProb(p)
   
@@ -176,7 +176,7 @@ cQuantGH <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   H <- Hill(X)$gamma
   
   # Auxiliary value
-  a <- X[n-K] * H[K] * (1-pmin(gamma1[K],0)) / pk[K]
+  a <- X[n-K] * H[K] * (1-pmin(gamma1[K], 0)) / pk[K]
   
   # Kaplan-Meier estimator for CDF
   km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
@@ -202,7 +202,7 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma1,gammapos=FALSE)
+  .checkInput(data, gamma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
@@ -225,7 +225,7 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   H <- Hill(X)$gamma
   
   # Auxiliary value
-  a <- X[n-K] * H[K] * (1-pmin(gamma1[K],0)) / pk[K]
+  a <- X[n-K] * H[K] * (1-pmin(gamma1[K], 0)) / pk[K]
   
   # Kaplan-Meier estimator for CDF
   km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
@@ -249,7 +249,7 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
                     main = "Estimates of large return period", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma1,gammapos=FALSE)
+  .checkInput(data, gamma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   
   if (length(q)>1) {
@@ -272,7 +272,7 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   H <- Hill(X)$gamma
   
   # Auxiliary value
-  a <- X[n-K] * H[K] * (1-pmin(gamma1[K],0)) / pk[K]
+  a <- X[n-K] * H[K] * (1-pmin(gamma1[K], 0)) / pk[K]
   
   # Kaplan-Meier estimator for CDF
   km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv

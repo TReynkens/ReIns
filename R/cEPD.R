@@ -77,10 +77,10 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   if (is.null(beta)) {
     # determine beta using rho
     
-    beta <- matrix(0,n-1,nrho)
+    beta <- matrix(0, n-1, nrho)
     
     if (all(rho>0) & nrho==1) {
-      rho <- .rhoEst(data,alpha=1,tau=rho)$rho
+      rho <- .rhoEst(data, alpha=1, tau=rho)$rho
      
       # Estimates for rho of Fraga Alves et al. (2003) used 
       # and hence a different value of beta for each k
@@ -108,32 +108,32 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     
     # use provided value(s) for beta
     if (length(beta)==1) {
-      beta <- matrix(beta,n-1,nrho)
+      beta <- matrix(beta, n-1, nrho)
 #     } else if (length(beta)==n-1) {
 #       beta <- as.matrix(rep(beta,nrho),ncol=length(rho),byrow=FALSE)
 #     } else {
 #       stop(paste0("beta should have length 1 or n-1 = ",n-1,"."))
 #     }
     } else {
-      beta <- matrix(rep(beta,n-1),ncol=length(beta),byrow=TRUE)
+      beta <- matrix(rep(beta, n-1), ncol=length(beta), byrow=TRUE)
     }
   }
   
-  gamma1 <- matrix(0,n-1,nrho)
-  kappa1 <- matrix(0,n-1,nrho)
-  Delta <- matrix(0,n-1,nrho)
+  gamma1 <- matrix(0, n-1, nrho)
+  kappa1 <- matrix(0, n-1, nrho)
+  Delta <- matrix(0, n-1, nrho)
   
   for(j in 1:nrho) {
 
     K <- 1:k
     D <- - (beta[K,j]^4 * HillZ[K]^3) / ( (1+HillZ[K]*beta[K,j])^2 * (1+2*HillZ[K]*beta[K,j]) )
     
-    Es <- .ES(-beta[,j],Z.n)
-    cEs <- .cEs(-beta[,j],Z.n,delta.n)
+    Es <- .ES(-beta[,j], Z.n)
+    cEs <- .cEs(-beta[,j], Z.n, delta.n)
 
     # Estimates for kappa1
     kappa1[,j] <- (1 - Es[K] - beta[K,j] * (HillZ[K] / phat[K]) * cEs[K]) / D[K]
-    kappa1[,j] <- pmax(kappa1[,j], pmax(-1,-1/beta[,j])+0.001)
+    kappa1[,j] <- pmax(kappa1[,j], pmax(-1, -1/beta[,j])+0.001)
 
     # Estimates for Delta
     Delta[,j] <- (kappa1[,j]*(1-Es))/phat 
@@ -144,7 +144,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     
     # gamma1 = cHill + Delta
     gamma1[,j] <- (HillZ/phat) + Delta[,j]
-    gamma1[gamma1[,j]<=0,j] <- 0.001
+    gamma1[gamma1[,j]<=0, j] <- 0.001
 
   }
   # Only positive values are allowed
@@ -170,7 +170,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   } else if (plot | add) {
   # Add lines
     for(j in 2:nrho) {
-      lines(K,gamma1[,j],lty=j)
+      lines(K, gamma1[,j], lty=j)
     }
   }
   
@@ -182,7 +182,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
 # Estimator for small exceedance probabilities for (right) censored data
 # using EPD estimates for (right) censored data
 cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=FALSE,
-                    main = "Estimates of small exceedance probability",...) {
+                    main = "Estimates of small exceedance probability", ...) {
 
   # Check input arguments
   .checkInput(data)
@@ -196,7 +196,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   X <- as.numeric(s$x)
   sortix <- s$ix
   n <- length(X)
-  prob <- rep(NA,n)
+  prob <- rep(NA, n)
   K <- 1:(n-1)
   
   K2 <- K[!is.na(gamma1[K])]
@@ -204,7 +204,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   # Kaplan-Meier estimator for CDF in X[n-K]
   km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
 
-  prob[K2] <- km * (1-pepd(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2]))
+  prob[K2] <- km * (1-pepd(q/X[n-K2], gamma=gamma1[K2], kappa=kappa1[K2], tau=-beta[K2]))
   prob[prob<0 | prob>1] <- NA
   
   # plots if TRUE
@@ -222,7 +222,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
 # Estimator for return periods for (right) censored data
 # using EPD estimates for (right) censored data
 cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add = FALSE,
-                     main = "Estimates of large return period",...) {
+                     main = "Estimates of large return period", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -236,7 +236,7 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   X <- as.numeric(s$x)
   sortix <- s$ix
   n <- length(X)
-  R <- rep(NA,n)
+  R <- rep(NA, n)
   K <- 1:(n-1)
   
   K2 <- K[!is.na(gamma1[K])]
@@ -244,7 +244,7 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   # Kaplan-Meier estimator for CDF in X[n-K]
   km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
   
-  R[K2] <- 1 / (km * (1-pepd(q/X[n-K2],gamma=gamma1[K2],kappa=kappa1[K2],tau=-beta[K2])))
+  R[K2] <- 1 / (km * (1-pepd(q/X[n-K2], gamma=gamma1[K2], kappa=kappa1[K2], tau=-beta[K2])))
   R[R<1] <- NA
   
   # plots if TRUE

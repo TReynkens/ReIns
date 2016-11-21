@@ -18,7 +18,7 @@ genHill <- function(data, gamma, logk = FALSE, plot = FALSE, add = FALSE,
                     main = "Generalised Hill estimates of EVI", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma)
+  .checkInput(data, gamma)
   
   n <- length(data)
   UH.scores <- numeric(n)
@@ -34,7 +34,7 @@ genHill <- function(data, gamma, logk = FALSE, plot = FALSE, add = FALSE,
   UH.scores[ind] <- X[n-ind] * gamma[ind]
   
   # Stop at n-2 since UH.scores[n]=0, so log(UH.scores[n])=Inf
-  K <- 1:max((n-2),1) 
+  K <- 1:max((n-2), 1) 
   Hill[K] <- cumsum(log(UH.scores[K])) / K - log(UH.scores[K+1])
   
   ######################
@@ -47,7 +47,7 @@ genHill <- function(data, gamma, logk = FALSE, plot = FALSE, add = FALSE,
   }
  
   # output list with values of k and corresponding Hill estimates
-  .output(list(k=K, gamma=Hill[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=Hill[K]), plot=plot, add=add)
   
 }
 
@@ -58,7 +58,7 @@ QuantGH <- function(data, gamma, p, plot = FALSE, add = FALSE,
                     main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data, gamma, gammapos=FALSE)
   .checkProb(p)
   
   
@@ -71,7 +71,7 @@ QuantGH <- function(data, gamma, p, plot = FALSE, add = FALSE,
   # Estimator for extreme quantiles
   
   H <- Hill(X)$gamma
-  a <- X[n-K]*H[K]*(1-pmin(gamma,0))
+  a <- X[n-K]*H[K]*(1-pmin(gamma, 0))
   
   quant[K] <- X[n-K] + a/gamma[K]*( ((K+1)/((n+1)*p))^gamma[K] - 1 )
   
@@ -81,7 +81,7 @@ QuantGH <- function(data, gamma, p, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
   
 }
 
@@ -90,7 +90,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
                    main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data, gamma, gammapos=FALSE)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -104,7 +104,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Estimator for tail probabilities
   
   H <- Hill(X)$gamma
-  a <- X[n-K]*H[K]*(1-pmin(gamma,0))
+  a <- X[n-K]*H[K]*(1-pmin(gamma, 0))
   
   prob[K] <- ((K+1)/(n+1)) * (1 + gamma[K]/a[K]*(q-X[n-K]))^(-1/gamma[K])
   prob[prob<0 | prob>1] <- NA
@@ -115,7 +115,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding probability estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -124,7 +124,7 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
                      main = "Estimates of large return period", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data, gamma, gammapos=FALSE)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -138,7 +138,7 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Estimator for tail probabilities
   
   H <- Hill(X)$gamma
-  a <- X[n-K]*H[K]*(1-pmin(gamma,0))
+  a <- X[n-K]*H[K]*(1-pmin(gamma, 0))
   
   r[K] <- (n+1)/(K+1) * (1 + gamma[K]/a[K]*(q-X[n-K]))^(1/gamma[K])
   r[r<0] <- NA
@@ -149,6 +149,6 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, R=r[K], q=q),plot=plot,add=add)
+  .output(list(k=K, R=r[K], q=q), plot=plot, add=add)
   
 }

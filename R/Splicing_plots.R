@@ -23,10 +23,10 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   n <- length(X)
   eps <- sqrt(1/(2*n)*log(2/alpha))
   lines(x, est, lty=1, col="red")
-  lines(x, pmax(est-eps,0), lty=2, col="blue")
-  lines(x, pmin(est+eps,1), lty=2, col="blue")
-  legend("topright", c("Fitted survival function","Empirical survival function","95% confidence bounds"),
-         lty=c(1,1,2), col=c("black","red","blue"))
+  lines(x, pmax(est-eps, 0), lty=2, col="blue")
+  lines(x, pmin(est+eps, 1), lty=2, col="blue")
+  legend("topright", c("Fitted survival function", "Empirical survival function", "95% confidence bounds"),
+         lty=c(1, 1, 2), col=c("black", "red", "blue"))
 }
 
 # Plot of fitted survival function and Turnbull estimator + confidence intervals
@@ -61,8 +61,8 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
   fit <- tb$fit
   lines(fit$time, fit$lower, col = "blue", lty = 2)
   lines(fit$time, fit$upper, col = "blue", lty = 2)
-  legend("topright", c("Fitted survival function","Turnbull estimator","95% confidence intervals"),
-         lty=c(1,1,2), col=c("black","red","blue"))
+  legend("topright", c("Fitted survival function", "Turnbull estimator", "95% confidence intervals"),
+         lty=c(1, 1, 2), col=c("black", "red", "blue"))
 }
 
 
@@ -80,20 +80,20 @@ SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, plot = TRUE, main =
   # Plot fitted survival function vs. empirical survival function or use minus log-versions
   if (log) {
     ind <- est>0
-    spp.the <- -log(1-pSplice(x[ind],splicefit=splicefit))
+    spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(est[ind])
     .plotfun(spp.emp, spp.the, type="p",
              xlab="-log(Empirical survival probability)",
              ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
-    spp.the <- 1-pSplice(x,splicefit=splicefit)
+    spp.the <- 1-pSplice(x, splicefit=splicefit)
     spp.emp <- est
     .plotfun(spp.emp, spp.the, type="p", xlab="Empirical survival probability",
              ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
   # Add 45 degree line
-  if (plot) abline(0,1)
+  if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
   .output(list(spp.the=spp.the, spp.emp=spp.emp), plot=plot, add=FALSE)
@@ -153,20 +153,20 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
     ind <- surv>0
-    spp.the <- -log(1-pSplice(x[ind],splicefit=splicefit))
+    spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(surv[ind])
     .plotfun(spp.emp, spp.the, type="p",
              xlab="-log(Turnbull survival probability)",
              ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
-    spp.the <- 1-pSplice(x,splicefit=splicefit)
+    spp.the <- 1-pSplice(x, splicefit=splicefit)
     spp.emp <- surv
     .plotfun(spp.emp, spp.the, type="p", xlab="Turnbull survival probability",
              ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
   # Add 45 degree line
-  if (plot) abline(0,1)
+  if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
   .output(list(spp.the=spp.the, spp.emp=spp.emp), plot=plot, add=FALSE)
@@ -220,7 +220,7 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
            main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line
-  if (plot) abline(0,1)
+  if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
   .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
@@ -320,7 +320,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
            main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line
-  if (plot) abline(0,1)
+  if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
   .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)

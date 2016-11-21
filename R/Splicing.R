@@ -199,19 +199,19 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   }
 
   NAind <- which(is.na(EVTfit$gamma))
-  if (any(grepl("Pa", type[-c(1,NAind)]) & EVTfit$gamma[-NAind]<=0)) {
+  if (any(grepl("Pa", type[-c(1, NAind)]) & EVTfit$gamma[-NAind]<=0)) {
     stop("gamma should be strictly positive when Pareto distribution is used.")
   }
  
 
   # Check if correct type when truncated
   ind <- which(is.finite(EVTfit$endpoint))
-  if (any(substring(type[ind+1],1,1)!="T")) {
+  if (any(substring(type[ind+1], 1, 1)!="T")) {
     stop("Invalid type when endpoint is finite.")
   }
   
   # Check if truncated when indicated by type
-  ind <- which(substring(type,1,1)=="T")
+  ind <- which(substring(type, 1, 1)=="T")
   if (any(!is.finite(EVTfit$endpoint[ind-1]) & !is.na(EVTfit$endpoint[ind-1]))) {
     stop("Infinite endpoint is not compatible with type \"TPa\".")
   }
@@ -256,14 +256,14 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   
   # Format output in right style (after rounding): add blank spaces, remove scientific notation and
   # remove leading whitespace, remove trailing zeros
-  res <- format(round(vec,digits), big.mark=" ", scientific=FALSE, trim=TRUE,
+  res <- format(round(vec, digits), big.mark=" ", scientific=FALSE, trim=TRUE,
                 drop0trailing=TRUE)
   
   # paste_end is the last part of the string
   if (length(vec)==1) {
-    paste0(s, name," = ",res, paste_end)
+    paste0(s, name, " = ", res, paste_end)
   } else {
-    paste0(s, name," = (",paste(res, collapse=", "),")",paste_end)
+    paste0(s, name, " = (", paste(res, collapse=", "), ")", paste_end)
   }
   
 }
@@ -283,9 +283,9 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   
   # Title
   s <- "\n"
-  s <- paste0(s, paste0(rep("--",l),collapse=""), "\n")
+  s <- paste0(s, paste0(rep("--", l), collapse=""), "\n")
   s <- paste0(s, "Summary of splicing fit", "\n")
-  s <- paste0(s, paste0(rep("--",l),collapse=""), "\n\n")
+  s <- paste0(s, paste0(rep("--", l), collapse=""), "\n\n")
   
   
   # General splicing part
@@ -293,9 +293,9 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
   s <- .pasteVec(s, "pi", splicefit$pi, digits)
   s <- .pasteVec(s, "t0", splicefit$trunclower, digits)
   s <- .pasteVec(s, "t", splicefit$t, digits)
-  s <- paste0(s, "type = (",paste(splicefit$type, collapse=", "),")","\n\n")
+  s <- paste0(s, "type = (", paste(splicefit$type, collapse=", "), ")", "\n\n")
   
-  s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
+  s <- paste0(s, paste0(rep("* ", l), collapse=""), "\n\n")
   
   
   # ME part
@@ -307,14 +307,14 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
     s <- .pasteVec(s, "M_initial", mefit$M_initial, digits)
   }
   
-  s <- paste0(s, paste0(rep("* ",l),collapse=""), "\n\n")
+  s <- paste0(s, paste0(rep("* ", l), collapse=""), "\n\n")
   
   # EVT part
-  s <- .pasteVec(s,"gamma", evtfit$gamma, digits)
+  s <- .pasteVec(s, "gamma", evtfit$gamma, digits)
   if (exists("sigma", where=splicefit$EVTfit)) {
-    s <- .pasteVec(s,"sigma", evtfit$sigma, digits)
+    s <- .pasteVec(s, "sigma", evtfit$sigma, digits)
   }
-  s <- .pasteVec(s,"endpoint", evtfit$endpoint, digits)
+  s <- .pasteVec(s, "endpoint", evtfit$endpoint, digits)
   
   cat(s)
 }
@@ -336,10 +336,10 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # Print all but last element of pi
   if (length(splicefit$pi)>2) {
     for(i in 1:(length(splicefit$pi)-1)) {
-      s <- .pasteVec(s, paste0("\\pi_",i), splicefit$pi[i], digits, ", ")
+      s <- .pasteVec(s, paste0("\\pi_", i), splicefit$pi[i], digits, ", ")
     }
     # Remove last ", " and add newline (twice)
-    s <- substr(s,1,nchar(s)-2)
+    s <- substr(s, 1, nchar(s)-2)
     s <- paste0(s, "\n\n")
     
   } else {
@@ -353,10 +353,10 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   if (length(splicefit$t)>1) {
     
     for(i in 1:length(splicefit$t)) {
-      s <- .pasteVec(s, paste0("t_",i), splicefit$t[i], digits, ", ")
+      s <- .pasteVec(s, paste0("t_", i), splicefit$t[i], digits, ", ")
     }
     # Remove last ", " and add newline (twice)
-    s <- substr(s,1,nchar(s)-2)
+    s <- substr(s, 1, nchar(s)-2)
     s <- paste0(s, "\n\n")
     
   } else {
@@ -364,7 +364,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   }
   
   # Print splicing type
-  s <- paste0(s, "type = (",paste(splicefit$type, collapse=", "),")","\n\n")
+  s <- paste0(s, "type = (", paste(splicefit$type, collapse=", "), ")", "\n\n")
   
   
   # ME part
@@ -381,10 +381,10 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   if (length(evtfit$gamma)>1) {
     
     for(i in 1:length(evtfit$gamma)) {
-      s <- .pasteVec(s, paste0("\\gamma_",i), evtfit$gamma[i], digits, ", ")
+      s <- .pasteVec(s, paste0("\\gamma_", i), evtfit$gamma[i], digits, ", ")
     }
     # Remove last ", " and add newline (twice)
-    s <- substr(s,1,nchar(s)-2)
+    s <- substr(s, 1, nchar(s)-2)
     s <- paste0(s, "\n\n")
     
   } else {
@@ -396,10 +396,10 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
     if (length(evtfit$sigma)>1) {
       
       for(i in 1:length(evtfit$sigma)) {
-        s <- .pasteVec(s, paste0("\\sigma_",i), evtfit$sigma[i], digits, ", ")
+        s <- .pasteVec(s, paste0("\\sigma_", i), evtfit$sigma[i], digits, ", ")
       }
       # Remove last ", " and add newline (twice)
-      s <- substr(s,1,nchar(s)-2)
+      s <- substr(s, 1, nchar(s)-2)
       s <- paste0(s, "\n\n")
       
     } else {
@@ -411,9 +411,9 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   end <- evtfit$endpoint[length(evtfit$endpoint)]
   
   if (is.finite(end)) {
-    s <- .pasteVec(s,"T", end, digits)
+    s <- .pasteVec(s, "T", end, digits)
   } else {
-    s <- paste0(s, "T = +\\infty","\n")
+    s <- paste0(s, "T = +\\infty", "\n")
   }
   
   
@@ -441,7 +441,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
 
 # Fit mixed Erlang and (truncated) Pareto splicing model to uncensored data
 SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, EVTtruncation = FALSE, 
-                            ncores = NULL, criterium = c("BIC","AIC"), reduceM = TRUE, 
+                            ncores = NULL, criterium = c("BIC", "AIC"), reduceM = TRUE, 
                             eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
  
   ##
@@ -662,7 +662,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   ##
 
   # Make SpliceFit object
-  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
+  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), MEfit=MEfit, EVTfit=EVTfit)
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
@@ -676,7 +676,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
 
   ##
   # Return SpliceFit object
-  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), 
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), 
                     MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
 }
 # Include for compatibility with old versions
@@ -699,7 +699,7 @@ SpliceFitHill <- SpliceFitPareto
   beta <- truncupper/threshold
   f <- function(gamma) (gamma-H-log(beta)/(beta^(1/gamma)-1))^2
   
-  return(nlm(f,H)$estimate)
+  return(nlm(f, H)$estimate)
 }
 
 
@@ -707,7 +707,7 @@ SpliceFitHill <- SpliceFitPareto
 
 # Fit mixed Erlang and Pareto splicing model to interval censored data
 SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
-                              criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
+                              criterium = c("BIC", "AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   # Call function from Splicing_EM.R
   return(.SpliceFiticPareto(L=L, U=U, censored=censored, tsplice=tsplice, M=M, s=s, trunclower=trunclower, truncupper=truncupper,
@@ -720,7 +720,7 @@ SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclow
 # Fit mixed Erlang and GPD splicing model (to uncensored data)
 # No truncation implemented, so only use with one GPD part!
 SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunclower = 0, ncores = NULL, 
-                         criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+                         criterium = c("BIC", "AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
 
   # Check if X is numeric
   if (!is.numeric(X)) stop("X should be a numeric vector.")
@@ -858,7 +858,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   EVTfit <- EVTfit(gamma=EVTfit$gamma, endpoint=EVTfit$endpoint, sigma=EVTfit$sigma)
   
   # Make SpliceFit object
-  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), MEfit=MEfit, EVTfit=EVTfit)
+  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), MEfit=MEfit, EVTfit=EVTfit)
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
@@ -872,7 +872,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   
   ##
   # Return SpliceFit object
-  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME",type), 
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), 
                     MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
 }
 
@@ -933,7 +933,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
     if (splicefit$type[i+1]=="GPD") {
       d[ind] <- dtgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
       
-    } else if (type[i+1] %in% c("Pa","TPa")) {
+    } else if (type[i+1] %in% c("Pa", "TPa")) {
       d[ind] <- dtpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
       
     } else {
@@ -1003,7 +1003,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
       p[ind] <- const[i] + ptgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
     
-    } else if (type[i+1] %in% c("Pa","TPa")) {
+    } else if (type[i+1] %in% c("Pa", "TPa")) {
       p[ind] <- const[i] + ptpareto(x[ind], shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e) * (cconst-const[i])
     
     } else {
@@ -1065,7 +1065,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
     # Quantiles of ME part
     q[ind] <- .ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$p, 
                       theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
-                      interval=c(trunclower,tvec[1])) 
+                      interval=c(trunclower, tvec[1])) 
   }
   
   
@@ -1087,7 +1087,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
     if (splicefit$type[i+1]=="GPD") {
       q[ind] <- qtgpd((p[ind]-const[i])/(cconst-const[i]), mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e)
       
-    } else if (splicefit$type[i+1] %in% c("Pa","TPa")) {
+    } else if (splicefit$type[i+1] %in% c("Pa", "TPa")) {
       q[ind] <- qtpareto((p[ind]-const[i])/(cconst-const[i]), shape=1/EVTfit$gamma[i], scale=tvec[i], endpoint=e)
       
     } else {

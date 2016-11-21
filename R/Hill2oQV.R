@@ -20,7 +20,7 @@
 # plot
 
 
-Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, plot = FALSE, add = FALSE, 
+Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, plot = FALSE, add = FALSE, 
                       main = "Estimates of EVI", ...) {
   
   # Check input arguments
@@ -89,7 +89,7 @@ Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
       start <- estimators 
       
     } else {
-      estimators <- rep(NA,3)
+      estimators <- rep(NA, 3)
     } 
     H[k,] <- estimators
   }
@@ -102,7 +102,7 @@ Hill.2oQV <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   }
   
   
-  .output(list(k=K, gamma=H[K,1], b=H[K,2], beta=H[K,3]),plot=plot,add=add)
+  .output(list(k=K, gamma=H[K,1], b=H[K,2], beta=H[K,3]), plot=plot, add=add)
 
 }
 
@@ -150,7 +150,7 @@ Quant.2oQV <- function(data, gamma, b, beta, p, plot = FALSE, add = FALSE,
   
   ### output list with values of k, corresponding quantile estimates 
   ### and the considered small tail probability p
-  .output(list(k=K, Q=wq[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=wq[K], p=p), plot=plot, add=add)
 }
 
 Weissman.q.2oQV <- Quant.2oQV 

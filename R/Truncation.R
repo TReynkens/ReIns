@@ -22,7 +22,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
   # Truncated Hill estimator 
   
   # Trimmed Hill
-  H[K] <- cumsum(log(X[(n-r+1):(n-tail(K,1)+1)]))/(K-r+1) - log(X[n-K]) 
+  H[K] <- cumsum(log(X[(n-r+1):(n-tail(K, 1)+1)]))/(K-r+1) - log(X[n-K]) 
   K1 <- 1:(n-1)
   # Hill
   H1[K] <- (cumsum(log(X[n-K1+1]))/K1 - log(X[n-K1]))[K] 
@@ -41,7 +41,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
       ym <- 1/y
       z <- y + (H[k]-y-R[k]^ym*log(R[k])/(1-R[k]^ym))/(1-ym^2*R[k]^ym*log(R[k])^2/((1-R[k]^ym)^2))
       
-      if (abs(z-y) < tol | identical(abs(z-y),NaN)) { break }
+      if (abs(z-y) < tol | identical(abs(z-y), NaN)) { break }
       
       i <- i+1
       y <- z
@@ -61,7 +61,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
   # output list with values of k and
   # corresponding estimates for gamma
   
-  .output(list(k=K, gamma=gamma[K], H=H[K]),plot=plot,add=add)
+  .output(list(k=K, gamma=gamma[K], H=H[K]), plot=plot, add=add)
   
 }
 
@@ -71,7 +71,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
                       main="Estimates of DT", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma=gamma,r=r)
+  .checkInput(data, gamma=gamma, r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -95,7 +95,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
   # output list with values of k and
   # corresponding estimates for DT
   
-  .output(list(k=K, DT=DT[K]),plot=plot,add=add)
+  .output(list(k=K, DT=DT[K]), plot=plot, add=add)
   
 }
 
@@ -104,7 +104,7 @@ trEndpoint <- function(data, r = 1, gamma, plot = FALSE, add = FALSE,
                       main = "Estimates of endpoint", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma=gamma,r=r)
+  .checkInput(data, gamma=gamma, r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -127,7 +127,7 @@ trEndpoint <- function(data, r = 1, gamma, plot = FALSE, add = FALSE,
   # output list with values of k and
   # corresponding estimates for DT
   
-  .output(list(k=K, Tk=Tk[K]),plot=plot,add=add)
+  .output(list(k=K, Tk=Tk[K]), plot=plot, add=add)
   
 }
 
@@ -137,7 +137,7 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
                          main="Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma=gamma,DT=DT,r=r)
+  .checkInput(data, gamma=gamma, DT=DT, r=r)
   .checkProb(p)
   
   X <- as.numeric(sort(data))
@@ -164,7 +164,7 @@ trQuant <- function(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add =
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
   
 }
 
@@ -173,7 +173,7 @@ trQuantW <- function(data, gamma, DT, p, plot = FALSE, add = FALSE,
                     main="Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma=gamma,DT=DT)
+  .checkInput(data, gamma=gamma, DT=DT)
   .checkProb(p)
   
   X <- as.numeric(sort(data))
@@ -195,7 +195,7 @@ trQuantW <- function(data, gamma, DT, p, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
   
 }
 
@@ -207,7 +207,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
                          main="Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma=gamma,r=r)
+  .checkInput(data, gamma=gamma, r=r)
   
   X <- as.numeric(sort(data))
   n <- length(X)
@@ -236,7 +236,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
   # output list with values of k, exceedance probabilitye estimates 
   # and the considered high quantile q
   
-  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -253,7 +253,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   K <- r:(n-1) 
   
   if (length(DT)==1) {
-    DT <- rep(DT,length(K))
+    DT <- rep(DT, length(K))
   }
   
   # calculate theoretical and empirical quantiles
@@ -286,7 +286,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
     }
     
     if (kstar>n-1) {
-      stop(paste0("kstar should be strictly smaller than ",n,"."))
+      stop(paste0("kstar should be strictly smaller than ", n, "."))
     }
     
     if (kstar<=10) {
@@ -304,7 +304,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   par(mar=c(5.1, 4.6, 4.1, 2.1))
   
   # plots if TRUE
-  xlab <- bquote(-log(hat(D)[.(paste0("T,",r,",",kstar))]+j/(n+1)))
+  xlab <- bquote(-log(hat(D)[.(paste0("T, ", r, ",", kstar))]+j/(n+1)))
   ylab <- bquote(log(X["n-j+1,n"]))
   .plotfun(pqq.the, pqq.emp, type="p", xlab=xlab, ylab=ylab, 
           main=main, plot=plot, add=FALSE, ...)
@@ -352,7 +352,7 @@ trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation"
   Pval <- pnorm(tv)
   
   # Plot P-values 
-  .plotfun(K, Pval[K], ylim=c(0,1), type="l", xlab="k", ylab="P-value", main=main, plot=plot, add=FALSE, ...)
+  .plotfun(K, Pval[K], ylim=c(0, 1), type="l", xlab="k", ylab="P-value", main=main, plot=plot, add=FALSE, ...)
   if (plot) abline(h=alpha, col="blue", ...)
   
   .output(list(k=K, testVal=tv, critVal=cv, Pval=Pval, reject=reject), 

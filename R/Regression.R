@@ -40,7 +40,7 @@ ScaleReg <- function(s, Z, kernel = c("normal", "uniform", "triangular", "epanec
   # plots if TRUE
   .plotfun(K, A[K], type="l", xlab="k", ylab="Scale", main=main, plot=plot, add=add, ...)
   
-  .output(list(k=K,A=A[K]), plot=plot, add=add)
+  .output(list(k=K, A=A[K]), plot=plot, add=add)
 }
 
 # Estimator of small tail probability 1-F_i(x) in regression case where gamma is constant
@@ -79,7 +79,7 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
 }
 
 
@@ -114,7 +114,7 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=Q[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=Q[K], p=p), plot=plot, add=add)
 }
 
 

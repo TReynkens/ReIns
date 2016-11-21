@@ -31,7 +31,7 @@ Scale <- function(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE,
     .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
+  .output(list(k=K, A=A[K], C=C[K]), plot=plot, add=add)
   
 }
 
@@ -60,7 +60,7 @@ Scale.2o <- function(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FAL
     .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
+  .output(list(k=K, A=A[K], C=C[K]), plot=plot, add=add)
 }
 
 
@@ -90,6 +90,6 @@ ScaleEPD <- function (data, gamma, kappa, logk = FALSE, plot = FALSE, add = FALS
     .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k=K,A=A[K],C=C[K]), plot=plot, add=add)
+  .output(list(k=K, A=A[K], C=C[K]), plot=plot, add=add)
 }
 

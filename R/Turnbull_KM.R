@@ -29,7 +29,7 @@ KaplanMeier <- function(x, data, censored, conf.type = "plain", conf.int = 0.95)
   
   fit  <- survfit(Surv(X, delta) ~1, conf.type=conf.type, conf.int=conf.int)
 
-  f <- stepfun(fit$time, c(1,fit$surv))
+  f <- stepfun(fit$time, c(1, fit$surv))
   est <- f(x)
   
   return(list(surv = est, fit=fit))
@@ -119,7 +119,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
                   conf.type = conf.type, conf.int = conf.int)
 
   # Survival function (right continuous)
-  f <- stepfun(fit$time, c(1,fit$surv), right=FALSE)
+  f <- stepfun(fit$time, c(1, fit$surv), right=FALSE)
   
   # Quantile function (left continuous)
   fquant <- function(p) {
@@ -210,7 +210,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Fit Turnbull estimator using interval package,
   # starting value using Icens package, use no starting value if problems
   fit <- tryCatch(interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
-                                  conf.int=FALSE, initfit=Icens::EMICM(cbind(L,R))),
+                                  conf.int=FALSE, initfit=Icens::EMICM(cbind(L, R))),
                   error = function(e) interval::icfit(Surv(time=L, time2=R, type="interval2")~1, 
                                                       conf.int=FALSE, initfit=NULL))
   

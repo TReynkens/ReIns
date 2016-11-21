@@ -10,7 +10,7 @@ numtol <- .Machine$double.eps^0.5
 
 # Fit splicing model of mixed Erlang and Pareto to interval censored data
 .SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclower = 0, truncupper = Inf, ncores = NULL, 
-                               criterium = c("BIC","AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
+                               criterium = c("BIC", "AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   tsplice <- as.numeric(tsplice)
   
@@ -270,7 +270,7 @@ numtol <- .Machine$double.eps^0.5
   # Initial values for s and M and obtained values for information criterium and M
   # Return NA when an error occured in fitting
   f1 <- function(x) {
-    if (exists(criterium,x)) {
+    if (exists(criterium, x)) {
       with(x, get(criterium))
     } else {
       NA
@@ -279,7 +279,7 @@ numtol <- .Machine$double.eps^0.5
   crit <- sapply(all_model, f1)
   
   f2 <- function(x) {
-    if (exists("M",x)) {
+    if (exists("M", x)) {
       x$M
     } else {
       NA
@@ -291,7 +291,7 @@ numtol <- .Machine$double.eps^0.5
   colnames(performances) = c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit==min(crit,na.rm=TRUE))[1]
+  best_index <- which(crit==min(crit, na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   return(list(best_model = best_model, performances = performances, all_model = all_model))
@@ -377,7 +377,7 @@ numtol <- .Machine$double.eps^0.5
   ind <- which(lower[censored]==trunclower)
   ic[ind] <- (upper[censored])[ind]
   # Combine
-  initial_data <- c(uc,ic)
+  initial_data <- c(uc, ic)
   # Remove initial_data equal to 0 since they cause first shape to be 0
   initial_data[initial_data==0] <- NA
   
@@ -722,7 +722,7 @@ numtol <- .Machine$double.eps^0.5
       E1_ME <- sum(lower1)
         
     } else {
-      z1 <- as.matrix(c(0,0))
+      z1 <- as.matrix(c(0, 0))
 	    E1_ME <- 0
     }
     
@@ -733,7 +733,7 @@ numtol <- .Machine$double.eps^0.5
       E3_ME <- sum(rowSums(z3 * .spliceEM_Estep_ME_iii(lower3=lower3, upper3=upper3, shape=shape, theta=theta)))
       
     } else {
-      z3 <- as.matrix(c(0,0))
+      z3 <- as.matrix(c(0, 0))
       E3_ME <- 0
     }
 
@@ -745,7 +745,7 @@ numtol <- .Machine$double.eps^0.5
                                                           pi=pi, gamma=gamma, shape=shape, theta=theta)))
       
     } else {
-      z5 <- as.matrix(c(0,0))
+      z5 <- as.matrix(c(0, 0))
       E5_ME <- 0
     }
 
@@ -888,7 +888,7 @@ numtol <- .Machine$double.eps^0.5
     L$x1_dens <- pi * rowSums(L$x1_dens_nosum)
     
   } else {
-    L$x1_dens_nosum <- as.matrix(c(0,0))
+    L$x1_dens_nosum <- as.matrix(c(0, 0))
     L$x1_dens <- numeric(0)
   }
 
@@ -906,7 +906,7 @@ numtol <- .Machine$double.eps^0.5
     
   } else {
     # Problem when only right-censoring
-    L$c3_probs_nosum <- as.matrix(c(0,0))
+    L$c3_probs_nosum <- as.matrix(c(0, 0))
     L$c3_probs <- numeric(0)
   }
 
@@ -926,7 +926,7 @@ numtol <- .Machine$double.eps^0.5
     
   } else {
     # Problem when no intervals over splicing point
-    L$c5_probs_nosum <- as.matrix(c(0,0))
+    L$c5_probs_nosum <- as.matrix(c(0, 0))
     L$c5_probs <- numeric(0)
   } 
 
@@ -1000,7 +1000,7 @@ numtol <- .Machine$double.eps^0.5
 
   # Use alpha_tilde since also used in c5_probs_nosum
   pt <- alpha_tilde*pgamma(tsplice, shape=shape, scale=theta)
-  z5 <- -sweep(c5_probs_nosum, 2, pt ,"-")
+  z5 <- -sweep(c5_probs_nosum, 2, pt , "-")
   z5 <- z5 / rowSums(z5)
   # in case all ^{cc}z_{ij}^{(h)} for j=1,...,M are numerically 0
   z5[is.nan(z5)] <- 1/M
@@ -1029,7 +1029,7 @@ numtol <- .Machine$double.eps^0.5
   # E5_ME <- .spliceEM_Estep_ME_c(upper3=rep(tsplice,length(lower5)), lower3=lower5, shape=shape, theta=theta) 
   # E5_ME <- sweep(E5_ME, 1, (1-pi) * (upper5^(-1/gamma+1)-tsplice^(-1/gamma+1))/((gamma-1)*tsplice^(-1/gamma)), "+")
   
-  E5_ME <- .spliceEM_Estep_ME_iii(lower3=lower5, upper3=rep(tsplice,length(lower5)), shape=shape, theta=theta)
+  E5_ME <- .spliceEM_Estep_ME_iii(lower3=lower5, upper3=rep(tsplice, length(lower5)), shape=shape, theta=theta)
   
   return(E5_ME)
 }

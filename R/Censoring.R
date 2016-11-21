@@ -149,7 +149,7 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
       stop("data and censored should have the same length.")
     }
   } else {
-    censored <- rep(0,length(data))
+    censored <- rep(0, length(data))
   }
   
   
@@ -182,7 +182,7 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
   
   # output list with values of k and corresponding Hill estimates
   
-  .output(list(k=K, gamma1=Hill[K]),plot=plot,add=add)
+  .output(list(k=K, gamma1=Hill[K]), plot=plot, add=add)
   
 }
 
@@ -226,7 +226,7 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
   
   
   # Stop at n-2 since UH.scores[n]=0, so log(UH.scores[n])=Inf
-  K <- 1:max((n-2),1) 
+  K <- 1:max((n-2), 1) 
   Hill[K] <- (cumsum(log(UH.scores[K]))- K*log(UH.scores[K+1])) / cumsum(delta[n-K+1]) 
   # Problems with division by 0
   Hill[K[cumsum(delta[n-K+1])==0]] <- NA
@@ -296,12 +296,12 @@ cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, mai
  
   # output list with values of k and
   # corresponding estimates for gamma1, b and beta
-  .output(list(k=K, gamma1=Mom[K]),plot=plot,add=add)
+  .output(list(k=K, gamma1=Mom[K]), plot=plot, add=add)
   
 }
 
 
-cGPDmle <- function(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
+cGPDmle <- function(data, censored, start = c(0.1, 1), warnings = FALSE, logk = FALSE, 
                  plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
   
   # Check input arguments

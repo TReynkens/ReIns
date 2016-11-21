@@ -32,7 +32,7 @@
 
 # Fit GPD to data using MLE.
 # start is the starting value for optimisation: (gamma_start,sigma_start)
-GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
+GPDfit <- function(data, start = c(0.1, 1), warnings = FALSE) {
   
   if (is.numeric(start) & length(start)==2) {
     if (start[2] <= 0) {
@@ -45,12 +45,12 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
   }
   
 
-  if (ifelse(length(data)>1,var(data)==0,0)) {
-    sg <- c(NA,NA)
+  if (ifelse(length(data)>1, var(data)==0, 0)) {
+    sg <- c(NA, NA)
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit <- optim(par=c(gamma_start,log(sigma_start)), fn=.POTneglogL, Y=data)
+    fit <- optim(par=c(gamma_start, log(sigma_start)), fn=.POTneglogL, Y=data)
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg <- fit$par
     if (fit$convergence>0 & warnings) {
@@ -69,7 +69,7 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
 
 
 # Start should be a 2-dimensional vector: (gamma_start,sigma_start)
-GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
+GPDmle <- function(data, start = c(0.1, 1), warnings = FALSE, logk = FALSE, 
                    plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
   
   # Check input arguments
@@ -77,7 +77,7 @@ GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, logk = FALSE,
   
   X <- as.numeric(sort(data))
   n <- length(X)
-  POT <- matrix(0,n,2)
+  POT <- matrix(0, n, 2)
   K <- 1:(n-1)
   
   if (n==1) {
@@ -90,7 +90,7 @@ GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, logk = FALSE,
     if (length(potdata)==0) {
       POT[k,] <- NA
     } else {
-      POT[k,] <- GPDfit(potdata,start=start)
+      POT[k,] <- GPDfit(potdata, start=start)
     }
 
   }
@@ -102,7 +102,7 @@ GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, logk = FALSE,
     .plotfun(K, POT[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k=K, gamma=POT[K,1], sigma=POT[K,2]),plot=plot,add=add)
+  .output(list(k=K, gamma=POT[K,1], sigma=POT[K,2]), plot=plot, add=add)
 }
 
 
@@ -124,7 +124,7 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data, gamma, gammapos=FALSE)
   
   if (length(q)>1) {
     stop("q should be a numeric of length 1.")
@@ -147,7 +147,7 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, P=prob[K], q=q),plot=plot,add=add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -156,7 +156,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
                     main = "Estimates of large return period", ...) {
                       
     # Check input arguments
-    .checkInput(data,gamma,gammapos=FALSE)
+    .checkInput(data, gamma, gammapos=FALSE)
     
     if (length(q)>1) {
       stop("q should be a numeric of length 1.")
@@ -179,7 +179,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
     # output list with values of k, corresponding return period estimates 
     # and the considered large quantile q
     
-    .output(list(k=K, R=r[K], q=q),plot=plot,add=add)
+    .output(list(k=K, R=r[K], q=q), plot=plot, add=add)
     
   }
 
@@ -206,7 +206,7 @@ QuantGPD <- function(data, gamma, sigma, p, plot = FALSE, add = FALSE,
                      main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(data,gamma,gammapos=FALSE)
+  .checkInput(data, gamma, gammapos=FALSE)
   
   .checkProb(p)
   
@@ -226,7 +226,7 @@ QuantGPD <- function(data, gamma, sigma, p, plot = FALSE, add = FALSE,
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=quant[K], p=p),plot=plot,add=add)
+  .output(list(k=K, Q=quant[K], p=p), plot=plot, add=add)
 }
 
 ##############################################################################
