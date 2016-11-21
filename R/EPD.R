@@ -244,9 +244,9 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit = optim(par=c(gamma_start,kappa_start), fn=.EPDneglogL, Y=data, tau=tau)
+    fit <- optim(par=c(gamma_start,kappa_start), fn=.EPDneglogL, Y=data, tau=tau)
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
-    sg = fit$par
+    sg <- fit$par
     
     if (fit$convergence>0 & warnings) {
       warning("Optimisation did not complete succesfully.")
@@ -375,7 +375,7 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   r[which(gamma[K]<=0)] <- NA
   
-  r[r<=0] = NA
+  r[r<=0] <- NA
   
   
   # plots if TRUE

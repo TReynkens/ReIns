@@ -40,7 +40,7 @@
   
   # alpha to beta
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)  
-  beta = alpha * t_probabilities / sum(alpha*t_probabilities)
+  beta <- alpha * t_probabilities / sum(alpha*t_probabilities)
   list(theta=theta, shape=shape, alpha=alpha, beta=beta) 
 }
 
@@ -73,7 +73,7 @@
   x_components <- t(t(x_densities)*beta/t_probabilities)
   u_z <- x_components / rowSums(x_components)
   # in case all ^{u}z_{ij}^{k} for j=1,...,M are numerically 0
-  u_z[is.nan(u_z)] = 1/M
+  u_z[is.nan(u_z)] <- 1/M
   u_z
 }
 
@@ -84,7 +84,7 @@
   c_components <- t(t(c_probabilities)*beta/t_probabilities)
   c_z <- c_components / rowSums(c_components)
   # in case all ^{c}z_{ij}^{k} for j=1,...,M are numerically 0
-  c_z[is.nan(c_z)] = 1/M
+  c_z[is.nan(c_z)] <- 1/M
   c_z
 }
  
@@ -464,7 +464,7 @@
                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
  
 
-  tuning_parameters = expand.grid(M, s)
+  tuning_parameters <- expand.grid(M, s)
   
   if(nCores==1) {
     
@@ -517,7 +517,7 @@
   } 
   M_res <-  sapply(all_model, f2)
   performances <- data.frame(tuning_parameters[,1], tuning_parameters[,2], crit, M_res)
-  colnames(performances) = c('M_initial', 's', criterium, 'M')
+  colnames(performances) <- c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
   best_index <- which(crit==min(crit,na.rm=TRUE))[1]

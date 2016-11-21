@@ -175,7 +175,7 @@
       stop("data and censored should have the same length.")
     }
   } else {
-    censored = rep(censored,n)
+    censored <- rep(censored,n)
   }
 
   # Check if logical vector or a vector with only 0 and 1

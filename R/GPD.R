@@ -50,9 +50,9 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit = optim(par=c(gamma_start,log(sigma_start)), fn=.POTneglogL, Y=data)
-   # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
-    sg = fit$par
+    fit <- optim(par=c(gamma_start,log(sigma_start)), fn=.POTneglogL, Y=data)
+    # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
+    sg <- fit$par
     if (fit$convergence>0 & warnings) {
       warning("Optimisation did not complete succesfully.")
       if (!is.null(fit$message)) {

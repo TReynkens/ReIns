@@ -61,8 +61,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   n <- length(ic)
   K <- 1:(n-1)
   me <- numeric(n)
-  me2 <- numeric(n)
-  
+
   # Compute slopes and intercepts of function in intervals
   as <- diff(y) / diff(x)
   as[diff(x)<=eps] <- 0

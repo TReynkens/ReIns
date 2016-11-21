@@ -38,7 +38,7 @@ test_that("Censored estimators for-loops", {
   
   UH.scores2 <- numeric(n)
   Hill2 <- numeric(max((n-2),1))
-  gamma = cHill(X,censored=censored)$gamma
+  gamma <- cHill(X,censored=censored)$gamma
   # Slow for-loops
   UH.scores2 <- numeric(n)
 	Hill2 <- numeric(max((n-2),1))
@@ -202,7 +202,7 @@ test_that("MeanExcess for-loop", {
   # Slow for-loop
   e2 <- numeric(n-1)
   for (kk in 1:(n-1)) {
-    e2[kk] = sum(X[n-(1:kk)+1])/kk-X[n-kk] 
+    e2[kk] <- sum(X[n-(1:kk)+1])/kk-X[n-kk] 
   }
   e <- MeanExcess(X,plot=FALSE)$e
   
