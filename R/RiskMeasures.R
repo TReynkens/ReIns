@@ -7,7 +7,7 @@
 # Integrated tail function of (truncated) Pareto distribution using Hill estimates
 # Pi(R)
 .IntTailPareto <- function(data, gamma, R, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
-                    main="Estimates for premium of excess-loss insurance", ...) {
+                    main = "Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
   .checkInput(data, gamma)
@@ -22,7 +22,7 @@
   }
   
   # Premium
-  premium[K] <- (K+1) / (n+1) * .IntTailPareto_aux(t=X[n-K], gamma=gamma[K], R=R, endpoint=endpoint)
+  premium[K] <- (K+1) / (n+1) * .IntTailPareto_aux(t=X[n-K], gamma = gamma[K], R=R, endpoint = endpoint)
   
   # Remove negative values
   premium[premium < 0] <- NA
@@ -35,9 +35,9 @@
   }
   
   # plots if TRUE 
-  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type = "l", xlab = "k", ylab = "Premium", main = main, plot = plot, add = add, ...)
   
-  .output(list(k=K, premium=premium, R=R), plot=plot, add=add)
+  .output(list(k = K, premium=premium, R=R), plot = plot, add = add)
   
 }
 
@@ -67,7 +67,7 @@
 # Integrated tail function using EPD estimates
 # Pi(R)
 .IntTailEPD <- function(data, gamma, kappa, tau, R, warnings = TRUE, plot = TRUE, add = FALSE,
-                    main="Estimates for premium of excess-loss insurance", ...) {
+                    main = "Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -101,9 +101,9 @@
   }
   
   # plots if TRUE 
-  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type = "l", xlab = "k", ylab = "Premium", main = main, plot = plot, add = add, ...)
   
-  .output(list(k=K, premium=premium, R=R), plot=plot, add=add)
+  .output(list(k = K, premium=premium, R=R), plot = plot, add = add)
   
 }
 
@@ -112,7 +112,7 @@
 # Integrated tail function using GPD-MLE estimates
 # Pi(R)
 .IntTailGPD <- function(data, gamma, sigma, R, warnings = TRUE, plot = TRUE, add = FALSE,
-                      main="Estimates for premium of excess-loss insurance", ...) {
+                      main = "Estimates for premium of excess-loss insurance", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -131,7 +131,7 @@
   premium <- numeric(n)
   K <- 1:(n-1)
   
-  premium[K] <- (K+1) / (n+1) * .IntTailGPD_aux(t=X[n-K], gamma=gamma[K], sigma=sigma[K], endpoint=Inf, R=R)
+  premium[K] <- (K+1) / (n+1) * .IntTailGPD_aux(t=X[n-K], gamma = gamma[K], sigma = sigma[K], endpoint = Inf, R=R)
 
   # Remove negative values
   premium[premium < 0] <- NA
@@ -145,9 +145,9 @@
   
   
   # plots if TRUE 
-  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type = "l", xlab = "k", ylab = "Premium", main = main, plot = plot, add = add, ...)
   
-  .output(list(k=K, premium=premium, R=R), plot=plot, add=add)
+  .output(list(k = K, premium=premium, R=R), plot = plot, add = add)
   
 }
 
@@ -159,7 +159,7 @@
   
   if (is.finite(endpoint)) {
     
-    pT <- pgpd(endpoint, mu=t, gamma=gamma, sigma=sigma)
+    pT <- pgpd(endpoint, mu=t, gamma = gamma, sigma = sigma)
     premium <- ( sigma/(1-gamma) * ( (1 + gamma/sigma * (R-t) )^(1-1/gamma) - (1 + gamma/sigma * (endpoint-t) )^(1-1/gamma) ) + (1-pT)*(R-endpoint)) / pT
     # Special case if R>=endpoint
     premium[R >= endpoint] <- 0
@@ -177,7 +177,7 @@
 # Premium of excess-loss insurance with retention R and limit L using Hill estimates (in Pareto model)
 # Pi(R) - Pi(R+L)
 ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
-                        main="Estimates for premium of excess-loss insurance", ...) {
+                        main = "Estimates for premium of excess-loss insurance", ...) {
   
   if (any(R < 0)) {
     stop("R should be positive.")
@@ -193,8 +193,8 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
     }
   }
   
-  f <- function(R) .IntTailPareto(R=R, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
-                                  plot=FALSE, add=FALSE) 
+  f <- function(R) .IntTailPareto(R=R, data = data, gamma = gamma, endpoint = endpoint, warnings = warnings, 
+                                  plot = FALSE, add = FALSE) 
   
   res <- f(R)
   Im <- res$premium
@@ -210,9 +210,9 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
   
   
   # plots if TRUE 
-  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type = "l", xlab = "k", ylab = "Premium", main = main, plot = plot, add = add, ...)
   
-  .output(list(k=K, premium=premium, R=R, L=L), plot=plot, add=add)
+  .output(list(k = K, premium=premium, R=R, L = L), plot = plot, add = add)
   
 }
 
@@ -222,7 +222,7 @@ ExcessHill <- ExcessPareto
 # Premium of excess-loss insurance with retention R and limit L using GPD-MLE estimates
 # Pi(R) - Pi(R+L)
 ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
-                       main="Estimates for premium of excess-loss insurance", ...) {
+                       main = "Estimates for premium of excess-loss insurance", ...) {
   
   if (any(R < 0)) {
     stop("R should be positive.")
@@ -238,8 +238,8 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
     }
   }
   
-  f <- function(R) .IntTailGPD(R=R, data=data, gamma=gamma, sigma=sigma, warnings=warnings, 
-                               plot=FALSE, add=FALSE) 
+  f <- function(R) .IntTailGPD(R=R, data = data, gamma = gamma, sigma = sigma, warnings = warnings, 
+                               plot = FALSE, add = FALSE) 
   
   res <- f(R)
   Im <- res$premium
@@ -255,16 +255,16 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
   
   
   # plots if TRUE 
-  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type = "l", xlab = "k", ylab = "Premium", main = main, plot = plot, add = add, ...)
   
-  .output(list(k=K, premium=premium, R=R, L=L), plot=plot, add=add)
+  .output(list(k = K, premium=premium, R=R, L = L), plot = plot, add = add)
   
 }
 
 # Premium of excess-loss insurance with retention R and limit L using EPD estimates
 # Pi(R) - Pi(R+L)
 ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
-                      main="Estimates for premium of excess-loss insurance", ...) {
+                      main = "Estimates for premium of excess-loss insurance", ...) {
   
   
   if (any(R < 0)) {
@@ -281,8 +281,8 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
     }
   }
   
-  f <- function(R) .IntTailEPD(R=R, data=data, gamma=gamma, kappa=kappa, tau=tau, warnings=warnings, 
-                              plot=FALSE, add=FALSE) 
+  f <- function(R) .IntTailEPD(R=R, data = data, gamma = gamma, kappa=kappa, tau=tau, warnings = warnings, 
+                              plot = FALSE, add = FALSE) 
   
   res <- f(R)
   Im <- res$premium
@@ -298,9 +298,9 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
   
   
   # plots if TRUE 
-  .plotfun(K, premium[K], type="l", xlab="k", ylab="Premium", main=main, plot=plot, add=add, ...)
+  .plotfun(K, premium[K], type = "l", xlab = "k", ylab = "Premium", main = main, plot = plot, add = add, ...)
   
-  .output(list(k=K, premium=premium, R=R, L=L), plot=plot, add=add)
+  .output(list(k = K, premium=premium, R=R, L = L), plot = plot, add = add)
   
 }
 
@@ -331,13 +331,13 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
     
     if (R[i] > tvec[l]) {
       # R[i]>tvec[l] case
-      premium[i] <- (1-const[l]) * .IntTailPareto_aux(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], R=R[i])
+      premium[i] <- (1-const[l]) * .IntTailPareto_aux(t=tvec[l], gamma=EVTfit$gamma[l], endpoint = endpoint[l], R=R[i])
       
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
-      premium[i] <- (1-const[l]) * .IntTailPareto_aux(t=tvec[l], gamma=EVTfit$gamma[l], endpoint=endpoint[l], R=tvec[l])
+      premium[i] <- (1-const[l]) * .IntTailPareto_aux(t=tvec[l], gamma=EVTfit$gamma[l], endpoint = endpoint[l], R=tvec[l])
     } 
       
     
@@ -436,13 +436,13 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
     if (R[i] > tvec[l]) {
       # R[i]>tvec[l] case
       premium[i] <- (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
-                                                   endpoint=endpoint[l], R=R[i])
+                                                   endpoint = endpoint[l], R=R[i])
       end <- TRUE 
       
     } else {
       # Integrate from tvec[l] to endpoint[l]
       premium[i] <- (1-const[l]) * .IntTailGPD_aux(t=tvec[l], gamma=EVTfit$gamma[l], sigma=EVTfit$sigma[l], 
-                                                   endpoint=endpoint[l], R=tvec[l])
+                                                   endpoint = endpoint[l], R=tvec[l])
     }  
     
     # Only necessary if more than 2 EVT parts in splicing

@@ -4,7 +4,7 @@
 # function of k
 #
 # K indicates if the estimates are plotted as a function of k or log(X[n-k])
-# If plot=TRUE then the estimates are plotted as a
+# If plot = TRUE then the estimates are plotted as a
 # function of k
 #
 # If add=TRUE then the estimates are added to an existing
@@ -32,20 +32,20 @@ Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main =
   
   if (k) {
     if (logk) {
-      .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+      .plotfun(log(K), Hill[K], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
     } else {
-      .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+      .plotfun(K, Hill[K], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
     }
     
   } else {
-    .plotfun(log(X[n-K]), Hill[K], type="l", xlab=bquote(log(X["n-k,n"])), 
-            ylab="gamma", main=main, plot=plot, add=add, ...)
+    .plotfun(log(X[n-K]), Hill[K], type = "l", xlab = bquote(log(X["n-k,n"])), 
+            ylab = "gamma", main = main, plot = plot, add = add, ...)
   }
   
   
   # output list with values of k and corresponding Hill estimates
   
-  .output(list(k=K, gamma=Hill[K]), plot=plot, add=add)
+  .output(list(k = K, gamma = Hill[K]), plot = plot, add = add)
 
 }
 
@@ -58,7 +58,7 @@ Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main =
 # Estimates are based on prior estimates gamma for the
 # extreme value index (Hill)
 #
-# If plot=TRUE then the estimates are plotted as a
+# If plot = TRUE then the estimates are plotted as a
 # function of k
 #
 # If add=TRUE then the estimates are added to an existing
@@ -85,13 +85,13 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
   wp[wp < 0 | wp > 1] <- NA
   
   # plots if TRUE
-  .plotfun(K, wp[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wp[K], type = "l", xlab = "k", ylab = "1-F(x)", main = main, plot = plot, add = add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, P=wp[K], q=q), plot=plot, add=add)
+  .output(list(k = K, P = wp[K], q = q), plot = plot, add = add)
 }
 
 Weissman.p <- Prob
@@ -118,13 +118,13 @@ Return <- function(data, gamma, q, plot = FALSE, add = FALSE,
   wr[wr < 1] <- NA
   
   # plots if TRUE
-  .plotfun(K, wr[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wr[K], type = "l", xlab = "k", ylab = "1/(1-F(x))", main = main, plot = plot, add = add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k=K, R=wr[K], q=q), plot=plot, add=add)
+  .output(list(k = K, R = wr[K], q = q), plot = plot, add = add)
 }
 
 Weissman.r <- Return 
@@ -138,7 +138,7 @@ Weissman.r <- Return
 # Estimates are based on prior estimates gamma for the
 # extreme value index (Hill)
 #
-# If plot=TRUE then the estimates are plotted as a
+# If plot = TRUE then the estimates are plotted as a
 # function of k
 #
 # If add=TRUE then the estimates are added to an existing
@@ -162,12 +162,12 @@ Quant <- function(data, gamma, p, plot = FALSE, add = FALSE,
   wq[K] <- X[n-K] * ((K+1)/((n+1)*p))^(gamma[K])
   
   # plots if TRUE
-  .plotfun(K, wq[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
+  .plotfun(K, wq[K], type = "l", xlab = "k", ylab = "Q(1-p)", main = main, plot = plot, add = add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k=K, Q=wq[K], p=p), plot=plot, add=add)
+  .output(list(k = K, Q = wq[K], p = p), plot = plot, add = add)
 }
 
 Weissman.q <- Quant

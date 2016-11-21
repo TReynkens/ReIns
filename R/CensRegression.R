@@ -44,7 +44,7 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "no
   
   # Set kernel to function with this name
   kernel <- match.arg(kernel)
-  kernel <- .kernel_aux(kernel, h=1)
+  kernel <- .kernel_aux(kernel, h = 1)
   
   # Convert censored to Delta
   Delta <- !as.logical(censored)
@@ -55,7 +55,7 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "no
   
 
   # Sort data according to Ytilde values
-  s <- sort(Ytilde, index.return=TRUE)
+  s <- sort(Ytilde, index.return = TRUE)
   Ytilde_sort <- s$x
   Xtilde_sort <- Xtilde[s$ix]
   Delta_sort <- Delta[s$ix]
@@ -97,18 +97,18 @@ crParetoQQ <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "n
   
   # Calculate theoretical and empirical quantiles
   
-  surv <- crSurv(x=x, y=sort(Ytilde), Xtilde=Xtilde, Ytilde=Ytilde, censored=censored, 
-                 h=h, kernel=kernel)
+  surv <- crSurv(x = x, y = sort(Ytilde), Xtilde = Xtilde, Ytilde = Ytilde, censored = censored, 
+                 h = h, kernel = kernel)
   # Remove too small values!
   pqq.the <- -log(surv[surv >= 10^(-8)])
   pqq.emp <- log(sort(Ytilde)[surv >= 10^(-8)])
   
   # plots if TRUE
-  .plotfun(pqq.the, pqq.emp, type=type, xlab="-log(Survival probability)", ylab="log(Y)", 
-           main=main, plot=plot, add=add, ...)
+  .plotfun(pqq.the, pqq.emp, type = type, xlab = "-log(Survival probability)", ylab = "log(Y)", 
+           main = main, plot = plot, add = add, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=add)
+  .output(list(pqq.the = pqq.the, pqq.emp = pqq.emp), plot = plot, add = add)
 }
 
 
@@ -149,14 +149,14 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "norma
   
   # Set kernel to function with this name
   kernel <- match.arg(kernel)
-  kernel <- .kernel_aux(kernel, h=1)
+  kernel <- .kernel_aux(kernel, h = 1)
 
   # Convert censored to Delta
   Delta <- !as.logical(censored)
   
 
   # Sort data according to Ytilde values
-  s <- sort(Ytilde, index.return=TRUE)
+  s <- sort(Ytilde, index.return = TRUE)
   Ytilde_sort <- s$x
   Xtilde_sort <- Xtilde[s$ix]
   Delta_sort <- Delta[s$ix]
@@ -199,13 +199,13 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "norma
   
   # Plots
   if (logk) {
-    .plotfun(log(K), H[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
+    .plotfun(log(K), H[K], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
   } else {
-    .plotfun(K, H[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
+    .plotfun(K, H[K], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
   }
 
   
   # output list with values of k and corresponding Hill estimates
   
-  .output(list(k=K, gamma=H[K]), plot=plot, add=add)
+  .output(list(k = K, gamma = H[K]), plot = plot, add = add)
 }

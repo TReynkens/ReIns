@@ -94,8 +94,8 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   censored <- .checkCensored(censored, length(L))
   
   
-  ft <- .Turnbull_internal(L=L, R=R, censored=censored, conf.type = conf.type, conf.int = conf.int,
-                           trunclower=trunclower, truncupper=truncupper)
+  ft <- .Turnbull_internal(L = L, R=R, censored = censored, conf.type = conf.type, conf.int = conf.int,
+                           trunclower = trunclower, truncupper = truncupper)
   est <- ft$f(x)
   
   # Turnbull estimator for the survival function
@@ -190,7 +190,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   censored <- .checkCensored(censored, length(L))
   
   
-  ft <- .Turnbull_internal2(L=L, R=R, censored=censored, trunclower=trunclower, truncupper=truncupper)
+  ft <- .Turnbull_internal2(L = L, R=R, censored = censored, trunclower = trunclower, truncupper = truncupper)
   est <- ft$f(x)
   
   # Turnbull estimator for the survival function
