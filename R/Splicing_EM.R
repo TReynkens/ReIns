@@ -148,11 +148,11 @@ numtol <- .Machine$double.eps^0.5
   
   ##
   # Check inequalities
-  if (trunclower<0) {
+  if (trunclower < 0) {
     stop("trunclower cannot be strictly negative.")
   }
   
-  if (any(L>U)) {
+  if (any(L > U)) {
     stop("all elements of L should be smaller than (or equal to) the corresponding elements of U.")
   }
   
@@ -172,11 +172,11 @@ numtol <- .Machine$double.eps^0.5
     stop("tsplice has to be finite.")
   }
   
-  if (any(trunclower>L)) {
+  if (any(trunclower > L)) {
     stop("trunclower should be smaller than (or equal to) all elements of L.")
   }
   
-  if (any(U>truncupper)) {
+  if (any(U > truncupper)) {
     stop("truncupper should be larger than (or equal to) all elements of U.")
   }
   
@@ -192,7 +192,7 @@ numtol <- .Machine$double.eps^0.5
   # t^l < t <= l_i < u_i <=T
   ind4 <- which(censored & L >= tsplice)
   # t^l <= l_i < t < u_i <=T
-  #ind5 <- which(censored & L<tsplice & U>tsplice)
+  #ind5 <- which(censored & L<tsplice & U > tsplice)
   
   if (length(ind1) == 0 & length(ind3) == 0) {
     stop("No data is given for the ME part.")
@@ -205,15 +205,15 @@ numtol <- .Machine$double.eps^0.5
   ##
   
   # Check input for eps
-  if (!is.numeric(eps) | length(eps)>1) stop("eps should be a numeric of length 1.")
+  if (!is.numeric(eps) | length(eps) > 1) stop("eps should be a numeric of length 1.")
   if (eps <= 0) stop("eps should be strictly positive.")
   
   # Check input for beta_tol
-  if (!is.numeric(beta_tol) | length(beta_tol)>1) stop("beta_tol should be a numeric of length 1.")
+  if (!is.numeric(beta_tol) | length(beta_tol) > 1) stop("beta_tol should be a numeric of length 1.")
   if (beta_tol > 1 | beta_tol <= 0) stop("beta_tol should be in (0,1].")
   
   # Check input for maxiter
-  if (!is.numeric(maxiter) | length(maxiter)>1) stop("maxiter should be a numeric of length 1.")
+  if (!is.numeric(maxiter) | length(maxiter) > 1) stop("maxiter should be a numeric of length 1.")
   if (maxiter < 1) stop("maxiter should be at least 1.")
   
 }
@@ -392,15 +392,15 @@ numtol <- .Machine$double.eps^0.5
   # Initial value for alpha's
   alpha <- rep(0, length(shape))
   alpha[1] <- sum(initial_dataME <= shape[1]*theta)
-  if (length(shape)>1) {
+  if (length(shape) > 1) {
     for (i in 2:length(shape)) {
       alpha[i] <- sum(initial_dataME <= shape[i]*theta & initial_dataME > shape[i-1]*theta)
     }
   }
   
   # Keep strictly positive alpha's and corresponding shapes
-  shape <- shape[alpha>0]
-  alpha <- alpha[alpha>0]/sum(alpha)
+  shape <- shape[alpha > 0]
+  alpha <- alpha[alpha > 0]/sum(alpha)
   
   # alpha to beta
   t_probs <- pgamma(tsplice, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)
@@ -569,7 +569,7 @@ numtol <- .Machine$double.eps^0.5
       improve <- TRUE
       
       # Decrease i-th shape as long as improvement and larger than 1 and not smaller than previous shape
-      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i]>1, FALSE)) {
+      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
         
         # Decrease i-th shape by 1
         new_shape <- shape
@@ -951,7 +951,7 @@ numtol <- .Machine$double.eps^0.5
   # loglikelihood_contribution <- likelihood_contribution
   # loglikelihood_contribution[!ind0] <- log(likelihood_contribution[!ind0]) 
   # loglikelihood_contribution[ind0] <- -1000
-  loglikelihood_contribution <- ifelse(likelihood_contribution>0, log(likelihood_contribution), -1000)
+  loglikelihood_contribution <- ifelse(likelihood_contribution > 0, log(likelihood_contribution), -1000)
  
   # log-likelihood
   return(sum(loglikelihood_contribution))

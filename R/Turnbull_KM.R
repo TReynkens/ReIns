@@ -219,8 +219,8 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Extract probabilities corresponding to these intervals
   y <- fit$pf
   # Only keep intervals where probabilities are >0
-  x <- x[,y>0]
-  y <- y[y>0]
+  x <- x[,y > 0]
+  y <- y[y > 0]
 
   # Make function with linear interpolation in Turnbull intervals
   # Plot empirical survival function with linear interpolation in TB intervals
@@ -237,7 +237,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Subtract small number to make function right continuous
   #xl <- xl - sqrt(.Machine$double.eps)
   eps <- sqrt(.Machine$double.eps)
-  ind_jump <- which(abs(xu-xl)<eps)
+  ind_jump <- which(abs(xu-xl) < eps)
   xl[ind_jump] <- xl[ind_jump] - eps
   
   survall <- c(probl, probu)

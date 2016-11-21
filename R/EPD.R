@@ -85,7 +85,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
 
-  } else if (all(rho<0)) {
+  } else if (all(rho < 0)) {
     beta <- -rho
     
   } else {
@@ -162,7 +162,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
     
-  } else if (all(rho<0)) {
+  } else if (all(rho < 0)) {
     beta <- -rho
     
   } else {
@@ -209,7 +209,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
         start2 <- start
       }
       
-      if (tau[k,j]<0) {
+      if (tau[k,j] < 0) {
         tmp <- EPDfit(epddata, start=start2, tau=tau[k,j])
         gamma[k,j] <- tmp[1]
         kappa[k,j] <- tmp[2]
@@ -339,7 +339,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   K2 <- K[which(gamma[K] > 0)]
   
   prob[K2] <- (K2+1)/(n+1) * (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
-  prob[prob<0 | prob > 1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)

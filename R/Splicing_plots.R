@@ -79,7 +79,7 @@ SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, plot = TRUE, main =
   
   # Plot fitted survival function vs. empirical survival function or use minus log-versions
   if (log) {
-    ind <- est>0
+    ind <- est > 0
     spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(est[ind])
     .plotfun(spp.emp, spp.the, type="p",
@@ -152,7 +152,7 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
   
   # Plot fitted survival function vs. Turnbull survival function or use minus log-versions
   if (log) {
-    ind <- surv>0
+    ind <- surv > 0
     spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(surv[ind])
     .plotfun(spp.emp, spp.the, type="p",
@@ -307,8 +307,8 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   
   # Remove 1 if infinite endpoint
   if (is.infinite(max(splicefit$EVTfit$endpoint))) {
-    sqq.emp <- x[p<1-10^(-5)]
-    p <- p[p<1-10^(-5)]
+    sqq.emp <- x[p < 1-10^(-5)]
+    p <- p[p < 1-10^(-5)]
   } else {
     sqq.emp <- x
   }

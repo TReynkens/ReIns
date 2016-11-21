@@ -79,7 +79,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     
     beta <- matrix(0, n-1, nrho)
     
-    if (all(rho>0) & nrho == 1) {
+    if (all(rho > 0) & nrho == 1) {
       rho <- .rhoEst(data, alpha=1, tau=rho)$rho
      
       # Estimates for rho of Fraga Alves et al. (2003) used 
@@ -90,7 +90,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
         beta[,j] <- -rho[j]/HillZ
       }
       
-    } else if (all(rho<0)) {
+    } else if (all(rho < 0)) {
       
       # rho is provided => beta is constant over k
       # (but differs with rho)
@@ -188,7 +188,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   .checkInput(data)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -205,7 +205,7 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=
   km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
 
   prob[K2] <- km * (1-pepd(q/X[n-K2], gamma=gamma1[K2], kappa=kappa1[K2], tau=-beta[K2]))
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -228,7 +228,7 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   .checkInput(data)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -245,7 +245,7 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
   
   R[K2] <- 1 / (km * (1-pepd(q/X[n-K2], gamma=gamma1[K2], kappa=kappa1[K2], tau=-beta[K2])))
-  R[R<1] <- NA
+  R[R < 1] <- NA
   
   # plots if TRUE
   .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)

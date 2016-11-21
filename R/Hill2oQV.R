@@ -54,7 +54,7 @@ Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
   llsum.dif <- function(w, y, x) {
     lambda <- w[1] + w[2]*x^w[3]
     
-    if (min(lambda)<0) {
+    if (min(lambda) < 0) {
       part1 <- part2 <- part3 <- 0
     } else {
       # partial derivatives
@@ -73,12 +73,12 @@ Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
     xval <- (1:k)/(k+1)
     Zval <- Z[1:k]
     
-    if (X[n-k]>0) { 
+    if (X[n-k] > 0) { 
       # minimise llsum, give him the gradient, method, data ... 
       estim <- optim(par=start, fn=llsum, gr=llsum.dif, method = "L-BFGS-B", y=Zval, x=xval, 
                      lower=c(0.001, -mif*abs(H[k+1,2]), rhoh.min), 
                      upper=c(Inf, mif*abs(H[k+1,2]), mif*H[k+1,3]))
-      if (estim$convergence>0 & warnings) {
+      if (estim$convergence > 0 & warnings) {
         warning("Optimisation did not complete succesfully.")
         if (!is.null(estim$message)) {
           print(estim$message)

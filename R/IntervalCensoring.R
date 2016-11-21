@@ -75,7 +75,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
     # Threshold
     r <- ic[n-k]
     
-    if (r>x[m]) {
+    if (r > x[m]) {
       me[k] <- 0
       
     } else {
@@ -84,7 +84,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
       ind_r <- length(x) - findInterval(-r, -rev(x))
       #ind_r = findInterval(r, x)
       
-      if (r<x[1]) r <- x[1]
+      if (r < x[1]) r <- x[1]
       
       # Slope and intercept of function in interval containing r
       if (ind_r == 0) {
@@ -170,8 +170,8 @@ icParetoQQ <- function(L, U = L, censored, trunclower=0, truncupper=Inf, plot = 
   
   # Remove 1 if infinite endpoint
   if (is.infinite(truncupper)) {
-    pqq.emp <- log(x)[p<1-10^(-5)]
-    p <- p[p<1-10^(-5)]
+    pqq.emp <- log(x)[p < 1-10^(-5)]
+    p <- p[p < 1-10^(-5)]
   } else {
     pqq.emp <- log(x)
   }
@@ -256,7 +256,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     # Threshold
     r <- ic[n-k]
     
-    if (r>x[m]) {
+    if (r > x[m]) {
       gamma[k] <- 0
       
     } else {
@@ -265,7 +265,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
       ind_r <- length(x) - findInterval(-r, -rev(x))
       #ind_r = findInterval(r, x)
       
-      if (r<x[1]) r <- x[1]
+      if (r < x[1]) r <- x[1]
       
       
       # Slope and intercept of function in interval containing r
@@ -358,7 +358,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   # Threshold
   r <- threshold
   
-  if (r>x[m]) {
+  if (r > x[m]) {
     gamma <- 0
     
   } else {
@@ -367,7 +367,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     ind_r <- length(x) - findInterval(-r, -rev(x))
     #ind_r = findInterval(r, x)
     
-    if (r<x[1]) r <- x[1]
+    if (r < x[1]) r <- x[1]
     
     
     # Slope and intercept of function in interval containing r

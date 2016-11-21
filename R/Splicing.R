@@ -334,7 +334,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # General splicing part
   
   # Print all but last element of pi
-  if (length(splicefit$pi)>2) {
+  if (length(splicefit$pi) > 2) {
     for(i in 1:(length(splicefit$pi)-1)) {
       s <- .pasteVec(s, paste0("\\pi_", i), splicefit$pi[i], digits, ", ")
     }
@@ -350,7 +350,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   s <- .pasteVec(s, "t^l", splicefit$trunclower, digits)
   
   # Print all splicing points
-  if (length(splicefit$t)>1) {
+  if (length(splicefit$t) > 1) {
     
     for(i in 1:length(splicefit$t)) {
       s <- .pasteVec(s, paste0("t_", i), splicefit$t[i], digits, ", ")
@@ -378,7 +378,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # EVT part
   
   # Print gamma
-  if (length(evtfit$gamma)>1) {
+  if (length(evtfit$gamma) > 1) {
     
     for(i in 1:length(evtfit$gamma)) {
       s <- .pasteVec(s, paste0("\\gamma_", i), evtfit$gamma[i], digits, ", ")
@@ -393,7 +393,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   
   # Print sigma if exists
   if (exists("sigma", where=splicefit$EVTfit)) {
-    if (length(evtfit$sigma)>1) {
+    if (length(evtfit$sigma) > 1) {
       
       for(i in 1:length(evtfit$sigma)) {
         s <- .pasteVec(s, paste0("\\sigma_", i), evtfit$sigma[i], digits, ", ")
@@ -502,11 +502,11 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     stop("trunclower should be numeric.")
   }
   
-  if (trunclower>min(X)) {
+  if (trunclower > min(X)) {
     stop("trunclower should be smaller than all data points.")
   }
   
-  if (trunclower<0) {
+  if (trunclower < 0) {
     stop("trunclower cannot be strictly negative.")
   }
   
@@ -524,7 +524,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     stop("trunclower should be numeric.")
   }
   
-  if (truncupper<max(X)) {
+  if (truncupper < max(X)) {
     stop("truncupper should be larger than all data points.")
   }
 
@@ -578,7 +578,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   # Number of points in splicing part larger than splicing point
   kvec <- k_init
   
-  if (l>1) {
+  if (l > 1) {
     for(i in (l-1):1) {
       kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
     } 
@@ -686,7 +686,7 @@ SpliceFitHill <- SpliceFitPareto
 # Fast Hill estimator for fixed threshold
 .Hillinternal <- function(x, threshold) {
   
-  ind <- (x>threshold)
+  ind <- (x > threshold)
   
   return(sum(log(x[ind]/threshold))/sum(ind))
 }
@@ -764,11 +764,11 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
     stop("trunclower should be numeric.")
   }
   
-  if (any(trunclower>min(X))) {
+  if (any(trunclower > min(X))) {
     stop("trunclower should be strictly smaller than all data points.")
   }
   
-  if (any(trunclower<0)) {
+  if (any(trunclower < 0)) {
     stop("trunclower cannot be strictly negative.")
   }
   
@@ -847,7 +847,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
       tt <- tvec[i+1]
     }
     
-    POTdata <- X[X>tvec[i] & X <= tt]-tvec[i]
+    POTdata <- X[X > tvec[i] & X <= tt]-tvec[i]
     res <- GPDfit(POTdata)
     EVTfit$gamma[i] <- res[1]
     EVTfit$sigma[i] <- res[2]
@@ -919,7 +919,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
     tt <- ifelse(i == l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>tvec[i] & x <= tt
+    ind <- x > tvec[i] & x <= tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -940,7 +940,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
       stop("Invalid type.")
     }
     # PDF is 0 after endpoint
-    d[x>EVTfit$endpoint[i]] <- 0
+    d[x > EVTfit$endpoint[i]] <- 0
   }
   
   if (log) d <- log(d)
@@ -988,7 +988,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
     tt <- ifelse(i == l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>tvec[i] & x <= tt
+    ind <- x > tvec[i] & x <= tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -1038,7 +1038,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   if (log.p) p <- exp(p)
   
   
-  if (any(p<0) | any(p>1)) {
+  if (any(p < 0) | any(p > 1)) {
     stop("All elements of p should be in [0,1].")
   }
   
@@ -1077,7 +1077,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
     cconst <- ifelse(i == l, 1, const[i+1])
     
     # Index for all probabilities in i-th EVTpart
-    ind <- p>const[i] & p <= cconst
+    ind <- p > const[i] & p <= cconst
     
     # Next splicing point (Inf for last part)
     tt <- ifelse(i == l, Inf, tvec[i+1])
@@ -1108,7 +1108,7 @@ rSplice <- function(n, splicefit) {
   if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   # Use quantile function directly if more than 1 Pareto piece
-  if (length(splicefit$EVTfit$gamma)>1) {
+  if (length(splicefit$EVTfit$gamma) > 1) {
     return(qSplice(runif (n), splicefit=splicefit))
     
   } else {

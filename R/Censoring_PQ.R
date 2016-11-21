@@ -28,7 +28,7 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   .checkInput(data, gamma1)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -46,7 +46,7 @@ cProb <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   
   # Weissman estimator for probabilities
   prob[K] <- km * (q/X[n-K])^(-1/gamma1[K])
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -66,7 +66,7 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   .checkInput(data, gamma1)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -84,7 +84,7 @@ cReturn <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   
   # Weissman estimator for probabilities
   R[K] <- 1 / ( km * (q/X[n-K])^(-1/gamma1[K]) )
-  R[R<1] <- NA
+  R[R < 1] <- NA
   
   # plots if TRUE
   .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
@@ -205,7 +205,7 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   .checkInput(data, gamma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -231,7 +231,7 @@ cProbGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   prob[K] <- km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K])
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -252,7 +252,7 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   .checkInput(data, gamma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -278,7 +278,7 @@ cReturnGH <- function(data, censored, gamma1, q, plot = FALSE, add = FALSE,
   km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv
   
   R[K] <- 1 / ( km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K]) )
-  R[R<1] <- NA
+  R[R < 1] <- NA
   
   # plots if TRUE
   .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
@@ -346,7 +346,7 @@ cProbGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALS
   .checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -370,7 +370,7 @@ cProbGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FALS
   
 
   prob[K] <- km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K])
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -391,7 +391,7 @@ cReturnGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FA
   .checkInput(data, gamma1, scale=sigma1, gammapos=FALSE)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -415,7 +415,7 @@ cReturnGPD <- function(data, censored, gamma1, sigma1, q, plot = FALSE, add = FA
   
   
   R[K] <- 1 / ( km * (1 + gamma1[K]/a[K]*(q-X[n-K]))^(-1/gamma1[K]) )
-  R[R<1] <- NA
+  R[R < 1] <- NA
   
   # plots if TRUE
   .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)

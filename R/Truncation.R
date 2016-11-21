@@ -224,7 +224,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
   } 
 
   
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   
@@ -263,7 +263,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   if (is.null(kstar)) {
     
     # Ignore first values for k if K is large
-    k <- ifelse(length(K)>10, 11, 1):length(K)
+    k <- ifelse(length(K) > 10, 11, 1):length(K)
 
     # Compute correlation between log(X[n-j+1]) and DT[i]+j/n
     cors <- numeric(length(k)) 
@@ -277,7 +277,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   } else {
     
     # Check if input for kstar is valid
-    if (!is.numeric(kstar) | length(kstar)>1) {
+    if (!is.numeric(kstar) | length(kstar) > 1) {
       stop("kstar should be a numeric of length 1.")
     }
     

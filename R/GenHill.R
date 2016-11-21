@@ -92,7 +92,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data, gamma, gammapos=FALSE)
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -107,7 +107,7 @@ ProbGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   a <- X[n-K]*H[K]*(1-pmin(gamma, 0))
   
   prob[K] <- ((K+1)/(n+1)) * (1 + gamma[K]/a[K]*(q-X[n-K]))^(-1/gamma[K])
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -126,7 +126,7 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data, gamma, gammapos=FALSE)
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -141,7 +141,7 @@ ReturnGH <- function(data, gamma, q, plot = FALSE, add = FALSE,
   a <- X[n-K]*H[K]*(1-pmin(gamma, 0))
   
   r[K] <- (n+1)/(K+1) * (1 + gamma[K]/a[K]*(q-X[n-K]))^(1/gamma[K])
-  r[r<0] <- NA
+  r[r < 0] <- NA
   
   # plots if TRUE
   .plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)

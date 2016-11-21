@@ -45,7 +45,7 @@ GPDfit <- function(data, start = c(0.1, 1), warnings = FALSE) {
   }
   
 
-  if (ifelse(length(data)>1, var(data) == 0, 0)) {
+  if (ifelse(length(data) > 1, var(data) == 0, 0)) {
     sg <- c(NA, NA)
   } else {
     
@@ -53,7 +53,7 @@ GPDfit <- function(data, start = c(0.1, 1), warnings = FALSE) {
     fit <- optim(par=c(gamma_start, log(sigma_start)), fn=.POTneglogL, Y=data)
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg <- fit$par
-    if (fit$convergence>0 & warnings) {
+    if (fit$convergence > 0 & warnings) {
       warning("Optimisation did not complete succesfully.")
       if (!is.null(fit$message)) {
         print(fit$message)
@@ -86,7 +86,7 @@ GPDmle <- function(data, start = c(0.1, 1), warnings = FALSE, logk = FALSE,
   
   #Compute gamma and sigma for several values of k
   for(k in (n-1):1) {
-    potdata <- data[data>X[n-k]]-X[n-k]
+    potdata <- data[data > X[n-k]]-X[n-k]
     if (length(potdata) == 0) {
       POT[k,] <- NA
     } else {
@@ -126,7 +126,7 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data, gamma, gammapos=FALSE)
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -139,7 +139,7 @@ ProbGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
 
   # Formula 5.26
   prob[K] <- ((K+1)/(n+1)) * (1+gamma[K]/sigma[K]*(q-X[n-K]))^(-1/gamma[K])
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -158,7 +158,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
     # Check input arguments
     .checkInput(data, gamma, gammapos=FALSE)
     
-    if (length(q)>1) {
+    if (length(q) > 1) {
       stop("q should be a numeric of length 1.")
     }
     
@@ -242,7 +242,7 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
     stop("gamma and sigma should have length 1.")
   }
   
-  Y <- data[data>t]-t
+  Y <- data[data > t]-t
   n <- length(Y)
   
   if (abs(gamma) < .Machine$double.eps) {
@@ -253,7 +253,7 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
   
   # calculate theoretical and empirical quantiles)
   res.the <- -log( 1 - (1:n) / (n+1))
-  res.emp<- sort(R)
+  res.emp <- sort(R)
   
   
   # plots if TRUE

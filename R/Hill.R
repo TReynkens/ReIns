@@ -70,7 +70,7 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data, gamma)
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -82,7 +82,7 @@ Prob <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Weissman estimator for probabilities
   
   wp[K] <- (K+1)/(n+1) * (q/X[n-K])^(-1/gamma[K])
-  wp[wp<0 | wp>1] <- NA
+  wp[wp < 0 | wp > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, wp[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -103,7 +103,7 @@ Return <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data, gamma)
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -115,7 +115,7 @@ Return <- function(data, gamma, q, plot = FALSE, add = FALSE,
   # Weissman estimator for return period 
   
   wr[K] <- (n+1)/(K+1) * (q/X[n-K])^(1/gamma[K])
-  wr[wr<1] <- NA
+  wr[wr < 1] <- NA
   
   # plots if TRUE
   .plotfun(K, wr[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)

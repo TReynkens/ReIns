@@ -34,7 +34,7 @@ ScaleReg <- function(s, Z, kernel = c("normal", "uniform", "triangular", "epanec
   A <- numeric(n)
   
   for(k in K) {
-    A[k] <- 1/(k+1) * sum( (Z>Zsort[n-k]) * kernelh( s-(1:n)/n ) )
+    A[k] <- 1/(k+1) * sum( (Z > Zsort[n-k]) * kernelh( s-(1:n)/n ) )
   }
   
   # plots if TRUE
@@ -51,11 +51,11 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(Z, scale=A, scalepos=FALSE)
   # Check if no negative elements in A
-  if (min(A, na.rm=TRUE)<0) {
+  if (min(A, na.rm=TRUE) < 0) {
     stop("A can only contain positive values.")
   }
   
-  if (length(q)>1) {
+  if (length(q) > 1) {
     stop("q should be a numeric of length 1.")
   }
   
@@ -70,7 +70,7 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
   
   # Estimator for small exceedance probability
   prob[K] <- A[K] * (K+1)/(n+1) * (q/Zsort[n-K])^(-1/hill[K])
-  prob[prob<0 | prob>1] <- NA
+  prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -91,7 +91,7 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(Z, scale=A, scalepos=FALSE)
   # Check if no negative elements in A
-  if (min(A, na.rm=TRUE)<0) {
+  if (min(A, na.rm=TRUE) < 0) {
     stop("A can only contain positive values.")
   }
   

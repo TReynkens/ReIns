@@ -28,15 +28,15 @@
   # Initial value for alpha's
   alpha <- rep(0, length(shape))
   alpha[1] <- sum(initial_data <= shape[1]*theta)
-  if (length(shape)>1) {
+  if (length(shape) > 1) {
     for (i in 2:length(shape)) {
       alpha[i] <- sum(initial_data <= shape[i]*theta & initial_data > shape[i-1]*theta)
     }
   }
   
   # Keep strictly positive alpha's and corresponding shapes
-  shape <- shape[alpha>0]
-  alpha <- alpha[alpha>0]/sum(alpha)
+  shape <- shape[alpha > 0]
+  alpha <- alpha[alpha > 0]/sum(alpha)
   
   # alpha to beta
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)  
@@ -61,7 +61,7 @@
     # likelihood contribution (censored)
     likelihood_contribution <- c(likelihood_contribution, rowSums(c_components)) 
   }   
-  loglikelihood_contribution <- ifelse(likelihood_contribution>0, log(likelihood_contribution), -1000)
+  loglikelihood_contribution <- ifelse(likelihood_contribution > 0, log(likelihood_contribution), -1000)
   # loglikelihood
   sum(loglikelihood_contribution)
 }
@@ -260,7 +260,7 @@
     # Try decreasing the shapes
     for(i in 1:M) {
       improve <- TRUE
-      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i]>1, FALSE)) {
+      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -406,13 +406,13 @@
   
   # Check inequalities
   if (!all(is.na(lower)) & !all(is.na(upper))) {
-    if (any(lower>upper)) {
+    if (any(lower > upper)) {
       stop("lower should be smaller than (or equal to) upper.")
     }
   }
   
   
-  if (any(trunclower>truncupper)) {
+  if (any(trunclower > truncupper)) {
     stop("trunclower should be smaller than (or equal to) truncupper.")
   }
   
@@ -422,14 +422,14 @@
   }
   
   if (!all(is.na(lower))) {
-    if (any(trunclower>lower)) {
+    if (any(trunclower > lower)) {
       stop("trunclower should be smaller than (or equal to) lower.")
     }
   }
   
   
   if (!all(is.na(upper))) {
-    if (any(truncupper<upper)) {
+    if (any(truncupper < upper)) {
       stop("truncupper should be larger than (or equal to) cupper.")
     }
   }
@@ -438,16 +438,16 @@
   ##
   
   # Check input for eps
-  if (!is.numeric(eps) | length(eps)>1) stop("eps should be a numeric of length 1.")
+  if (!is.numeric(eps) | length(eps) > 1) stop("eps should be a numeric of length 1.")
   if (eps <= 0) stop("eps should be strictly positive.")
   
   # Check input for beta_tol
-  if (!is.numeric(beta_tol) | length(beta_tol)>1) stop("beta_tol should be a numeric of length 1.")
-  if (beta_tol>1 | beta_tol <= 0) stop("beta_tol should be in (0,1].")
+  if (!is.numeric(beta_tol) | length(beta_tol) > 1) stop("beta_tol should be a numeric of length 1.")
+  if (beta_tol > 1 | beta_tol <= 0) stop("beta_tol should be in (0,1].")
   
   # Check input for maxiter
-  if (!is.numeric(maxiter) | length(maxiter)>1) stop("maxiter should be a numeric of length 1.")
-  if (maxiter<1) stop("maxiter should be at least 1.")
+  if (!is.numeric(maxiter) | length(maxiter) > 1) stop("maxiter should be a numeric of length 1.")
+  if (maxiter < 1) stop("maxiter should be at least 1.")
 
 }
 
@@ -634,7 +634,7 @@
         VaR_optimise <- optimise(f = objective, interval = interval)
         VaR[i] <- ifelse(VaR_nlm$minimum < VaR_optimise$objective, VaR_nlm$estimate, VaR_optimise$minimum)    
       
-        if (objective(VaR[i])>1e-06) { # in case optimisation fails, retry with more different starting values
+        if (objective(VaR[i]) > 1e-06) { # in case optimisation fails, retry with more different starting values
           # Fix warnings
           estimate <- NULL
           minimum <- NULL
@@ -700,7 +700,7 @@
     VaR_optimise <- optimise(f = objective, interval = interval)
     VaR <- ifelse(VaR_nlm$minimum < VaR_optimise$objective, VaR_nlm$estimate, VaR_optimise$minimum)    
     
-    if (objective(VaR)>1e-06) { # in case optimization fails, retry with more different starting values
+    if (objective(VaR) > 1e-06) { # in case optimization fails, retry with more different starting values
       alpha <- alpha[order(shape)]
       shape <- shape[order(shape)]
       VaR_nlm <-  vector("list", length(shape))

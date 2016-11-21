@@ -17,7 +17,7 @@
   premium <- numeric(n)
   K <- 1:(n-1)
   
-  if (length(R)>1 & length(R) != (n-1)) {
+  if (length(R) > 1 & length(R) != (n-1)) {
     stop("R should be a numeric of length 1 or n-1.")
   }
   
@@ -25,12 +25,12 @@
   premium[K] <- (K+1) / (n+1) * .IntTailPareto_aux(t=X[n-K], gamma=gamma[K], R=R, endpoint=endpoint)
   
   # Remove negative values
-  premium[premium<0] <- NA
+  premium[premium < 0] <- NA
   
   # Only valid when R >= X[n-K]
-  premium[X[n-K]>R] <- NA
+  premium[X[n-K] > R] <- NA
   
-  if (any(X[n-K]>R) & warnings) {
+  if (any(X[n-K] > R) & warnings) {
     warning("R is smaller than X[n-k] for some K, use global fits for these cases!")
   }
   
@@ -91,12 +91,12 @@
                                                           R^(1+tau[K]-1/gamma[K]) )
   
   # Remove negative values
-  premium[premium<0] <- NA
+  premium[premium < 0] <- NA
   
   # Only valid when R >= X[n-K]
-  premium[X[n-K]>R] <- NA
+  premium[X[n-K] > R] <- NA
   
-  if (any(X[n-K]>R) & warnings) {
+  if (any(X[n-K] > R) & warnings) {
     warning("R is smaller than X[n-k] for some K, use global fits for these cases!")
   }
   
@@ -134,12 +134,12 @@
   premium[K] <- (K+1) / (n+1) * .IntTailGPD_aux(t=X[n-K], gamma=gamma[K], sigma=sigma[K], endpoint=Inf, R=R)
 
   # Remove negative values
-  premium[premium<0] <- NA
+  premium[premium < 0] <- NA
   
   # Only valid when R >= X[n-K]
-  premium[X[n-K]>R] <- NA
+  premium[X[n-K] > R] <- NA
   
-  if (any(X[n-K]>R) & warnings) {
+  if (any(X[n-K] > R) & warnings) {
     warning("R is smaller than X[n-k] for some K, use global fits for these cases!")
   }
   
@@ -342,12 +342,12 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
       
     
     # Only necessary if more than 2 EVT parts in splicing
-    if (l>1 & !end) {  
+    if (l > 1 & !end) {  
       
       for (j in (l-1):1)  {
 
-        if (R[i]>tvec[j] & R[i] <= tvec[j+1]) {
-          # tvec[j]<R[i]<tvec[j+1] case
+        if (R[i] > tvec[j] & R[i] <= tvec[j+1]) {
+          # tvec[j] < R[i] < tvec[j+1] case
         
           # Actual endpoint of splicing part
           e <- min(tvec[j+1], endpoint[j])
@@ -389,7 +389,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
     }
     
     if (R[i] <= tvec[1]) {
-      # R[i]<tvec[1] case
+      # R[i] < tvec[1] case
 
       # Set C to Inf because C is maximal cover amount
       me_u <- .ME_XL(R=R[i], C=Inf, shape = MEfit$shape, alpha = MEfit$p, 
@@ -446,11 +446,11 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
     }  
     
     # Only necessary if more than 2 EVT parts in splicing
-    if (l>1 & !end) {
+    if (l > 1 & !end) {
       
       for (j in (l-1):1)  {
        
-        if (R[i]>tvec[j] & R[i] <= tvec[j+1]) {
+        if (R[i] > tvec[j] & R[i] <= tvec[j+1]) {
 		      # tvec[j]<R[i]<tvec[j+1] case 
 		
 		      # Actual endpoint of splicing part

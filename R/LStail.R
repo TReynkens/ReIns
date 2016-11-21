@@ -69,12 +69,12 @@ LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add
     eps = sqrt(.Machine$double.eps)
     
     for (k in (n-1):1) {
-      if (floor(lambda^2*k)>0 & floor(lambda^2*k) != floor(lambda*k)) {
+      if (floor(lambda^2*k) > 0 & floor(lambda^2*k) != floor(lambda*k)) {
         h0 <- Hill[k]
         h1 <- Hill[floor(lambda*k)]
         h2 <- Hill[floor(lambda^2*k)]
 
-        if (abs(h1-h2)>eps & abs(h1-h0)>eps & (h2-h1)*(h1-h0)>0 &
+        if (abs(h1-h2) > eps & abs(h1-h0) > eps & (h2-h1)*(h1-h0) > 0 &
             is.finite(h1) & is.finite(h0)) {
           par[k, 3] <- -log((h2-h1)/(h1-h0))/log(lambda)
         }
