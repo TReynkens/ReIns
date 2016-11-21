@@ -3,8 +3,8 @@
 # This file should not be confused with "RcppExports.R"!
 
 .spliceEM_fit_raw_cpp <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf,
-                                 pi,  theta, shape, beta, gamma,
-                                 eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+                                  pi, theta, shape, beta, gamma,
+                                  eps = 10 ^ (-3), beta_tol = 10 ^ (-5), maxiter = Inf) {
 
   # Separate uncensored and censored observations
   uncensored <- !censored
@@ -13,15 +13,15 @@
   # Some can be numeric(0)!
 
   # t^l <= x_i=l_i=u_i <= t <T
-  ind1 <- which(uncensored & (upper<=tsplice))
+  ind1 <- which(uncensored & (upper <= tsplice))
   # t^l < t < x_i=l_i=u_i <=T
-  ind2 <- which(uncensored & (upper>tsplice))
+  ind2 <- which(uncensored & (upper > tsplice))
   # t^l <= l_i < u_i <= t <T
-  ind3 <- which(censored & upper<=tsplice)
+  ind3 <- which(censored & upper <= tsplice)
   # t^l < t <= l_i < u_i <=T
-  ind4 <- which(censored & lower>=tsplice)
+  ind4 <- which(censored & lower >= tsplice)
   # t^l <= l_i < t < u_i <=T
-  ind5 <- which(censored & lower<tsplice & upper>tsplice)
+  ind5 <- which(censored & lower < tsplice & upper > tsplice)
 
   lower1 <- lower[ind1];
   lower2 <- lower[ind2];
@@ -39,8 +39,8 @@
 
 
 .spliceEM_shape_adj_cpp <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf,
-                                 pi, theta, shape, beta, gamma,
-                                 eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
+                                    pi, theta, shape, beta, gamma,
+                                    eps = 10 ^ (-3), beta_tol = 10 ^ (-5), maxiter = Inf) {
 
   # Separate uncensored and censored observations
   uncensored <- !censored
@@ -49,15 +49,15 @@
   # Some can be numeric(0)!
 
   # t^l <= x_i=l_i=u_i <= t <T
-  ind1 <- which(uncensored & (upper<=tsplice))
+  ind1 <- which(uncensored & (upper <= tsplice))
   # t^l < t < x_i=l_i=u_i <=T
-  ind2 <- which(uncensored & (upper>tsplice))
+  ind2 <- which(uncensored & (upper > tsplice))
   # t^l <= l_i < u_i <= t <T
-  ind3 <- which(censored & upper<=tsplice)
+  ind3 <- which(censored & upper <= tsplice)
   # t^l < t <= l_i < u_i <=T
-  ind4 <- which(censored & lower>=tsplice)
+  ind4 <- which(censored & lower >= tsplice)
   # t^l <= l_i < t < u_i <=T
-  ind5 <- which(censored & lower<tsplice & upper>tsplice)
+  ind5 <- which(censored & lower < tsplice & upper > tsplice)
 
   lower1 <- lower[ind1];
   lower2 <- lower[ind2];
@@ -74,7 +74,7 @@
 
 .spliceEM_shape_red_cpp <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf, 
                                    pi, theta, shape, beta, gamma, criterium = "AIC", improve = TRUE,
-                                   eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, adj = TRUE) {
+                                   eps = 10 ^ (-3), beta_tol = 10 ^ (-5), maxiter = Inf, adj = TRUE) {
   
   # Separate uncensored and censored observations
   uncensored <- !censored
@@ -83,15 +83,15 @@
   # Some can be numeric(0)!
   
   # t^l <= x_i=l_i=u_i <= t <T
-  ind1 <- which(uncensored & (upper<=tsplice))
+  ind1 <- which(uncensored & (upper <= tsplice))
   # t^l < t < x_i=l_i=u_i <=T
-  ind2 <- which(uncensored & (upper>tsplice))
+  ind2 <- which(uncensored & (upper > tsplice))
   # t^l <= l_i < u_i <= t <T
-  ind3 <- which(censored & upper<=tsplice)
+  ind3 <- which(censored & upper <= tsplice)
   # t^l < t <= l_i < u_i <=T
-  ind4 <- which(censored & lower>=tsplice)
+  ind4 <- which(censored & lower >= tsplice)
   # t^l <= l_i < t < u_i <=T
-  ind5 <- which(censored & lower<tsplice & upper>tsplice)
+  ind5 <- which(censored & lower < tsplice & upper > tsplice)
   
   lower1 <- lower[ind1];
   lower2 <- lower[ind2]; 
