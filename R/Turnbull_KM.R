@@ -126,7 +126,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
     
     fq <- stepfun(1-fit$surv, c(fit$time, Inf), right=TRUE)
     
-    return(ifelse(p>=0 & p<=1, fq(p), NaN))
+    return(ifelse(p >= 0 & p <= 1, fq(p), NaN))
   }
 
   return(list(f=f, fit=fit, fquant=fquant))
@@ -281,7 +281,7 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
     
     fq <- approxfun(proball, xall2, ties = "ordered", rule=2)
     
-    return(ifelse(p>=0 & p<=1, fq(p), NaN))
+    return(ifelse(p >= 0 & p <= 1, fq(p), NaN))
   }
   
   return(list(f=f, fit=fit, xall=xall, survall=survall, fquant=fquant))

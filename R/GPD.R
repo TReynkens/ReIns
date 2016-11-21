@@ -171,7 +171,7 @@ ReturnGPD <- function(data, gamma, sigma, q, plot = FALSE, add = FALSE,
     
     # Formula 5.26
     r[K] <- (n+1)/(K+1) * (1+gamma[K]/sigma[K]*(q-X[n-K]))^(1/gamma[K])
-    r[r<=0] <- NA
+    r[r <= 0] <- NA
     
     # plots if TRUE
     .plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)

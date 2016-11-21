@@ -78,7 +78,7 @@ ScaleEPD <- function (data, gamma, kappa, logk = FALSE, plot = FALSE, add = FALS
   C <- numeric(n)
   
   #   kappa[kappa<pmax(-1,-1/gamma[K])] <- NA
-  gamma[gamma<=0] <- NA
+  gamma[gamma <= 0] <- NA
   
   A[K] <- (K + 1)/(n + 1) * X[n - K]^(1/gamma[K]) * (1-kappa[K]/gamma[K])
   C[K] <- A[K]^gamma[K]

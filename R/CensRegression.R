@@ -100,8 +100,8 @@ crParetoQQ <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "n
   surv <- crSurv(x=x, y=sort(Ytilde), Xtilde=Xtilde, Ytilde=Ytilde, censored=censored, 
                  h=h, kernel=kernel)
   # Remove too small values!
-  pqq.the <- -log(surv[surv>=10^(-8)])
-  pqq.emp <- log(sort(Ytilde)[surv>=10^(-8)])
+  pqq.the <- -log(surv[surv >= 10^(-8)])
+  pqq.emp <- log(sort(Ytilde)[surv >= 10^(-8)])
   
   # plots if TRUE
   .plotfun(pqq.the, pqq.emp, type=type, xlab="-log(Survival probability)", ylab="log(Y)", 

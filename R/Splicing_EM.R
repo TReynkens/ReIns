@@ -156,11 +156,11 @@ numtol <- .Machine$double.eps^0.5
     stop("all elements of L should be smaller than (or equal to) the corresponding elements of U.")
   }
   
-  if (trunclower>tsplice) {
+  if (trunclower > tsplice) {
     stop("trunclower should be smaller than (or equal to) tsplice.")
   }
   
-  if (truncupper<=tsplice) {
+  if (truncupper <= tsplice) {
     stop("truncupper should be strictly larger than tsplice.")
   }
   
@@ -184,13 +184,13 @@ numtol <- .Machine$double.eps^0.5
   # Check if enough data in all categories
   
   # t^l <= x_i=l_i=u_i <= t <T
-  ind1 <- which(!censored & (U<=tsplice))
+  ind1 <- which(!censored & (U <= tsplice))
   # t^l < t < x_i=l_i=u_i <=T
-  ind2 <- which(!censored & (U>tsplice))
+  ind2 <- which(!censored & (U > tsplice))
   # t^l <= l_i < u_i <= t <T
-  ind3 <- which(censored & U<=tsplice)
+  ind3 <- which(censored & U <= tsplice)
   # t^l < t <= l_i < u_i <=T
-  ind4 <- which(censored & L>=tsplice)
+  ind4 <- which(censored & L >= tsplice)
   # t^l <= l_i < t < u_i <=T
   #ind5 <- which(censored & L<tsplice & U>tsplice)
   
@@ -206,15 +206,15 @@ numtol <- .Machine$double.eps^0.5
   
   # Check input for eps
   if (!is.numeric(eps) | length(eps)>1) stop("eps should be a numeric of length 1.")
-  if (eps<=0) stop("eps should be strictly positive.")
+  if (eps <= 0) stop("eps should be strictly positive.")
   
   # Check input for beta_tol
   if (!is.numeric(beta_tol) | length(beta_tol)>1) stop("beta_tol should be a numeric of length 1.")
-  if (beta_tol>1 | beta_tol<=0) stop("beta_tol should be in (0,1].")
+  if (beta_tol > 1 | beta_tol <= 0) stop("beta_tol should be in (0,1].")
   
   # Check input for maxiter
   if (!is.numeric(maxiter) | length(maxiter)>1) stop("maxiter should be a numeric of length 1.")
-  if (maxiter<1) stop("maxiter should be at least 1.")
+  if (maxiter < 1) stop("maxiter should be at least 1.")
   
 }
 
@@ -381,7 +381,7 @@ numtol <- .Machine$double.eps^0.5
   # Remove initial_data equal to 0 since they cause first shape to be 0
   initial_data[initial_data == 0] <- NA
   
-  initial_dataME <- initial_data[initial_data<=tsplice]
+  initial_dataME <- initial_data[initial_data <= tsplice]
   
   # Initial value of theta using spread factor s
   theta <- max(initial_dataME, na.rm=TRUE) / s
@@ -536,7 +536,7 @@ numtol <- .Machine$double.eps^0.5
       improve <- TRUE
       
       # Increase i-th shape as long as improvement and not larger than next shape
-      while( improve && (i == M || ifelse(i<=length(shape), shape[i] < shape[i+1]-1, FALSE)) ) {
+      while( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE)) ) {
         
         # Increase i-th shape by 1
         new_shape <- shape
@@ -569,7 +569,7 @@ numtol <- .Machine$double.eps^0.5
       improve <- TRUE
       
       # Decrease i-th shape as long as improvement and larger than 1 and not smaller than previous shape
-      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, FALSE)) {
+      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i]>1, FALSE)) {
         
         # Decrease i-th shape by 1
         new_shape <- shape
@@ -631,15 +631,15 @@ numtol <- .Machine$double.eps^0.5
   # Some can be numeric(0)!
   
   # t^l <= x_i=l_i=u_i <= t <T
-  ind1 <- which(uncensored & (upper<=tsplice))
+  ind1 <- which(uncensored & (upper <= tsplice))
   # t^l < t < x_i=l_i=u_i <=T
-  ind2 <- which(uncensored & (upper>tsplice))
+  ind2 <- which(uncensored & (upper > tsplice))
   # t^l <= l_i < u_i <= t <T
-  ind3 <- which(censored & upper<=tsplice)
+  ind3 <- which(censored & upper <= tsplice)
   # t^l < t <= l_i < u_i <=T
-  ind4 <- which(censored & lower>=tsplice)
+  ind4 <- which(censored & lower >= tsplice)
   # t^l <= l_i < t < u_i <=T
-  ind5 <- which(censored & lower<tsplice & upper>tsplice)
+  ind5 <- which(censored & lower < tsplice & upper > tsplice)
   
   lower1 <- lower[ind1]
   lower2 <- lower[ind2]
@@ -1112,24 +1112,24 @@ numtol <- .Machine$double.eps^0.5
 # Pareto PDF
 .dpareto <- function(x, gamma, tsplice) {
   
-  ifelse(x<=tsplice, 0, 1/(gamma*tsplice) * (x/tsplice)^(-1/gamma-1))
+  ifelse(x <= tsplice, 0, 1/(gamma*tsplice) * (x/tsplice)^(-1/gamma-1))
 }
 
 
 # Pareto CDF
 .ppareto <- function(x, gamma, tsplice) {
   
-  ifelse(x<=tsplice, 0, 1-(x/tsplice)^(-1/gamma))
+  ifelse(x <= tsplice, 0, 1-(x/tsplice)^(-1/gamma))
 }
 
 # Truncated Pareto PDF
 .dtpareto <- function(x, gamma, tsplice, truncupper) {
   
-  ifelse(x<=truncupper, .dpareto(x=x, gamma=gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma=gamma, tsplice=tsplice), 0)
+  ifelse(x <= truncupper, .dpareto(x=x, gamma=gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma=gamma, tsplice=tsplice), 0)
 }
 
 # Truncated Pareto CDF
 .ptpareto <- function(x, gamma, tsplice, truncupper) {
   
-  ifelse(x<=truncupper, .ppareto(x=x, gamma=gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma=gamma, tsplice=tsplice), 1)
+  ifelse(x <= truncupper, .ppareto(x=x, gamma=gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma=gamma, tsplice=tsplice), 1)
 }

@@ -51,7 +51,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   
   # Keep unique elements
   eps <- sqrt(.Machine$double.eps)
-  ic[which(diff(ic)<=eps)+1] <- NA
+  ic[which(diff(ic) <= eps)+1] <- NA
   ic <- ic[!is.na(ic)]
   
   # Remove infinite elements
@@ -64,7 +64,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
 
   # Compute slopes and intercepts of function in intervals
   as <- diff(y) / diff(x)
-  as[diff(x)<=eps] <- 0
+  as[diff(x) <= eps] <- 0
   bs <- y[1:(m-1)] - as * x[1:(m-1)]
   # Remove influence of jumps
   bs[is.infinite(as)] <- 0
@@ -233,7 +233,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   
   # Keep unique elements
   eps <- sqrt(.Machine$double.eps)
-  ic[which(diff(ic)<=eps)+1] <- NA
+  ic[which(diff(ic) <= eps)+1] <- NA
   ic <- ic[!is.na(ic)]
   
   
@@ -244,7 +244,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   
   # Compute slopes and intercepts of function in intervals
   as <- diff(y) / diff(x)
-  as[diff(x)<=eps] <- 0
+  as[diff(x) <= eps] <- 0
   bs <- y[1:(m-1)] - as * x[1:(m-1)]
   # Remove influence of jumps
   bs[is.infinite(as)] <- 0
@@ -344,12 +344,12 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   
   # Keep unique elements
   eps <- sqrt(.Machine$double.eps)
-  ic[which(diff(ic)<=eps)+1] <- NA
+  ic[which(diff(ic) <= eps)+1] <- NA
   ic <- ic[!is.na(ic)]
 
   # Compute slopes and intercepts of function in intervals
   as <- diff(y) / diff(x)
-  as[diff(x)<=eps] <- 0
+  as[diff(x) <= eps] <- 0
   bs <- y[1:(m-1)] - as * x[1:(m-1)]
   # Remove influence of jumps
   bs[is.infinite(as)] <- 0

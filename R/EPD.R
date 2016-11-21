@@ -81,7 +81,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   H <- Hill(data, plot=FALSE)$gamma
   
-  if (all(rho>0) & nrho == 1) {
+  if (all(rho > 0) & nrho == 1) {
     rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
 
@@ -102,7 +102,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   for(j in 1:nrho) {
     
     # tau
-    if (nrho == 1 & all(rho.orig>0)) {
+    if (nrho == 1 & all(rho.orig > 0)) {
       # Estimates for rho of Fraga Alves et al. (2003) used 
       # and hence a different value of beta for each k
       tau[K, 1] <- -beta[K]/H[K]
@@ -158,7 +158,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   H <- Hill(data, plot=FALSE)$gamma
   
-  if (all(rho>0) & nrho == 1) {
+  if (all(rho > 0) & nrho == 1) {
     rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
     
@@ -177,10 +177,10 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
 
     # Compute gamma and kappa for several values of k
     for(k in (n-1):1) {
-      epddata <- data[data>X[n-k]]/X[n-k]
+      epddata <- data[data > X[n-k]]/X[n-k]
       
       # tau
-      if (nrho == 1 & all(rho.orig>0)) {
+      if (nrho == 1 & all(rho.orig > 0)) {
         # Estimates for rho of Fraga Alves et al. (2003) used 
         # and hence a different value of beta for each k
         tau[k,1] <- -beta[k]/H[k]
@@ -197,7 +197,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
         start2[2] <- 0
       } else if (is.matrix(start)) {
         
-        if (nrow(start>=n-1)) {
+        if (nrow(start >= n-1)) {
           start2 <- numeric(2)
           start2[1] <- start[k,1]
           start2[2] <- start[k,2]
@@ -239,7 +239,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   }
   
   
-  if (ifelse(length(data)>1, var(data) == 0, 0)) {
+  if (ifelse(length(data) > 1, var(data) == 0, 0)) {
     sg <- c(NA, NA)
   } else {
     
@@ -248,7 +248,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg <- fit$par
     
-    if (fit$convergence>0 & warnings) {
+    if (fit$convergence > 0 & warnings) {
       warning("Optimisation did not complete succesfully.")
       if (!is.null(fit$message)) {
         print(fit$message)
@@ -267,7 +267,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   # Makes sure that sigma is positive
   kappa <- theta[2]
 
-  if (kappa<=max(-1, 1/tau) | gamma<=0) {
+  if (kappa <= max(-1, 1/tau) | gamma <= 0) {
     logL <- -10^6
   } else {
     logL <- sum( log(depd(Y, gamma=gamma, kappa=kappa, tau=tau)) )
@@ -283,12 +283,12 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   # Check input arguments
   .checkInput(data)
   
-  if (alpha<=0) {
+  if (alpha <= 0) {
     stop("alpha should be strictly positive.")
   }
   
   
-  if (tau<=0) {
+  if (tau <= 0) {
     stop("tau should be strictly positive.")
   }
   
@@ -336,10 +336,10 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   prob <- numeric(n)
   K <- 1:(n-1)
   
-  K2 <- K[which(gamma[K]>0)]
+  K2 <- K[which(gamma[K] > 0)]
   
   prob[K2] <- (K2+1)/(n+1) * (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
-  prob[prob<0 | prob>1] <- NA
+  prob[prob<0 | prob > 1] <- NA
   
   # plots if TRUE
   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
@@ -368,14 +368,14 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   r <- numeric(n)
   K <- 1:(n-1)
   
-  K2 <- K[which(gamma[K]>0)]
+  K2 <- K[which(gamma[K] > 0)]
   
   r[K2] <- (n+1)/(K2+1) / (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   
   
-  r[which(gamma[K]<=0)] <- NA
+  r[which(gamma[K] <= 0)] <- NA
   
-  r[r<=0] <- NA
+  r[r <= 0] <- NA
   
   
   # plots if TRUE

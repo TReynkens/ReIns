@@ -133,13 +133,13 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
   kernelfun <- switch(kernel,
                   normal = function(x) { dnorm(x) },
                   uniform = function(x) {
-                    0.5 * (abs(x)<=1)  },
+                    0.5 * (abs(x) <= 1)  },
                   triangular = function(x) {
-                    (1-abs(x)) * (abs(x)<=1) },
+                    (1-abs(x)) * (abs(x) <= 1) },
                   epanechnikov = function(x) {
-                    0.75 * (1-x^2) * (abs(x)<=1) },
+                    0.75 * (1-x^2) * (abs(x) <= 1) },
                   biweight = function(x) {
-                    15/16 * (1-x^2)^2 * (abs(x)<=1) }
+                    15/16 * (1-x^2)^2 * (abs(x) <= 1) }
   )
   
   # K_h(x) = K(x/h)/h

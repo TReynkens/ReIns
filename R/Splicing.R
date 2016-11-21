@@ -13,7 +13,7 @@
  
   if (!is.numeric(const)) stop("const should be numeric.")
   
-  if (any(const<=0) | any(const>=1)) {
+  if (any(const <= 0) | any(const >= 1)) {
     stop("const should be a vector of numbers in (0,1).")
   }
   
@@ -81,7 +81,7 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
   }
   
   # Check if theta is strictly positive
-  if (theta<=eps) {
+  if (theta <= eps) {
     stop("theta must be a strictly positive number.")
   }
   
@@ -171,7 +171,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
     stop("t should be a strictly increasing vector.")
   }
   
-  if (t[1]<=trunclower) stop("trunclower should be strictly smaller than the elements of t.")
+  if (t[1] <= trunclower) stop("trunclower should be strictly smaller than the elements of t.")
   
   
   # Check type
@@ -199,7 +199,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   }
 
   NAind <- which(is.na(EVTfit$gamma))
-  if (any(grepl("Pa", type[-c(1, NAind)]) & EVTfit$gamma[-NAind]<=0)) {
+  if (any(grepl("Pa", type[-c(1, NAind)]) & EVTfit$gamma[-NAind] <= 0)) {
     stop("gamma should be strictly positive when Pareto distribution is used.")
   }
  
@@ -252,7 +252,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
 .pasteVec <- function(s, name, vec, digits, paste_end="\n\n") {
   
   # Take no digits when vec is large
-  digits <- ifelse(min(vec)<=1000, digits, 0)
+  digits <- ifelse(min(vec) <= 1000, digits, 0)
   
   # Format output in right style (after rounding): add blank spaces, remove scientific notation and
   # remove leading whitespace, remove trailing zeros
@@ -528,7 +528,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     stop("truncupper should be larger than all data points.")
   }
 
-  if (truncupper<=trunclower) {
+  if (truncupper <= trunclower) {
     stop("truncupper should be strictly larger than trunclower.")
   }
   
@@ -568,7 +568,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     tvec <- tsplice
     
     # const is number of observations smaller than or equal to tvec
-    f <- function(t, x) sum(x<=t)
+    f <- function(t, x) sum(x <= t)
     const <- sapply(tvec, f, Xsort)/n
 
     # Make sure k_init is of integer type
@@ -586,7 +586,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   
 
   # Problem when first splicing point smaller than trunclower
-  if (any(trunclower>=tvec[1])) {
+  if (any(trunclower >= tvec[1])) {
     stop("trunclower should be strictly smaller than the first splicing point.")
   }
   
@@ -594,7 +594,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
    
   ##
   # Mixing Erlang part
-  MEind <- (X<=t1) 
+  MEind <- (X <= t1) 
   
   # Upper truncated at threshold t
   fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
@@ -621,7 +621,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
         
         if (is.finite(truncupper)) {
           # Last Pareto distribution is truncated, known truncation point
-          EVTfit$gamma[i] <- .trHillinternal(X[X<=truncupper], tvec[i], truncupper)
+          EVTfit$gamma[i] <- .trHillinternal(X[X <= truncupper], tvec[i], truncupper)
           EVTfit$endpoint[i] <- truncupper
           
         } else {
@@ -648,7 +648,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
       tt <- tvec[i+1]
       
       # Truncated Pareto distribution with truncation point tt
-      EVTfit$gamma[i] <- .trHillinternal(X[X<=tt], tvec[i], tt)
+      EVTfit$gamma[i] <- .trHillinternal(X[X <= tt], tvec[i], tt)
       EVTfit$endpoint[i] <- tt
       type[i] <- "TPa"
     }
@@ -754,7 +754,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   }
   
   # Only implemented for a single splicing point
-  if (l>=2) {
+  if (l >= 2) {
     stop("const (or tsplice) should be a single number.")
   }
   
@@ -802,14 +802,14 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
     tvec <- tsplice
     
     # const is number of observations smaller than or equal to tvec
-    f <- function(t, x) sum(x<=t)
+    f <- function(t, x) sum(x <= t)
     const <- sapply(tvec, f, Xsort)/n
     
   }
   
   
   # Problem when first splicing point smaller than trunclower
-  if (any(trunclower>=tvec[1])) {
+  if (any(trunclower >= tvec[1])) {
     stop("trunclower should be strictly smaller than the first splicing point.")
   }
   
@@ -817,7 +817,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   
   ##
   # Mixing Erlang part
-  MEind <- (X<=t1) 
+  MEind <- (X <= t1) 
   
   # Upper truncated at threshold t
   fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
@@ -847,7 +847,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
       tt <- tvec[i+1]
     }
     
-    POTdata <- X[X>tvec[i] & X<=tt]-tvec[i]
+    POTdata <- X[X>tvec[i] & X <= tt]-tvec[i]
     res <- GPDfit(POTdata)
     EVTfit$gamma[i] <- res[1]
     EVTfit$sigma[i] <- res[2]
@@ -906,7 +906,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
   
   type <- splicefit$type
   
-  ind <- (x<=tvec[1])
+  ind <- (x <= tvec[1])
   
   # Case x<=t
   d[ind] <- const[1] * .ME_density(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
@@ -919,7 +919,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
     tt <- ifelse(i == l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>tvec[i] & x<=tt
+    ind <- x>tvec[i] & x <= tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -975,7 +975,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   type <- splicefit$type
   
-  ind <- (x<=tvec[1])
+  ind <- (x <= tvec[1])
   
   # Case x<t
   p[ind] <- const[1] * .ME_cdf(x[ind], shape = MEfit$shape, alpha = MEfit$p, 
@@ -988,7 +988,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
     tt <- ifelse(i == l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
-    ind <- x>tvec[i] & x<=tt
+    ind <- x>tvec[i] & x <= tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
@@ -1011,7 +1011,7 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
     }
     
     # CDF is 1 after endpoint
-    p[x>=EVTfit$endpoint[i]] <- 1
+    p[x >= EVTfit$endpoint[i]] <- 1
   }
   
   if (!lower.tail) p <- 1-p
@@ -1059,7 +1059,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   const <- splicefit$const
   l <- length(const)
 
-  ind <- (p<=const[1])
+  ind <- (p <= const[1])
   
   if (any(ind)) {
     # Quantiles of ME part
@@ -1077,7 +1077,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
     cconst <- ifelse(i == l, 1, const[i+1])
     
     # Index for all probabilities in i-th EVTpart
-    ind <- p>const[i] & p<=cconst
+    ind <- p>const[i] & p <= cconst
     
     # Next splicing point (Inf for last part)
     tt <- ifelse(i == l, Inf, tvec[i+1])

@@ -235,7 +235,7 @@
     # Try increasing the shapes
     for(i in M:1) {
       improve <- TRUE
-      while( improve && (i == M || ifelse(i<=length(shape), shape[i] < shape[i+1]-1, FALSE))) {
+      while( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE))) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1        
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -260,7 +260,7 @@
     # Try decreasing the shapes
     for(i in 1:M) {
       improve <- TRUE
-      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, FALSE)) {
+      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i]>1, FALSE)) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -439,11 +439,11 @@
   
   # Check input for eps
   if (!is.numeric(eps) | length(eps)>1) stop("eps should be a numeric of length 1.")
-  if (eps<=0) stop("eps should be strictly positive.")
+  if (eps <= 0) stop("eps should be strictly positive.")
   
   # Check input for beta_tol
   if (!is.numeric(beta_tol) | length(beta_tol)>1) stop("beta_tol should be a numeric of length 1.")
-  if (beta_tol>1 | beta_tol<=0) stop("beta_tol should be in (0,1].")
+  if (beta_tol>1 | beta_tol <= 0) stop("beta_tol should be in (0,1].")
   
   # Check input for maxiter
   if (!is.numeric(maxiter) | length(maxiter)>1) stop("maxiter should be a numeric of length 1.")

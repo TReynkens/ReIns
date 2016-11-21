@@ -49,7 +49,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
     gamma[k] <- z
   }
   
-  gamma[gamma<=0] <- NA
+  gamma[gamma <= 0] <- NA
   
   # plots if TRUE  
   if (logk) {
@@ -281,15 +281,15 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
       stop("kstar should be a numeric of length 1.")
     }
     
-    if (kstar<=0 | !.is.wholenumber(kstar)) {
+    if (kstar <= 0 | !.is.wholenumber(kstar)) {
       stop("kstar should be a strictly positive integer.")
     }
     
-    if (kstar>n-1) {
+    if (kstar > n-1) {
       stop(paste0("kstar should be strictly smaller than ", n, "."))
     }
     
-    if (kstar<=10) {
+    if (kstar <= 10) {
       warning("kstar should be strictly larger than 10.")
     }
     
@@ -346,7 +346,7 @@ trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation"
   cv <- qnorm(alpha)
   
   # Reject
-  reject <- (tv<=cv)
+  reject <- (tv <= cv)
   
   # P-values
   Pval <- pnorm(tv)

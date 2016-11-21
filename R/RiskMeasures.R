@@ -44,7 +44,7 @@
 # Auxiliary function used in ExcessSplice
 .IntTailPareto_aux <- function(t, gamma, R, endpoint = Inf) {
   
-  if (any(gamma>=1)) stop("gamma should be strictly smaller than 1.")
+  if (any(gamma >= 1)) stop("gamma should be strictly smaller than 1.")
   
   # Premium
   if (is.finite(endpoint)) {
@@ -54,7 +54,7 @@
     premium <- 1 / (1-beta^(-1/gamma)) * ( t^(1/gamma) / (1/gamma-1) * 
                                              (R^(1-1/gamma) - endpoint^(1-1/gamma)) + beta^(-1/gamma) * (R - endpoint) )
     # Special case if R>=endpoint
-    premium[R>=endpoint] <- 0
+    premium[R >= endpoint] <- 0
     
   } else {
     # Pareto model
@@ -155,14 +155,14 @@
 # Auxiliary function used in ExcessSplice
 .IntTailGPD_aux <- function(t, gamma, sigma, R, endpoint = Inf) {
   
-  if (any(gamma>=1)) stop("gamma should be strictly smaller than 1.")
+  if (any(gamma >= 1)) stop("gamma should be strictly smaller than 1.")
   
   if (is.finite(endpoint)) {
     
     pT <- pgpd(endpoint, mu=t, gamma=gamma, sigma=sigma)
     premium <- ( sigma/(1-gamma) * ( (1 + gamma/sigma * (R-t) )^(1-1/gamma) - (1 + gamma/sigma * (endpoint-t) )^(1-1/gamma) ) + (1-pT)*(R-endpoint)) / pT
     # Special case if R>=endpoint
-    premium[R>=endpoint] <- 0
+    premium[R >= endpoint] <- 0
     
   } else {
     premium <- sigma/(1-gamma) * (1 + gamma/sigma * (R-t) )^(1-1/gamma)
@@ -346,7 +346,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
       
       for (j in (l-1):1)  {
 
-        if (R[i]>tvec[j] & R[i]<=tvec[j+1]) {
+        if (R[i]>tvec[j] & R[i] <= tvec[j+1]) {
           # tvec[j]<R[i]<tvec[j+1] case
         
           # Actual endpoint of splicing part
@@ -383,7 +383,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
       
     }
     
-    if (R[i]<=trunclower) {
+    if (R[i] <= trunclower) {
       premium[i] <- premium[i] + (trunclower-R[i])
       R[i] <- trunclower
     }
@@ -450,7 +450,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
       
       for (j in (l-1):1)  {
        
-        if (R[i]>tvec[j] & R[i]<=tvec[j+1]) {
+        if (R[i]>tvec[j] & R[i] <= tvec[j+1]) {
 		      # tvec[j]<R[i]<tvec[j+1] case 
 		
 		      # Actual endpoint of splicing part
@@ -485,7 +485,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
       
     }
     
-    if (R[i]<=trunclower) {
+    if (R[i] <= trunclower) {
       premium[i] <- premium[i] + (trunclower-R[i])
       R[i] <- trunclower
     }
@@ -592,7 +592,7 @@ ES <- function(p, splicefit) {
     stop("p should be numeric.")
   }
   
-  if (any(p<=0) | any(p>1)) {
+  if (any(p <= 0) | any(p > 1)) {
     stop("All elements of p should be in (0,1].")
   }
   
