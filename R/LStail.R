@@ -31,17 +31,17 @@ LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add
   
   
   
-  if (!is.null(rho) & length(rho)!=1) {
+  if (!is.null(rho) & length(rho) != 1) {
     rho <- rho[1]
     warning("Input argument rho should be a numeric of length 1 or NULL, only first element of rho used.")
   }
   
-  if (length(lambda)!=1) {
+  if (length(lambda) != 1) {
     lambda <- lambda[1]
     warning("Input argument lambda should be a numeric of length 1, only first element of lambda used.")
   }
   
-  if (lambda<=0 | lambda >=1) {
+  if (lambda <= 0 | lambda >= 1) {
     warning("Input argument lambda should be strictly between 0 and 1.")
   }
   
@@ -69,7 +69,7 @@ LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add
     eps = sqrt(.Machine$double.eps)
     
     for (k in (n-1):1) {
-      if (floor(lambda^2*k)>0 & floor(lambda^2*k)!=floor(lambda*k)) {
+      if (floor(lambda^2*k)>0 & floor(lambda^2*k) != floor(lambda*k)) {
         h0 <- Hill[k]
         h1 <- Hill[floor(lambda*k)]
         h2 <- Hill[floor(lambda^2*k)]

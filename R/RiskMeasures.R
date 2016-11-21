@@ -17,7 +17,7 @@
   premium <- numeric(n)
   K <- 1:(n-1)
   
-  if (length(R)>1 & length(R)!=(n-1)) {
+  if (length(R)>1 & length(R) != (n-1)) {
     stop("R should be a numeric of length 1 or n-1.")
   }
   
@@ -72,11 +72,11 @@
   # Check input arguments
   .checkInput(data)
   
-  if (length(R)>1) {
+  if (length(R) > 1) {
     stop("R should be a numeric of length 1.")
   }
   
-  if (length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
+  if (length(gamma) != length(kappa) | length(gamma) != length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
   } 
   
@@ -117,11 +117,11 @@
   # Check input arguments
   .checkInput(data)
   
-  if (length(R)>1) {
+  if (length(R) > 1) {
     stop("R should be a numeric of length 1.")
   }
   
-  if ( length(gamma)!=length(sigma)) {
+  if ( length(gamma) != length(sigma)) {
     stop("gamma and sigma should have equal length.")
   } 
   
@@ -179,16 +179,16 @@
 ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                         main="Estimates for premium of excess-loss insurance", ...) {
   
-  if (any(R<0)) {
+  if (any(R < 0)) {
     stop("R should be positive.")
   }
   
-  if (any(L<0)) {
+  if (any(L < 0)) {
     stop("L should be positive.")
   }
   
-  if (length(R)!=length(L)) {
-    if (length(R)!=1 & length(L)!=1) {
+  if (length(R) != length(L)) {
+    if (length(R) != 1 & length(L) != 1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
@@ -224,16 +224,16 @@ ExcessHill <- ExcessPareto
 ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TRUE, add = FALSE,
                        main="Estimates for premium of excess-loss insurance", ...) {
   
-  if (any(R<0)) {
+  if (any(R < 0)) {
     stop("R should be positive.")
   }
   
-  if (any(L<0)) {
+  if (any(L < 0)) {
     stop("L should be positive.")
   }
   
-  if (length(L)!=length(R)) {
-    if (length(L)!=1 & length(R)!=1) {
+  if (length(L) != length(R)) {
+    if (length(L) != 1 & length(R) != 1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
@@ -267,16 +267,16 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
                       main="Estimates for premium of excess-loss insurance", ...) {
   
   
-  if (any(R<0)) {
+  if (any(R < 0)) {
     stop("R should be positive.")
   }
   
-  if (any(L<0)) {
+  if (any(L < 0)) {
     stop("L should be positive.")
   }
   
-  if (length(L)!=length(R)) {
-    if (length(L)!=1 & length(R)!=1) {
+  if (length(L) != length(R)) {
+    if (length(L) != 1 & length(R) != 1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
@@ -516,28 +516,28 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
 # Pi(R) - Pi(R+L)
 ExcessSplice <- function(R, L=Inf, splicefit) {
   
-  if (any(R<0)) {
+  if (any(R < 0)) {
     stop("R should be positive.")
   }
   
-  if (any(L<0)) {
+  if (any(L < 0)) {
     stop("L should be positive.")
   }
   
-  if (length(L)!=length(R)) {
-    if (length(L)!=1 & length(R)!=1) {
+  if (length(L) != length(R)) {
+    if (length(L) != 1 & length(R) != 1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
   
   # Check input
-  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   
   type <- splicefit$type
   
   # 2 since type[1]="ME"
-  if (type[2]=="GPD") {
+  if (type[2] == "GPD") {
     f <- function(R) .IntTailSpliceGPD(R, splicefit=splicefit)
     
   } else if (type[2] %in% c("Pa", "TPa")) {
@@ -596,7 +596,7 @@ ES <- function(p, splicefit) {
     stop("All elements of p should be in (0,1].")
   }
   
-  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   # VaR
   VaR <- VaR(p=p, splicefit=splicefit)

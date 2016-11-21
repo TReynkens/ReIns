@@ -78,7 +78,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
   DT <- numeric(n)
   K <- r:(n-1)
   
-  if (length(gamma)!=length(K)) {
+  if (length(gamma) != length(K)) {
     stop(paste("gamma should have length", length(K)))
   }
   
@@ -113,7 +113,7 @@ trEndpoint <- function(data, r = 1, gamma, plot = FALSE, add = FALSE,
   
 
   
-  if (length(gamma)!=length(K)) {
+  if (length(gamma) != length(K)) {
     stop(paste("gamma should have length", length(K)))
   }
   
@@ -252,7 +252,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   j <- 1:n
   K <- r:(n-1) 
   
-  if (length(DT)==1) {
+  if (length(DT) == 1) {
     DT <- rep(DT, length(K))
   }
   
@@ -269,7 +269,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
     cors <- numeric(length(k)) 
     
     for(i in 1:length(k)) {
-      cors[i] <- abs( cor(log(X[n-(1:k[i])+1]), -log(DT[K==k[i]]+(1:k[i])/n)) )
+      cors[i] <- abs( cor(log(X[n-(1:k[i])+1]), -log(DT[K == k[i]]+(1:k[i])/n)) )
     }
     # Value for k which maximises correlation
     kstar <- k[which.max(cors)]
@@ -295,7 +295,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
     
   }
   
-  pqq.the <- -log(DT[K==kstar]+j/(n+1))
+  pqq.the <- -log(DT[K == kstar]+j/(n+1))
 
   # Old margins
   oldmar <-  par("mar")
@@ -313,7 +313,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   par(mar=oldmar)
   
   
-  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp, kstar=kstar, DTstar = DT[K==kstar]), plot=plot, add=FALSE)
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp, kstar=kstar, DTstar = DT[K == kstar]), plot=plot, add=FALSE)
 }
 
 

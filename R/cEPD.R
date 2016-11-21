@@ -79,7 +79,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     
     beta <- matrix(0, n-1, nrho)
     
-    if (all(rho>0) & nrho==1) {
+    if (all(rho>0) & nrho == 1) {
       rho <- .rhoEst(data, alpha=1, tau=rho)$rho
      
       # Estimates for rho of Fraga Alves et al. (2003) used 
@@ -107,9 +107,9 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     nrho <- length(beta)
     
     # use provided value(s) for beta
-    if (length(beta)==1) {
+    if (length(beta) == 1) {
       beta <- matrix(beta, n-1, nrho)
-#     } else if (length(beta)==n-1) {
+#     } else if (length(beta) == n-1) {
 #       beta <- as.matrix(rep(beta,nrho),ncol=length(rho),byrow=FALSE)
 #     } else {
 #       stop(paste0("beta should have length 1 or n-1 = ",n-1,"."))
@@ -144,14 +144,14 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     
     # gamma1 = cHill + Delta
     gamma1[,j] <- (HillZ/phat) + Delta[,j]
-    gamma1[gamma1[,j]<=0, j] <- 0.001
+    gamma1[gamma1[,j] <= 0, j] <- 0.001
 
   }
   # Only positive values are allowed
-#   gamma1[gamma1<=0] <- NA
+#   gamma1[gamma1 <= 0] <- NA
 #   
 # 
-#   kappa1[kappa1<=pmax(-1,-1/beta)] <- NA
+#   kappa1[kappa1 <= pmax(-1,-1/beta)] <- NA
   
   
   # plots if TRUE
@@ -162,7 +162,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   }
   
   # Transform to vectors if rho is a single value
-  if (nrho==1) {
+  if (nrho == 1) {
     gamma1 <- as.vector(gamma1)
     kappa1 <- as.vector(kappa1)
     beta <- as.vector(beta)

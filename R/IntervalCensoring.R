@@ -9,11 +9,11 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
@@ -87,7 +87,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
       if (r<x[1]) r <- x[1]
       
       # Slope and intercept of function in interval containing r
-      if (ind_r==0) {
+      if (ind_r == 0) {
         # Special case if ind_r <- 0
         a <- 0
         b <- 1
@@ -134,23 +134,23 @@ icParetoQQ <- function(L, U = L, censored, trunclower=0, truncupper=Inf, plot = 
   
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
   # Turnbull survival function
-  if (requireNamespace("interval", quietly = TRUE) & !all(censored==rep(0, length(L)))) {
+  if (requireNamespace("interval", quietly = TRUE) & !all(censored == rep(0, length(L)))) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower,
                                   truncupper=truncupper)
     
   } else {
     
     # Special warning when no censoring
-    if (all(censored==rep(0, length(L)))) {
+    if (all(censored == rep(0, length(L)))) {
       warning("Turnbull survival function from the \"survival\" package is used.", 
               call.=FALSE)
     } else {
@@ -199,11 +199,11 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
@@ -269,7 +269,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
       
       
       # Slope and intercept of function in interval containing r
-      if (ind_r==0) {
+      if (ind_r == 0) {
         # Special case if ind_r <- 0
         a <- 0
         b <- 1
@@ -310,11 +310,11 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   if (!is.numeric(U)) stop("U should be a numeric vector.")
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
@@ -371,7 +371,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     
     
     # Slope and intercept of function in interval containing r
-    if (ind_r==0) {
+    if (ind_r == 0) {
       # Special case if ind_r <- 0
       a <- 0
       b <- 1

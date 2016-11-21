@@ -412,7 +412,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
   
   if (length(ind)>1) {
     # Check that lengths larger than 1 are equal
-    if (!length(unique(l[ind]))==1) {
+    if (!length(unique(l[ind])) == 1) {
       stop("All input arguments should have length 1 or equal length.")
     }
   }

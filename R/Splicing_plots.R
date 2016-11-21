@@ -40,11 +40,11 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
@@ -110,11 +110,11 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
   if (!is.null(x) & !is.numeric(x)) stop("x should be a numeric vector or NULL.")
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
@@ -193,16 +193,16 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
       stop("p should be numeric.")
     }
     
-    if (is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+    if (is.infinite(max(splicefit$EVTfit$endpoint)) & any(p == 1)) {
       stop("All elements of p should be strictly smaller than 1 since the splicing
            distribution has an infinite endpoint.")
     }
     
-    if (any(p<0 | p>1)) {
+    if (any(p < 0 | p > 1)) {
       stop("All elements of p should be between 0 and 1.")
     }
     
-    if (length(p)!=n) {
+    if (length(p) != n) {
       stop("p should have the same length as x.")
     }
     
@@ -236,16 +236,16 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   
   # Turnbull survival function
-  if (requireNamespace("interval", quietly = TRUE) & !all(censored==rep(0, length(L)))) {
+  if (requireNamespace("interval", quietly = TRUE) & !all(censored == rep(0, length(L)))) {
     SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
     
@@ -258,7 +258,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   } else {
     
     # Special warning when no censoring
-    if (all(censored==rep(0, length(L)))) {
+    if (all(censored == rep(0, length(L)))) {
       warning("Turnbull survival function from the \"survival\" package is used.", 
               call.=FALSE)
     } else {
@@ -287,16 +287,16 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
       stop("p should be numeric.")
     }
     
-    if (is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+    if (is.infinite(max(splicefit$EVTfit$endpoint)) & any(p == 1)) {
       stop("All elements of p should be strictly smaller than 1 since the splicing
            distribution has an infinite endpoint.")
     }
     
-    if (any(p<0 | p>1)) {
+    if (any(p < 0 | p > 1)) {
       stop("All elements of p should be between 0 and 1.")
     }
     
-    if (length(p)!=n) {
+    if (length(p) != n) {
       stop("p should have the same length as x.")
     }
     
@@ -366,11 +366,11 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, plot = TRUE,
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
   # Check lengths
-  if (length(L)!=length(U)) stop("L and U should have the same length.")
+  if (length(L) != length(U)) stop("L and U should have the same length.")
   
-  if (length(censored)==1) censored <- rep(censored, length(L))
+  if (length(censored) == 1) censored <- rep(censored, length(L))
   
-  if (length(censored)!=length(L)) {
+  if (length(censored) != length(L)) {
     stop("censored should have length 1 or the same length as L and U.")
   }
   

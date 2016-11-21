@@ -26,19 +26,19 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "no
     stop("Ytilde needs to be numeric.")
   }
   
-  if (length(Ytilde)!=n) {
+  if (length(Ytilde) != n) {
     stop("Xtilde and Ytilde need to be of the same length.")
   }
   
-  if (length(censored)!=n) {
+  if (length(censored) != n) {
     stop("Xtilde and censored need to be of the same length.")
   }
   
   # Give x always length(y)
-  if (length(x)==1) {
+  if (length(x) == 1) {
     x <- rep(x, length(y))
     
-  } else if (length(x)!=length(y)) {
+  } else if (length(x) != length(y)) {
     stop("x needs to have length 1 or the same length as y.")
   }
   
@@ -70,14 +70,14 @@ crSurv <- function(x, y, Xtilde, Ytilde, censored, h, kernel = c("biweight", "no
     weights_sort <- weights_sort / sum(weights_sort)
 
     # Select suitable indices
-    ind <- which(Ytilde_sort<=y[i])
+    ind <- which(Ytilde_sort <= y[i])
     
     # Compute cumulative sum of weights,
     # add 0 to avoid problems when ind is empty
     wsum <- c(0, cumsum(weights_sort[ind]))
     
     # Avoid numerical problems
-    wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
+    wsum[wsum == 1] <- wsum[wsum == 1] - 10^(-16)
 
     # Compute estimate for conditional survival function
     surv[i] <- prod((1-weights_sort[ind] / (1-wsum[-length(wsum)]))^Delta_sort[ind])
@@ -91,7 +91,7 @@ crParetoQQ <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "n
                        plot = TRUE, add = FALSE, main = "Pareto QQ-plot", type = "p", ...) {
   
 
-  if (length(x)!=1) {
+  if (length(x) != 1) {
     stop("x needs to have length 1.")
   }
   
@@ -134,16 +134,16 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "norma
     stop("Ytilde needs to be numeric.")
   }
   
-  if (length(Ytilde)!=n) {
+  if (length(Ytilde) != n) {
     stop("Xtilde and Ytilde need to be of the same length.")
   }
   
-  if (length(censored)!=n) {
+  if (length(censored) != n) {
     stop("Xtilde and censored need to be of the same length.")
   }
   
   
-  if (length(x)!=1) {
+  if (length(x) != 1) {
     stop("x needs to have length 1.")
   }
   
@@ -175,7 +175,7 @@ crHill <- function(x, Xtilde, Ytilde, censored, h, kernel = c("biweight", "norma
   wsum <- c(0, cumsum(weights_sort))
   
   # Avoid numerical problems
-  wsum[wsum==1] <- wsum[wsum==1] - 10^(-16)
+  wsum[wsum == 1] <- wsum[wsum == 1] - 10^(-16)
   
   # for (k in 1:(n-1)) {
   # 

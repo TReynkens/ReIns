@@ -144,7 +144,7 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
   .checkInput(data)
   censored <- .checkCensored(censored, length(data))
   
-  if (length(censored)!=1) {
+  if (length(censored) != 1) {
     if (length(data) != length(censored)) {
       stop("data and censored should have the same length.")
     }
@@ -160,7 +160,7 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
   n <- length(X)
   Hill <- numeric(n)
   
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
@@ -170,7 +170,7 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
   # Fast vectorised version
   Hill[K] <- (cumsum(log(X[n-K+1]))- K*log(X[n-K])) / cumsum(delta[n-K+1]) 
   # Problems with division by 0
-  Hill[K[cumsum(delta[n-K+1])==0]] <- NA
+  Hill[K[cumsum(delta[n-K+1]) == 0]] <- NA
   
 
   # plots if TRUE
@@ -207,14 +207,14 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
   Hill <- numeric(n)
   ind <- 1:(n-1)
   
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
   gamma1 <- numeric(n)
   gamma1[ind] <- (cumsum(log(X[n-ind+1]))- ind*log(X[n-ind])) / cumsum(delta[n-ind+1]) 
   # Problems with division by 0
-  indNA <- ind[cumsum(delta[n-ind+1])==0]
+  indNA <- ind[cumsum(delta[n-ind+1]) == 0]
   gamma1[indNA] <- NA
   
   ### Generalised Hill estimates
@@ -229,7 +229,7 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
   K <- 1:max((n-2), 1) 
   Hill[K] <- (cumsum(log(UH.scores[K]))- K*log(UH.scores[K+1])) / cumsum(delta[n-K+1]) 
   # Problems with division by 0
-  Hill[K[cumsum(delta[n-K+1])==0]] <- NA
+  Hill[K[cumsum(delta[n-K+1]) == 0]] <- NA
   
 
   # plots if TRUE
@@ -283,7 +283,7 @@ cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, mai
   Mom[K] <- Mom[K] / (cumsum(delta[n-K+1])/K )
 
   # Problems with division by 0
-  Mom[K[cumsum(delta[n-K+1])==0]] <- NA
+  Mom[K[cumsum(delta[n-K+1]) == 0]] <- NA
   
   ######################
   

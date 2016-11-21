@@ -63,27 +63,27 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   }
   
   # Check lengths
-  if (length(L)!=length(R)) {
+  if (length(L) != length(R)) {
     stop("L and R should have the same length.")
   }
   
-  if (length(trunclower)!=1) {
+  if (length(trunclower) != 1) {
     stop("trunclower should have length 1.")
   }
   
-  if (length(truncupper)!=1) {
+  if (length(truncupper) != 1) {
     stop("truncupper should have length 1.")
   }
   
-  if (any(L<trunclower)) {
+  if (any(L < trunclower)) {
     stop("All elements of L should be larger than trunclower.")
   }
   
-  if (any(R>truncupper)) {
+  if (any(R > truncupper)) {
     stop("All elements of R should be smaller than truncupper.")
   }
   
-  if (any(L>R)) {
+  if (any(L > R)) {
     stop("Each element of L should be smaller or equal than each corresponding element of R.")
   }
   
@@ -110,9 +110,9 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Uncensored observations
   R[!censored] <- L[!censored]
   # Right censored observations, set upper bound to NA
-  R[censored & R==truncupper] <- NA
+  R[censored & R == truncupper] <- NA
   # Left censored observations, set lower bound to NA
-  L[censored & L==trunclower] <- NA
+  L[censored & L == trunclower] <- NA
 
 
   fit  <- survfit(Surv(time=L, time2=R, type="interval2") ~1,
@@ -160,27 +160,27 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   }
   
   # Check lengths
-  if (length(L)!=length(R)) {
+  if (length(L) != length(R)) {
     stop("L and R should have the same length.")
   }
   
-  if (length(trunclower)!=1) {
+  if (length(trunclower) != 1) {
     stop("trunclower should have length 1.")
   }
   
-  if (length(truncupper)!=1) {
+  if (length(truncupper) != 1) {
     stop("truncupper should have length 1.")
   }
   
-  if (any(L<trunclower)) {
+  if (any(L < trunclower)) {
     stop("All elements of L should be larger than trunclower.")
   }
   
-  if (any(R>truncupper)) {
+  if (any(R > truncupper)) {
     stop("All elements of R should be smaller than truncupper.")
   }
   
-  if (any(L>R)) {
+  if (any(L > R)) {
     stop("Each element of L should be smaller or equal than each corresponding element of R.")
   }
   
@@ -203,9 +203,9 @@ Turnbull <- function(x, L, R, censored, trunclower = 0, truncupper = Inf, conf.t
   # Uncensored observations
   R[!censored] <- L[!censored]
   # Right censored observations, set upper bound to Inf
-  R[censored & R==truncupper] <- Inf
+  R[censored & R == truncupper] <- Inf
   # Left censored observations, set lower bound to 0
-  L[censored & L==trunclower] <- 0
+  L[censored & L == trunclower] <- 0
   
   # Fit Turnbull estimator using interval package,
   # starting value using Icens package, use no starting value if problems

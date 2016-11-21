@@ -22,7 +22,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   n <- length(X)
   K <- 1:(n-1)
   
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
@@ -42,7 +42,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   }
   
   # Transform to vectors if rho is a single value
-  if (length(rho)==1) {
+  if (length(rho) == 1) {
     EPD$gamma <- as.vector(EPD$gamma)
     EPD$kappa <- as.vector(EPD$kappa)
     EPD$tau <- as.vector(EPD$tau)
@@ -54,7 +54,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     }
   }
   
-  if (length(rho)==1) {
+  if (length(rho) == 1) {
     .output(list(k=K, gamma=EPD$gamma[K], kappa=EPD$kappa[K], tau=EPD$tau[K]), plot=plot, add=add)
   } else {
     .output(list(k=K, gamma=EPD$gamma[K,], kappa=EPD$kappa[K,], tau=EPD$tau[K,]), plot=plot, add=add)
@@ -72,7 +72,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   n <- length(X)
   K <- 1:(n-1)
   
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
@@ -81,7 +81,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   H <- Hill(data, plot=FALSE)$gamma
   
-  if (all(rho>0) & nrho==1) {
+  if (all(rho>0) & nrho == 1) {
     rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
 
@@ -102,7 +102,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   for(j in 1:nrho) {
     
     # tau
-    if (nrho==1 & all(rho.orig>0)) {
+    if (nrho == 1 & all(rho.orig>0)) {
       # Estimates for rho of Fraga Alves et al. (2003) used 
       # and hence a different value of beta for each k
       tau[K, 1] <- -beta[K]/H[K]
@@ -149,7 +149,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   X <- as.numeric(sort(data))
   n <- length(X)
 
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
@@ -158,7 +158,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   H <- Hill(data, plot=FALSE)$gamma
   
-  if (all(rho>0) & nrho==1) {
+  if (all(rho>0) & nrho == 1) {
     rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
     
@@ -180,7 +180,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
       epddata <- data[data>X[n-k]]/X[n-k]
       
       # tau
-      if (nrho==1 & all(rho.orig>0)) {
+      if (nrho == 1 & all(rho.orig>0)) {
         # Estimates for rho of Fraga Alves et al. (2003) used 
         # and hence a different value of beta for each k
         tau[k,1] <- -beta[k]/H[k]
@@ -231,7 +231,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
 # start is the starting value for optimisation: (gamma_start,kappa_start)
 EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   
-  if (is.numeric(start) & length(start)==2) {
+  if (is.numeric(start) & length(start) == 2) {
     gamma_start <- start[1]
     kappa_start <- start[2]
   } else {
@@ -239,7 +239,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   }
   
   
-  if (ifelse(length(data)>1, var(data)==0, 0)) {
+  if (ifelse(length(data)>1, var(data) == 0, 0)) {
     sg <- c(NA, NA)
   } else {
     
@@ -327,7 +327,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data)
   
-  if ( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
+  if ( length(gamma) != length(kappa) | length(gamma) != length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
   } 
   
@@ -359,7 +359,7 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data)
   
-  if ( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
+  if ( length(gamma) != length(kappa) | length(gamma) != length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
   } 
   

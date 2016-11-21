@@ -57,23 +57,23 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
   if (!is.numeric(M)) stop("M must be numeric.")
   
   # Check length of M and if it is an integer
-  if (length(M)!=1) stop("M must have length 1.")
-  if (!.is.wholenumber(M) | M<=0) stop("M must be a strictly positive integer.")
+  if (length(M) != 1) stop("M must have length 1.")
+  if (!.is.wholenumber(M) | M <= 0) stop("M must be a strictly positive integer.")
   
   # Check length of arguments
-  if (length(p)!=M) stop("p must have length M.")
-  if (length(shape)!=M) stop("shape must have length M.")
-  if (length(theta)!=1) stop("theta must have length 1")
+  if (length(p) != M) stop("p must have length M.")
+  if (length(shape) != M) stop("shape must have length M.")
+  if (length(theta) != 1) stop("theta must have length 1")
   
   eps <- .Machine$double.eps
   
   # Check if p is a vector of probabilities that sums to one.
-  if (any(p<=eps)) stop("p must contain strictly positive numbers.")
+  if (any(p <= eps)) stop("p must contain strictly positive numbers.")
   tol <- .Machine$double.eps^0.5
-  if (abs(sum(p)-1)>tol) stop("p must have sum 1.")
+  if (abs(sum(p)-1) > tol) stop("p must have sum 1.")
   
   # Check if shape is a strictly increasing vector of positive integers.
-  if (any(shape<=eps) | any(!.is.wholenumber(shape))) {
+  if (any(shape <= eps) | any(!.is.wholenumber(shape))) {
     stop("shape must contain strictly positive integers.")
   }  
   if (is.unsorted(shape, strictly=TRUE)) {
@@ -93,9 +93,9 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
     
     if (!is.numeric(M_initial)) stop("M_initial must be numeric.")
     
-    if (length(M_initial)!=1) stop("M_initial must have length 1.")
+    if (length(M_initial) != 1) stop("M_initial must have length 1.")
     
-    if (!.is.wholenumber(M_initial) | M_initial<=0) {
+    if (!.is.wholenumber(M_initial) | M_initial <= 0) {
       stop("M_initial must be a strictly positive integer.")
     }
     
@@ -119,7 +119,7 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
   
   
   # Check length of gamma and endpoint
-  if (length(gamma)!=length(endpoint)) stop("gamma and endpoint should have equal length.")
+  if (length(gamma) != length(endpoint)) stop("gamma and endpoint should have equal length.")
   
   # Make first list
   L <- list(gamma=gamma)
@@ -129,10 +129,10 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
     
     if (!is.numeric(sigma)) stop("sigma must be numeric.")
     
-    if (length(sigma)!=length(gamma)) stop("gamma and sigma should have equal length.")
+    if (length(sigma) != length(gamma)) stop("gamma and sigma should have equal length.")
     
     eps <- .Machine$double.eps
-    if (any(sigma<=eps)) {
+    if (any(sigma <= eps)) {
       stop("sigma should be strictly positive.")
     }
     
@@ -163,9 +163,9 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   
   # Check t and trunclower
   if (!is.numeric(trunclower)) stop("trunclower should be numeric.")
-  if (length(trunclower)!=1) stop("trunclower should have length 1.")
+  if (length(trunclower) != 1) stop("trunclower should have length 1.")
   
-  if (length(t)!=l) stop("const and t should have equal length.")
+  if (length(t) != l) stop("const and t should have equal length.")
   
   if (is.unsorted(t, strictly=TRUE)) {
     stop("t should be a strictly increasing vector.")
@@ -177,24 +177,24 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   # Check type
   
   # Change tPa to TPa
-  type[type=="tPa"] <- "TPa"
+  type[type == "tPa"] <- "TPa"
   
-  if (length(type)!=l+1) stop("type should have one element more than const.")
+  if (length(type) != l+1) stop("type should have one element more than const.")
   
-  if (!type[1]=="ME") stop("The first argument of type is \"ME\".")
+  if (!type[1] == "ME") stop("The first argument of type is \"ME\".")
   
   if (!all(type[-1] %in% c("Pa", "GPD", "TPa"))) stop("Invalid type.")
   
-  if (any(type[-1]=="GPD") & any(type[-1]!="GPD")) stop("GPD cannot be combined with other EVT distributions.")
+  if (any(type[-1] == "GPD") & any(type[-1] != "GPD")) stop("GPD cannot be combined with other EVT distributions.")
   
 
   # Check MEfit and EVTfit
-  if (class(MEfit)!="MEfit") stop("MEfit should be of class MEfit.")
-  if (class(EVTfit)!="EVTfit") stop("EVTfit should be of class EVTfit.")
+  if (class(MEfit) != "MEfit") stop("MEfit should be of class MEfit.")
+  if (class(EVTfit) != "EVTfit") stop("EVTfit should be of class EVTfit.")
   
-  if (length(EVTfit$gamma)!=l) stop("gamma should have the same length as const.")
+  if (length(EVTfit$gamma) != l) stop("gamma should have the same length as const.")
   
-  if (type[2]=="GPD" & !exists("sigma", where=EVTfit)) {
+  if (type[2] == "GPD" & !exists("sigma", where=EVTfit)) {
     stop("sigma should be included when GPD is used.")
   }
 
@@ -206,12 +206,12 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
 
   # Check if correct type when truncated
   ind <- which(is.finite(EVTfit$endpoint))
-  if (any(substring(type[ind+1], 1, 1)!="T")) {
+  if (any(substring(type[ind+1], 1, 1) != "T")) {
     stop("Invalid type when endpoint is finite.")
   }
   
   # Check if truncated when indicated by type
-  ind <- which(substring(type, 1, 1)=="T")
+  ind <- which(substring(type, 1, 1) == "T")
   if (any(!is.finite(EVTfit$endpoint[ind-1]) & !is.na(EVTfit$endpoint[ind-1]))) {
     stop("Infinite endpoint is not compatible with type \"TPa\".")
   }
@@ -227,7 +227,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   # Check log-likelihood and add to list
   if (!is.null(loglik)) {
     
-    if (!is.numeric(loglik) | length(loglik)!=1) {
+    if (!is.numeric(loglik) | length(loglik) != 1) {
       stop("loglik should be a numeric of length 1.")
     }
     
@@ -260,7 +260,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
                 drop0trailing=TRUE)
   
   # paste_end is the last part of the string
-  if (length(vec)==1) {
+  if (length(vec) == 1) {
     paste0(s, name, " = ", res, paste_end)
   } else {
     paste0(s, name, " = (", paste(res, collapse=", "), ")", paste_end)
@@ -483,18 +483,18 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     stop("EVTtruncation should be a logical of length 1.")
   }
   
-  if (length(EVTtruncation)!=1 & length(EVTtruncation)>0) {
+  if (length(EVTtruncation) != 1 & length(EVTtruncation) > 0) {
     # Only use last element if length>1 (compatibility with older versions)
     EVTtruncation <- EVTtruncation[length(EVTtruncation)]
     warning("EVTtruncation has more than one element, only the last one is used.")
     
-  } else if (length(EVTtruncation)<=0) {
+  } else if (length(EVTtruncation) <= 0) {
     # Stop if length 0 (or less)
     stop("EVTtruncation should be a logical of length 1.")
   }
   
   # Check input for trunclower
-  if (length(trunclower)!=1) {
+  if (length(trunclower) != 1) {
     stop("trunclower should have length 1.")
   }
   
@@ -516,7 +516,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   
   
   # Check input for truncupper
-  if (length(truncupper)!=1 ) {
+  if (length(truncupper) != 1 ) {
     stop("truncupper should have length 1.")
   }
   
@@ -615,7 +615,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   # Splicing parts
   for (i in 1:l) {
 
-    if (i==l) {
+    if (i == l) {
       
       if (EVTtruncation) {
         
@@ -629,8 +629,8 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
           res <- trHill(X)
           resDT <- trDT(X, gamma=res$gamma)
           resEndpoint <- trEndpoint(X, gamma=res$gamma, DT=resDT$DT)
-          EVTfit$gamma[i] <- res$gamma[res$k==kvec[i]]
-          EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k==kvec[i]]
+          EVTfit$gamma[i] <- res$gamma[res$k == kvec[i]]
+          EVTfit$endpoint[i] <- resEndpoint$Tk[resEndpoint$k == kvec[i]]
         }
 
         type[i] <- "TPa"
@@ -841,7 +841,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   for (i in 1:l) {
     
     # Endpoint for last splicing is Inf
-    if (i==l) {
+    if (i == l) {
       tt <- Inf
     } else {
       tt <- tvec[i+1]
@@ -884,7 +884,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
 dSplice <- function(x, splicefit, log = FALSE) {
   
   # Check input
-  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
@@ -916,21 +916,21 @@ dSplice <- function(x, splicefit, log = FALSE) {
   for (i in 1:l) {
     
     # Next splicing point (Inf for last part)
-    tt <- ifelse(i==l, Inf, tvec[i+1])
+    tt <- ifelse(i == l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
     ind <- x>tvec[i] & x<=tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
-    cconst <- ifelse(i==l, 1, const[i+1])
+    cconst <- ifelse(i == l, 1, const[i+1])
     
     # Endpoint of splicing part, min of next splicing point and
     # endpoint from Pareto
     e <- min(tt, EVTfit$endpoint[i])
 
     # i+1 since type[1]="ME"
-    if (splicefit$type[i+1]=="GPD") {
+    if (splicefit$type[i+1] == "GPD") {
       d[ind] <- dtgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
       
     } else if (type[i+1] %in% c("Pa", "TPa")) {
@@ -953,7 +953,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
 pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
-  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
@@ -985,21 +985,21 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   for (i in 1:l) {
     
     # Next splicing point (Inf for last part)
-    tt <- ifelse(i==l, Inf, tvec[i+1])
+    tt <- ifelse(i == l, Inf, tvec[i+1])
     
     # Index for all observations in i-th EVTpart
     ind <- x>tvec[i] & x<=tt
     
     # Constant corresponding to next splicing part
     # (1 for last splicing part)
-    cconst <- ifelse(i==l, 1, const[i+1])
+    cconst <- ifelse(i == l, 1, const[i+1])
     
     # Endpoint of splicing part, min of next splicing point and
     # endpoint from Pareto
     e <- min(tt, EVTfit$endpoint[i])
     
     # i+1 since type[1]="ME"
-    if (splicefit$type[i+1]=="GPD") {
+    if (splicefit$type[i+1] == "GPD") {
       # Note that c +F(x)*(1-c) = 1-(1-c)*(1-F(x))
       p[ind] <- const[i] + ptgpd(x[ind], mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e) * (cconst-const[i])
     
@@ -1029,7 +1029,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   
   # Check input
-  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
 
   if (!is.numeric(p)) {
     stop("p should be numeric.")
@@ -1074,17 +1074,17 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   for (i in 1:l) {
     
     # Next value for const (1 for last part)
-    cconst <- ifelse(i==l, 1, const[i+1])
+    cconst <- ifelse(i == l, 1, const[i+1])
     
     # Index for all probabilities in i-th EVTpart
     ind <- p>const[i] & p<=cconst
     
     # Next splicing point (Inf for last part)
-    tt <- ifelse(i==l, Inf, tvec[i+1])
+    tt <- ifelse(i == l, Inf, tvec[i+1])
     e <- min(EVTfit$endpoint[i], tt)
     
     # i+1 since type[1]="ME"
-    if (splicefit$type[i+1]=="GPD") {
+    if (splicefit$type[i+1] == "GPD") {
       q[ind] <- qtgpd((p[ind]-const[i])/(cconst-const[i]), mu=tvec[i], gamma=EVTfit$gamma[i], sigma=EVTfit$sigma[i], endpoint=e)
       
     } else if (splicefit$type[i+1] %in% c("Pa", "TPa")) {
@@ -1096,7 +1096,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   }
   
   # Special case
-  q[p==1] <- EVTfit$endpoint[l]
+  q[p == 1] <- EVTfit$endpoint[l]
   
   return(q)
 }
@@ -1105,7 +1105,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
 rSplice <- function(n, splicefit) {
   
   # Check input
-  if (class(splicefit)!="SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
   
   # Use quantile function directly if more than 1 Pareto piece
   if (length(splicefit$EVTfit$gamma)>1) {
@@ -1122,12 +1122,12 @@ rSplice <- function(n, splicefit) {
     splice_sample <- numeric(n)
     
     # Sample from ME
-    ind1 <- which(ind==1)
+    ind1 <- which(ind == 1)
     splice_sample[ind1] <- .ME_random(length(ind1), theta=mefit$theta, shape=mefit$shape, alpha=mefit$p, 
                                       trunclower=splicefit$trunclower, truncupper=splicefit$t)
     
     # Sample from Pareto
-    ind2 <- which(ind==2)
+    ind2 <- which(ind == 2)
     splice_sample[ind2] <- rtpareto(length(ind2), shape=1/evtfit$gamma, scale=splicefit$t, endpoint=evtfit$endpoint)
 
     return(splice_sample)

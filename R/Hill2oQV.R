@@ -180,7 +180,7 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   n <- length(data)
   K <- 1:(n-1)
   
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
@@ -195,7 +195,7 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   
   AMSE.Hill <- (gamma^2)/K + (b/(1+beta))^2
   AMSE.Hill.min <- min(AMSE.Hill, na.rm=TRUE)
-  kopt <- K[AMSE.Hill==AMSE.Hill.min]
+  kopt <- K[AMSE.Hill == AMSE.Hill.min]
   gammaopt <- gamma[kopt]
   
   # plots if TRUE

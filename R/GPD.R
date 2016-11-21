@@ -34,7 +34,7 @@
 # start is the starting value for optimisation: (gamma_start,sigma_start)
 GPDfit <- function(data, start = c(0.1, 1), warnings = FALSE) {
   
-  if (is.numeric(start) & length(start)==2) {
+  if (is.numeric(start) & length(start) == 2) {
     if (start[2] <= 0) {
       stop("The starting value for sigma should be >0.")
     }
@@ -45,7 +45,7 @@ GPDfit <- function(data, start = c(0.1, 1), warnings = FALSE) {
   }
   
 
-  if (ifelse(length(data)>1, var(data)==0, 0)) {
+  if (ifelse(length(data)>1, var(data) == 0, 0)) {
     sg <- c(NA, NA)
   } else {
     
@@ -80,14 +80,14 @@ GPDmle <- function(data, start = c(0.1, 1), warnings = FALSE, logk = FALSE,
   POT <- matrix(0, n, 2)
   K <- 1:(n-1)
   
-  if (n==1) {
+  if (n == 1) {
     stop("We need at least two data points.")
   }
   
   #Compute gamma and sigma for several values of k
   for(k in (n-1):1) {
     potdata <- data[data>X[n-k]]-X[n-k]
-    if (length(potdata)==0) {
+    if (length(potdata) == 0) {
       POT[k,] <- NA
     } else {
       POT[k,] <- GPDfit(potdata, start=start)
@@ -238,7 +238,7 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
   .checkInput(data)
   
   
-  if (length(gamma)!=1 | length(sigma)!=1) {
+  if (length(gamma) != 1 | length(sigma) != 1) {
     stop("gamma and sigma should have length 1.")
   }
   

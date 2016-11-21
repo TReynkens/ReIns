@@ -11,10 +11,10 @@
 .ME_initial <- function(lower, upper, trunclower = 0, truncupper = Inf, M = 10, s = 1) {
   
   # data for initial step: treat left and right censored data as observed and take mean for interval censored data
-  uc <- lower[lower==upper & !is.na(lower==upper)]
+  uc <- lower[lower == upper & !is.na(lower == upper)]
   lc <- upper[is.na(lower)]
   rc <- lower[is.na(upper)]
-  ic <- (lower[lower!=upper & !is.na(lower!=upper)] + upper[lower!=upper & !is.na(lower!=upper)]) / 2
+  ic <- (lower[lower != upper & !is.na(lower != upper)] + upper[lower != upper & !is.na(lower != upper)]) / 2
   initial_data <- c(uc, lc, rc, ic)
   # replace 0 initial data (= right censored at 0) by NA, since they don't add any information and will cause initial shape = 0
   initial_data[initial_data == 0] <- NA
@@ -95,7 +95,7 @@
   c_exp <- theta * (outer(upper, shape+1, pgamma, scale=theta) - outer(lower, shape+1, pgamma, scale=theta))/(outer(upper, shape, pgamma, scale=theta) - outer(lower, shape, pgamma, scale=theta))
   c_exp <- t(t(c_exp)*shape)
   # replace numerical 0/0 (NaN) or Inf by correct expected value
-  c_exp <- ifelse(is.nan(c_exp) | c_exp==Inf, ifelse(outer(lower, shape*theta, ">"), lower, upper), c_exp)
+  c_exp <- ifelse(is.nan(c_exp) | c_exp == Inf, ifelse(outer(lower, shape*theta, ">"), lower, upper), c_exp)
   c_exp <- rowSums(c_z * c_exp)  
 }
 
@@ -104,7 +104,7 @@
 .ME_T <- function(trunclower, truncupper, shape, theta, beta) {
   
   # avoid NaN
-  if (truncupper==Inf) { 
+  if (truncupper == Inf) { 
     # take log first for numerical stability (avoid Inf / Inf)
     deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(1 - pgamma(trunclower, shape, scale=theta))
     deriv_trunc <- exp(deriv_trunc_log_1)    
@@ -136,7 +136,7 @@
   n <- length(lower)
   M <- length(shape)
   # separate uncensored and censored observations
-  uncensored <- (lower==upper & !is.na(lower==upper))
+  uncensored <- (lower == upper & !is.na(lower == upper))
   # Uncensored observations
   x <- lower[uncensored]
   # Censored observations
@@ -376,11 +376,11 @@
   ntu <- length(truncupper)
   
   # Check lengths
-  if (nl!=1 & nu!=1 & nl!=nu) {
+  if (nl !=1 & nu != 1 & nl != nu) {
     stop("lower and upper should have equal length if both do not have length 1.")
   }
   
-  if (ntl!=1 & ntu!=1 & ntl!=ntu) {
+  if (ntl != 1 & ntu != 1 & ntl != ntu) {
     stop("trunclower and truncupper should have equal length if both do not have length 1.")
   }
   
@@ -466,7 +466,7 @@
 
   tuning_parameters <- expand.grid(M, s)
   
-  if (nCores==1) {
+  if (nCores == 1) {
     
     i <- 1
  
@@ -520,7 +520,7 @@
   colnames(performances) <- c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit==min(crit, na.rm=TRUE))[1]
+  best_index <- which(crit == min(crit, na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   list(best_model = best_model, performances = performances, all_model = all_model)
@@ -532,7 +532,7 @@
   
   f <- outer(x, shape, dgamma, scale = theta)
   d <- rowSums(t(t(f)*alpha))
-  if (!(trunclower==0 & truncupper==Inf)) {
+  if (!(trunclower == 0 & truncupper == Inf)) {
     d <- d / (.ME_cdf(truncupper, theta, shape, alpha) - .ME_cdf(trunclower, theta, shape, alpha)) * ((trunclower <= x) & (x <= truncupper))
   }
   if (log) {
@@ -547,7 +547,7 @@
   
   cdf <- outer(x, shape, pgamma, scale=theta)
   p <- rowSums(t(t(cdf)*alpha))
-  if (!(trunclower==0 & truncupper==Inf)) {
+  if (!(trunclower == 0 & truncupper == Inf)) {
     l <- .ME_cdf(trunclower, theta, shape, alpha)
     u <- .ME_cdf(truncupper, theta, shape, alpha)
     p <- ((p - l) / (u - l)) ^ {(x <= truncupper)} * (trunclower <= x)
@@ -608,7 +608,7 @@
         }
         if (all(is.finite(interval))) {
           # Interval might be a single number, set to whole possible range
-          if (interval[2]-interval[1]==0) interval <- c(trunclower, 
+          if (interval[2]-interval[1] == 0) interval <- c(trunclower, 
                                                         ifelse(is.finite(truncupper), truncupper, 10^20))
         }
   
@@ -625,7 +625,7 @@
         if (is.infinite(start)) start <- 10^20
       }
       
-      if (p[i]==1) {
+      if (p[i] == 1) {
         # Fixed for truncation case
         VaR[i] <- truncupper
       } else {
@@ -687,7 +687,7 @@
     start <- qgamma(p, shape = shape[which.max(alpha)], scale = theta)
   }
   
-  if (p==1) {
+  if (p == 1) {
     # Fixed for truncation case
     return(truncupper) 
   }    

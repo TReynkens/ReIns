@@ -15,7 +15,7 @@ numtol <- .Machine$double.eps^0.5
   tsplice <- as.numeric(tsplice)
   
   # Repeat censored if a single number
-  if (length(censored)==1) {
+  if (length(censored) == 1) {
     censored <- rep(censored, length(L))
   }
   
@@ -78,21 +78,21 @@ numtol <- .Machine$double.eps^0.5
   
   ##
   # Check lengths
-  if (length(L)!=length(U)) {
+  if (length(L) != length(U)) {
     stop("L and U should have equal length.")
   }
   
   
-  if (length(trunclower)!=1) {
+  if (length(trunclower) != 1) {
     stop("trunclower should have length 1.")
   }
   
-  if (length(tsplice)!=1) {
+  if (length(tsplice) != 1) {
     stop("tsplice should have length 1.")
   }
   
   
-  if (length(truncupper)!=1 ) {
+  if (length(truncupper) != 1 ) {
     stop("truncupper should have length 1.")
   }
   
@@ -104,19 +104,19 @@ numtol <- .Machine$double.eps^0.5
       stop("censored should be a logical vector.")
     }
     
-    if (length(censored)!=length(L)) {
+    if (length(censored) != length(L)) {
       stop("censored should have the same length as L.")
     }
     
-    if (sum(censored)==length(L)) {
+    if (sum(censored) == length(L)) {
       stop("Not all observations can be censored.")
     }
     
-    if (any(abs(U-L)[!censored]>numtol)) {
+    if (any(abs(U-L)[!censored] > numtol)) {
       stop("Uncensored observations should have L=U.")
     }
     
-    if (any(abs(U-L)[censored]<numtol)) {
+    if (any(abs(U-L)[censored] < numtol)) {
       stop("Censored observations cannot have L=U.")
     }
     
@@ -194,11 +194,11 @@ numtol <- .Machine$double.eps^0.5
   # t^l <= l_i < t < u_i <=T
   #ind5 <- which(censored & L<tsplice & U>tsplice)
   
-  if (length(ind1)==0 & length(ind3)==0) {
+  if (length(ind1) == 0 & length(ind3) == 0) {
     stop("No data is given for the ME part.")
   }
   
-  if (length(ind2)==0 & length(ind4)==0) {
+  if (length(ind2) == 0 & length(ind4) == 0) {
     stop("No data is given for the Pareto part.")
   }
   
@@ -225,13 +225,13 @@ numtol <- .Machine$double.eps^0.5
   
   # Censoring indicator for each observation
   if (is.null(censored)) {
-    censored <- abs(lower-upper)> numtol & !is.na(lower!=upper)
+    censored <- abs(lower-upper) > numtol & !is.na(lower != upper)
   }
   
   # All combinations of M and s
   tuning_parameters <- expand.grid(M, s)
   
-  if (nCores==1) {
+  if (nCores == 1) {
     
     # Special case when nCores=1 without any cluster
     
@@ -291,7 +291,7 @@ numtol <- .Machine$double.eps^0.5
   colnames(performances) = c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit==min(crit, na.rm=TRUE))[1]
+  best_index <- which(crit == min(crit, na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   return(list(best_model = best_model, performances = performances, all_model = all_model))
@@ -371,15 +371,15 @@ numtol <- .Machine$double.eps^0.5
   uc <- lower[!censored]
   ic <- (lower[censored] + upper[censored]) / 2
   # Right censored
-  ind <- which(upper[censored]==truncupper)
+  ind <- which(upper[censored] == truncupper)
   ic[ind] <- (lower[censored])[ind]
   # Left censored
-  ind <- which(lower[censored]==trunclower)
+  ind <- which(lower[censored] == trunclower)
   ic[ind] <- (upper[censored])[ind]
   # Combine
   initial_data <- c(uc, ic)
   # Remove initial_data equal to 0 since they cause first shape to be 0
-  initial_data[initial_data==0] <- NA
+  initial_data[initial_data == 0] <- NA
   
   initial_dataME <- initial_data[initial_data<=tsplice]
   
@@ -692,7 +692,7 @@ numtol <- .Machine$double.eps^0.5
     # E-step
     ############
     
-    if (length(ind5)!=0) {
+    if (length(ind5) != 0) {
       
       # Compute P(X_i<=t | t^l<=l_i<=t<u_i, Theta^{(h-1)}) and P(X_i>t | t^l<=l_i<=t<u_i, Theta^{(h-1)})
       probs <- .spliceEM_probs(lower5=lower5, upper5=upper5, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
@@ -715,7 +715,7 @@ numtol <- .Machine$double.eps^0.5
     ##
     # ME
     
-    if (length(ind1)!=0) {
+    if (length(ind1) != 0) {
       # Matrix of z_{ij} with i for rows and j for columns
       z1 <- .spliceEM_i_z(x1_dens_nosum=x1_dens_nosum, M=M)
       # sum_{i in S_{i.}} x_i
@@ -727,7 +727,7 @@ numtol <- .Machine$double.eps^0.5
     }
     
 
-    if (length(ind3)!=0) {
+    if (length(ind3) != 0) {
       z3 <- .spliceEM_iii_z(c3_probs_nosum=c3_probs_nosum, M=M)
       # sum_{i in S_{iii.}} sum_{j=1}^m z3 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<u_i<=t)
       E3_ME <- sum(rowSums(z3 * .spliceEM_Estep_ME_iii(lower3=lower3, upper3=upper3, shape=shape, theta=theta)))
@@ -737,7 +737,7 @@ numtol <- .Machine$double.eps^0.5
       E3_ME <- 0
     }
 
-    if (length(ind5)!=0) {
+    if (length(ind5) != 0) {
       z5 <- .spliceEM_v_z(c5_probs_nosum=c5_probs_nosum, tsplice=tsplice, alpha_tilde=alpha_tilde, 
                           theta=theta, shape=shape, M=M)
       # sum_{i in S_{v.}} P_{1,i} * sum_{j=1}^m z5 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<t<u_i)
@@ -753,7 +753,7 @@ numtol <- .Machine$double.eps^0.5
     ##
     # gamma
     
-    if (length(ind2)!=0) {
+    if (length(ind2) != 0) {
       # sum_{i in S_{ii.}} ln(x_i/t)
       E2_Pa <- sum(log(lower2/tsplice))
       
@@ -762,7 +762,7 @@ numtol <- .Machine$double.eps^0.5
     }
     
     
-    if (length(ind4)!=0) {
+    if (length(ind4) != 0) {
       # sum_{i in S_{iv.}} E( ln(X_i/t) | t^l<t<=l_i<u_i, gamma^{(h-1)})
       E4_Pa <- sum(.spliceEM_Estep_Pa_iv(lower4=lower4, upper4=upper4, gamma=gamma, tsplice=tsplice))
       
@@ -770,7 +770,7 @@ numtol <- .Machine$double.eps^0.5
       E4_Pa <- 0
     }
     
-    if (length(ind5)!=0) {
+    if (length(ind5) != 0) {
       # sum_{i in S_{v.}} P_{2,i} * E( ln(X_i/t) | t^l<l_i<=t<u_i, gamma^{(h-1)})
       E5_Pa <- sum(P2 * .spliceEM_Estep_Pa_v(upper5=upper5, gamma=gamma, tsplice=tsplice))
       
@@ -879,7 +879,7 @@ numtol <- .Machine$double.eps^0.5
   
   L <- list()
   
-  if (n1!=0) {
+  if (n1 != 0) {
     # Matrix containing Erlang densities for uncensored observations in ME part and all M values of shape
     # Note F_1(x) = sum_{j=1}^M beta_j F_E^t(x) = sum_{j=1}^M beta_j F_E(x)/(F_E(t)-F_E(t^l))
     # and alpha_tilde = beta/(F_E(t)-F_E(t^l))
@@ -897,7 +897,7 @@ numtol <- .Machine$double.eps^0.5
   # No problem when ind2=numeric(0)
   L$x2_dens <- (1-pi) * .dtpareto(lower2, gamma=gamma, tsplice=tsplice, truncupper=truncupper)
 
-  if (n3!=0) {
+  if (n3 != 0) {
     # Matrix containing Erlang probabilities for censored observations of type 3 and all M values of shape
     L$c3_probs_nosum <- t(t(outer(upper3, shape, pgamma, scale=theta))*alpha_tilde) - t(t(outer(lower3, shape, pgamma, scale=theta))*alpha_tilde)
     
@@ -917,7 +917,7 @@ numtol <- .Machine$double.eps^0.5
                                .ptpareto(lower4, gamma=gamma, tsplice=tsplice, truncupper=truncupper))
 
 
-  if (n5!=0) {
+  if (n5 != 0) {
     # Matrix containing Erlang probabilities for censored observations of type 5 and all M values of shape
     L$c5_probs_nosum <- t(t(outer(lower5, shape, pgamma, scale=theta))*alpha_tilde)
     
@@ -1070,7 +1070,7 @@ numtol <- .Machine$double.eps^0.5
 .spliceEM_T <- function(trunclower, truncupper, shape, theta, beta) {
   
   # Avoid NaN
-  if (truncupper==Inf) { 
+  if (truncupper == Inf) { 
     
     # Take log first for numerical stability (avoid Inf / Inf)
     deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(1 - pgamma(trunclower, shape, scale=theta))
@@ -1100,7 +1100,7 @@ numtol <- .Machine$double.eps^0.5
   # Compute CDF as product with alpha and then sum per column
   p <- colSums(t(cdf)*alpha)
   
-  if (!(trunclower==0 & truncupper==Inf)) {
+  if (!(trunclower == 0 & truncupper == Inf)) {
     l <- .pME(trunclower, theta=theta, shape=shape, alpha=alpha)
     u <- .pME(truncupper, theta=theta, shape=shape, alpha=alpha)
     p <- ((p - l) / (u - l)) ^ {(x <= truncupper)} * (trunclower <= x)
