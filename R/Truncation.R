@@ -101,7 +101,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
 
 # Estimator for endpoint
 trEndpoint <- function(data, r = 1, gamma, plot = FALSE, add = FALSE, 
-                      main = "Estimates of Endpoint", ...) {
+                      main = "Estimates of endpoint", ...) {
   
   # Check input arguments
   .checkInput(data,gamma=gamma,r=r)

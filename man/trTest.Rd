@@ -35,7 +35,7 @@ We want to test
 Let
 \deqn{E_{k,n}(\gamma) = 1/k \sum_{j=1}^k (X_{n-k,n}/X_{n-j+1,n})^{1/\gamma},}
 with \eqn{X_{i,n}} the \eqn{i}-th order statistic.
-The teststatistic is then
+The test statistic is then
 \deqn{T_{k,n}=\sqrt{12k} (E_{k,n}(H_{k,n})-1/2) / (1-E_{k,n}(H_{k,n}))}
 which is asymptotically standard normally distributed.
 We reject \eqn{H_0} on level \eqn{\alpha} if 

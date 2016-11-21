@@ -37,11 +37,11 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The Pareto QQ-plot for truncated data plots 
-\deqn{ (-log(\hat{D}_{T,r,k^*,n}+j/(n+1)), log(X_{n-j+1,n}) )}
+\deqn{ (-\log(\hat{D}_{T,r,k^*,n}+j/(n+1)), \log(X_{n-j+1,n}) )}
 for \eqn{j=1,\ldots,n}.
 
 The value for \eqn{k^*} can be be given by the user or can be determined automatically.
-In the latter case, we use the \eqn{k^*} that maximises the absolute value of the correlation between \eqn{-log(\hat{D}_{T,r,k^*,n}+j/(n+1))} and \eqn{log(X_{n-j+1,n})} for \eqn{j=1,\ldots,k} and \eqn{k^*>10}.
+In the latter case, we use the \eqn{k^*} that maximises the absolute value of the correlation between \eqn{-\log(\hat{D}_{T,r,k^*,n}+j/(n+1))} and \eqn{\log(X_{n-j+1,n})} for \eqn{j=1,\ldots,k} and \eqn{k^*>10}.
 
 When taking \eqn{D_T=0}, one obtains the ordinary Pareto QQ-plot.
 
@@ -52,7 +52,7 @@ See Beirlant et al. (2016) for more details.
 }
 \value{
 A list with following components:
-\item{pqq.the}{Vector of theoretical quantiles \eqn{-log(\hat{D}_{T,r,k^*,n}+j/(n+1))}, see Details.}
+\item{pqq.the}{Vector of theoretical quantiles \eqn{-\log(\hat{D}_{T,r,k^*,n}+j/(n+1))}, see Details.}
 \item{pqq.emp}{Vector of the empirical quantiles from the log-transformed data.}
 \item{kstar}{Optimal value for \eqn{k} or input argument \code{kstar}, see Details.}
 \item{DTstar}{Estimate of \eqn{D_T} corresponding to \code{kstar}.}

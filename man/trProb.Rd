@@ -26,7 +26,7 @@ Vector of \eqn{n-1} estimates for the EVI obtained from \code{\link{trHill}}.
 The used large quantile (we estimate \eqn{P(X>q)} for \eqn{q} large).
 }
   \item{warnings}{
-Logical indicating if warnings are shown, default is \code{FALSE}.
+Logical indicating if warnings are shown, default is \code{TRUE}.
 }
  \item{plot}{
 Logical indicating if the estimates should be plotted as a function of \eqn{k}, default is \code{FALSE}.

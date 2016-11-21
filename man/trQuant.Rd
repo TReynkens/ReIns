@@ -42,14 +42,14 @@ Logical indicating if the estimates should be plotted as a function of \eqn{k}, 
 Logical indicating if the estimates should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of small exceedance probability"}.
+Title for the plot, default is \code{"Estimates of extreme quantile"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
 }
 }
 \details{
-We observe the truncated r.v. \eqn{X=W | W<T} where \eqn{T} is the truncation point and \eqn{W} the untruncated r.v..
+We observe the truncated r.v. \eqn{X=W | W<T} where \eqn{T} is the truncation point and \eqn{W} the untruncated r.v.
 
 Under rough truncation, the quantiles for \eqn{X} are estimated using
 \deqn{\hat{Q}(1-p)=X_{n-k,n}  ((\hat{D}_T + (k+1)/(n+1))/(\hat{D}_T+p))^{\hat{\gamma}_k},}

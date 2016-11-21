@@ -9,7 +9,7 @@ Estimator of endpoint using truncated Hill estimates.
 }
 \usage{
 trEndpoint(data, r = 1, gamma, plot = FALSE, add = FALSE,
-           main = "Estimates of Endpoint", ...)
+           main = "Estimates of endpoint", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,13 +23,13 @@ Trimming parameter, default is \code{1} (no trimming).
 Vector of \eqn{n-1} estimates for the EVI obtained from \code{\link{trHill}}.
 }
  \item{plot}{
-Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{T} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
 }
   \item{add}{
-Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{T} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of DT"}.
+Title for the plot, default is \code{"Estimates of endpoint"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -37,7 +37,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The endpoint is estimated as
-\deqn{\hat{T}_{k,n} = \max(X_{n-k,n}  ( ((X_{n-k,n}/X_{n,n})^{1/\hat{\gamma}_k} - 1/(k+1)) / (1-1/(k+1)))^{-\hat{\gamma}_k}, X_{n,n})}
+\deqn{\hat{T}_{k,n} = \max\{X_{n-k,n}  ( ((X_{n-k,n}/X_{n,n})^{1/\hat{\gamma}_k} - 1/(k+1)) / (1-1/(k+1)))^{-\hat{\gamma}_k}, X_{n,n}\}}
 with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation.
 
 See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2017) for more details.

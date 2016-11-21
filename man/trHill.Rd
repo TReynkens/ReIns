@@ -46,7 +46,7 @@ The truncated Hill estimator is the MLE for \eqn{\gamma} under the truncated Par
 
 To estimate the EVI using the truncated Hill estimator an equation needs to be solved. Beirlant et al. (2016) propose
 to use Newton-Raphson iterations to solve this equation. We take the trimmed Hill estimates as starting values for this algorithm. The trimmed Hill estimator is defined as
-\deqn{H_{r,k,n} = 1/(k-r+1) \sum_{j=r}^k \log(X_{n-j+1,n})-\log(X_{n-k,n})   for 1\le r < k < n}
+\deqn{H_{r,k,n} = 1/(k-r+1) \sum_{j=r}^k \log(X_{n-j+1,n})-\log(X_{n-k,n})}   for \eqn{1 \le r < k < n}
 and is a basic extension of the Hill estimator for upper truncated data (the ordinary Hill estimator is obtained for \eqn{r=1}).
 
 The equation that needs to be solved is
