@@ -125,7 +125,7 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
   kernel <- match.arg(kernel)
   
   # Set default bandwidth
-  if(!is.numeric(h)) {
+  if (!is.numeric(h)) {
     stop("h should be numeric.")
   }
  

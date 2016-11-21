@@ -193,7 +193,7 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
       stop("p should be numeric.")
     }
     
-    if(is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+    if (is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
       stop("All elements of p should be strictly smaller than 1 since the splicing
            distribution has an infinite endpoint.")
     }
@@ -287,7 +287,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
       stop("p should be numeric.")
     }
     
-    if(is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
+    if (is.infinite(max(splicefit$EVTfit$endpoint)) & any(p==1)) {
       stop("All elements of p should be strictly smaller than 1 since the splicing
            distribution has an infinite endpoint.")
     }
@@ -306,7 +306,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   x <- SurvTB$fquant(p)
   
   # Remove 1 if infinite endpoint
-  if(is.infinite(max(splicefit$EVTfit$endpoint))) {
+  if (is.infinite(max(splicefit$EVTfit$endpoint))) {
     sqq.emp <- x[p<1-10^(-5)]
     p <- p[p<1-10^(-5)]
   } else {

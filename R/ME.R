@@ -29,7 +29,7 @@
   alpha <- rep(0,length(shape))
   alpha[1] <- sum(initial_data <= shape[1]*theta)
   if (length(shape)>1) {
-    for (i in 2:length(shape)){
+    for (i in 2:length(shape)) {
       alpha[i] <- sum(initial_data <= shape[i]*theta & initial_data > shape[i-1]*theta)
     }
   }
@@ -49,13 +49,13 @@
 .ME_loglikelihood <- function(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring) {
   
   likelihood_contribution <- numeric(0)
-  if(no_censoring){  
+  if (no_censoring) {  
     # matrix containing alpha*density (uncensored)
     x_components <-  t(t(x_densities)*beta/t_probabilities)
     # likelihood contribution (uncensored)
     likelihood_contribution <- rowSums(x_components) 
   }   
-  if(censoring){  
+  if (censoring) {  
     # matrix containing alpha*probabilities (censored)
     c_components <- t(t(c_probabilities)*beta/t_probabilities)
     # likelihood contribution (censored)
@@ -104,11 +104,11 @@
 .ME_T <- function(trunclower, truncupper, shape, theta, beta) {
   
   # avoid NaN
-  if(truncupper==Inf){ 
+  if (truncupper==Inf) { 
     # take log first for numerical stability (avoid Inf / Inf)
     deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(1 - pgamma(trunclower, shape, scale=theta))
     deriv_trunc <- exp(deriv_trunc_log_1)    
-  } else{    
+  } else {    
     deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta))
     deriv_trunc_log_2 <- shape*log(truncupper)-truncupper/theta - (shape-1)*log(theta) - lgamma(shape) - log(pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta))
     deriv_trunc <- exp(deriv_trunc_log_1)-exp(deriv_trunc_log_2)
@@ -148,11 +148,11 @@
   no_censoring <- (length(x) != 0)  
   censoring <- (length(lower) != 0)  
   iteration <- 1
-  #if(no_censoring){  
+  #if (no_censoring) {  
     # matrix containing densities (uncensored)
     x_densities <- outer(x,shape,dgamma, scale=theta)
   #}   
-  #if(censoring){  
+  #if (censoring) {  
     # matrix containing censoring probabilities (censored)
     c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
   #} 
@@ -161,18 +161,18 @@
   loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
   old_loglikelihood <- -Inf
   
-  while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter){
+  while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter) {
     old_loglikelihood <- loglikelihood
     # E step
-    if(no_censoring & censoring){
+    if (no_censoring & censoring) {
       u_z <- .ME_u_z(x_densities, beta, t_probabilities, M)
       c_z <- .ME_c_z(c_probabilities, beta, t_probabilities, M)
       c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)      
-    } else if(no_censoring){
+    } else if (no_censoring) {
       u_z <- .ME_u_z(x_densities, beta, t_probabilities, M)
       c_z <- as.matrix(c(0,0))
       c_exp <- as.matrix(c(0,0))
-    } else{
+    } else {
       u_z <- as.matrix(c(0,0))
       c_z <- .ME_c_z(c_probabilities, beta, t_probabilities, M)
       c_exp <- .ME_expected_c(lower, upper, shape, theta, c_z)
@@ -182,7 +182,7 @@
     beta <- (colSums(u_z)+colSums(c_z))/n 
 
     # Remove small beta's
-    if(min(beta) < beta_tol){
+    if (min(beta) < beta_tol) {
       shape <- shape[beta > beta_tol]
       beta <- beta[beta > beta_tol]
       beta <- beta/sum(beta)
@@ -191,11 +191,11 @@
     theta <- exp(nlm(.theta_nlm, log(theta), x, c_exp, n, beta, shape, trunclower, truncupper)$estimate)
 
     iteration <- iteration + 1
-    #if(no_censoring){  
+    #if (no_censoring) {  
       # matrix containing densities (uncensored)
       x_densities <- outer(x,shape,dgamma, scale=theta)
     #}   
-    #if(censoring){  
+    #if (censoring) {  
       # matrix containing censoring probabilities (censored)
       c_probabilities <- outer(upper,shape,pgamma, scale=theta)-outer(lower,shape,pgamma, scale=theta)
     #} 
@@ -229,11 +229,11 @@
   before_loglikelihood <- -Inf
   after_loglikelihood <- loglikelihood    
   iteration <- 1
-  while(after_loglikelihood > before_loglikelihood + eps){    
+  while(after_loglikelihood > before_loglikelihood + eps) {    
     
     before_loglikelihood <- after_loglikelihood
     # Try increasing the shapes
-    for(i in M:1){
+    for(i in M:1) {
       improve <- TRUE
       while( improve && (i == M || ifelse(i<=length(shape), shape[i] < shape[i+1]-1, FALSE))) {
         new_shape <- shape
@@ -242,7 +242,7 @@
                       theta=theta, shape=new_shape, beta=beta,
                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
-        if(new_loglikelihood > loglikelihood + eps){
+        if (new_loglikelihood > loglikelihood + eps) {
           loglikelihood <- new_loglikelihood
           shape <- fit$shape
           theta <- fit$theta
@@ -258,16 +258,16 @@
       }
     }
     # Try decreasing the shapes
-    for(i in 1:M){
+    for(i in 1:M) {
       improve <- TRUE
-      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, FALSE)){
+      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, FALSE)) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                       theta=theta, shape=new_shape, beta=beta,
                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
-        if(new_loglikelihood > loglikelihood + eps){
+        if (new_loglikelihood > loglikelihood + eps) {
           loglikelihood <- new_loglikelihood
           shape <- fit$shape
           theta <- fit$theta
@@ -308,7 +308,7 @@
   alpha <- fit$alpha
   M <- length(shape)
 
-  while( improve && length(shape) > 1){    
+  while( improve && length(shape) > 1) {    
     new_shape <- shape[beta != min(beta)]
     new_beta <- beta[beta != min(beta)]
     new_beta <- new_beta/sum(new_beta)
@@ -322,7 +322,7 @@
                     eps=eps, beta_tol=beta_tol, maxiter=maxiter)
     }
     new_IC <- fit[[criterium]]
-    if(new_IC < IC){ 
+    if (new_IC < IC) { 
       IC <- new_IC
       loglikelihood <- fit$loglikelihood  
       shape <- fit$shape
@@ -376,60 +376,60 @@
   ntu <- length(truncupper)
   
   # Check lengths
-  if(nl!=1 & nu!=1 & nl!=nu) {
+  if (nl!=1 & nu!=1 & nl!=nu) {
     stop("lower and upper should have equal length if both do not have length 1.")
   }
   
-  if(ntl!=1 & ntu!=1 & ntl!=ntu) {
+  if (ntl!=1 & ntu!=1 & ntl!=ntu) {
     stop("trunclower and truncupper should have equal length if both do not have length 1.")
   }
   
   
   
   # Check data types
-  if(any(!is.numeric(lower) & !is.na(lower))) {
+  if (any(!is.numeric(lower) & !is.na(lower))) {
     stop("lower should consist of numerics and/or NAs.")
   }
   
-  if(any(!is.numeric(upper) & !is.na(upper))) {
+  if (any(!is.numeric(upper) & !is.na(upper))) {
     stop("upper should consist of numerics and/or NAs.")
   }
   
-  if(any(!is.numeric(trunclower))) {
+  if (any(!is.numeric(trunclower))) {
     stop("trunclower should consist of numerics.")
   }
   
-  if(any(!is.numeric(truncupper))) {
+  if (any(!is.numeric(truncupper))) {
     stop("truncupper should consist of numerics.")
   }
   
   
   # Check inequalities
-  if(!all(is.na(lower)) & !all(is.na(upper))) {
-    if(any(lower>upper)) {
+  if (!all(is.na(lower)) & !all(is.na(upper))) {
+    if (any(lower>upper)) {
       stop("lower should be smaller than (or equal to) upper.")
     }
   }
   
   
-  if(any(trunclower>truncupper)) {
+  if (any(trunclower>truncupper)) {
     stop("trunclower should be smaller than (or equal to) truncupper.")
   }
   
   
-  if(any(!is.finite(trunclower) & !is.finite(truncupper))) {
+  if (any(!is.finite(trunclower) & !is.finite(truncupper))) {
     stop("trunclower and truncupper cannot be both infinite.")
   }
   
-  if(!all(is.na(lower))) {
-    if(any(trunclower>lower)) {
+  if (!all(is.na(lower))) {
+    if (any(trunclower>lower)) {
       stop("trunclower should be smaller than (or equal to) lower.")
     }
   }
   
   
-  if(!all(is.na(upper))) {
-    if(any(truncupper<upper)) {
+  if (!all(is.na(upper))) {
+    if (any(truncupper<upper)) {
       stop("truncupper should be larger than (or equal to) cupper.")
     }
   }
@@ -466,7 +466,7 @@
 
   tuning_parameters <- expand.grid(M, s)
   
-  if(nCores==1) {
+  if (nCores==1) {
     
     i <- 1
  
@@ -532,10 +532,10 @@
   
   f <- outer(x, shape, dgamma, scale = theta)
   d <- rowSums(t(t(f)*alpha))
-  if(!(trunclower==0 & truncupper==Inf)){
+  if (!(trunclower==0 & truncupper==Inf)) {
     d <- d / (.ME_cdf(truncupper, theta, shape, alpha) - .ME_cdf(trunclower, theta, shape, alpha)) * ((trunclower <= x) & (x <= truncupper))
   }
-  if(log){
+  if (log) {
     d <- log(d)
   }
   d
@@ -547,15 +547,15 @@
   
   cdf <- outer(x, shape, pgamma, scale=theta)
   p <- rowSums(t(t(cdf)*alpha))
-  if(!(trunclower==0 & truncupper==Inf)){
+  if (!(trunclower==0 & truncupper==Inf)) {
     l <- .ME_cdf(trunclower, theta, shape, alpha)
     u <- .ME_cdf(truncupper, theta, shape, alpha)
     p <- ((p - l) / (u - l)) ^ {(x <= truncupper)} * (trunclower <= x)
   }
-  if(!lower.tail){
+  if (!lower.tail) {
     p <- 1 - p
   }
-  if(log.p){
+  if (log.p) {
     p <- log(p)
   }
   p
@@ -574,7 +574,7 @@
   interval0 <- interval
   
   # Analytical solution if single shape
-  if(length(shape) == 1){
+  if (length(shape) == 1) {
     Ft <- pgamma(trunclower, shape = shape, scale = theta)
     FT <- pgamma(truncupper, shape = shape, scale = theta)
     VaR <- qgamma(p*(FT-Ft)+Ft, shape = shape, scale = theta)
@@ -589,9 +589,9 @@
     # upper bound for interval when not provided
     for (i in pl:1) {
 
-      if(is.null(interval0)) {
+      if (is.null(interval0)) {
         
-        if(trunclower == 0 & truncupper == Inf) {
+        if (trunclower == 0 & truncupper == Inf) {
           interval <- c(qgamma(p[i], shape = min(shape), scale = theta), 
                         qgamma(p[i], shape = max(shape), scale = theta))
           # Possible better upper bound
@@ -614,7 +614,7 @@
   
       }
       
-      if(is.null(start0)) {
+      if (is.null(start0)) {
         
         if (!is.na(VaR[i+1])) {
           start <- VaR[i+1]
@@ -625,16 +625,16 @@
         if (is.infinite(start)) start <- 10^20
       }
       
-      if(p[i]==1){
+      if (p[i]==1) {
         # Fixed for truncation case
         VaR[i] <- truncupper
       } else {
-        objective <- function(x){return(10000000*(.ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p[i])^2)}    
+        objective <- function(x) {return(10000000*(.ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p[i])^2)}    
         VaR_nlm <- nlm(f = objective, p = start)
         VaR_optimise <- optimise(f = objective, interval = interval)
         VaR[i] <- ifelse(VaR_nlm$minimum < VaR_optimise$objective, VaR_nlm$estimate, VaR_optimise$minimum)    
       
-        if(objective(VaR[i])>1e-06){ # in case optimisation fails, retry with more different starting values
+        if (objective(VaR[i])>1e-06) { # in case optimisation fails, retry with more different starting values
           # Fix warnings
           estimate <- NULL
           minimum <- NULL
@@ -649,7 +649,7 @@
           if (!is.na(VaR[i+1])) {
             interval[2] <- min(VaR[i+1], interval[2])
           }
-          for(j in 1:length(shape)){
+          for(j in 1:length(shape)) {
             VaR_nlm[[j]] <- nlm(f = objective, p = qgamma(p[i], shape = shape[j], scale = theta))
             VaR_optimise[[j]] <- optimise(f = objective, interval = interval[c(1, j+1)])
           }
@@ -673,41 +673,41 @@
 ## Value-at-Risk (VaR) or quantile function (old function)
 .ME_VaR_old <- function(p, theta, shape, alpha, trunclower = 0, truncupper = Inf, interval = NULL, start = NULL) {
   
-  if(is.null(interval)) {
-    if(trunclower == 0 & truncupper == Inf){
+  if (is.null(interval)) {
+    if (trunclower == 0 & truncupper == Inf) {
       interval <- c(qgamma(p, shape = min(shape), scale = theta), 
                     qgamma(p, shape = max(shape), scale = theta))
       
-    } else{ 
+    } else { 
       interval <- c(trunclower, min(truncupper, trunclower + qgamma(p, shape = max(shape), scale = theta)))
     }
   }
   
-  if(is.null(start)) {
+  if (is.null(start)) {
     start <- qgamma(p, shape = shape[which.max(alpha)], scale = theta)
   }
   
-  if(p==1){
+  if (p==1) {
     # Fixed for truncation case
     return(truncupper) 
   }    
-  if(length(shape) == 1 & trunclower == 0 & truncupper == Inf){
+  if (length(shape) == 1 & trunclower == 0 & truncupper == Inf) {
     VaR <- qgamma(p, shape = shape, scale = theta)
     return(VaR)
-  } else{
-    objective <- function(x){return(10000000*(.ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p)^2)}    
+  } else {
+    objective <- function(x) {return(10000000*(.ME_cdf(x, theta, shape, alpha, trunclower, truncupper)-p)^2)}    
     VaR_nlm <- nlm(f = objective, p = start)
     VaR_optimise <- optimise(f = objective, interval = interval)
     VaR <- ifelse(VaR_nlm$minimum < VaR_optimise$objective, VaR_nlm$estimate, VaR_optimise$minimum)    
     
-    if(objective(VaR)>1e-06){ # in case optimization fails, retry with more different starting values
+    if (objective(VaR)>1e-06) { # in case optimization fails, retry with more different starting values
       alpha <- alpha[order(shape)]
       shape <- shape[order(shape)]
       VaR_nlm <-  vector("list", length(shape))
       VaR_optimise <-  vector("list", length(shape))
       # Fixed for truncation case
       interval <- c(trunclower, pmin(truncupper, trunclower + qgamma(p, shape, scale = theta)))
-      for(i in 1:length(shape)){
+      for(i in 1:length(shape)) {
         VaR_nlm[[i]] <- nlm(f = objective, p = qgamma(p, shape = shape[i], scale = theta))    
         VaR_optimise[[i]] <- optimise(f = objective, interval = interval[c(1, i+1)])
       }
@@ -723,7 +723,7 @@
 
 
 # Random generation of univariate mixture of Erlangs
-.ME_random <- function(n, theta, shape, alpha, trunclower = 0, truncupper = Inf){  
+.ME_random <- function(n, theta, shape, alpha, trunclower = 0, truncupper = Inf) {  
   
   # Transform alpha to beta
   beta <- alpha * (pgamma(truncupper, shape=shape, scale=theta) - pgamma(trunclower, shape=shape, scale=theta)) /
@@ -736,7 +736,7 @@
   # as truncated ME can be seen as mixture of truncated Erlangs with mixing weights beta
   Ftl <- pgamma(trunclower, shape = shapes, scale = theta)
   Ft <- pgamma(truncupper, shape = shapes, scale = theta)
-  return( qgamma(Ftl + runif(n) * (Ft-Ftl), shape=shapes, scale=theta) )
+  return( qgamma(Ftl + runif (n) * (Ft-Ftl), shape=shapes, scale=theta) )
 }
 
 
@@ -751,12 +751,12 @@
   alphas <- rep(0, M)
   alphas[shape] <- alpha
   coeff <- rep(0, M)
-  for(n in 1:M){
+  for(n in 1:M) {
     coeff[n] <- sum( alphas[0:(M-n)+n] * (0:(M-n)+1) * pgamma(C, shape = 0:(M-n)+2, scale = theta) )
   }
-  if(C == Inf){
+  if (C == Inf) {
     XL <- theta^2 * sum( coeff * dgamma(R, shapes, scale=theta) )
-  }else{
+  } else {
     XL <- theta^2 * sum( coeff * dgamma(R, shapes, scale=theta) ) +  C *.ME_cdf(R+C, theta, shape, alpha, lower.tail = FALSE)    
   }
   XL  

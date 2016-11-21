@@ -42,19 +42,19 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   }
   
   # Transform to vectors if rho is a single value
-  if(length(rho)==1) {
+  if (length(rho)==1) {
     EPD$gamma <- as.vector(EPD$gamma)
     EPD$kappa <- as.vector(EPD$kappa)
     EPD$tau <- as.vector(EPD$tau)
     
-  } else if(plot | add) {
+  } else if (plot | add) {
     # Add lines
     for(j in 2:length(rho)) {
       lines(K,EPD$gamma[K,j],lty=j)
     }
   }
   
-  if(length(rho)==1) {
+  if (length(rho)==1) {
     .output(list(k=K, gamma=EPD$gamma[K], kappa=EPD$kappa[K], tau=EPD$tau[K]), plot=plot, add=add)
   } else {
     .output(list(k=K, gamma=EPD$gamma[K,], kappa=EPD$kappa[K,], tau=EPD$tau[K,]), plot=plot, add=add)
@@ -85,7 +85,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     rho <- .rhoEst(data,alpha=1,tau=rho)$rho
     beta <- -rho
 
-  } else if(all(rho<0)) {
+  } else if (all(rho<0)) {
     beta <- -rho
     
   } else {
@@ -162,7 +162,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     rho <- .rhoEst(data,alpha=1,tau=rho)$rho
     beta <- -rho
     
-  } else if(all(rho<0)) {
+  } else if (all(rho<0)) {
     beta <- -rho
     
   } else {
@@ -191,13 +191,13 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
         tau[k,j] <- -beta[j]/H[k]
       }
       
-      if(is.null(start)) {
+      if (is.null(start)) {
         start2 <- numeric(2)
         start2[1] <- H[k]
         start2[2] <- 0
-      } else if(is.matrix(start)) {
+      } else if (is.matrix(start)) {
         
-        if(nrow(start>=n-1)) {
+        if (nrow(start>=n-1)) {
           start2 <- numeric(2)
           start2[1] <- start[k,1]
           start2[2] <- start[k,2]
@@ -239,7 +239,7 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   }
   
   
-  if(ifelse(length(data)>1,var(data)==0,0)) {
+  if (ifelse(length(data)>1,var(data)==0,0)) {
     sg <- c(NA,NA)
   } else {
     
@@ -283,12 +283,12 @@ EPDfit <- function(data, tau, start = c(0.1,1), warnings = FALSE) {
   # Check input arguments
   .checkInput(data)
   
-  if(alpha<=0) {
+  if (alpha<=0) {
     stop("alpha should be strictly positive.")
   }
   
   
-  if(tau<=0) {
+  if (tau<=0) {
     stop("tau should be strictly positive.")
   }
   
@@ -327,7 +327,7 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data)
   
-  if( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
+  if ( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
   } 
   
@@ -359,7 +359,7 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data)
   
-  if( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
+  if ( length(gamma)!=length(kappa) | length(gamma)!=length(tau)) {
     stop("gamma, kappa and tau should have equal length.")
   } 
   

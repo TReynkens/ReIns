@@ -165,7 +165,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   if (!is.numeric(trunclower)) stop("trunclower should be numeric.")
   if (length(trunclower)!=1) stop("trunclower should have length 1.")
   
-  if(length(t)!=l) stop("const and t should have equal length.")
+  if (length(t)!=l) stop("const and t should have equal length.")
   
   if (is.unsorted(t, strictly=TRUE)) {
     stop("t should be a strictly increasing vector.")
@@ -260,7 +260,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
                 drop0trailing=TRUE)
   
   # paste_end is the last part of the string
-  if(length(vec)==1) {
+  if (length(vec)==1) {
     paste0(s, name," = ",res, paste_end)
   } else {
     paste0(s, name," = (",paste(res, collapse=", "),")",paste_end)
@@ -334,7 +334,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # General splicing part
   
   # Print all but last element of pi
-  if(length(splicefit$pi)>2) {
+  if (length(splicefit$pi)>2) {
     for(i in 1:(length(splicefit$pi)-1)) {
       s <- .pasteVec(s, paste0("\\pi_",i), splicefit$pi[i], digits, ", ")
     }
@@ -350,7 +350,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   s <- .pasteVec(s, "t^l", splicefit$trunclower, digits)
   
   # Print all splicing points
-  if(length(splicefit$t)>1) {
+  if (length(splicefit$t)>1) {
     
     for(i in 1:length(splicefit$t)) {
       s <- .pasteVec(s, paste0("t_",i), splicefit$t[i], digits, ", ")
@@ -378,7 +378,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # EVT part
   
   # Print gamma
-  if(length(evtfit$gamma)>1) {
+  if (length(evtfit$gamma)>1) {
     
     for(i in 1:length(evtfit$gamma)) {
       s <- .pasteVec(s, paste0("\\gamma_",i), evtfit$gamma[i], digits, ", ")
@@ -393,7 +393,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   
   # Print sigma if exists
   if (exists("sigma", where=splicefit$EVTfit)) {
-    if(length(evtfit$sigma)>1) {
+    if (length(evtfit$sigma)>1) {
       
       for(i in 1:length(evtfit$sigma)) {
         s <- .pasteVec(s, paste0("\\sigma_",i), evtfit$sigma[i], digits, ", ")
@@ -488,7 +488,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
     EVTtruncation <- EVTtruncation[length(EVTtruncation)]
     warning("EVTtruncation has more than one element, only the last one is used.")
     
-  } else if(length(EVTtruncation)<=0) {
+  } else if (length(EVTtruncation)<=0) {
     # Stop if length 0 (or less)
     stop("EVTtruncation should be a logical of length 1.")
   }
@@ -1109,7 +1109,7 @@ rSplice <- function(n, splicefit) {
   
   # Use quantile function directly if more than 1 Pareto piece
   if (length(splicefit$EVTfit$gamma)>1) {
-    return(qSplice(runif(n), splicefit=splicefit))
+    return(qSplice(runif (n), splicefit=splicefit))
     
   } else {
     

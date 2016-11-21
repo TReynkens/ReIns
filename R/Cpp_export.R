@@ -4,7 +4,7 @@
 
 .spliceEM_fit_raw_cpp <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf,
                                  pi,  theta, shape, beta, gamma,
-                                 eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf){
+                                 eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
 
   # Separate uncensored and censored observations
   uncensored <- !censored
@@ -40,7 +40,7 @@
 
 .spliceEM_shape_adj_cpp <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf,
                                  pi, theta, shape, beta, gamma,
-                                 eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf){
+                                 eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
 
   # Separate uncensored and censored observations
   uncensored <- !censored
@@ -74,7 +74,7 @@
 
 .spliceEM_shape_red_cpp <- function(lower, upper, censored, trunclower = 0, tsplice, truncupper = Inf, 
                                    pi, theta, shape, beta, gamma, criterium = "AIC", improve = TRUE,
-                                   eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, adj = TRUE){
+                                   eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, adj = TRUE) {
   
   # Separate uncensored and censored observations
   uncensored <- !censored

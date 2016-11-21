@@ -90,7 +90,7 @@ rpareto <- function(n, shape, scale = 1) {
     stop("scale should be strictly positive.")
   }
   
-  return(qpareto(runif(n),scale=scale,shape=shape))
+  return(qpareto(runif (n),scale=scale,shape=shape))
 }
 
 
@@ -106,7 +106,7 @@ dtpareto <- function(x, shape, scale=1, endpoint=Inf, log = FALSE) {
     stop("scale should be strictly positive.")
   }
   
-  if(endpoint<=scale) {
+  if (endpoint<=scale) {
     stop("endpoint should be strictly larger than scale.")
   }
   
@@ -127,7 +127,7 @@ ptpareto <- function(x, shape, scale=1, endpoint=Inf, lower.tail = TRUE, log.p =
     stop("scale should be strictly positive.")
   }
   
-  if(endpoint<=scale) {
+  if (endpoint<=scale) {
     stop("endpoint should be strictly larger than scale.")
   }
  
@@ -153,7 +153,7 @@ qtpareto <- function(p, shape, scale=1, endpoint=Inf, lower.tail = TRUE, log.p =
     stop("scale should be strictly positive.")
   }
   
-  if(endpoint<=scale) {
+  if (endpoint<=scale) {
     stop("endpoint should be strictly larger than scale.")
   }
   
@@ -182,11 +182,11 @@ rtpareto <- function(n, shape, scale=1, endpoint=Inf) {
     stop("scale should be strictly positive.")
   }
   
-  if(endpoint<=scale) {
+  if (endpoint<=scale) {
     stop("endpoint should be strictly larger than scale.")
   }
   
-  return(qtpareto(runif(n),scale=scale,shape=shape,endpoint=endpoint))
+  return(qtpareto(runif (n),scale=scale,shape=shape,endpoint=endpoint))
 }
 
 
@@ -208,7 +208,7 @@ dgpd <- function(x, gamma, mu = 0, sigma, log = FALSE) {
     d <- ifelse(x>=mu, 1/sigma * (1+gamma*(x-mu)/sigma)^(-1/gamma-1), 0)
   }
  
-  if(gamma < -eps) {
+  if (gamma < -eps) {
     d[x>mu-sigma/gamma] <- 0
   } 
   
@@ -229,7 +229,7 @@ pgpd <- function(x, gamma, mu = 0, sigma, lower.tail = TRUE, log.p = FALSE) {
     p <- ifelse(x>=mu, 1-(1+gamma*(x-mu)/sigma)^(-1/gamma), 0)
   }
   
-  if(gamma < -eps) {
+  if (gamma < -eps) {
     p[x>=mu-sigma/gamma] <- 1
   }
   
@@ -275,7 +275,7 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
     stop("sigma should be strictly positive.")
   }
   
-  qgpd(runif(n), gamma=gamma, mu=mu, sigma=sigma)
+  qgpd(runif (n), gamma=gamma, mu=mu, sigma=sigma)
 }
 
 ######################
@@ -303,7 +303,7 @@ ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, lower.tail = TRUE, log.
     stop("sigma should be strictly positive.")
   }
   
-  if(endpoint<=mu) {
+  if (endpoint<=mu) {
     stop("endpoint should be strictly larger than mu.")
   }
   
@@ -337,7 +337,7 @@ qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, lo
     stop("sigma should be strictly positive.")
   }
   
-  if(endpoint<=mu) {
+  if (endpoint<=mu) {
     stop("endpoint should be strictly larger than mu.")
   }
 
@@ -354,12 +354,12 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
     stop("sigma should be strictly positive.")
   }
   
-  if(endpoint<=mu) {
+  if (endpoint<=mu) {
     stop("endpoint should be strictly larger than mu.")
   }
   
   
-  qtgpd(runif(n),gamma=gamma,mu=mu,sigma=sigma, endpoint=endpoint)
+  qtgpd(runif (n),gamma=gamma,mu=mu,sigma=sigma, endpoint=endpoint)
 }
 
 
@@ -372,7 +372,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
 .EPDinput <- function(y, gamma, kappa, tau, kappaTau = TRUE) {
   
   # Check if arguments are numeric
-  if(!is.numeric(gamma)) {
+  if (!is.numeric(gamma)) {
     stop("gamma should be numeric.")
   }
   
@@ -412,7 +412,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
   
   if (length(ind)>1) {
     # Check that lengths larger than 1 are equal
-    if(!length(unique(l[ind]))==1) {
+    if (!length(unique(l[ind]))==1) {
       stop("All input arguments should have length 1 or equal length.")
     }
   }
@@ -507,7 +507,7 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
       # 0<p<1 case
       
       # Function to minimise
-      f <- function(x){
+      f <- function(x) {
         ((1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau)))^2
       }
       # If minimising fails return NA
@@ -531,7 +531,7 @@ repd <-  function(n, gamma, kappa, tau = -1) {
   # Rely on input checking in qepd
   
   # Generate random numbers
-  return(qepd(runif(n), gamma=gamma, kappa=kappa, tau=tau))
+  return(qepd(runif (n), gamma=gamma, kappa=kappa, tau=tau))
 }
 
 
@@ -626,7 +626,7 @@ rburr <- function(n, alpha, rho, eta = 1) {
     stop("eta should be strictly positive.")
   }
   
-  return(qburr(runif(n), rho=rho, alpha=alpha, eta=eta))
+  return(qburr(runif (n), rho=rho, alpha=alpha, eta=eta))
 }
 
 
@@ -648,7 +648,7 @@ dtburr <- function(x, alpha, rho, eta = 1, endpoint=Inf, log = FALSE) {
     stop("eta should be strictly positive.")
   }
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -677,7 +677,7 @@ ptburr <- function(x, alpha, rho, eta = 1, endpoint=Inf, lower.tail = TRUE, log.
     stop("eta should be strictly positive.")
   }
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -717,7 +717,7 @@ qtburr <- function(p, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, lo
     stop("eta should be strictly positive.")
   }
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -746,11 +746,11 @@ rtburr <- function(n, alpha, rho, eta=1, endpoint=Inf) {
     stop("eta should be strictly positive.")
   }
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly larger than 0.")
   }
   
-  return(qtburr(runif(n), alpha=alpha, rho=rho, eta=eta, endpoint=endpoint))
+  return(qtburr(runif (n), alpha=alpha, rho=rho, eta=eta, endpoint=endpoint))
 }
 
 ###############################################################
@@ -758,7 +758,7 @@ rtburr <- function(n, alpha, rho, eta=1, endpoint=Inf) {
 
 dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, log = FALSE) {
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -774,7 +774,7 @@ dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, log = FALSE) {
 
 ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
 
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -792,7 +792,7 @@ ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, 
 
 qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)  {
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -813,11 +813,11 @@ qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, 
 
 rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint=Inf) {
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
-  return(qtlnorm(runif(n),meanlog=meanlog,sdlog=sdlog,endpoint=endpoint))
+  return(qtlnorm(runif (n),meanlog=meanlog,sdlog=sdlog,endpoint=endpoint))
 }
 
 # ###############################################################
@@ -897,7 +897,7 @@ rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint=Inf) {
 #    stop("tau should be strictly positive.")
 #   }
 #   
-#   return(qweibull(runif(n),lambda=lambda,tau=tau))
+#   return(qweibull(runif (n),lambda=lambda,tau=tau))
 #   
 # }
 
@@ -915,7 +915,7 @@ dtweibull <- function(x, shape, scale = 1, endpoint=Inf, log = FALSE) {
   }
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -940,7 +940,7 @@ ptweibull <- function(x, shape, scale = 1, endpoint=Inf, lower.tail = TRUE, log.
   }
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -968,7 +968,7 @@ qtweibull <- function(p, shape, scale = 1, endpoint=Inf, lower.tail = TRUE, log.
   }
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -996,11 +996,11 @@ rtweibull <- function(n, shape, scale = 1, endpoint=Inf) {
   }
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
-  return(qtweibull(runif(n),shape=shape,scale=scale,endpoint=endpoint))
+  return(qtweibull(runif (n),shape=shape,scale=scale,endpoint=endpoint))
 }
 
 ###############################################################
@@ -1013,7 +1013,7 @@ dtexp <- function(x, rate = 1, endpoint=Inf, log = FALSE) {
   }
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -1034,7 +1034,7 @@ ptexp <- function(x, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -1055,7 +1055,7 @@ qtexp <- function(p, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   }
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
@@ -1082,12 +1082,12 @@ rtexp <- function(n, rate = 1, endpoint=Inf) {
   
   
   
-  if(endpoint<=0) {
+  if (endpoint<=0) {
     stop("endpoint should be strictly positive.")
   }
   
 
-  return(qtexp(runif(n),rate=rate,endpoint=endpoint))
+  return(qtexp(runif (n),rate=rate,endpoint=endpoint))
 }
 
 
@@ -1172,7 +1172,7 @@ rfrechet <- function(n, shape, loc = 0, scale = 1) {
     stop("scale should be strictly positive.")
   }
   
-  qfrechet(runif(n), shape=shape, loc=loc, scale=scale)
+  qfrechet(runif (n), shape=shape, loc=loc, scale=scale)
 }
 
 ######################
@@ -1210,7 +1210,7 @@ ptfrechet <- function(x, shape, loc = 0, scale = 1, endpoint=Inf, lower.tail = T
     stop("scale should be strictly positive.")
   }
   
-  if(endpoint<=loc) {
+  if (endpoint<=loc) {
     stop("endpoint should be strictly larger than loc.")
   }
   
@@ -1250,7 +1250,7 @@ qtfrechet <- function(p, shape, loc = 0, scale = 1, endpoint = Inf, lower.tail =
   }
   
   
-  if(endpoint<=loc) {
+  if (endpoint<=loc) {
     stop("endpoint should be strictly larger than loc.")
   }
   
@@ -1272,12 +1272,12 @@ rtfrechet <- function(n, shape, loc = 0, scale = 1, endpoint = Inf) {
     stop("scale should be strictly positive.")
   }
   
-  if(endpoint<=loc) {
+  if (endpoint<=loc) {
     stop("endpoint should be strictly larger than loc.")
   }
   
   
-  qtfrechet(runif(n), shape=shape, loc=loc, scale=scale, endpoint=endpoint)
+  qtfrechet(runif (n), shape=shape, loc=loc, scale=scale, endpoint=endpoint)
 }
 
 

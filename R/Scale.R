@@ -10,7 +10,7 @@ Scale <- function(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE,
   # Check input arguments
   .checkInput(data)
   
-  if(is.null(gamma)) {
+  if (is.null(gamma)) {
     gamma <- Hill(data)$gamma
   }
   

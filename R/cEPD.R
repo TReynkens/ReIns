@@ -5,7 +5,7 @@
 
 
 # Proportion of non-censored observations
-.p_hat_fun <- function(delta.n){
+.p_hat_fun <- function(delta.n) {
   
   n <- length(delta.n)
   K <- 1:(n-1)
@@ -20,7 +20,7 @@
 
 
 # E_{Z,k}(s)
-.ES <- function(s, Z.n){
+.ES <- function(s, Z.n) {
   
   n <- length(Z.n)
   output <- numeric(n-1)
@@ -35,7 +35,7 @@
 
 
 # E^(c)_{Z,k}(s)
-.cEs <- function(s, Z.n, delta.n){
+.cEs <- function(s, Z.n, delta.n) {
   
   n <- length(Z.n)
   output <- numeric(n-1)
@@ -55,7 +55,7 @@
 # when strictly positive or (a) choice(s) for rho if negative
 
 cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FALSE, add = FALSE, 
-                 main = "EPD estimates of EVI", ...){
+                 main = "EPD estimates of EVI", ...) {
   
   # Check input
   .checkInput(data)
@@ -90,7 +90,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
         beta[,j] <- -rho[j]/HillZ
       }
       
-    } else if(all(rho<0)) {
+    } else if (all(rho<0)) {
       
       # rho is provided => beta is constant over k
       # (but differs with rho)
@@ -109,7 +109,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     # use provided value(s) for beta
     if (length(beta)==1) {
       beta <- matrix(beta,n-1,nrho)
-#     } else if(length(beta)==n-1){
+#     } else if (length(beta)==n-1) {
 #       beta <- as.matrix(rep(beta,nrho),ncol=length(rho),byrow=FALSE)
 #     } else {
 #       stop(paste0("beta should have length 1 or n-1 = ",n-1,"."))
@@ -162,12 +162,12 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   }
   
   # Transform to vectors if rho is a single value
-  if(nrho==1) {
+  if (nrho==1) {
     gamma1 <- as.vector(gamma1)
     kappa1 <- as.vector(kappa1)
     beta <- as.vector(beta)
     Delta <- as.vector(Delta)
-  } else if(plot | add) {
+  } else if (plot | add) {
   # Add lines
     for(j in 2:nrho) {
       lines(K,gamma1[,j],lty=j)

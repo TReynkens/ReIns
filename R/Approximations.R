@@ -231,7 +231,7 @@ pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p 
 .standMoment <- function(order = 1, moments) {
   
   m <- length(moments)
-  if(order > m) {
+  if (order > m) {
     stop("The order should be smaller than or equal to the length of moments.")
   }
   

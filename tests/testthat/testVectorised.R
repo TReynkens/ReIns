@@ -22,7 +22,7 @@ test_that("Censored estimators for-loops", {
   # Slow for-loop
   Hill2 <- numeric(n-1)
   for (k in 1:(n-1)) {
-	  if(sum(delta[n-(1:k)+1])!=0) {
+	  if (sum(delta[n-(1:k)+1])!=0) {
 	    Hill2[k] <- (1/sum(delta[n-(1:k)+1]))*sum(log(X[n-(1:k)+1])-log(X[n-k])) 
 	  } else {
 	    Hill2[k] <- NA
@@ -43,7 +43,7 @@ test_that("Censored estimators for-loops", {
   UH.scores2 <- numeric(n)
 	Hill2 <- numeric(max((n-2),1))
 	for (i in 1:(n-1)) {
-    if(sum(delta[n-(1:i)+1])!=0) {
+    if (sum(delta[n-(1:i)+1])!=0) {
 	    UH.scores2[i] <- X[n-i]*gamma[i]
     } else{
       UH.scores2[i] <- 1
@@ -51,7 +51,7 @@ test_that("Censored estimators for-loops", {
 	}	
 	
 	for (k in 1:max((n-2),1)) {
-    if(sum(delta[n-(1:k)+1])!=0) {
+    if (sum(delta[n-(1:k)+1])!=0) {
       Hill2[k] <- sum(log(UH.scores2[1:k])-log(UH.scores2[k+1]))/sum(delta[n-(1:k)+1])
     } else {
       Hill2[k] <- NA
@@ -348,7 +348,7 @@ X <- seq(1, 10, length.out=length(Y))
 
 # Observed (censored) sample of conditioning variable
 Xtilde <- X
-Xtilde[censored] <- X[censored] - runif(sum(censored), 0, 1)
+Xtilde[censored] <- X[censored] - runif (sum(censored), 0, 1)
 
 # Bandwidth
 h <- 5

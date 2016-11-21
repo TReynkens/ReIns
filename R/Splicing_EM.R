@@ -125,23 +125,23 @@ numtol <- .Machine$double.eps^0.5
   
   ##
   # Check data types
-  if(any(!is.numeric(L))) {
+  if (any(!is.numeric(L))) {
     stop("L should consist of numerics.")
   }
   
-  if(any(!is.numeric(U))) {
+  if (any(!is.numeric(U))) {
     stop("U should consist of numerics.")
   }
   
-  if(!is.numeric(trunclower)) {
+  if (!is.numeric(trunclower)) {
     stop("trunclower should be numeric.")
   }
   
-  if(!is.numeric(tsplice)) {
+  if (!is.numeric(tsplice)) {
     stop("tsplice should be numeric.")
   }
   
-  if(!is.numeric(truncupper)) {
+  if (!is.numeric(truncupper)) {
     stop("truncupper should be numeric.")
   }
   
@@ -224,14 +224,14 @@ numtol <- .Machine$double.eps^0.5
                           nCores = detectCores(), criterium = "BIC", reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   # Censoring indicator for each observation
-  if(is.null(censored)) {
+  if (is.null(censored)) {
     censored <- abs(lower-upper)> numtol & !is.na(lower!=upper)
   }
   
   # All combinations of M and s
   tuning_parameters <- expand.grid(M, s)
   
-  if(nCores==1) {
+  if (nCores==1) {
     
     # Special case when nCores=1 without any cluster
     
@@ -305,7 +305,7 @@ numtol <- .Machine$double.eps^0.5
 
 # Fit splicing model using EM algorithm including shape adjustment and reduction of number of Erlangs
 .spliceEM_fit <- function(lower, upper = lower, censored, trunclower = 0, tsplice, truncupper = Inf, M = 10, s = 1, pi_initial = NULL, criterium="AIC", reduceM = TRUE, 
-                          eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE){
+                          eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
 
   # Get initial values
   initial <- .spliceEM_initial(lower=lower, upper=upper, censored=censored, trunclower=trunclower,
@@ -393,7 +393,7 @@ numtol <- .Machine$double.eps^0.5
   alpha <- rep(0, length(shape))
   alpha[1] <- sum(initial_dataME <= shape[1]*theta)
   if (length(shape)>1) {
-    for (i in 2:length(shape)){
+    for (i in 2:length(shape)) {
       alpha[i] <- sum(initial_dataME <= shape[i]*theta & initial_dataME > shape[i-1]*theta)
     }
   }
@@ -446,7 +446,7 @@ numtol <- .Machine$double.eps^0.5
   M <- length(shape)
   
   # Try to improve IC by reducing M
-  while(improve && length(shape) > 1){    
+  while(improve && length(shape) > 1) {    
     
     # Remove shape with smallest beta
     min_ind <- which.min(beta)
@@ -472,7 +472,7 @@ numtol <- .Machine$double.eps^0.5
     new_IC <- fit[[criterium]]
     
     # Continue improving if IC is reduced
-    if(new_IC < IC) { 
+    if (new_IC < IC) { 
       IC <- new_IC
       loglikelihood <- fit$loglikelihood  
       shape <- fit$shape
@@ -526,7 +526,7 @@ numtol <- .Machine$double.eps^0.5
   iteration <- 1
   
   # Improve as long as log-likelihood increases significantly
-  while(after_loglikelihood > before_loglikelihood + eps){   
+  while(after_loglikelihood > before_loglikelihood + eps) {   
     
     before_loglikelihood <- after_loglikelihood
     
@@ -545,7 +545,7 @@ numtol <- .Machine$double.eps^0.5
                                  pi=pi, theta=theta, shape=new_shape, beta=beta, gamma=gamma, 
                                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
-        if(new_loglikelihood > loglikelihood + eps){
+        if (new_loglikelihood > loglikelihood + eps) {
           loglikelihood <- new_loglikelihood
           pi <- fit$pi
           shape <- fit$shape
@@ -569,7 +569,7 @@ numtol <- .Machine$double.eps^0.5
       improve <- TRUE
       
       # Decrease i-th shape as long as improvement and larger than 1 and not smaller than previous shape
-      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, FALSE)){
+      while( improve && ( (i == 1) || ifelse(i<=length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i<=length(shape), shape[i]>1, FALSE)) {
         
         # Decrease i-th shape by 1
         new_shape <- shape
@@ -578,7 +578,7 @@ numtol <- .Machine$double.eps^0.5
                                  pi=pi, theta=theta, shape=new_shape, beta=beta, gamma=gamma, 
                                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
-        if(new_loglikelihood > loglikelihood + eps){
+        if (new_loglikelihood > loglikelihood + eps) {
           loglikelihood <- new_loglikelihood
           pi <- fit$pi
           shape <- fit$shape
@@ -683,7 +683,7 @@ numtol <- .Machine$double.eps^0.5
   iteration <- 1
   old_loglikelihood <- -Inf
 
-  while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter){
+  while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter) {
     
     old_loglikelihood <- loglikelihood
     
@@ -715,7 +715,7 @@ numtol <- .Machine$double.eps^0.5
     ##
     # ME
     
-    if(length(ind1)!=0) {
+    if (length(ind1)!=0) {
       # Matrix of z_{ij} with i for rows and j for columns
       z1 <- .spliceEM_i_z(x1_dens_nosum=x1_dens_nosum, M=M)
       # sum_{i in S_{i.}} x_i
@@ -792,7 +792,7 @@ numtol <- .Machine$double.eps^0.5
     beta <- (colSums(z1) + colSums(z3) + colSums(z5 * P1)) / n1_h
 
     # Remove small beta's
-    if(min(beta) < beta_tol){
+    if (min(beta) < beta_tol) {
       shape <- shape[beta > beta_tol]
       beta <- beta[beta > beta_tol]
       beta <- beta / sum(beta)
@@ -897,7 +897,7 @@ numtol <- .Machine$double.eps^0.5
   # No problem when ind2=numeric(0)
   L$x2_dens <- (1-pi) * .dtpareto(lower2, gamma=gamma, tsplice=tsplice, truncupper=truncupper)
 
-  if(n3!=0) {
+  if (n3!=0) {
     # Matrix containing Erlang probabilities for censored observations of type 3 and all M values of shape
     L$c3_probs_nosum <- t(t(outer(upper3, shape, pgamma, scale=theta))*alpha_tilde) - t(t(outer(lower3, shape, pgamma, scale=theta))*alpha_tilde)
     
@@ -917,7 +917,7 @@ numtol <- .Machine$double.eps^0.5
                                .ptpareto(lower4, gamma=gamma, tsplice=tsplice, truncupper=truncupper))
 
 
-  if(n5!=0) {
+  if (n5!=0) {
     # Matrix containing Erlang probabilities for censored observations of type 5 and all M values of shape
     L$c5_probs_nosum <- t(t(outer(lower5, shape, pgamma, scale=theta))*alpha_tilde)
     
@@ -975,7 +975,7 @@ numtol <- .Machine$double.eps^0.5
 
 
 # ^{i.}z_{ij}^{(h)}: posterior probabilities (uncensored)
-.spliceEM_i_z <- function(x1_dens_nosum, M){      
+.spliceEM_i_z <- function(x1_dens_nosum, M) {      
 
   z1 <- x1_dens_nosum / rowSums(x1_dens_nosum)
   # in case all ^{u}z_{ij}^{(h)} for j=1,...,M are numerically 0
@@ -985,7 +985,7 @@ numtol <- .Machine$double.eps^0.5
 }
 
 # ^{iii.}z_{ij}^{(h)}: posterior probabilities (censored)
-.spliceEM_iii_z <- function(c3_probs_nosum, M){      
+.spliceEM_iii_z <- function(c3_probs_nosum, M) {      
   
   z3 <- c3_probs_nosum / rowSums(c3_probs_nosum)
   # in case all ^{c}z_{ij}^{(h)} for j=1,...,M are numerically 0
@@ -996,7 +996,7 @@ numtol <- .Machine$double.eps^0.5
 
 
 # ^{v.}z_{ij}^{(h)}: posterior probabilities (censored)
-.spliceEM_v_z <- function(c5_probs_nosum, tsplice, alpha_tilde, shape, theta, M){  
+.spliceEM_v_z <- function(c5_probs_nosum, tsplice, alpha_tilde, shape, theta, M) {  
 
   # Use alpha_tilde since also used in c5_probs_nosum
   pt <- alpha_tilde*pgamma(tsplice, shape=shape, scale=theta)
@@ -1070,7 +1070,7 @@ numtol <- .Machine$double.eps^0.5
 .spliceEM_T <- function(trunclower, truncupper, shape, theta, beta) {
   
   # Avoid NaN
-  if(truncupper==Inf){ 
+  if (truncupper==Inf) { 
     
     # Take log first for numerical stability (avoid Inf / Inf)
     deriv_trunc_log_1 <- shape*log(trunclower)-trunclower/theta - (shape-1)*log(theta) - lgamma(shape) - log(1 - pgamma(trunclower, shape, scale=theta))
@@ -1100,7 +1100,7 @@ numtol <- .Machine$double.eps^0.5
   # Compute CDF as product with alpha and then sum per column
   p <- colSums(t(cdf)*alpha)
   
-  if(!(trunclower==0 & truncupper==Inf)) {
+  if (!(trunclower==0 & truncupper==Inf)) {
     l <- .pME(trunclower, theta=theta, shape=shape, alpha=alpha)
     u <- .pME(truncupper, theta=theta, shape=shape, alpha=alpha)
     p <- ((p - l) / (u - l)) ^ {(x <= truncupper)} * (trunclower <= x)

@@ -36,7 +36,7 @@ trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = 
     #Use Hill's trimmed estimator as initial approximation
     y <- H[k]
     i <- 1
-    while (i <= maxiter){
+    while (i <= maxiter) {
       #temp[i] <- y
       ym <- 1/y
       z <- y + (H[k]-y-R[k]^ym*log(R[k])/(1-R[k]^ym))/(1-ym^2*R[k]^ym*log(R[k])^2/((1-R[k]^ym)^2))
@@ -78,7 +78,7 @@ trDT <- function(data, r = 1, gamma, plot=FALSE, add=FALSE,
   DT <- numeric(n)
   K <- r:(n-1)
   
-  if(length(gamma)!=length(K)) {
+  if (length(gamma)!=length(K)) {
     stop(paste("gamma should have length", length(K)))
   }
   
@@ -113,7 +113,7 @@ trEndpoint <- function(data, r = 1, gamma, plot = FALSE, add = FALSE,
   
 
   
-  if(length(gamma)!=length(K)) {
+  if (length(gamma)!=length(K)) {
     stop(paste("gamma should have length", length(K)))
   }
   
@@ -228,7 +228,7 @@ trProb <- function(data, r = 1, gamma, q, warnings = TRUE, plot = FALSE, add = F
   
   # plots if TRUE
   
-  if( !all(is.na(prob[K])) ) {
+  if ( !all(is.na(prob[K])) ) {
     .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   }
   
@@ -252,7 +252,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   j <- 1:n
   K <- r:(n-1) 
   
-  if(length(DT)==1) {
+  if (length(DT)==1) {
     DT <- rep(DT,length(K))
   }
   
@@ -260,7 +260,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
   pqq.emp <- log(X[n-j+1])
   
   # Select kstar based on maximising correlation
-  if(is.null(kstar)) {
+  if (is.null(kstar)) {
     
     # Ignore first values for k if K is large
     k <- ifelse(length(K)>10, 11, 1):length(K)

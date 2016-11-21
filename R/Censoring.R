@@ -144,8 +144,8 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
   .checkInput(data)
   censored <- .checkCensored(censored, length(data))
   
-  if(length(censored)!=1) {
-    if(length(data) != length(censored)) {
+  if (length(censored)!=1) {
+    if (length(data) != length(censored)) {
       stop("data and censored should have the same length.")
     }
   } else {

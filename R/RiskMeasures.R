@@ -121,7 +121,7 @@
     stop("R should be a numeric of length 1.")
   }
   
-  if( length(gamma)!=length(sigma)) {
+  if ( length(gamma)!=length(sigma)) {
     stop("gamma and sigma should have equal length.")
   } 
   
@@ -188,7 +188,7 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
   }
   
   if (length(R)!=length(L)) {
-    if(length(R)!=1 & length(L)!=1) {
+    if (length(R)!=1 & length(L)!=1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
@@ -200,7 +200,7 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
   Im <- res$premium
   K <- res$k
   
-  if(is.finite(L)) {
+  if (is.finite(L)) {
     Il <- f(R+L)$premium
   } else {
     Il <- 0
@@ -233,7 +233,7 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
   }
   
   if (length(L)!=length(R)) {
-    if(length(L)!=1 & length(R)!=1) {
+    if (length(L)!=1 & length(R)!=1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
@@ -245,7 +245,7 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
   Im <- res$premium
   K <- res$k
   
-  if(is.finite(L)) {
+  if (is.finite(L)) {
     Il <- f(R+L)$premium
   } else {
     Il <- 0
@@ -276,7 +276,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
   }
   
   if (length(L)!=length(R)) {
-    if(length(L)!=1 & length(R)!=1) {
+    if (length(L)!=1 & length(R)!=1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }
@@ -288,7 +288,7 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
   Im <- res$premium
   K <- res$k
   
-  if(is.finite(L)) {
+  if (is.finite(L)) {
     Il <- f(R+L)$premium
   } else {
     Il <- 0
@@ -525,7 +525,7 @@ ExcessSplice <- function(R, L=Inf, splicefit) {
   }
   
   if (length(L)!=length(R)) {
-    if(length(L)!=1 & length(R)!=1) {
+    if (length(L)!=1 & length(R)!=1) {
       stop("R and L should have equal length or at least one of them should have length 1.")
     }
   }

@@ -45,7 +45,7 @@ GPDfit <- function(data, start = c(0.1,1), warnings = FALSE) {
   }
   
 
-  if(ifelse(length(data)>1,var(data)==0,0)) {
+  if (ifelse(length(data)>1,var(data)==0,0)) {
     sg <- c(NA,NA)
   } else {
     
@@ -87,7 +87,7 @@ GPDmle <- function(data, start = c(0.1,1), warnings = FALSE, logk = FALSE,
   #Compute gamma and sigma for several values of k
   for(k in (n-1):1) {
     potdata <- data[data>X[n-k]]-X[n-k]
-    if(length(potdata)==0) {
+    if (length(potdata)==0) {
       POT[k,] <- NA
     } else {
       POT[k,] <- GPDfit(potdata,start=start)

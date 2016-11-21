@@ -87,7 +87,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
       if (r<x[1]) r <- x[1]
       
       # Slope and intercept of function in interval containing r
-      if(ind_r==0) {
+      if (ind_r==0) {
         # Special case if ind_r <- 0
         a <- 0
         b <- 1
@@ -169,7 +169,7 @@ icParetoQQ <- function(L, U = L, censored, trunclower=0, truncupper=Inf, plot = 
   x <- SurvTB$fquant(p)
   
   # Remove 1 if infinite endpoint
-  if(is.infinite(truncupper)) {
+  if (is.infinite(truncupper)) {
     pqq.emp <- log(x)[p<1-10^(-5)]
     p <- p[p<1-10^(-5)]
   } else {
@@ -269,7 +269,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
       
       
       # Slope and intercept of function in interval containing r
-      if(ind_r==0) {
+      if (ind_r==0) {
         # Special case if ind_r <- 0
         a <- 0
         b <- 1
@@ -371,7 +371,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     
     
     # Slope and intercept of function in interval containing r
-    if(ind_r==0) {
+    if (ind_r==0) {
       # Special case if ind_r <- 0
       a <- 0
       b <- 1
