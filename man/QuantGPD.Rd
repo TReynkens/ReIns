@@ -64,7 +64,7 @@ Tom Reynkens.
 \examples{
 data(soa)
 
-# Look at last 500 obs of SOA data
+# Look at last 500 observations of SOA data
 SOAdata <- sort(soa$size)[length(soa$size)-(0:499)]
 
 # GPD-ML estimator

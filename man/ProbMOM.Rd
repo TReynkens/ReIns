@@ -6,7 +6,7 @@
 Estimator of small exceedance probabilities and large return periods using MOM
 }
 \description{
-Computes estimates of a small exceedance probability \eqn{P(X>q)} or large eturn period \eqn{1/P(X>q)} using the Method of Moments estimates for the EVI.
+Computes estimates of a small exceedance probability \eqn{P(X>q)} or large return period \eqn{1/P(X>q)} using the Method of Moments estimates for the EVI.
 }
 \usage{
 ProbMOM(data, gamma, q, plot = FALSE, add = FALSE, 
