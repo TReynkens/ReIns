@@ -22,6 +22,7 @@
         \item Add Weibull QQ-plot adapted for censored data (\code{cWeibullQQ}).
         \item Add estimators for regression extremes with censored data.
         \item Add estimators for stable tail dependence function (STDF).
+        \item Rename \code{.p.hat.fun} to \code{.p_hat_fun}.
       }
     }
     

@@ -5,7 +5,7 @@
 
 
 # Proportion of non-censored observations
-.p.hat.fun <- function(delta.n){
+.p_hat_fun <- function(delta.n){
   
   n <- length(delta.n)
   K <- 1:(n-1)
@@ -70,7 +70,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   delta.n <- !(censored[s$ix])
   
   HillZ <- Hill(Z.n)$gamma
-  phat <- .p.hat.fun(delta.n)
+  phat <- .p_hat_fun(delta.n)
   
   nrho <- length(rho)
 

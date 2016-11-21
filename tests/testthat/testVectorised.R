@@ -78,7 +78,7 @@ test_that("Censored estimators for-loops", {
 	  
 
   ################################
-  # p.hat.fun
+  # p_hat_fun
   
   delta.n <- delta
   p.hat <- numeric(n-1)
@@ -87,7 +87,7 @@ test_that("Censored estimators for-loops", {
   }
   
   
-  expect_true(max(abs(p.hat - .p.hat.fun(delta.n))/ p.hat,
+  expect_true(max(abs(p.hat - .p_hat_fun(delta.n))/ p.hat,
                   na.rm=TRUE)<eps)
 
 })
