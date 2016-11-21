@@ -48,7 +48,7 @@ Endpoint of the truncated log-normal distribution. The default value is \code{In
 }
 \details{
 The Cumulative Distribution Function (CDF) of the truncated log-normal distribution is equal to
-\eqn{F_T(x) = F(x) / F(T)} where \eqn{F} is the CDF of the ordinary log-normal distribution and \eqn{T} is the endpoint (truncation point) of the truncated log-normal distribution.
+\eqn{F_T(x) = F(x) / F(T)} for \eqn{x \le T} where \eqn{F} is the CDF of the ordinary log-normal distribution and \eqn{T} is the endpoint (truncation point) of the truncated log-normal distribution.
 }
 \value{
 \code{dtlnorm} gives the density function evaluated in \eqn{x}, \code{ptlnorm} the CDF evaluated in \eqn{x} and \code{qtlnorm} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.

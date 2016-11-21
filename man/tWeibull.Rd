@@ -48,7 +48,7 @@ Endpoint of the truncated Weibull distribution. The default value is \code{Inf} 
 }
 \details{
 The Cumulative Distribution Function (CDF) of the truncated Weibull distribution is equal to
-\eqn{F_T(x) = F(x) / F(T)} where \eqn{F} is the CDF of the ordinary Weibull distribution and \eqn{T} is the endpoint (truncation point) of the truncated Weibull distribution.
+\eqn{F_T(x) = F(x) / F(T)} for \eqn{x \le T} where \eqn{F} is the CDF of the ordinary Weibull distribution and \eqn{T} is the endpoint (truncation point) of the truncated Weibull distribution.
 }
 \value{
 \code{dtweibull} gives the density function evaluated in \eqn{x}, \code{ptweibull} the CDF evaluated in \eqn{x} and \code{qtweibull} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.

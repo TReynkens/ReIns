@@ -22,10 +22,10 @@ Trimming parameter, default is \code{1} (no trimming).
 Vector of \eqn{n-1} estimates for the EVI obtained from \code{\link{trHill}}.
 }
  \item{plot}{
-Logical indicating if the estimates of \eqn{\gamma} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{D_T} should be plotted as a function of \eqn{k}, default is \code{FALSE}.
 }
   \item{add}{
-Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
+Logical indicating if the estimates of \eqn{D_T} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
 Title for the plot, default is \code{"Estimates of DT"}.
@@ -36,10 +36,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The odds ratio is defined as
-\deqn{(1-F(T))/F(T)} with \eqn{T} the upper truncation point and \eqn{F} the CDF of the untruncated distribution (e.g. Pareto distribution).
+\deqn{D_T=(1-F(T))/F(T)} with \eqn{T} the upper truncation point and \eqn{F} the CDF of the untruncated distribution (e.g. Pareto distribution).
 
 We estimate this odds ratio as
-\deqn{\hat{D}_T=\max( (k+1)/(n+1) ( R_{r,k,n}^{1/\gamma_k} - 1/(k+1) ) / (1-R_{r,k,n}^{1/\gamma_k}), 0)}
+\deqn{\hat{D}_T=\max\{ (k+1)/(n+1) ( R_{r,k,n}^{1/\gamma_k} - 1/(k+1) ) / (1-R_{r,k,n}^{1/\gamma_k}), 0\}}
 with \eqn{R_{r,k,n} = X_{n-k,n} / X_{n-r+1,n}}.
 
 See Beirlant et al. (2016) or Section 4.2.3 of Albrecher et al. (2017) for more details.
