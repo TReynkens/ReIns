@@ -14,26 +14,26 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
   
   # Check input for mean and variance
   if (!is.numeric(mean) | !is.numeric(variance)) stop("Input arguments mean and variance should be numeric.")
-  if (length(mean)>1 | length(variance)>1) stop("Input arguments mean and variance should have length 1.")
-  if (variance<=0) stop("The variance should be strictly positive.")
+  if (length(mean) > 1 | length(variance) > 1) stop("Input arguments mean and variance should have length 1.")
+  if (variance <= 0) stop("The variance should be strictly positive.")
   
   # Check if skewness is provided
-  if (is.null(skewness) & method!="normal") {
+  if (is.null(skewness) & method != "normal") {
     stop(paste0("Input argument skewness cannot be NULL when using method \"", method, "\"."))
   }  
   
   # Check skewness
   if (!is.null(skewness)) {
     
-    if (!is.numeric(skewness) | length(skewness)>1) stop("skewness should be a numeric of length 1.")
+    if (!is.numeric(skewness) | length(skewness) > 1) stop("skewness should be a numeric of length 1.")
     
-    if (method!="normal" & skewness==0) {
+    if (method != "normal" & skewness == 0) {
       warning(paste0("The skewness coefficient cannot be 0 when using \"", method, "\", 
                      the normal approximation will be used."))
       method <- "normal"
     }  
     
-    if (method %in% c("shifted Gamma", "shifted Gamma normal") & skewness<0) { 
+    if (method %in% c("shifted Gamma", "shifted Gamma normal") & skewness < 0) { 
       stop(paste0("The skewness coefficient should be strictly positive when using \"", method, "\"."))
     }
 
@@ -41,19 +41,19 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
   
   p <- numeric(length(x))
   
-  if (method=="normal") {
+  if (method == "normal") {
 
     # Normal approximation using mean and variance
-    p <- pnorm((x-mean) / sqrt(variance))
+    p <- pnorm((x - mean) / sqrt(variance))
     
-  } else if (method=="normal-power") {
+  } else if (method == "normal-power") {
     
     # Normal-power approximation: correction of normal approximation using skewness coefficient
     
-    z <- (x-mean) / sqrt(variance)
+    z <- (x - mean) / sqrt(variance)
     # Problems with z<1
-    if (any(z<1)) {
-      ind <- which(z>=1)
+    if (any(z < 1)) {
+      ind <- which(z >= 1)
       warning("Only estimates for F(x) for values of x larger than or equal to mean + sqrt(variance) are provided.")
       p[-ind] <- NaN
       
@@ -62,8 +62,8 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
     }
 
     # Problems with negative values in root
-    if (any((9/skewness^2 + 6*z[ind]/skewness + 1)<0)) {
-      ind2 <- ind[which((9/skewness^2 + 6*z[ind]/skewness + 1)>=0)]
+    if (any( (9 / skewness ^ 2 + 6 * z[ind] / skewness + 1) < 0)) {
+      ind2 <- ind[which( (9 / skewness ^ 2 + 6 * z[ind] / skewness + 1) >= 0)]
       warning("Only estimates for F(x) for values of x where \'9/nu^2 + 6*(x-mu)/sigma/nu + 1 > 0\' are provided.")
       p[-ind2] <- NaN
       
@@ -71,24 +71,24 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
       ind2 <- ind
     }
     
-    p[ind2] <- pnorm(sqrt(9/skewness^2 + 6*z[ind2]/skewness + 1) - 3/skewness)
+    p[ind2] <- pnorm(sqrt(9 / skewness ^ 2 + 6 * z[ind2] / skewness + 1) - 3 / skewness)
     
-  } else if (method=="shifted Gamma") {
+  } else if (method == "shifted Gamma") {
     
     # Shifted Gamma approximation
 
     y <- x - mean + 2 * sqrt(variance) / skewness
     
-    p <- pgamma(y, shape=4/skewness^2, rate=2/(skewness*sqrt(variance)))
+    p <- pgamma(y, shape = 4 / skewness ^ 2, rate = 2 / (skewness * sqrt(variance)))
     
   } else {
     
     # Normal approximation to shifted Gamma distribution
     
-    z <- (x-mean) / sqrt(variance)
+    z <- (x - mean) / sqrt(variance)
     # Problems with z<1
-    if (any(z<1)) {
-      ind <- which(z>=1)
+    if (any( z < 1 )) {
+      ind <- which(z >= 1)
       warning("Only estimates for F(x) for values of x larger than or equal to mean + sqrt(variance) are provided.")
       p[-ind] <- NaN
       
@@ -96,13 +96,13 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
       ind <- 1:length(x)
     }
     
-    p[ind] <- pnorm(sqrt(16/skewness^2 + 8*z[ind]/skewness) - sqrt(16/skewness^2-1))
+    p[ind] <- pnorm(sqrt(16 / skewness ^ 2 + 8 * z[ind] / skewness) - sqrt(16 / skewness ^ 2 - 1))
   }
   
   # Solve numerical issues to obtain valid probabilities
-  p <- pmin(1, pmax(0,p))
+  p <- pmin(1, pmax(0, p))
   
-  if (!lower.tail) p <- 1-p
+  if (!lower.tail) p <- 1 - p
   
   if (log.p) p <- log(p)
   
@@ -112,13 +112,13 @@ pClas <- function(x, mean = 0, variance = 1, skewness = NULL,
 
 
 # Gram-Charlier approximation for CDF
-pGC <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = FALSE) {
+pGC <- function(x, moments = c(0, 1, 0, 3), raw = TRUE, lower.tail = TRUE, log.p = FALSE) {
   
-  if (length(moments)<4) {
+  if (length(moments) < 4) {
     stop("Four moments should be provided.")
   }
   
-  if (length(moments)>4) {
+  if (length(moments) > 4) {
     warning("Only the first four moments are used.")
   }
   
@@ -128,12 +128,12 @@ pGC <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = 
     # Mean
     average <- moments[1]
     # Variance
-    variance <- moments[2] - moments[1]^2
+    variance <- moments[2] - moments[1] ^ 2
     
     # Standardised moment of order 3
-    EZ3 <- .standMoment(order=3, moments=moments)
+    EZ3 <- .standMoment(order = 3, moments = moments)
     # Standardised moment of order 4
-    EZ4 <- .standMoment(order=4, moments=moments)
+    EZ4 <- .standMoment(order = 4, moments = moments)
  
   } else {
     # Mean, variance, skewness and kurtosis are provided
@@ -144,23 +144,23 @@ pGC <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = 
     
   }
   
-  if (variance<=0) stop("The variance should be strictly positive.")
+  if (variance <= 0) stop("The variance should be strictly positive.")
   
-  if (EZ4<EZ3+1) {
+  if (EZ4 < EZ3 + 1) {
     stop("The fourth standardised moment should be larger than or equal to the 
          third standardised moment plus 1.")
   }
 
   # Standardised x-values
-  z <- (x-average) / sqrt(variance)
+  z <- (x - average) / sqrt(variance)
   
   # Gram-Charlier approximation
-  p <- pnorm(z) + dnorm(z) * (-EZ3/6 * (z^2-1)  - (EZ4-3)/24 * (z^3-3*z))
+  p <- pnorm(z) + dnorm(z) * (- EZ3 / 6 * (z ^ 2 - 1)  - (EZ4 - 3) / 24 * (z ^ 3 - 3 * z))
   
   # Solve numerical issues to obtain valid probabilities
-  p <- pmin(1, pmax(0,p))
+  p <- pmin(1, pmax(0, p))
   
-  if (!lower.tail) p <- 1-p
+  if (!lower.tail) p <- 1 - p
   
   if (log.p) p <- log(p)
   
@@ -169,14 +169,14 @@ pGC <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = 
 
 
 # Edgeworth approximation for CDF
-pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p = FALSE) {
+pEdge <- function(x, moments = c(0, 1, 0, 3), raw = TRUE, lower.tail = TRUE, log.p = FALSE) {
   
   
-  if (length(moments)<4) {
+  if (length(moments) < 4) {
     stop("Four moments should be provided.")
   }
   
-  if (length(moments)>4) {
+  if (length(moments) > 4) {
     warning("Only the first four moments are used.")
   }
   
@@ -186,12 +186,12 @@ pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p 
     # Mean
     average <- moments[1]
     # Variance
-    variance <- moments[2] - moments[1]^2
+    variance <- moments[2] - moments[1] ^ 2
     
     # Standardised moment of order 3
-    EZ3 <- .standMoment(order=3, moments=moments)
+    EZ3 <- .standMoment(order = 3, moments = moments)
     # Standardised moment of order 4
-    EZ4 <- .standMoment(order=4, moments=moments)
+    EZ4 <- .standMoment(order = 4, moments = moments)
     
   } else {
     # Mean, variance, skewness and kurtosis are provided
@@ -202,21 +202,22 @@ pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p 
     
   }
   
-  if (variance<=0) stop("The variance should be strictly positive.")
+  if (variance <= 0) stop("The variance should be strictly positive.")
   
-  if (EZ4<EZ3+1) {
+  if (EZ4 < EZ3 + 1) {
     stop("The fourth standardised moment should be larger than or equal to the 
          third standardised moment plus 1.")
   }
   
   # Standardised x-values
-  z <- (x-average) / sqrt(variance)
+  z <- (x - average) / sqrt(variance)
   
   # Edgeworth approximation
-  p <- pnorm(z) + dnorm(z) * (-EZ3/6 * (z^2-1)  - (3*EZ4*(z^3-3*z) + EZ3^2*(z^5-10*z^3+15*z))/72 )
+  p <- pnorm(z) + dnorm(z) * (- EZ3 / 6 * (z ^ 2 - 1)  - (3 * EZ4 * (z ^ 3 - 3 * z) + 
+                               EZ3 ^ 2 * (z ^ 5 - 10 * z ^ 3 + 15 * z)) / 72 )
   
   # Solve numerical issues to obtain valid probabilities
-  p <- pmin(1, pmax(0,p))
+  p <- pmin(1, pmax(0, p))
   
   if (!lower.tail) p <- 1-p
   
@@ -238,7 +239,7 @@ pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p 
   # First moment
   average <- moments[1]
   # Variance
-  variance <- moments[2] - moments[1]^2
+  variance <- moments[2] - moments[1] ^ 2
   
   standMom <- moments[order]
   
@@ -247,10 +248,10 @@ pEdge <- function(x, moments = c(0,1,0,3), raw = TRUE, lower.tail = TRUE, log.p 
   k <- 0:order
   # Subtract average and compute moment of order order
   # Use k+1 in last one because moments[1] is moment of order 0
-  standMom <- sum(choose(order, k) * (-average)^(order-k) * moments[k+1])
+  standMom <- sum(choose(order, k) * (- average) ^ (order - k) * moments[k + 1])
   
   # Divide by standard deviation to the power order
-  standMom <- standMom / sqrt(variance)^order
+  standMom <- standMom / sqrt(variance) ^ order
   
   return(standMom)
 }
