@@ -98,10 +98,10 @@ splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0
 
 x <- seq(0,20,0.1)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

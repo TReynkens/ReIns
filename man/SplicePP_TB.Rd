@@ -43,11 +43,11 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 \details{
 The PP-plot consists of the points
-\deqn{(1-\hat{F}^{TB}(y_i), 1-\hat{F}_{spliced}(y_i)))}
-for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{y_i=\hat{Q}^{TB}(p_i)} where \eqn{\hat{Q}^{TB}} is the quantile function obtained using the Turnbull estimator,
+\deqn{(1-\hat{F}^{TB}(x_i), 1-\hat{F}_{spliced}(x_i)))}
+for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{x_i=\hat{Q}^{TB}(p_i)} where \eqn{p_i=i/(n+1)}, \eqn{\hat{Q}^{TB}} is the quantile function obtained using the Turnbull estimator,
 \eqn{\hat{F}^{TB}} the Turnbull estimator for the distribution function and \eqn{\hat{F}_{spliced}} the fitted spliced distribution function.
 The minus-log version of the PP-plot consists of
-\deqn{(-\log(1-\hat{F}^{TB}(y_i)), -\log(1-\hat{F}_{spliced}(y_i)))).}
+\deqn{(-\log(1-\hat{F}^{TB}(x_i)), -\log(1-\hat{F}_{spliced}(x_i))).}
 
 
 
@@ -61,8 +61,8 @@ See Reynkens et al. (2016) and Section 4.3.2 in Albrecher et al. (2017) for more
 }
 \value{
 A list with following components:
-\item{spp.the}{Vector of the theoretical probabilities \eqn{1-\hat{F}_{spliced}(x_{i,n})}.}
-\item{spp.emp}{Vector of the empirical probabilities \eqn{1-\hat{F}^{TB}(x_{i,n})}.}
+\item{spp.the}{Vector of the theoretical probabilities \eqn{1-\hat{F}_{spliced}(x_i)} (when \code{log=FALSE}) or \eqn{-\log(1-\hat{F}_{spliced}(x_i))} (when \code{log=TRUE}).}
+\item{spp.emp}{Vector of the empirical probabilities \eqn{1-\hat{F}^{TB}(x_i)} (when \code{log=FALSE}) or \eqn{-\log(1-\hat{F}^{TB}(x_i))} (when \code{log=TRUE}).}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -109,10 +109,10 @@ splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0
 
 x <- seq(0,20,0.1)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

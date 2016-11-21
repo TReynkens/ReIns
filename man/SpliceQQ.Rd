@@ -32,7 +32,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}^{TB}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model and \eqn{\hat{Q}} is the empirical quantile function and \eqn{p_j=j/(n+1)}. 
+This QQ-plot is given by \deqn{(Q(p_j), \hat{Q}(p_j)),} for \eqn{j=1,\ldots,n} where \eqn{Q} is the quantile function of the fitted splicing model and \eqn{\hat{Q}} is the empirical quantile function and \eqn{p_j=j/(n+1)}. 
 
 See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more details.
 }
@@ -70,10 +70,10 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 x <- seq(0, 20, 0.01)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

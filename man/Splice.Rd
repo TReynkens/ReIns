@@ -85,10 +85,10 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 x <- seq(0, 20, 0.01)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

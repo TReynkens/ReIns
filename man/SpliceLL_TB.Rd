@@ -45,7 +45,7 @@ The LL-plot consists of the points
 for \eqn{i=1,\ldots,n} with \eqn{n} the length of the data, \eqn{x_{i,n}} the \eqn{i}-th smallest observation
 and \eqn{\hat{F}^{TB}} the Turnbull estimator for the distribution function.
 Then, the line 
-\deqn{(log(x), \log(1-\hat{F}_{spliced}(x))),}
+\deqn{(\log(x), \log(1-\hat{F}_{spliced}(x))),}
 with \eqn{\hat{F}_{spliced}} the fitted spliced distribution function, is added.
 
 
@@ -109,10 +109,10 @@ splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0
 
 x <- seq(0,20,0.1)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

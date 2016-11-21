@@ -6,7 +6,7 @@ Plot of fitted and empirical survival function
 }
 \description{
 This function plots the fitted survival function of the spliced distribution together with the
-empirical survival function (determined using the Empirical CDF (ECDF)). Moreover, \eqn{100\alpha\%} confidence bounds are added.
+empirical survival function (determined using the Empirical CDF (ECDF)). Moreover, \eqn{100(1-\alpha)\%} confidence bounds are added.
 }
 \usage{
 SpliceECDF(x, X, splicefit, alpha = 0.05, ...)
@@ -23,7 +23,7 @@ Data used for fitting the distribution.
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
   \item{alpha}{
-\eqn{100\alpha\%} is the confidence level for the confidence bounds.  Default is \eqn{\alpha=0.05}.
+\eqn{100(1-\alpha)\%} is the confidence level for the confidence bounds.  Default is \eqn{\alpha=0.05}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -67,10 +67,10 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 x <- seq(0, 20, 0.01)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

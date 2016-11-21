@@ -50,8 +50,8 @@ See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more
 }
 \value{
 A list with following components:
-\item{spp.the}{Vector of the theoretical probabilities \eqn{1-\hat{F}_{spliced}(x_{i,n})}.}
-\item{spp.emp}{Vector of the empirical probabilities \eqn{1-\hat{F}(x_{i,n})}.}
+\item{spp.the}{Vector of the theoretical probabilities \eqn{1-\hat{F}_{spliced}(x_{i,n})} (when \code{log=FALSE}) or \eqn{-\log(1-\hat{F}_{spliced}(x_{i,n}))} (when \code{log=TRUE}).}
+\item{spp.emp}{Vector of the empirical probabilities \eqn{1-\hat{F}(x_{i,n})} (when \code{log=FALSE}) or \eqn{-\log(1-\hat{F}(x_{i,n}))} (when \code{log=TRUE}).}
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -82,10 +82,10 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 x <- seq(0, 20, 0.01)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

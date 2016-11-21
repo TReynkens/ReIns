@@ -6,7 +6,7 @@ Plot of fitted and Turnbull survival function
 }
 \description{
 This function plots the fitted survival function of the spliced distribution together with the
-Turnbull survival function (which is suitable for interval censored data). Moreover, \eqn{100\alpha\%} confidence bounds are added.
+Turnbull survival function (which is suitable for interval censored data). Moreover, \eqn{100(1-\alpha)\%} confidence intervals are added.
 }
 \usage{
 SpliceTB(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, ...)
@@ -29,7 +29,7 @@ Vector of length \eqn{n} with the upper boundaries of the intervals. By default,
 A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFiticPareto}}.
 }
   \item{alpha}{
-\eqn{100\alpha\%} is the confidence level for the confidence bounds. Default is \eqn{\alpha=0.05}.
+\eqn{100(1-\alpha)\%} is the confidence level for the confidence intervals. Default is \eqn{\alpha=0.05}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -86,10 +86,10 @@ splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0
 
 x <- seq(0,20,0.1)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

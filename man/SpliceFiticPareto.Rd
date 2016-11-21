@@ -45,7 +45,7 @@ Upper truncation point. Default is \code{Inf} (no upper truncation).
 }
   \item{ncores}{
 Number of cores to use when determining an optimal mixed Erlang fit using an information criterion.
-When \code{NULL}, \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
+When \code{NULL} (default), \code{max(nc-1,1)} cores are used where \code{nc} is the number of cores as determined by \code{\link{detectCores}}.
 }
 \item{criterium}{
 Information criterion used to select the number of components of the ME fit and \code{s}. One of \code{"AIC"} and \code{"BIC"} (default).
@@ -54,7 +54,7 @@ Information criterion used to select the number of components of the ME fit and 
 Logical indicating if M should be reduced based on the information criterion, default is \code{TRUE}.
 }
 \item{eps}{
-Covergence threshold used in the EM algorithm. Default is \code{10^(-3)}
+Covergence threshold used in the EM algorithm. Default is \code{10^(-3)}.
 }
 \item{beta_tol}{
 Threshold for the mixing weights below which the corresponding shape parameter vector is considered neglectable (ME part). Default is \code{10^(-5)}.
@@ -121,10 +121,10 @@ splicefit <- SpliceFiticPareto(L=Z, U=U, censored=censored, tsplice=quantile(Z,0
 
 x <- seq(0,20,0.1)
 
-# Plot of splicing CDF
+# Plot of spliced CDF
 plot(x, pSplice(x, splicefit), type="l", xlab="x", ylab="F(x)")
 
-# Plot of splicing PDF
+# Plot of spliced PDF
 plot(x, dSplice(x, splicefit), type="l", xlab="x", ylab="f(x)")
 
 

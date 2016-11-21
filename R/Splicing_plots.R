@@ -29,7 +29,7 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
          lty=c(1,1,2), col=c("black","red","blue"))
 }
 
-# Plot of fitted survival function and Turnbull estimator + bounds
+# Plot of fitted survival function and Turnbull estimator + confidence intervals
 SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, ...) {
   
   # Check if L and U are numeric
