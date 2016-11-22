@@ -38,6 +38,11 @@
         \item Correct alignment in usage sections of documentation.
       }
     }
+  \subsection{Miscellaneous changes:}{
+  \itemize{
+    \item Use Travis to check package as well.
+  }
+}
 }
 
 \section{Changes in version 0.6-00 (2016-08-05)}{
