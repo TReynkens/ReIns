@@ -106,7 +106,7 @@
 }
 
 
-# Unload package DLL when package is unloaded
-.onUnload <- function (libpath) {
-  library.dynam.unload("ReIns", libpath)
-}
+# # Unload package DLL when package is unloaded
+# .onUnload <- function (libpath) {
+#   library.dynam.unload("ReIns", libpath)
+# }
