@@ -28,7 +28,7 @@ ScaleReg <- function(s, Z, kernel = c("normal", "uniform", "triangular", "epanec
   
   # Select right kernel function with bandwidth h (K_h(x) = K(x/h)/h)
   kernel <- match.arg(kernel)
-  kernelh <- .kernel_aux(kernel = kernel, h = h)
+  kernelh <- .kernel_aux(kernel=kernel, h=h)
   
   # Scale estimates in the point s for several values of k
   A <- numeric(n)
@@ -38,9 +38,9 @@ ScaleReg <- function(s, Z, kernel = c("normal", "uniform", "triangular", "epanec
   }
   
   # plots if TRUE
-  .plotfun(K, A[K], type = "l", xlab = "k", ylab = "Scale", main = main, plot = plot, add = add, ...)
+  .plotfun(K, A[K], type="l", xlab="k", ylab="Scale", main=main, plot=plot, add=add, ...)
   
-  .output(list(k = K, A = A[K]), plot = plot, add = add)
+  .output(list(k=K, A=A[K]), plot=plot, add=add)
 }
 
 # Estimator of small tail probability 1-F_i(x) in regression case where gamma is constant
@@ -49,9 +49,9 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
                     main = "Estimates of small exceedance probability", ...) {
   
   # Check input arguments
-  .checkInput(Z, scale = A, scalepos = FALSE)
+  .checkInput(Z, scale=A, scalepos=FALSE)
   # Check if no negative elements in A
-  if (min(A, na.rm = TRUE) < 0) {
+  if (min(A, na.rm=TRUE) < 0) {
     stop("A can only contain positive values.")
   }
   
@@ -66,20 +66,20 @@ ProbReg <- function(Z, A, q, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Hill estimator for gamma
-  hill <- Hill(Z, plot = FALSE)$gamma
+  hill <- Hill(Z, plot=FALSE)$gamma
   
   # Estimator for small exceedance probability
   prob[K] <- A[K] * (K+1)/(n+1) * (q/Zsort[n-K])^(-1/hill[K])
   prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
-  .plotfun(K, prob[K], type = "l", xlab = "k", ylab = "1-F(x)", main = main, plot = plot, add = add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k = K, P = prob[K], q = q), plot = plot, add = add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
 }
 
 
@@ -89,9 +89,9 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
                      main = "Estimates of extreme quantile", ...) {
   
   # Check input arguments
-  .checkInput(Z, scale = A, scalepos = FALSE)
+  .checkInput(Z, scale=A, scalepos=FALSE)
   # Check if no negative elements in A
-  if (min(A, na.rm = TRUE) < 0) {
+  if (min(A, na.rm=TRUE) < 0) {
     stop("A can only contain positive values.")
   }
   
@@ -103,18 +103,18 @@ QuantReg <- function(Z, A, p, plot = FALSE, add = FALSE,
   K <- 1:(n-1)
   
   # Hill estimator for gamma
-  hill <- Hill(Z, plot = FALSE)$gamma
+  hill <- Hill(Z, plot=FALSE)$gamma
   
   # Estimator for quantiles
   Q[K] <- Zsort[n-K] * ((K+1)/((n+1)*p) * A[K])^(hill[K])
   
   # plots if TRUE
-  .plotfun(K, Q[K], type = "l", xlab = "k", ylab = "Q(1-p)", main = main, plot = plot, add = add, ...)
+  .plotfun(K, Q[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   # output list with values of k, corresponding quantile estimates 
   # and the considered small tail probability p
   
-  .output(list(k = K, Q = Q[K], p = p), plot = plot, add = add)
+  .output(list(k=K, Q=Q[K], p=p), plot=plot, add=add)
 }
 
 

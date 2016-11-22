@@ -86,7 +86,7 @@ MEfit <- function(p, shape, theta, M, M_initial = NULL) {
   }
   
   # Make first list
-  L <- list(p=p, shape = shape, theta=theta, M=M)
+  L <- list(p=p, shape=shape, theta=theta, M=M)
   
   # Optional argument M_initial
   if (!is.null(M_initial)) {
@@ -122,7 +122,7 @@ EVTfit <- function(gamma, endpoint = NULL, sigma = NULL) {
   if (length(gamma) != length(endpoint)) stop("gamma and endpoint should have equal length.")
   
   # Make first list
-  L <- list(gamma = gamma)
+  L <- list(gamma=gamma)
   
   # Optional argument sigma
   if (!is.null(sigma)) {
@@ -222,7 +222,7 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   }
   
   # Make list
-  L <- list(const=const, pi=pi, trunclower = trunclower, t=t, type=type, MEfit=MEfit, EVTfit=EVTfit)
+  L <- list(const=const, pi=pi, trunclower=trunclower, t=t, type=type, MEfit=MEfit, EVTfit=EVTfit)
   
   # Check log-likelihood and add to list
   if (!is.null(loglik)) {
@@ -597,7 +597,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   MEind <- (X <= t1) 
   
   # Upper truncated at threshold t
-  fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower = trunclower, truncupper=t1,
+  fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                        M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
                        eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   # Output as MEfit object
@@ -662,7 +662,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   ##
 
   # Make SpliceFit object
-  sf <- SpliceFit(const=const, trunclower = trunclower, t=tvec, type=c("ME", type), MEfit=MEfit, EVTfit=EVTfit)
+  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), MEfit=MEfit, EVTfit=EVTfit)
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
@@ -676,7 +676,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
 
   ##
   # Return SpliceFit object
-  return( SpliceFit(const=const, trunclower = trunclower, t=tvec, type=c("ME", type), 
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), 
                     MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
 }
 # Include for compatibility with old versions
@@ -710,7 +710,7 @@ SpliceFiticPareto <- function(L, U, censored, tsplice, M = 3, s = 1:10, trunclow
                               criterium = c("BIC", "AIC"), reduceM = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
   
   # Call function from Splicing_EM.R
-  return(.SpliceFiticPareto(L = L, U=U, censored = censored, tsplice=tsplice, M=M, s=s, trunclower = trunclower, truncupper = truncupper,
+  return(.SpliceFiticPareto(L=L, U=U, censored=censored, tsplice=tsplice, M=M, s=s, trunclower=trunclower, truncupper=truncupper,
                             ncores=ncores, criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
 }
 
@@ -820,7 +820,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   MEind <- (X <= t1) 
   
   # Upper truncated at threshold t
-  fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower = trunclower, truncupper=t1,
+  fit_tune <- .ME_tune(lower=X[MEind], upper=X[MEind], trunclower=trunclower, truncupper=t1,
                        M=M, s=s, nCores=ncores, criterium=criterium, reduceM=reduceM, 
                        eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   # Output as MEfit object
@@ -858,7 +858,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   EVTfit <- EVTfit(gamma=EVTfit$gamma, endpoint=EVTfit$endpoint, sigma=EVTfit$sigma)
   
   # Make SpliceFit object
-  sf <- SpliceFit(const=const, trunclower = trunclower, t=tvec, type=c("ME", type), MEfit=MEfit, EVTfit=EVTfit)
+  sf <- SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), MEfit=MEfit, EVTfit=EVTfit)
   
   # Compute log-likelihood
   loglik <- sum(log(dSplice(X, sf)))
@@ -872,7 +872,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
   
   ##
   # Return SpliceFit object
-  return( SpliceFit(const=const, trunclower = trunclower, t=tvec, type=c("ME", type), 
+  return( SpliceFit(const=const, trunclower=trunclower, t=tvec, type=c("ME", type), 
                     MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
 }
 
@@ -1064,7 +1064,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   if (any(ind)) {
     # Quantiles of ME part
     q[ind] <- .ME_VaR(p[ind]/const[1], shape = MEfit$shape, alpha = MEfit$p, 
-                      theta = MEfit$theta, trunclower = trunclower, truncupper=tvec[1], 
+                      theta = MEfit$theta, trunclower=trunclower, truncupper=tvec[1], 
                       interval=c(trunclower, tvec[1])) 
   }
   

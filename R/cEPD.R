@@ -80,7 +80,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     beta <- matrix(0, n-1, nrho)
     
     if (all(rho > 0) & nrho == 1) {
-      rho <- .rhoEst(data, alpha = 1, tau = rho)$rho
+      rho <- .rhoEst(data, alpha=1, tau=rho)$rho
      
       # Estimates for rho of Fraga Alves et al. (2003) used 
       # and hence a different value of beta for each k
@@ -115,7 +115,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
 #       stop(paste0("beta should have length 1 or n-1 = ",n-1,"."))
 #     }
     } else {
-      beta <- matrix(rep(beta, n-1), ncol = length(beta), byrow = TRUE)
+      beta <- matrix(rep(beta, n-1), ncol=length(beta), byrow=TRUE)
     }
   }
   
@@ -156,9 +156,9 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), gamma1[,1], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), gamma1[,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, gamma1[,1], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(K, gamma1[,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
   # Transform to vectors if rho is a single value
@@ -170,18 +170,18 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   } else if (plot | add) {
   # Add lines
     for(j in 2:nrho) {
-      lines(K, gamma1[,j], lty = j)
+      lines(K, gamma1[,j], lty=j)
     }
   }
   
-  .output(list(k = K, gamma1 = gamma1, kappa1 = kappa1, beta = beta, Delta = Delta), plot = plot, add = add)
+  .output(list(k=K, gamma1=gamma1, kappa1=kappa1, beta=beta, Delta=Delta), plot=plot, add=add)
 }
 
 
 
 # Estimator for small exceedance probabilities for (right) censored data
 # using EPD estimates for (right) censored data
-cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add = FALSE,
+cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add=FALSE,
                     main = "Estimates of small exceedance probability", ...) {
 
   # Check input arguments
@@ -202,19 +202,19 @@ cProbEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, add 
   K2 <- K[!is.na(gamma1[K])]
   
   # Kaplan-Meier estimator for CDF in X[n-K]
-  km <- KaplanMeier(X[n-K2], data = X, censored = censored[sortix])$surv
+  km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
 
-  prob[K2] <- km * (1-pepd(q/X[n-K2], gamma = gamma1[K2], kappa = kappa1[K2], tau = -beta[K2]))
+  prob[K2] <- km * (1-pepd(q/X[n-K2], gamma=gamma1[K2], kappa=kappa1[K2], tau=-beta[K2]))
   prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
-  .plotfun(K, prob[K], type = "l", xlab = "k", ylab = "1-F(x)", main = main, plot = plot, add = add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k = K, P = prob[K], q = q), plot = plot, add = add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -242,18 +242,18 @@ cReturnEPD <- function(data, censored, gamma1, kappa1, beta, q, plot = FALSE, ad
   K2 <- K[!is.na(gamma1[K])]
   
   # Kaplan-Meier estimator for CDF in X[n-K]
-  km <- KaplanMeier(X[n-K2], data = X, censored = censored[sortix])$surv
+  km <- KaplanMeier(X[n-K2], data=X, censored = censored[sortix])$surv
   
-  R[K2] <- 1 / (km * (1-pepd(q/X[n-K2], gamma = gamma1[K2], kappa = kappa1[K2], tau = -beta[K2])))
+  R[K2] <- 1 / (km * (1-pepd(q/X[n-K2], gamma=gamma1[K2], kappa=kappa1[K2], tau=-beta[K2])))
   R[R < 1] <- NA
   
   # plots if TRUE
-  .plotfun(K, R[K], type = "l", xlab = "k", ylab = "1/(1-F(x))", main = main, plot = plot, add = add, ...)
+  .plotfun(K, R[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k = K, R = R[K], q = q), plot = plot, add = add)
+  .output(list(k=K, R=R[K], q=q), plot=plot, add=add)
   
 }

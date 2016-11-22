@@ -31,11 +31,11 @@ cExpQQ <- function(data, censored, plot = TRUE, main = "Exponential QQ-plot", ..
   
   
   # plots if TRUE
-  .plotfun(eqq.the, eqq.emp, type = "p", xlab = "-log of Kaplan-Meier estimator", ylab = "Z", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(eqq.the, eqq.emp, type="p", xlab="-log of Kaplan-Meier estimator", ylab="Z", 
+           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
-  .output(list(eqq.the = eqq.the, eqq.emp = eqq.emp), plot = plot, add = FALSE)
+  .output(list(eqq.the=eqq.the, eqq.emp=eqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -59,11 +59,11 @@ cLognormalQQ <- function(data, censored, plot = TRUE, main = "Log-normal QQ-plot
   lnqq.emp <- log(X)
   
   # plots if TRUE
-  .plotfun(lnqq.the, lnqq.emp, type = "p", xlab = "Normal quantile of Kaplan-Meier estimator", ylab = "log(Z)", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(lnqq.the, lnqq.emp, type="p", xlab="Normal quantile of Kaplan-Meier estimator", ylab="log(Z)", 
+           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
-  .output(list(lnqq.the = lnqq.the, lnqq.emp = lnqq.emp), plot = plot, add = FALSE)
+  .output(list(lnqq.the=lnqq.the, lnqq.emp=lnqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -93,11 +93,11 @@ cParetoQQ <- function(data, censored, plot = TRUE, main = "Pareto QQ-plot", ...)
   
   
   # plots if TRUE
-  .plotfun(pqq.the, pqq.emp, type = "p", xlab = "-log of Kaplan-Meier estimator", ylab = "log(Z)", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(pqq.the, pqq.emp, type="p", xlab="-log of Kaplan-Meier estimator", ylab="log(Z)", 
+           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  .output(list(pqq.the = pqq.the, pqq.emp = pqq.emp), plot = plot, add = FALSE)
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -123,11 +123,11 @@ cWeibullQQ <- function(data, censored, plot = TRUE, main = "Weibull QQ-plot", ..
   wqq.emp <- log(X[n-K+1])
   
   # plots if TRUE
-  .plotfun(wqq.the, wqq.emp, type = "p", xlab = "log of -log of Kaplan-Meier estimator", ylab = "log(Z)", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(wqq.the, wqq.emp, type="p", xlab="log of -log of Kaplan-Meier estimator", ylab="log(Z)", 
+           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles wqq.the and empirical quantiles wqq.emp
-  .output(list(wqq.the = wqq.the, wqq.emp = wqq.emp), plot = plot, add = FALSE)
+  .output(list(wqq.the=wqq.the, wqq.emp=wqq.emp), plot=plot, add=FALSE)
   
 }
 
@@ -175,14 +175,14 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
 
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), Hill[K], type = "l", xlab = "log(k)", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, Hill[K], type = "l", xlab = "k", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   }
   
   # output list with values of k and corresponding Hill estimates
   
-  .output(list(k = K, gamma1 = Hill[K]), plot = plot, add = add)
+  .output(list(k=K, gamma1=Hill[K]), plot=plot, add=add)
   
 }
 
@@ -234,15 +234,15 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
 
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), Hill[K], type = "l", xlab = "log(k)", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), Hill[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, Hill[K], type = "l", xlab = "k", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(K, Hill[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   }
   
   # output list with values of k and
   # corresponding Zipf estimates
   
-  .output(list(k = K, gamma1 = Hill[K]), plot = plot, add = add)
+  .output(list(k=K, gamma1=Hill[K]), plot=plot, add=add)
   
 }
 
@@ -289,14 +289,14 @@ cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, mai
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), Mom[K], type = "l", xlab = "log(k)", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), Mom[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, Mom[K], type = "l", xlab = "k", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   }
  
   # output list with values of k and
   # corresponding estimates for gamma1, b and beta
-  .output(list(k = K, gamma1 = Mom[K]), plot = plot, add = add)
+  .output(list(k=K, gamma1=Mom[K]), plot=plot, add=add)
   
 }
 
@@ -320,7 +320,7 @@ cGPDmle <- function(data, censored, start = c(0.1, 1), warnings = FALSE, logk = 
   pk <- cumsum(delta[n-K+1])/K
   
   # Apply ordinary POT estimator to the data
-  L <- POT(data = X, start = start, warnings = warnings, plot = FALSE, add = FALSE)
+  L <- POT(data=X, start=start, warnings=warnings, plot=FALSE, add=FALSE)
   
   
   # Estimates
@@ -332,13 +332,13 @@ cGPDmle <- function(data, censored, start = c(0.1, 1), warnings = FALSE, logk = 
     
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), gamma1[K], type = "l", xlab = "log(k)", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), gamma1[K], type="l", xlab="log(k)", ylab="gamma1", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, gamma1[K], type = "l", xlab = "k", ylab = "gamma1", main = main, plot = plot, add = add, ...)
+    .plotfun(K, gamma1[K], type="l", xlab="k", ylab="gamma1", main=main, plot=plot, add=add, ...)
   }
  
   
-  .output(list(k = K, gamma1 = gamma1[K], sigma1 = sigma1[K]), plot = plot, add = add)
+  .output(list(k=K, gamma1=gamma1[K], sigma1=sigma1[K]), plot=plot, add=add)
 }
 
 cPOT <- cGPDmle

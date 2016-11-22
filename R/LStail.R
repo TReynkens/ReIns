@@ -16,7 +16,7 @@ LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add
   
   X <- as.numeric(sort(data))
   n <- length(X)
-  par <- matrix(nrow = n, ncol = 3)
+  par <- matrix(nrow=n, ncol=3)
   UH.scores <- numeric(n)
   Hill <- numeric(n)
   K <- 1:(n-1)
@@ -113,15 +113,15 @@ LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add
   
   ######################
   if (logk) {
-    .plotfun(log(K), par[K, 1], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), par[K, 1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, par[K, 1], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(K, par[K, 1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
   # output list with values of k and
   # corresponding estimates for gamma, b and rho
   
-  .output(list(k = K, gamma = par[K, 1], b = par[K, 2], rho = par[K, 3]), plot = plot, add = add)
+  .output(list(k=K, gamma=par[K, 1], b=par[K, 2], rho=par[K, 3]), plot=plot, add=add)
 
 }
 

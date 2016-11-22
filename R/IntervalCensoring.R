@@ -22,7 +22,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   # Turnbull survival function
   # Use interval package if available and if requested by user
   if (requireNamespace("interval", quietly = TRUE) & intervalpkg) {
-    SurvTB <- .Turnbull_internal2(L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$xall
     y <- SurvTB$survall
@@ -32,11 +32,11 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
     # Issue warning if interval package requested by user but not available
     if (intervalpkg) {
       warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
-              call. = FALSE)
+              call.=FALSE)
     }
 
     
-    SurvTB <- .Turnbull_internal(L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$fit$time
     y <- SurvTB$fit$surv
@@ -112,21 +112,21 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
   if (plot) {
     
     if (kplot) {
-      .plotfun(K, me[K], type = "p", xlab = "k", ylab = bquote(e["k,n"]), main = main, plot = TRUE, add = FALSE, ...)
+      .plotfun(K, me[K], type="p", xlab="k", ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
     } else {
-      .plotfun(ic[n-K], me[K], xlab = bquote(X["n-k,n"]), type = "p", ylab = bquote(e["k,n"]), main = main, plot = TRUE, add = FALSE, ...)
+      .plotfun(ic[n-K], me[K], xlab=bquote(X["n-k,n"]), type="p", ylab=bquote(e["k,n"]), main=main, plot=TRUE, add=FALSE, ...)
     }
     
   }
   
   # Output list with values of k, order statistics X_n-k,n 
   # and mean excess scores e_k,n
-  .output(list(k = K, X = ic[n-K], e = me[K]), plot = plot, add = FALSE)
+  .output(list(k=K, X=ic[n-K], e=me[K]), plot=plot, add=FALSE)
 }
 
 
 # Pareto QQ-plot adapted for interval censoring using Turnbull estimator
-icParetoQQ <- function(L, U = L, censored, trunclower = 0, truncupper = Inf, plot = TRUE, main = "Pareto QQ-plot", ...) {
+icParetoQQ <- function(L, U = L, censored, trunclower=0, truncupper=Inf, plot = TRUE, main = "Pareto QQ-plot", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")
@@ -144,21 +144,21 @@ icParetoQQ <- function(L, U = L, censored, trunclower = 0, truncupper = Inf, plo
   
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE) & !all(censored == rep(0, length(L)))) {
-    SurvTB <- .Turnbull_internal2(L = L, R = U, censored = censored, trunclower = trunclower,
-                                  truncupper = truncupper)
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower,
+                                  truncupper=truncupper)
     
   } else {
     
     # Special warning when no censoring
     if (all(censored == rep(0, length(L)))) {
       warning("Turnbull survival function from the \"survival\" package is used.", 
-              call. =FALSE)
+              call.=FALSE)
     } else {
       warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
-              call. =FALSE)
+              call.=FALSE)
     }
-    SurvTB <- .Turnbull_internal(L = L, R = U, censored = censored, trunclower = trunclower,
-                                 truncupper = truncupper)
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=trunclower,
+                                 truncupper=truncupper)
   }
   
   
@@ -180,12 +180,12 @@ icParetoQQ <- function(L, U = L, censored, trunclower = 0, truncupper = Inf, plo
   # Quantiles of fitted distribution
   pqq.the <- -log(1 - p)
   
-  .plotfun(pqq.the, pqq.emp, type = "p", xlab = "Quantiles of standard exponential", ylab = "Log. of empirical quantiles", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(pqq.the, pqq.emp, type="p", xlab="Quantiles of standard exponential", ylab="Log. of empirical quantiles", 
+           main=main, plot=plot, add=FALSE, ...)
   
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
-  .output(list(pqq.the = pqq.the, pqq.emp = pqq.emp), plot = plot, add = FALSE)
+  .output(list(pqq.the=pqq.the, pqq.emp=pqq.emp), plot=plot, add=FALSE)
 }
 
 ################################################################################################
@@ -209,7 +209,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE)) {
-    SurvTB <- .Turnbull_internal2(L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$xall
     y <- SurvTB$survall
@@ -217,9 +217,9 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     
   } else {
     warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
-            call. = FALSE)
+            call.=FALSE)
     
-    SurvTB <- .Turnbull_internal(L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$fit$time
     y <- SurvTB$fit$surv
@@ -291,14 +291,14 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   
   # Plot estimates
   if (logk) {
-    .plotfun(log(K), gamma[K], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), gamma[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, gamma[K], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(K, gamma[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
 
   # Output list with values of k, estimates for gamma
   # and order statistics X_n-k,n 
-  .output(list(k = K, gamma = gamma[K], X = ic[n-K]), plot = plot, add = FALSE)
+  .output(list(k=K, gamma=gamma[K], X=ic[n-K]), plot=plot, add=FALSE)
 }
 
 
@@ -320,7 +320,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
   
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE)) {
-    SurvTB <- .Turnbull_internal2(L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$xall
     y <- SurvTB$survall
@@ -328,9 +328,9 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     
   } else {
     warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
-            call. = FALSE)
+            call.=FALSE)
     
-    SurvTB <- .Turnbull_internal(L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)
     
     x <- SurvTB$fit$time
     y <- SurvTB$fit$surv

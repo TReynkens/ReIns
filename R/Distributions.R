@@ -90,14 +90,14 @@ rpareto <- function(n, shape, scale = 1) {
     stop("scale should be strictly positive.")
   }
   
-  return(qpareto(runif(n), scale = scale, shape = shape))
+  return(qpareto(runif(n), scale=scale, shape=shape))
 }
 
 
 ###############################################################
 # Truncated Pareto
 
-dtpareto <- function(x, shape, scale = 1, endpoint = Inf, log = FALSE) {
+dtpareto <- function(x, shape, scale=1, endpoint=Inf, log = FALSE) {
   if (shape <= 0) {
     stop("shape should be strictly positive.")
   }
@@ -111,14 +111,14 @@ dtpareto <- function(x, shape, scale = 1, endpoint = Inf, log = FALSE) {
   }
   
   d <- ifelse(x <= endpoint, 
-              dpareto(x, shape = shape, scale = scale)/ppareto(endpoint, shape = shape, scale = scale),
+              dpareto(x, shape=shape, scale=scale)/ppareto(endpoint, shape=shape, scale=scale),
               0)
   if (log) d <- log(d)
   
   return(d)
 }
 
-ptpareto <- function(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptpareto <- function(x, shape, scale=1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   if (shape <= 0) {
     stop("shape should be strictly positive.")
   }
@@ -132,7 +132,7 @@ ptpareto <- function(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log
   }
  
   p <- ifelse(x <= endpoint, 
-              ppareto(x, shape = shape, scale = scale)/ppareto(endpoint, shape = shape, scale = scale),
+              ppareto(x, shape=shape, scale=scale)/ppareto(endpoint, shape=shape, scale=scale),
               1)
   
   if (!lower.tail) p <- 1-p
@@ -144,7 +144,7 @@ ptpareto <- function(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log
   #return(ifelse(x >= scale,(1-(scale/x)^shape)/(1-(scale/endpoint)^shape),0))
 }
 
-qtpareto <- function(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+qtpareto <- function(p, shape, scale=1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   if (shape <= 0) {
     stop("shape should be strictly positive.")
   }
@@ -165,7 +165,7 @@ qtpareto <- function(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log
   
   if (all(p >= 0 & p <= 1)) {
 
-    return(qpareto(p*ppareto(endpoint, shape = shape, scale = scale), shape = shape, scale = scale))
+    return(qpareto(p*ppareto(endpoint, shape=shape, scale=scale), shape=shape, scale=scale))
     #return(scale*(1-p*(1-(scale/endpoint)^shape))^(-1/shape))
   } else {
     stop("p should be between 0 and 1.")
@@ -173,7 +173,7 @@ qtpareto <- function(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log
   
 }
 
-rtpareto <- function(n, shape, scale = 1, endpoint = Inf) {
+rtpareto <- function(n, shape, scale=1, endpoint=Inf) {
   if (shape <= 0) {
     stop("shape should be strictly positive.")
   }
@@ -186,7 +186,7 @@ rtpareto <- function(n, shape, scale = 1, endpoint = Inf) {
     stop("endpoint should be strictly larger than scale.")
   }
   
-  return(qtpareto(runif(n), scale = scale, shape = shape, endpoint = endpoint))
+  return(qtpareto(runif(n), scale=scale, shape=shape, endpoint=endpoint))
 }
 
 
@@ -275,20 +275,20 @@ rgpd <- function(n, gamma, mu = 0, sigma) {
     stop("sigma should be strictly positive.")
   }
   
-  qgpd(runif(n), gamma = gamma, mu = mu, sigma = sigma)
+  qgpd(runif(n), gamma=gamma, mu=mu, sigma=sigma)
 }
 
 ######################
 # Truncated GPD
 
-dtgpd <- function(x, gamma, mu = 0, sigma, endpoint = Inf, log = FALSE) {
+dtgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, log = FALSE) {
   
   if (sigma <= 0) {
     stop("sigma should be strictly positive.")
   }
   
   d <- ifelse(x <= endpoint, 
-              dgpd(x, gamma = gamma, mu = mu, sigma = sigma)/pgpd(endpoint, gamma = gamma, mu = mu, sigma = sigma),
+              dgpd(x, gamma=gamma, mu=mu, sigma=sigma)/pgpd(endpoint, gamma=gamma, mu=mu, sigma=sigma),
               0)
   
   if (log) d <- log(d)
@@ -297,7 +297,7 @@ dtgpd <- function(x, gamma, mu = 0, sigma, endpoint = Inf, log = FALSE) {
   
 }
 
-ptgpd <- function(x, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptgpd <- function(x, gamma, mu = 0, sigma, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (sigma <= 0) {
     stop("sigma should be strictly positive.")
@@ -308,7 +308,7 @@ ptgpd <- function(x, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, lo
   }
   
   p <- ifelse(x <= endpoint, 
-              pgpd(x, gamma = gamma, mu = mu, sigma = sigma)/pgpd(endpoint, gamma = gamma, mu = mu, sigma = sigma),
+              pgpd(x, gamma=gamma, mu=mu, sigma=sigma)/pgpd(endpoint, gamma=gamma, mu=mu, sigma=sigma),
               1)
   
   
@@ -341,7 +341,7 @@ qtgpd <- function(p, gamma, mu = 0, sigma, endpoint = Inf, lower.tail = TRUE, lo
     stop("endpoint should be strictly larger than mu.")
   }
 
-  q <- qgpd(p*pgpd(endpoint, gamma = gamma, mu = mu, sigma = sigma), gamma = gamma, mu = mu, sigma = sigma)
+  q <- qgpd(p*pgpd(endpoint, gamma=gamma, mu=mu, sigma=sigma), gamma=gamma, mu=mu, sigma=sigma)
   
   return(q)
    
@@ -359,7 +359,7 @@ rtgpd <- function(n, gamma, mu = 0, sigma, endpoint = Inf) {
   }
   
   
-  qtgpd(runif(n), gamma = gamma, mu = mu, sigma = sigma, endpoint = endpoint)
+  qtgpd(runif(n), gamma=gamma, mu=mu, sigma=sigma, endpoint=endpoint)
 }
 
 
@@ -511,7 +511,7 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
         ((1-p[i])^(-gamma) - x*(1+kappa*(1-x^tau)))^2
       }
       # If minimising fails return NA
-      Q[i] <- tryCatch(optimise(f, lower = 1, upper = endpoint)$minimum, error = function(e) NA) 
+      Q[i] <- tryCatch(optimise(f, lower=1, upper=endpoint)$minimum, error=function(e) NA) 
 
     } else {
       # p=1 case
@@ -531,7 +531,7 @@ repd <-  function(n, gamma, kappa, tau = -1) {
   # Rely on input checking in qepd
   
   # Generate random numbers
-  return(qepd(runif(n), gamma = gamma, kappa = kappa, tau = tau))
+  return(qepd(runif(n), gamma=gamma, kappa=kappa, tau=tau))
 }
 
 
@@ -626,7 +626,7 @@ rburr <- function(n, alpha, rho, eta = 1) {
     stop("eta should be strictly positive.")
   }
   
-  return(qburr(runif(n), rho = rho, alpha = alpha, eta = eta))
+  return(qburr(runif(n), rho=rho, alpha=alpha, eta=eta))
 }
 
 
@@ -634,7 +634,7 @@ rburr <- function(n, alpha, rho, eta = 1) {
 # Truncated Burr
 
 
-dtburr <- function(x, alpha, rho, eta = 1, endpoint = Inf, log = FALSE) {
+dtburr <- function(x, alpha, rho, eta = 1, endpoint=Inf, log = FALSE) {
   
   if (alpha <= 0) {
     stop("alpha should be strictly positive.")
@@ -653,7 +653,7 @@ dtburr <- function(x, alpha, rho, eta = 1, endpoint = Inf, log = FALSE) {
   }
   
   d <- ifelse(x <= endpoint, 
-              dburr(x, alpha = alpha, rho = rho, eta = eta)/pburr(endpoint, alpha = alpha, rho = rho, eta = eta), 
+              dburr(x, alpha=alpha, rho=rho, eta=eta)/pburr(endpoint, alpha=alpha, rho=rho, eta=eta), 
               0)
   
   if (log) d <- log(d)
@@ -663,7 +663,7 @@ dtburr <- function(x, alpha, rho, eta = 1, endpoint = Inf, log = FALSE) {
 }
 
 
-ptburr <- function(x, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptburr <- function(x, alpha, rho, eta = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (alpha <= 0) {
     stop("alpha should be strictly positive.")
@@ -686,7 +686,7 @@ ptburr <- function(x, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, lo
   #   return(ifelse(x > 0 & x < endpoint,(1-(1+x^(-rho*alpha))^(1/rho))/A,0))
   
   p <- ifelse(x <= endpoint, 
-              pburr(x, alpha = alpha, rho = rho, eta = eta)/pburr(endpoint, alpha = alpha, rho = rho, eta = eta), 
+              pburr(x, alpha=alpha, rho=rho, eta=eta)/pburr(endpoint, alpha=alpha, rho=rho, eta=eta), 
               1)
   
   if (!lower.tail) p <- 1-p
@@ -724,7 +724,7 @@ qtburr <- function(p, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, lo
   if (all(p >= 0 & p <= 1)) {
     #     A = 1-(1+endpoint^(-rho*alpha))^(1/rho)
     #     return(((1-p*A)^rho-1)^(-1/(rho*alpha)))
-    return( qburr(p*pburr(endpoint, alpha = alpha, rho = rho, eta = eta), alpha = alpha, rho = rho, eta = eta) )
+    return( qburr(p*pburr(endpoint, alpha=alpha, rho=rho, eta=eta), alpha=alpha, rho=rho, eta=eta) )
     
   } else {
     stop("p should be between 0 and 1.")
@@ -732,7 +732,7 @@ qtburr <- function(p, alpha, rho, eta = 1, endpoint = Inf, lower.tail = TRUE, lo
   
 }
 
-rtburr <- function(n, alpha, rho, eta = 1, endpoint = Inf) {
+rtburr <- function(n, alpha, rho, eta=1, endpoint=Inf) {
   
   if (alpha <= 0) {
     stop("alpha should be strictly positive.")
@@ -750,20 +750,20 @@ rtburr <- function(n, alpha, rho, eta = 1, endpoint = Inf) {
     stop("endpoint should be strictly larger than 0.")
   }
   
-  return(qtburr(runif(n), alpha = alpha, rho = rho, eta = eta, endpoint = endpoint))
+  return(qtburr(runif(n), alpha=alpha, rho=rho, eta=eta, endpoint=endpoint))
 }
 
 ###############################################################
 # Truncated log-normal
 
-dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint = Inf, log = FALSE) {
+dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, log = FALSE) {
   
   if (endpoint <= 0) {
     stop("endpoint should be strictly positive.")
   }
   
   d <- ifelse(x <= endpoint, 
-              dlnorm(x, meanlog = meanlog, sdlog = sdlog)/plnorm(endpoint, meanlog = meanlog, sdlog = sdlog), 
+              dlnorm(x, meanlog=meanlog, sdlog=sdlog)/plnorm(endpoint, meanlog=meanlog, sdlog=sdlog), 
               0)
   
   if (log) d <- log(d)
@@ -772,14 +772,14 @@ dtlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint = Inf, log = FALSE) {
   #return(dnorm((log(x)-meanlog)/sdlog)/pnorm((log(endpoint)-meanlog)/sdlog))
 }
 
-ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
 
   if (endpoint <= 0) {
     stop("endpoint should be strictly positive.")
   }
   
   p <- ifelse(x <= endpoint, 
-              plnorm(x, meanlog = meanlog, sdlog = sdlog)/plnorm(endpoint, meanlog = meanlog, sdlog = sdlog), 
+              plnorm(x, meanlog=meanlog, sdlog=sdlog)/plnorm(endpoint, meanlog=meanlog, sdlog=sdlog), 
               1)
 
   if (!lower.tail) p <- 1-p
@@ -790,7 +790,7 @@ ptlnorm <- function(x, meanlog = 0, sdlog = 1, endpoint = Inf, lower.tail = TRUE
   #ifelse(x <= 0, 0, pnorm((log(x)-meanlog)/sdlog)/pnorm((log(endpoint)-meanlog)/sdlog))
 }
 
-qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)  {
+qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE)  {
   
   if (endpoint <= 0) {
     stop("endpoint should be strictly positive.")
@@ -802,7 +802,7 @@ qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint = Inf, lower.tail = TRUE
   
   if (all(p >= 0 & p <= 1)) {
 
-    return(qlnorm(p*plnorm(endpoint, meanlog = meanlog, sdlog = sdlog), meanlog = meanlog, sdlog = sdlog))
+    return(qlnorm(p*plnorm(endpoint, meanlog=meanlog, sdlog=sdlog), meanlog=meanlog, sdlog=sdlog))
 #     A = pnorm((log(endpoint)-meanlog)/sdlog)
 #     return(exp(meanlog+sdlog*qnorm(p*A)))
   } else {
@@ -811,13 +811,13 @@ qtlnorm <- function(p, meanlog = 0, sdlog = 1, endpoint = Inf, lower.tail = TRUE
   
 }
 
-rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint = Inf) {
+rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint=Inf) {
   
   if (endpoint <= 0) {
     stop("endpoint should be strictly positive.")
   }
   
-  return(qtlnorm(runif(n), meanlog = meanlog, sdlog = sdlog, endpoint = endpoint))
+  return(qtlnorm(runif(n), meanlog=meanlog, sdlog=sdlog, endpoint=endpoint))
 }
 
 # ###############################################################
@@ -904,7 +904,7 @@ rtlnorm <- function(n, meanlog = 0, sdlog = 1, endpoint = Inf) {
 ###############################################################
 #Truncated Weibull
 
-dtweibull <- function(x, shape, scale = 1, endpoint = Inf, log = FALSE) {
+dtweibull <- function(x, shape, scale = 1, endpoint=Inf, log = FALSE) {
   
   if (shape <= 0) {
    stop("shape should be strictly positive.")
@@ -921,7 +921,7 @@ dtweibull <- function(x, shape, scale = 1, endpoint = Inf, log = FALSE) {
   
   
   d <- ifelse(x <= endpoint,
-              dweibull(x, shape = shape, scale = scale)/pweibull(endpoint, shape = shape, scale = scale), 
+              dweibull(x, shape=shape, scale=scale)/pweibull(endpoint, shape=shape, scale=scale), 
               0)
   
   if (log) d <- log(d)
@@ -929,7 +929,7 @@ dtweibull <- function(x, shape, scale = 1, endpoint = Inf, log = FALSE) {
   return(d)
 }
 
-ptweibull <- function(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptweibull <- function(x, shape, scale = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (shape <= 0) {
    stop("shape should be strictly positive.")
@@ -946,7 +946,7 @@ ptweibull <- function(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, lo
   
   
   p <- ifelse(x <= endpoint, 
-              pweibull(x, shape = shape, scale = scale)/pweibull(endpoint, shape = shape, scale = scale), 
+              pweibull(x, shape=shape, scale=scale)/pweibull(endpoint, shape=shape, scale=scale), 
               1)
   #ifelse(x <= 0, 0, (1-exp(-(x/beta)^alpha))/1-exp(-(endpoint/beta)^alpha))
 
@@ -957,7 +957,7 @@ ptweibull <- function(x, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, lo
   return(p)
 }
 
-qtweibull <- function(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+qtweibull <- function(p, shape, scale = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (shape <= 0) {
    stop("shape should be strictly positive.")
@@ -979,13 +979,13 @@ qtweibull <- function(p, shape, scale = 1, endpoint = Inf, lower.tail = TRUE, lo
   
   if (all(p >= 0 & p <= 1)) {
 
-    return(qweibull(p*pweibull(endpoint, shape = shape, scale = scale), shape = shape, scale = scale))
+    return(qweibull(p*pweibull(endpoint, shape=shape, scale=scale), shape=shape, scale=scale))
   } else {
     stop("p should be between 0 and 1.")
   }
 }
 
-rtweibull <- function(n, shape, scale = 1, endpoint = Inf) {
+rtweibull <- function(n, shape, scale = 1, endpoint=Inf) {
   
   if (shape <= 0) {
    stop("shape should be strictly positive.")
@@ -1000,13 +1000,13 @@ rtweibull <- function(n, shape, scale = 1, endpoint = Inf) {
     stop("endpoint should be strictly positive.")
   }
   
-  return(qtweibull(runif(n), shape = shape, scale = scale, endpoint = endpoint))
+  return(qtweibull(runif(n), shape=shape, scale=scale, endpoint=endpoint))
 }
 
 ###############################################################
 #Truncated Exponential
 
-dtexp <- function(x, rate = 1, endpoint = Inf, log = FALSE) {
+dtexp <- function(x, rate = 1, endpoint=Inf, log = FALSE) {
   
   if (rate <= 0) {
     stop("rate should be strictly positive.")
@@ -1018,7 +1018,7 @@ dtexp <- function(x, rate = 1, endpoint = Inf, log = FALSE) {
   }
   
   
-  d <- ifelse(x <= endpoint, dexp(x, rate = rate)/pexp(endpoint, rate = rate), 0)
+  d <- ifelse(x <= endpoint, dexp(x, rate=rate)/pexp(endpoint, rate=rate), 0)
   
   if (log) d <- log(d)
   
@@ -1026,7 +1026,7 @@ dtexp <- function(x, rate = 1, endpoint = Inf, log = FALSE) {
 }
 
 
-ptexp <- function(x, rate = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptexp <- function(x, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (rate <= 0) {
     stop("rate should be strictly positive.")
@@ -1039,7 +1039,7 @@ ptexp <- function(x, rate = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
   }
   
   
-  p <- ifelse(x <= endpoint, pexp(x, rate = rate)/pexp(endpoint, rate = rate), 1)
+  p <- ifelse(x <= endpoint, pexp(x, rate=rate)/pexp(endpoint, rate=rate), 1)
 
   if (!lower.tail) p <- 1-p
   
@@ -1048,7 +1048,7 @@ ptexp <- function(x, rate = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
   return(p)
 }
 
-qtexp <- function(p, rate = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+qtexp <- function(p, rate = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (rate <= 0) {
     stop("rate should be strictly positive.")
@@ -1067,14 +1067,14 @@ qtexp <- function(p, rate = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE)
 
   if (all(p >= 0 & p <= 1)) {
     
-    return( qexp(p*pexp(endpoint, rate = rate), rate = rate))
+    return( qexp(p*pexp(endpoint, rate=rate), rate=rate))
     
   } else {
     stop("p should be between 0 and 1.")
   }
 }
 
-rtexp <- function(n, rate = 1, endpoint = Inf) {
+rtexp <- function(n, rate = 1, endpoint=Inf) {
   
   if (rate <= 0) {
     stop("rate should be strictly positive.")
@@ -1087,7 +1087,7 @@ rtexp <- function(n, rate = 1, endpoint = Inf) {
   }
   
 
-  return(qtexp(runif(n), rate = rate, endpoint = endpoint))
+  return(qtexp(runif(n), rate=rate, endpoint=endpoint))
 }
 
 
@@ -1172,13 +1172,13 @@ rfrechet <- function(n, shape, loc = 0, scale = 1) {
     stop("scale should be strictly positive.")
   }
   
-  qfrechet(runif(n), shape = shape, loc = loc, scale = scale)
+  qfrechet(runif(n), shape=shape, loc=loc, scale=scale)
 }
 
 ######################
 # Truncated Fréchet
 
-dtfrechet <- function(x, shape, loc = 0, scale = 1, endpoint = Inf, log = FALSE) {
+dtfrechet <- function(x, shape, loc = 0, scale = 1, endpoint=Inf, log = FALSE) {
   
   
   if (shape <= 0) {
@@ -1191,7 +1191,7 @@ dtfrechet <- function(x, shape, loc = 0, scale = 1, endpoint = Inf, log = FALSE)
   
   
   d <- ifelse(x <= endpoint, 
-              dfrechet(x, shape = shape, loc = loc, scale = scale)/pfrechet(endpoint, shape = shape, loc = loc, scale = scale),
+              dfrechet(x, shape=shape, loc=loc, scale=scale)/pfrechet(endpoint, shape=shape, loc=loc, scale=scale),
               0)
   
   if (log) d <- log(d)
@@ -1200,7 +1200,7 @@ dtfrechet <- function(x, shape, loc = 0, scale = 1, endpoint = Inf, log = FALSE)
   
 }
 
-ptfrechet <- function(x, shape, loc = 0, scale = 1, endpoint = Inf, lower.tail = TRUE, log.p = FALSE) {
+ptfrechet <- function(x, shape, loc = 0, scale = 1, endpoint=Inf, lower.tail = TRUE, log.p = FALSE) {
   
   if (shape <= 0) {
     stop("shape should be strictly positive.")
@@ -1215,7 +1215,7 @@ ptfrechet <- function(x, shape, loc = 0, scale = 1, endpoint = Inf, lower.tail =
   }
   
   p <- ifelse(x <= endpoint, 
-              pfrechet(x, shape = shape, loc = loc, scale = scale)/pfrechet(endpoint, shape = shape, loc = loc, scale = scale),
+              pfrechet(x, shape=shape, loc=loc, scale=scale)/pfrechet(endpoint, shape=shape, loc=loc, scale=scale),
               1)
   
   
@@ -1254,7 +1254,7 @@ qtfrechet <- function(p, shape, loc = 0, scale = 1, endpoint = Inf, lower.tail =
     stop("endpoint should be strictly larger than loc.")
   }
   
-  q <- qfrechet(p*pfrechet(endpoint, shape = shape, loc = loc, scale = scale), shape = shape, loc = loc, scale = scale)
+  q <- qfrechet(p*pfrechet(endpoint, shape=shape, loc=loc, scale=scale), shape=shape, loc=loc, scale=scale)
   
   return(q)
   
@@ -1277,7 +1277,7 @@ rtfrechet <- function(n, shape, loc = 0, scale = 1, endpoint = Inf) {
   }
   
   
-  qtfrechet(runif(n), shape = shape, loc = loc, scale = scale, endpoint = endpoint)
+  qtfrechet(runif(n), shape=shape, loc=loc, scale=scale, endpoint=endpoint)
 }
 
 

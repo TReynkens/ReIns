@@ -6,7 +6,7 @@
 # for a numeric vector of observations (data) 
 # and as a function of k
 #
-# If plot = TRUE then the estimates are plotted as a
+# If plot=TRUE then the estimates are plotted as a
 # function of k
 #
 # If add=TRUE then the estimates are added to an existing
@@ -46,14 +46,14 @@ Moment <- function(data, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), Mom[K], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), Mom[K], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, Mom[K], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(K, Mom[K], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
   # output list with values of k and
   # corresponding estimates for gamma, b and beta
-  .output(list(k = K, gamma = Mom[K]), plot = plot, add = add)
+  .output(list(k=K, gamma=Mom[K]), plot=plot, add=add)
   
   
 }
@@ -87,12 +87,12 @@ ReturnMOM <- ReturnGH
 #   quant[K] <- X[n-K] + a/gamma[K] * ( ((K+1)/((n+1)*p))^gamma[K] - 1 )
 #     
 #   # plots if TRUE
-#   .plotfun(K, quant[K], type = "l", xlab = "k", ylab = "Q(1-p)", main = main, plot = plot, add = add, ...)
+#   .plotfun(K, quant[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
 #   
 #   # output list with values of k, corresponding quantile estimates 
 #   # and the considered small tail probability p
 #   
-#   .output(list(k = K, Q=quant[K], p = p))
+#   .output(list(k=K, Q=quant[K], p=p))
 #   
 # }
 # 
@@ -121,12 +121,12 @@ ReturnMOM <- ReturnGH
 #   prob[prob < 0 | prob > 1] <- NA
 #   
 #   # plots if TRUE
-#   .plotfun(K, prob[K], type = "l", xlab = "k", ylab = "1-F(x)", main = main, plot = plot, add = add, ...)
+#   .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
 #   
 #   # output list with values of k, corresponding return period estimates 
 #   # and the considered large quantile q
 #   
-#   .output(list(k = K, P=prob[K], q = q), plot = plot, add = add)
+#   .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
 #   
 # }
 

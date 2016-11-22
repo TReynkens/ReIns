@@ -20,7 +20,7 @@
   initial_data[initial_data == 0] <- NA
   
   # Initial value of theta using spread factor s
-  theta <- max(initial_data, na.rm = TRUE) / s
+  theta <- max(initial_data, na.rm=TRUE) / s
   
   # Initial shapes as quantiles
   shape <- unique(ceiling(quantile(initial_data, probs = seq(0, 1, length.out = M), na.rm = TRUE)/theta))
@@ -41,7 +41,7 @@
   # alpha to beta
   t_probabilities <- pgamma(truncupper, shape, scale=theta) - pgamma(trunclower, shape, scale=theta)  
   beta <- alpha * t_probabilities / sum(alpha*t_probabilities)
-  list(theta=theta, shape = shape, alpha = alpha, beta=beta) 
+  list(theta=theta, shape=shape, alpha=alpha, beta=beta) 
 }
 
 ## Log likelihood
@@ -215,8 +215,8 @@
 .ME_shape_adj <- function(lower, upper, trunclower = 0, truncupper = Inf, theta, shape, beta, 
                           eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf) {
 
-  fit <- .ME_em(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
-                theta=theta, shape = shape, beta=beta,
+  fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                theta=theta, shape=shape, beta=beta,
                 eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   loglikelihood <- fit$loglikelihood
   shape <- fit$shape
@@ -238,7 +238,7 @@
       while( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE))) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1        
-        fit <- .ME_em(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+        fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                       theta=theta, shape=new_shape, beta=beta,
                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
@@ -263,7 +263,7 @@
       while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
-        fit <- .ME_em(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+        fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                       theta=theta, shape=new_shape, beta=beta,
                       eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
@@ -294,11 +294,11 @@
                           improve = TRUE, eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, adj = TRUE) {
   n <- length(lower)
   if (adj) {
-    fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
-                         theta=theta, shape = shape, beta=beta, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+    fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                         theta=theta, shape=shape, beta=beta, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   } else {
-    fit <- .ME_em(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
-                  theta=theta, shape = shape, beta=beta, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+    fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
+                  theta=theta, shape=shape, beta=beta, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   }
   loglikelihood <- fit$loglikelihood
   IC <- fit[[criterium]]
@@ -313,11 +313,11 @@
     new_beta <- beta[beta != min(beta)]
     new_beta <- new_beta/sum(new_beta)
     if (adj) {
-      fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+      fit <- .ME_shape_adj(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                            theta=theta, shape=new_shape, beta=new_beta,
                            eps=eps, beta_tol=beta_tol, maxiter=maxiter)
     } else {
-      fit <- .ME_em(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+      fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                     theta=theta, shape=new_shape, beta=new_beta,
                     eps=eps, beta_tol=beta_tol, maxiter=maxiter)
     }
@@ -347,7 +347,7 @@
 # Right Censored: lower is present, but upper is missing (NA).
 # Interval Censored: lower and upper are present and different.
 # e.g.: lower=c(1,NA,3,4); upper=c(1,2,NA,5); specifies an observed event at 1, left censoring at 2, right censoring at 3, and interval censoring at [4,5],
-# By default no truncation: trunclower = 0, truncupper = Inf
+# By default no truncation: trunclower=0, truncupper=Inf
 # alpha = beta in case of no truncation
 
 .ME_fit <- function(lower, upper = lower, trunclower = 0, truncupper = Inf, M = 10, s = 1,
@@ -355,11 +355,11 @@
   
   initial <- .ME_initial(lower, upper, trunclower, truncupper, M, s)
   # Reduction of the shape combinations
-  fit <- .ME_shape_red(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+  fit <- .ME_shape_red(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                        theta=initial$theta, shape=initial$shape, beta=initial$beta, 
                        criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
   # Subsequent adjustment and reduction of the shape combinations
-  fit <- .ME_shape_red(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+  fit <- .ME_shape_red(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                        theta=fit$theta, shape=fit$shape, beta=fit$beta, 
                        criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
   list(alpha = fit$alpha, beta = fit$beta, shape = fit$shape, theta = fit$theta, loglikelihood = fit$loglikelihood, AIC=fit$AIC, BIC=fit$BIC, M = fit$M, M_initial = M, s = s) 
@@ -460,7 +460,7 @@
   ######
   # Check input
   
-  .ME_checkInput(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper,
+  .ME_checkInput(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper,
                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
  
 
@@ -472,7 +472,7 @@
  
     all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %do% {
                            
-      suppressWarnings(.ME_fit(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+      suppressWarnings(.ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                                M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
                                criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter))
     }
@@ -490,7 +490,7 @@
     i <- 1
     all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %dopar% {
                            
-                           .ME_fit(lower=lower, upper=upper, trunclower = trunclower, truncupper = truncupper, 
+                           .ME_fit(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
                                    M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], 
                                    criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
     }
@@ -520,7 +520,7 @@
   colnames(performances) <- c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit == min(crit, na.rm = TRUE))[1]
+  best_index <- which(crit == min(crit, na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   list(best_model = best_model, performances = performances, all_model = all_model)
@@ -726,8 +726,8 @@
 .ME_random <- function(n, theta, shape, alpha, trunclower = 0, truncupper = Inf) {  
   
   # Transform alpha to beta
-  beta <- alpha * (pgamma(truncupper, shape = shape, scale=theta) - pgamma(trunclower, shape = shape, scale=theta)) /
-    (.ME_cdf(truncupper, theta=theta, shape = shape, alpha = alpha) - .ME_cdf(trunclower, theta=theta, shape = shape, alpha = alpha))
+  beta <- alpha * (pgamma(truncupper, shape=shape, scale=theta) - pgamma(trunclower, shape=shape, scale=theta)) /
+    (.ME_cdf(truncupper, theta=theta, shape=shape, alpha=alpha) - .ME_cdf(trunclower, theta=theta, shape=shape, alpha=alpha))
   
   # Sample shapes using multinomial distribution with probabilities beta
   shapes <- sample(shape, size=n, replace=TRUE, prob=beta)
@@ -736,7 +736,7 @@
   # as truncated ME can be seen as mixture of truncated Erlangs with mixing weights beta
   Ftl <- pgamma(trunclower, shape = shapes, scale = theta)
   Ft <- pgamma(truncupper, shape = shapes, scale = theta)
-  return( qgamma(Ftl + runif (n) * (Ft-Ftl), shape = shapes, scale=theta) )
+  return( qgamma(Ftl + runif (n) * (Ft-Ftl), shape=shapes, scale=theta) )
 }
 
 

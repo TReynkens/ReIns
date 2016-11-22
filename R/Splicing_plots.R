@@ -11,7 +11,7 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   if (!is.numeric(X)) stop("X should be a numeric vector.")
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
-  plot(x, 1-pSplice(x, splicefit=splicefit), type = "l", xlab = "x", ylab = "1-F(x)", ...)
+  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
   # ECDF estimator
   fit  <- ecdf(X)
@@ -49,11 +49,11 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
   }
   
   # Plot fitted survival function
-  plot(x, 1-pSplice(x, splicefit=splicefit), type = "l", xlab = "x", ylab = "1-F(x)", ...)
+  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
   
   
   # Add Turnbull survival function
-  tb <- Turnbull(x, L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+  tb <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                  truncupper=max(splicefit$EVTfit$endpoint), conf.type="plain", conf.int=1-alpha)
   lines(x, tb$surv, col="red")
   
@@ -82,21 +82,21 @@ SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, plot = TRUE, main =
     ind <- est > 0
     spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(est[ind])
-    .plotfun(spp.emp, spp.the, type = "p",
-             xlab = "-log(Empirical survival probability)",
-             ylab = "-log(Fitted survival probability)", plot = plot, add = FALSE, main = main, ...)
+    .plotfun(spp.emp, spp.the, type="p",
+             xlab="-log(Empirical survival probability)",
+             ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
     spp.the <- 1-pSplice(x, splicefit=splicefit)
     spp.emp <- est
-    .plotfun(spp.emp, spp.the, type = "p", xlab = "Empirical survival probability",
-             ylab = "Fitted survival probability", plot = plot, add = FALSE, main = main, ...)
+    .plotfun(spp.emp, spp.the, type="p", xlab="Empirical survival probability",
+             ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
   # Add 45 degree line
   if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
-  .output(list(spp.the=spp.the, spp.emp=spp.emp), plot = plot, add = FALSE)
+  .output(list(spp.the=spp.the, spp.emp=spp.emp), plot=plot, add=FALSE)
 }
 
 # Probability - probability plot with Turnbull estimator
@@ -120,7 +120,7 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
   
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE)) {
-    SurvTB <- .Turnbull_internal2(L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
     if (is.null(x)) {
       # # Use unique points of Turnbull intervals since Turnbull estimator is exact there
@@ -134,7 +134,7 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
   } else {
     warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
-    SurvTB <- .Turnbull_internal(L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                  truncupper=max(splicefit$EVTfit$endpoint))
     
     if (is.null(x)) {
@@ -155,21 +155,21 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
     ind <- surv > 0
     spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(surv[ind])
-    .plotfun(spp.emp, spp.the, type = "p",
-             xlab = "-log(Turnbull survival probability)",
-             ylab = "-log(Fitted survival probability)", plot = plot, add = FALSE, main = main, ...)
+    .plotfun(spp.emp, spp.the, type="p",
+             xlab="-log(Turnbull survival probability)",
+             ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
     spp.the <- 1-pSplice(x, splicefit=splicefit)
     spp.emp <- surv
-    .plotfun(spp.emp, spp.the, type = "p", xlab = "Turnbull survival probability",
-             ylab = "Fitted survival probability", plot = plot, add = FALSE, main = main, ...)
+    .plotfun(spp.emp, spp.the, type="p", xlab="Turnbull survival probability",
+             ylab="Fitted survival probability", plot=plot, add=FALSE, main=main, ...)
   }
   # Add 45 degree line
   if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
-  .output(list(spp.the=spp.the, spp.emp=spp.emp), plot = plot, add = FALSE)
+  .output(list(spp.the=spp.the, spp.emp=spp.emp), plot=plot, add=FALSE)
 }
 
 
@@ -216,14 +216,14 @@ SpliceQQ <- function(X, splicefit, p = NULL, plot = TRUE, main = "Splicing QQ-pl
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
-  .plotfun(sqq.the, sqq.emp, type = "p", xlab = "Quantiles of splicing fit", ylab = "Empirical quantiles", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Empirical quantiles", 
+           main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line
   if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
-  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot = plot, add = FALSE)
+  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
 }
 
 
@@ -246,7 +246,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE) & !all(censored == rep(0, length(L)))) {
-    SurvTB <- .Turnbull_internal2(L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+    SurvTB <- .Turnbull_internal2(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                   truncupper=max(splicefit$EVTfit$endpoint))
     
     # # Use unique points of Turnbull intervals since Turnbull estimator is exact there
@@ -265,7 +265,7 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
       warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
               call.=FALSE)
     }
-    SurvTB <- .Turnbull_internal(L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+    SurvTB <- .Turnbull_internal(L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                                  truncupper=max(splicefit$EVTfit$endpoint))
     
     # # Use knots (jump points)
@@ -316,14 +316,14 @@ SpliceQQ_TB <- function(L, U = L, censored, splicefit, p = NULL, plot = TRUE, ma
   # Quantiles of fitted distribution
   sqq.the <- qSplice(p=p, splicefit=splicefit)
   
-  .plotfun(sqq.the, sqq.emp, type = "p", xlab = "Quantiles of splicing fit", ylab = "Turnbull quantiles", 
-           main = main, plot = plot, add = FALSE, ...)
+  .plotfun(sqq.the, sqq.emp, type="p", xlab="Quantiles of splicing fit", ylab="Turnbull quantiles", 
+           main=main, plot=plot, add=FALSE, ...)
   
   # Add 45 degree line
   if (plot) abline(0, 1)
   
   # output list with theoretical quantiles sqq.the and empirical quantiles sqq.emp
-  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot = plot, add = FALSE)
+  .output(list(sqq.the=sqq.the, sqq.emp=sqq.emp), plot=plot, add=FALSE)
 }
 
 
@@ -346,12 +346,12 @@ SpliceLL <- function(x = sort(X), X, splicefit, plot = TRUE, main = "Splicing LL
   
   if (plot) {
     # Plot log of empirical survival function vs. sorted values
-    plot(log(X), sll.emp, ylab = "log(empirical survival probability)", xlab = "log(X)", type = "p", main = main, ...)
+    plot(log(X), sll.emp, ylab="log(empirical survival probability)", xlab="log(X)", type="p", main=main, ...)
     # Add log of fitted survival function
     lines(log(x), sll.the)
   }
   
-  .output(list(logX=log(X), sll.emp=sll.emp, logx=log(x), sll.the=sll.the), plot = plot, add = FALSE)
+  .output(list(logX=log(X), sll.emp=sll.emp, logx=log(x), sll.the=sll.the), plot=plot, add=FALSE)
 }
 
 
@@ -378,12 +378,12 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, plot = TRUE,
   Zs <- sort(L)
   # Turnbull survival function
   if (requireNamespace("interval", quietly = TRUE)) {
-    SurvTB <- .Turnbull2(Zs, L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+    SurvTB <- .Turnbull2(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                          truncupper=max(splicefit$EVTfit$endpoint))
   } else {
     warning("Package \"interval\" is not available, Turnbull survival function from the \"survival\" package is used.", 
             call.=FALSE)
-    SurvTB <- Turnbull(Zs, L = L, R = U, censored = censored, trunclower=splicefit$trunclower,
+    SurvTB <- Turnbull(Zs, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                        truncupper=max(splicefit$EVTfit$endpoint))
   }
   
@@ -392,9 +392,9 @@ SpliceLL_TB <- function(x = sort(L), L, U = L, censored, splicefit, plot = TRUE,
   
   if (plot) {
     # Plot log of Turnbull survival function vs. sorted values
-    plot(log(Zs), sll.emp, ylab = "log(Turnbull survival probability)", xlab = "log(X)", type = "p", main = main, ...)
+    plot(log(Zs), sll.emp, ylab="log(Turnbull survival probability)", xlab="log(X)", type="p", main=main, ...)
     # Add log of fitted survival function
     lines(log(x), sll.the)
   }
-  .output(list(logX=log(Zs), sll.emp=sll.emp, logx=log(x), sll.the=sll.the), plot = plot, add = FALSE)
+  .output(list(logX=log(Zs), sll.emp=sll.emp, logx=log(x), sll.the=sll.the), plot=plot, add=FALSE)
 }

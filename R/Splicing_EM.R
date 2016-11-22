@@ -21,8 +21,8 @@ numtol <- .Machine$double.eps^0.5
   
   ######
   # Check input
-  .spliceEM_checkInput(L = L, U=U, censored = censored, trunclower = trunclower, tsplice=tsplice, 
-                       truncupper = truncupper, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
+  .spliceEM_checkInput(L=L, U=U, censored=censored, trunclower=trunclower, tsplice=tsplice, 
+                       truncupper=truncupper, eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   
   # Check input for ncores
   if (is.null(ncores)) ncores <- max(detectCores()-1, 1)
@@ -37,14 +37,14 @@ numtol <- .Machine$double.eps^0.5
   # Initial value for pi
   # Faster to already compute it here
   if (requireNamespace("interval", quietly = TRUE)) {
-    pi_initial <- 1-.Turnbull2(tsplice, L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)$surv
+    pi_initial <- 1-.Turnbull2(tsplice, L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
     
   } else {
-    pi_initial <- 1-Turnbull(tsplice, L = L, R = U, censored = censored, trunclower = trunclower, truncupper = truncupper)$surv
+    pi_initial <- 1-Turnbull(tsplice, L=L, R=U, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
   }
   
   ## Fit model
-  fit <- .spliceEM_tune(lower=L, upper=U, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
+  fit <- .spliceEM_tune(lower=L, upper=U, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                        M=M, s=s, pi_initial=pi_initial, nCores=ncores, criterium=criterium, reduceM=reduceM, 
                        eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp)
   
@@ -68,7 +68,7 @@ numtol <- .Machine$double.eps^0.5
   names(ic) <- c("AIC", "BIC")
   
   # Return SpliceFit object
-  return( SpliceFit(const=fit$best_model$pi, trunclower = trunclower, t=tsplice,  type=type,
+  return( SpliceFit(const=fit$best_model$pi, trunclower=trunclower, t=tsplice,  type=type,
                     MEfit=MEfit, EVTfit=EVTfit, loglik=loglik, IC=ic) )
   
 }
@@ -239,8 +239,8 @@ numtol <- .Machine$double.eps^0.5
     
     all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %do% {
       
-      suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored = censored,
-                                     trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
+      suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored,
+                                     trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                      M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], pi_initial=pi_initial,
                                      criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
     }
@@ -258,8 +258,8 @@ numtol <- .Machine$double.eps^0.5
     i <- 1
     all_model <- foreach(i = 1:nrow(tuning_parameters), .errorhandling = 'pass') %dopar% {
       
-      suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored = censored, 
-                                     trunclower = trunclower, tsplice=tsplice, truncupper = truncupper, 
+      suppressWarnings(.spliceEM_fit(lower=lower, upper=upper, censored=censored, 
+                                     trunclower=trunclower, tsplice=tsplice, truncupper=truncupper, 
                                      M = tuning_parameters[i, 1], s = tuning_parameters[i, 2], pi_initial=pi_initial,
                                      criterium=criterium, reduceM=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, cpp=cpp))
     }
@@ -291,7 +291,7 @@ numtol <- .Machine$double.eps^0.5
   colnames(performances) = c('M_initial', 's', criterium, 'M')
   
   # Select model with lowest IC
-  best_index <- which(crit == min(crit, na.rm = TRUE))[1]
+  best_index <- which(crit == min(crit, na.rm=TRUE))[1]
   best_model <- all_model[[best_index]]  
   
   return(list(best_model = best_model, performances = performances, all_model = all_model))
@@ -308,19 +308,19 @@ numtol <- .Machine$double.eps^0.5
                           eps = 10^(-3), beta_tol = 10^(-5), maxiter = Inf, cpp = FALSE) {
 
   # Get initial values
-  initial <- .spliceEM_initial(lower=lower, upper=upper, censored = censored, trunclower = trunclower,
-                               tsplice=tsplice, truncupper = truncupper, M=M, s=s, pi_initial=pi_initial)
+  initial <- .spliceEM_initial(lower=lower, upper=upper, censored=censored, trunclower=trunclower,
+                               tsplice=tsplice, truncupper=truncupper, M=M, s=s, pi_initial=pi_initial)
   
   if (cpp) {
     # Use C++ version
     
     # Reduction of the shape combinations
-    fit <- .spliceEM_shape_red_cpp(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
+    fit <- .spliceEM_shape_red_cpp(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                    pi=initial$pi, theta=initial$theta, shape=initial$shape, beta=initial$beta, gamma=initial$gamma, 
                                    criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
     
     # Subsequent adjustment and reduction of the shape combinations
-    fit <- .spliceEM_shape_red_cpp(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
+    fit <- .spliceEM_shape_red_cpp(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                    pi=fit$pi, theta=fit$theta, shape=fit$shape, beta=fit$beta, gamma=fit$gamma,
                                    criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
     
@@ -328,12 +328,12 @@ numtol <- .Machine$double.eps^0.5
     # Use R version
     
     # Reduction of the shape combinations
-    fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
+    fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                pi=initial$pi, theta=initial$theta, shape=initial$shape, beta=initial$beta, gamma=initial$gamma, 
                                criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=FALSE)
     
     # Subsequent adjustment and reduction of the shape combinations
-    fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
+    fit <- .spliceEM_shape_red(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
                                pi=fit$pi, theta=fit$theta, shape=fit$shape, beta=fit$beta, gamma=fit$gamma,
                                criterium=criterium, improve=reduceM, eps=eps, beta_tol=beta_tol, maxiter=maxiter, adj=TRUE)
   }
@@ -353,10 +353,10 @@ numtol <- .Machine$double.eps^0.5
     # Use Turnbull estimator
     
     if (requireNamespace("interval", quietly = TRUE)) {
-      pi_initial <- 1-.Turnbull2(tsplice, L=lower, R=upper, censored = censored, trunclower = trunclower, truncupper = truncupper)$surv
+      pi_initial <- 1-.Turnbull2(tsplice, L=lower, R=upper, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
       
     } else {
-      pi_initial <- 1-Turnbull(tsplice, L=lower, R=upper, censored = censored, trunclower = trunclower, truncupper = truncupper)$surv
+      pi_initial <- 1-Turnbull(tsplice, L=lower, R=upper, censored=censored, trunclower=trunclower, truncupper=truncupper)$surv
     }
     
   } else {
@@ -384,7 +384,7 @@ numtol <- .Machine$double.eps^0.5
   initial_dataME <- initial_data[initial_data <= tsplice]
   
   # Initial value of theta using spread factor s
-  theta <- max(initial_dataME, na.rm = TRUE) / s
+  theta <- max(initial_dataME, na.rm=TRUE) / s
   
   # Initial shapes as quantiles
   shape <- unique(ceiling(quantile(initial_dataME, probs = seq(0, 1, length.out = M), na.rm = TRUE) / theta))
@@ -412,7 +412,7 @@ numtol <- .Machine$double.eps^0.5
   # Hill estimator applied to initial data
   gamma <- .Hillinternal(initial_data, threshold=tsplice)
   
-  return(list(pi=pi, gamma = gamma, theta=theta, shape = shape, alpha = alpha, beta=beta))
+  return(list(pi=pi, gamma=gamma, theta=theta, shape=shape, alpha=alpha, beta=beta))
 }
 
 
@@ -425,13 +425,13 @@ numtol <- .Machine$double.eps^0.5
   
   if (adj) {
     # Adjust shapes
-    fit <- .spliceEM_shape_adj(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
-                               pi=pi, theta=theta, shape = shape, beta=beta, gamma = gamma, 
+    fit <- .spliceEM_shape_adj(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                               pi=pi, theta=theta, shape=shape, beta=beta, gamma=gamma, 
                                eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   } else {
     # Do not adjust shapes => apply EM directly
-    fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
-                             pi=pi, theta=theta, shape = shape, beta=beta, gamma = gamma, 
+    fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                             pi=pi, theta=theta, shape=shape, beta=beta, gamma=gamma, 
                              eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   }
   
@@ -459,13 +459,13 @@ numtol <- .Machine$double.eps^0.5
     # Fit model with smaller M using new_beta and new_shape as starting values
     if (adj) {
       # Adjust shapes
-      fit <- .spliceEM_shape_adj(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
-                                 pi=pi, theta=theta, shape=new_shape, beta=new_beta, gamma = gamma, 
+      fit <- .spliceEM_shape_adj(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                                 pi=pi, theta=theta, shape=new_shape, beta=new_beta, gamma=gamma, 
                                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
     } else {
       # Do not adjust shapes => apply EM directly
-      fit <-  .spliceEM_fit_raw(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
-                                pi=pi, theta=theta, shape=new_shape, beta=new_beta, gamma = gamma, 
+      fit <-  .spliceEM_fit_raw(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                                pi=pi, theta=theta, shape=new_shape, beta=new_beta, gamma=gamma, 
                                 eps=eps, beta_tol=beta_tol, maxiter=maxiter)
     }
     
@@ -507,8 +507,8 @@ numtol <- .Machine$double.eps^0.5
 
 
   # Fit model with shape equal to the initial value (and M=length(shape))
-  fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice,  truncupper = truncupper, 
-                           pi=pi, theta=theta, shape = shape, beta=beta, gamma = gamma, 
+  fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice,  truncupper=truncupper, 
+                           pi=pi, theta=theta, shape=shape, beta=beta, gamma=gamma, 
                            eps=eps, beta_tol=beta_tol, maxiter=maxiter)
   
   loglikelihood <- fit$loglikelihood
@@ -541,8 +541,8 @@ numtol <- .Machine$double.eps^0.5
         # Increase i-th shape by 1
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1 
-        fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice,  truncupper = truncupper,
-                                 pi=pi, theta=theta, shape=new_shape, beta=beta, gamma = gamma, 
+        fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice,  truncupper=truncupper,
+                                 pi=pi, theta=theta, shape=new_shape, beta=beta, gamma=gamma, 
                                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
         if (new_loglikelihood > loglikelihood + eps) {
@@ -574,8 +574,8 @@ numtol <- .Machine$double.eps^0.5
         # Decrease i-th shape by 1
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
-        fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored = censored, trunclower = trunclower, tsplice=tsplice,  truncupper = truncupper,
-                                 pi=pi, theta=theta, shape=new_shape, beta=beta, gamma = gamma, 
+        fit <- .spliceEM_fit_raw(lower=lower, upper=upper, censored=censored, trunclower=trunclower, tsplice=tsplice,  truncupper=truncupper,
+                                 pi=pi, theta=theta, shape=new_shape, beta=beta, gamma=gamma, 
                                  eps=eps, beta_tol=beta_tol, maxiter=maxiter)
         new_loglikelihood <- fit$loglikelihood
         if (new_loglikelihood > loglikelihood + eps) {
@@ -660,8 +660,8 @@ numtol <- .Machine$double.eps^0.5
   # Compute densities and probabilities for observations from the 5 classes
   L <- .spliceEM_densprob(lower1=lower1, lower2=lower2, lower3=lower3, lower4=lower4, lower5=lower5,
                           upper3=upper3, upper4=upper4, upper5=upper5,
-                          pi=pi, shape = shape, theta=theta, alpha_tilde=alpha_tilde, gamma = gamma, 
-                          trunclower = trunclower, tsplice=tsplice, truncupper = truncupper)
+                          pi=pi, shape=shape, theta=theta, alpha_tilde=alpha_tilde, gamma=gamma, 
+                          trunclower=trunclower, tsplice=tsplice, truncupper=truncupper)
   
   x1_dens_nosum <- L$x1_dens_nosum
   x1_dens <- L$x1_dens
@@ -695,8 +695,8 @@ numtol <- .Machine$double.eps^0.5
     if (length(ind5) != 0) {
       
       # Compute P(X_i<=t | t^l<=l_i<=t<u_i, Theta^{(h-1)}) and P(X_i>t | t^l<=l_i<=t<u_i, Theta^{(h-1)})
-      probs <- .spliceEM_probs(lower5=lower5, upper5=upper5, trunclower = trunclower, tsplice=tsplice, truncupper = truncupper,
-                               pi=pi, theta=theta, shape = shape, alpha = alpha, gamma = gamma)
+      probs <- .spliceEM_probs(lower5=lower5, upper5=upper5, trunclower=trunclower, tsplice=tsplice, truncupper=truncupper,
+                               pi=pi, theta=theta, shape=shape, alpha=alpha, gamma=gamma)
       
       P1 <- probs$P1
       P2 <- probs$P2
@@ -730,7 +730,7 @@ numtol <- .Machine$double.eps^0.5
     if (length(ind3) != 0) {
       z3 <- .spliceEM_iii_z(c3_probs_nosum=c3_probs_nosum, M=M)
       # sum_{i in S_{iii.}} sum_{j=1}^m z3 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<u_i<=t)
-      E3_ME <- sum(rowSums(z3 * .spliceEM_Estep_ME_iii(lower3=lower3, upper3=upper3, shape = shape, theta=theta)))
+      E3_ME <- sum(rowSums(z3 * .spliceEM_Estep_ME_iii(lower3=lower3, upper3=upper3, shape=shape, theta=theta)))
       
     } else {
       z3 <- as.matrix(c(0, 0))
@@ -739,10 +739,10 @@ numtol <- .Machine$double.eps^0.5
 
     if (length(ind5) != 0) {
       z5 <- .spliceEM_v_z(c5_probs_nosum=c5_probs_nosum, tsplice=tsplice, alpha_tilde=alpha_tilde, 
-                          theta=theta, shape = shape, M=M)
+                          theta=theta, shape=shape, M=M)
       # sum_{i in S_{v.}} P_{1,i} * sum_{j=1}^m z5 * E(X_{ij} | Z_{ij}=1, t^l<=l_i<t<u_i)
       E5_ME <- sum(P1 * rowSums(z5 * .spliceEM_Estep_ME_v(lower5=lower5, tsplice=tsplice, 
-                                                          pi=pi, gamma = gamma, shape = shape, theta=theta)))
+                                                          pi=pi, gamma=gamma, shape=shape, theta=theta)))
       
     } else {
       z5 <- as.matrix(c(0, 0))
@@ -764,7 +764,7 @@ numtol <- .Machine$double.eps^0.5
     
     if (length(ind4) != 0) {
       # sum_{i in S_{iv.}} E( ln(X_i/t) | t^l<t<=l_i<u_i, gamma^{(h-1)})
-      E4_Pa <- sum(.spliceEM_Estep_Pa_iv(lower4=lower4, upper4=upper4, gamma = gamma, tsplice=tsplice))
+      E4_Pa <- sum(.spliceEM_Estep_Pa_iv(lower4=lower4, upper4=upper4, gamma=gamma, tsplice=tsplice))
       
     } else {
       E4_Pa <- 0
@@ -772,7 +772,7 @@ numtol <- .Machine$double.eps^0.5
     
     if (length(ind5) != 0) {
       # sum_{i in S_{v.}} P_{2,i} * E( ln(X_i/t) | t^l<l_i<=t<u_i, gamma^{(h-1)})
-      E5_Pa <- sum(P2 * .spliceEM_Estep_Pa_v(upper5=upper5, gamma = gamma, tsplice=tsplice))
+      E5_Pa <- sum(P2 * .spliceEM_Estep_Pa_v(upper5=upper5, gamma=gamma, tsplice=tsplice))
       
     } else {
       E5_Pa <- 0
@@ -800,7 +800,7 @@ numtol <- .Machine$double.eps^0.5
     
     # Estimate theta
     theta <- exp(nlm(.spliceEM_theta_nlm, log(theta), E1_ME=E1_ME, E3_ME=E3_ME, E5_ME=E5_ME, 
-                     n1_h=n1_h, beta=beta, shape = shape, trunclower = trunclower, truncupper=tsplice)$estimate)
+                     n1_h=n1_h, beta=beta, shape=shape, trunclower=trunclower, truncupper=tsplice)$estimate)
  
     ##
     # gamma
@@ -837,8 +837,8 @@ numtol <- .Machine$double.eps^0.5
     # Compute densities and probabilities for observations from the 5 classes
     L <- .spliceEM_densprob(lower1=lower1, lower2=lower2, lower3=lower3, lower4=lower4, lower5=lower5,
                             upper3=upper3, upper4=upper4, upper5=upper5, 
-                            pi=pi, shape = shape, theta=theta, alpha_tilde=alpha_tilde, gamma = gamma, 
-                            trunclower = trunclower, tsplice=tsplice, truncupper = truncupper)
+                            pi=pi, shape=shape, theta=theta, alpha_tilde=alpha_tilde, gamma=gamma, 
+                            trunclower=trunclower, tsplice=tsplice, truncupper=truncupper)
     
     x1_dens_nosum <- L$x1_dens_nosum
     x1_dens <- L$x1_dens
@@ -895,7 +895,7 @@ numtol <- .Machine$double.eps^0.5
   
   # Densities of uncensored observations in EVT part
   # No problem when ind2=numeric(0)
-  L$x2_dens <- (1-pi) * .dtpareto(lower2, gamma = gamma, tsplice=tsplice, truncupper = truncupper)
+  L$x2_dens <- (1-pi) * .dtpareto(lower2, gamma=gamma, tsplice=tsplice, truncupper=truncupper)
 
   if (n3 != 0) {
     # Matrix containing Erlang probabilities for censored observations of type 3 and all M values of shape
@@ -913,8 +913,8 @@ numtol <- .Machine$double.eps^0.5
   
   # Vector of probabilities for uncensored observations of type 4: F(u)-F(l)
   # No problem when ind4=numeric(0)
-  L$c4_probs <- pi + (1-pi) * (.ptpareto(upper4, gamma = gamma, tsplice=tsplice, truncupper = truncupper)-
-                               .ptpareto(lower4, gamma = gamma, tsplice=tsplice, truncupper = truncupper))
+  L$c4_probs <- pi + (1-pi) * (.ptpareto(upper4, gamma=gamma, tsplice=tsplice, truncupper=truncupper)-
+                               .ptpareto(lower4, gamma=gamma, tsplice=tsplice, truncupper=truncupper))
 
 
   if (n5 != 0) {
@@ -922,7 +922,7 @@ numtol <- .Machine$double.eps^0.5
     L$c5_probs_nosum <- t(t(outer(lower5, shape, pgamma, scale=theta))*alpha_tilde)
     
     # Vector of probabilities for uncensored observations of type 5: F(u)-F(l)
-    L$c5_probs <- pi + (1-pi) * .ptpareto(upper5, gamma = gamma, tsplice=tsplice, truncupper = truncupper) - pi * rowSums(L$c5_probs_nosum)
+    L$c5_probs <- pi + (1-pi) * .ptpareto(upper5, gamma=gamma, tsplice=tsplice, truncupper=truncupper) - pi * rowSums(L$c5_probs_nosum)
     
   } else {
     # Problem when no intervals over splicing point
@@ -965,9 +965,9 @@ numtol <- .Machine$double.eps^0.5
 .spliceEM_probs <- function(lower5, upper5, trunclower, tsplice, truncupper, pi, theta, shape, alpha, gamma) {
   
   # CDF of ME evaluated in l_i (for all i with t^l<=l_i<=t<u_i)
-  p1 <- .pME(lower5, trunclower = trunclower, truncupper=tsplice, theta=theta, shape = shape, alpha = alpha)
+  p1 <- .pME(lower5, trunclower=trunclower, truncupper=tsplice, theta=theta, shape=shape, alpha=alpha)
   
-  P1 <- pi*(1-p1) / (pi+(1-pi)*.ptpareto(upper5, gamma = gamma, tsplice=tsplice, truncupper = truncupper) - pi*p1)
+  P1 <- pi*(1-p1) / (pi+(1-pi)*.ptpareto(upper5, gamma=gamma, tsplice=tsplice, truncupper=truncupper) - pi*p1)
   P2 <- 1-P1
   
   return(list(P1=P1, P2=P2))
@@ -999,7 +999,7 @@ numtol <- .Machine$double.eps^0.5
 .spliceEM_v_z <- function(c5_probs_nosum, tsplice, alpha_tilde, shape, theta, M) {  
 
   # Use alpha_tilde since also used in c5_probs_nosum
-  pt <- alpha_tilde*pgamma(tsplice, shape = shape, scale=theta)
+  pt <- alpha_tilde*pgamma(tsplice, shape=shape, scale=theta)
   z5 <- -sweep(c5_probs_nosum, 2, pt , "-")
   z5 <- z5 / rowSums(z5)
   # in case all ^{cc}z_{ij}^{(h)} for j=1,...,M are numerically 0
@@ -1026,10 +1026,10 @@ numtol <- .Machine$double.eps^0.5
 .spliceEM_Estep_ME_v <- function(lower5, tsplice, pi, gamma, shape, theta) {  
   
   # ## E5_ME is a matrix!
-  # E5_ME <- .spliceEM_Estep_ME_c(upper3=rep(tsplice,length(lower5)), lower3=lower5, shape = shape, theta=theta) 
+  # E5_ME <- .spliceEM_Estep_ME_c(upper3=rep(tsplice,length(lower5)), lower3=lower5, shape=shape, theta=theta) 
   # E5_ME <- sweep(E5_ME, 1, (1-pi) * (upper5^(-1/gamma+1)-tsplice^(-1/gamma+1))/((gamma-1)*tsplice^(-1/gamma)), "+")
   
-  E5_ME <- .spliceEM_Estep_ME_iii(lower3=lower5, upper3=rep(tsplice, length(lower5)), shape = shape, theta=theta)
+  E5_ME <- .spliceEM_Estep_ME_iii(lower3=lower5, upper3=rep(tsplice, length(lower5)), shape=shape, theta=theta)
   
   return(E5_ME)
 }
@@ -1049,7 +1049,7 @@ numtol <- .Machine$double.eps^0.5
 # E-step for Pareto: part of E( ln(X_i/t) | t^l<l_i<=t<u_i, gamma^{(h-1)})
 .spliceEM_Estep_Pa_v <- function(upper5, gamma, tsplice) {  
   
-  return( .spliceEM_Estep_Pa_iv(lower4=tsplice, upper4=upper5, gamma = gamma, tsplice=tsplice) )
+  return( .spliceEM_Estep_Pa_iv(lower4=tsplice, upper4=upper5, gamma=gamma, tsplice=tsplice) )
   
 }
 
@@ -1062,7 +1062,7 @@ numtol <- .Machine$double.eps^0.5
 .spliceEM_theta_nlm <- function(ltheta, E1_ME, E3_ME, E5_ME, n1_h, beta, shape, trunclower, truncupper) {
   
   theta <- exp(ltheta)
-  TT <- .spliceEM_T(trunclower = trunclower, truncupper = truncupper, shape = shape, theta=theta, beta=beta)
+  TT <- .spliceEM_T(trunclower=trunclower, truncupper=truncupper, shape=shape, theta=theta, beta=beta)
   
   return( (theta - ((E1_ME + E3_ME + E5_ME)/n1_h-TT) / sum(beta*shape)) ^ 2 )
 }
@@ -1101,8 +1101,8 @@ numtol <- .Machine$double.eps^0.5
   p <- colSums(t(cdf)*alpha)
   
   if (!(trunclower == 0 & truncupper == Inf)) {
-    l <- .pME(trunclower, theta=theta, shape = shape, alpha = alpha)
-    u <- .pME(truncupper, theta=theta, shape = shape, alpha = alpha)
+    l <- .pME(trunclower, theta=theta, shape=shape, alpha=alpha)
+    u <- .pME(truncupper, theta=theta, shape=shape, alpha=alpha)
     p <- ((p - l) / (u - l)) ^ {(x <= truncupper)} * (trunclower <= x)
   }
   
@@ -1125,11 +1125,11 @@ numtol <- .Machine$double.eps^0.5
 # Truncated Pareto PDF
 .dtpareto <- function(x, gamma, tsplice, truncupper) {
   
-  ifelse(x <= truncupper, .dpareto(x=x, gamma = gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma = gamma, tsplice=tsplice), 0)
+  ifelse(x <= truncupper, .dpareto(x=x, gamma=gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma=gamma, tsplice=tsplice), 0)
 }
 
 # Truncated Pareto CDF
 .ptpareto <- function(x, gamma, tsplice, truncupper) {
   
-  ifelse(x <= truncupper, .ppareto(x=x, gamma = gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma = gamma, tsplice=tsplice), 1)
+  ifelse(x <= truncupper, .ppareto(x=x, gamma=gamma, tsplice=tsplice)/.ppareto(x=truncupper, gamma=gamma, tsplice=tsplice), 1)
 }

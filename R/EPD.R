@@ -28,17 +28,17 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   if (direct) {
     # Select parameters by minimising MLE
-    EPD <- .EPDdirectMLE(data = data, rho = rho, start = start, warnings = warnings)
+    EPD <- .EPDdirectMLE(data=data, rho=rho, start=start, warnings=warnings)
   } else {
     # Select parameter using approach of Beirlant, Joosens and Segers (2009). 
-    EPD <- .EPDredMLE(data = data, rho = rho)
+    EPD <- .EPDredMLE(data=data, rho=rho)
   }
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), EPD$gamma[K,1], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), EPD$gamma[K,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, EPD$gamma[K,1], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(K, EPD$gamma[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
   # Transform to vectors if rho is a single value
@@ -50,14 +50,14 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   } else if (plot | add) {
     # Add lines
     for(j in 2:length(rho)) {
-      lines(K, EPD$gamma[K,j], lty = j)
+      lines(K, EPD$gamma[K,j], lty=j)
     }
   }
   
   if (length(rho) == 1) {
-    .output(list(k = K, gamma = EPD$gamma[K], kappa = EPD$kappa[K], tau = EPD$tau[K]), plot = plot, add = add)
+    .output(list(k=K, gamma=EPD$gamma[K], kappa=EPD$kappa[K], tau=EPD$tau[K]), plot=plot, add=add)
   } else {
-    .output(list(k = K, gamma = EPD$gamma[K,], kappa = EPD$kappa[K,], tau = EPD$tau[K,]), plot = plot, add = add)
+    .output(list(k=K, gamma=EPD$gamma[K,], kappa=EPD$kappa[K,], tau=EPD$tau[K,]), plot=plot, add=add)
   }
 }
 
@@ -79,10 +79,10 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   nrho <- length(rho)
   rho.orig <- rho
   
-  H <- Hill(data, plot = FALSE)$gamma
+  H <- Hill(data, plot=FALSE)$gamma
   
   if (all(rho > 0) & nrho == 1) {
-    rho <- .rhoEst(data, alpha = 1, tau = rho)$rho
+    rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
 
   } else if (all(rho < 0)) {
@@ -134,7 +134,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
       
   }
   
-  return(list(gamma = gamma, kappa = kappa, tau = tau))
+  return(list(gamma=gamma, kappa=kappa, tau=tau))
 }
 
 
@@ -156,10 +156,10 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   nrho <- length(rho)
   rho.orig <- rho
   
-  H <- Hill(data, plot = FALSE)$gamma
+  H <- Hill(data, plot=FALSE)$gamma
   
   if (all(rho > 0) & nrho == 1) {
-    rho <- .rhoEst(data, alpha = 1, tau = rho)$rho
+    rho <- .rhoEst(data, alpha=1, tau=rho)$rho
     beta <- -rho
     
   } else if (all(rho < 0)) {
@@ -210,7 +210,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
       }
       
       if (tau[k,j] < 0) {
-        tmp <- EPDfit(epddata, start = start2, tau = tau[k,j])
+        tmp <- EPDfit(epddata, start=start2, tau=tau[k,j])
         gamma[k,j] <- tmp[1]
         kappa[k,j] <- tmp[2]
       } else {
@@ -222,7 +222,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     
   }
   
-  return(list(gamma = gamma, kappa = kappa))
+  return(list(gamma=gamma, kappa=kappa))
 }
 
 
@@ -244,7 +244,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   } else {
     
     #Note that optim minimises a function so we use minus the log-likelihood function
-    fit <- optim(par = c(gamma_start, kappa_start), fn = .EPDneglogL, Y = data, tau = tau)
+    fit <- optim(par=c(gamma_start, kappa_start), fn=.EPDneglogL, Y=data, tau=tau)
     # fit = nlminb(start=c(gamma_start,log(sigma_start)),objective=neglogL, Y=data)
     sg <- fit$par
     
@@ -270,7 +270,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   if (kappa <= max(-1, 1/tau) | gamma <= 0) {
     logL <- -10^6
   } else {
-    logL <- sum( log(depd(Y, gamma = gamma, kappa = kappa, tau = tau)) )
+    logL <- sum( log(depd(Y, gamma=gamma, kappa=kappa, tau=tau)) )
   }
   
   # minus log-likelihood for optimisation
@@ -315,7 +315,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   
   rho[K] <- 1 - ( 2 * Tn[K] / ( 3 - Tn[K]) ) ^ (1/alpha)
    
-  return(list(k = K, rho = rho[K], Tn = Tn[K]))
+  return(list(k=K, rho=rho[K], Tn=Tn[K]))
 }
 
 ############################################################
@@ -338,17 +338,17 @@ ProbEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   K2 <- K[which(gamma[K] > 0)]
   
-  prob[K2] <- (K2+1)/(n+1) * (1 - pepd(q/X[n-K2], gamma = gamma[K2], kappa = kappa[K2], tau = tau[K2]))
+  prob[K2] <- (K2+1)/(n+1) * (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   prob[prob < 0 | prob > 1] <- NA
   
   # plots if TRUE
-  .plotfun(K, prob[K], type = "l", xlab = "k", ylab = "1-F(x)", main = main, plot = plot, add = add, ...)
+  .plotfun(K, prob[K], type="l", xlab="k", ylab="1-F(x)", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k = K, P = prob[K], q = q), plot = plot, add = add)
+  .output(list(k=K, P=prob[K], q=q), plot=plot, add=add)
   
 }
 
@@ -370,7 +370,7 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   K2 <- K[which(gamma[K] > 0)]
   
-  r[K2] <- (n+1)/(K2+1) / (1 - pepd(q/X[n-K2], gamma = gamma[K2], kappa = kappa[K2], tau = tau[K2]))
+  r[K2] <- (n+1)/(K2+1) / (1 - pepd(q/X[n-K2], gamma=gamma[K2], kappa=kappa[K2], tau=tau[K2]))
   
   
   r[which(gamma[K] <= 0)] <- NA
@@ -379,13 +379,13 @@ ReturnEPD <- function(data, q, gamma, kappa, tau, plot = FALSE, add = FALSE,
   
   
   # plots if TRUE
-  .plotfun(K, r[K], type = "l", xlab = "k", ylab = "1/(1-F(x))", main = main, plot = plot, add = add, ...)
+  .plotfun(K, r[K], type="l", xlab="k", ylab="1/(1-F(x))", main=main, plot=plot, add=add, ...)
   
   
   # output list with values of k, corresponding return period estimates 
   # and the considered large quantile q
   
-  .output(list(k = K, R = r[K], q = q), plot = plot, add = add)
+  .output(list(k=K, R=r[K], q=q), plot=plot, add=add)
   
 }
 

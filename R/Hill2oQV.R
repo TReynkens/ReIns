@@ -13,7 +13,7 @@
 # Subsequent estimates are constrained by certain smoothness
 # constraints on the parameter space
 #
-# If plot = TRUE then the estimates of gamma are plotted as a
+# If plot=TRUE then the estimates of gamma are plotted as a
 # function of k
 #
 # If add=TRUE then the estimates of gamma are added to an existing
@@ -28,7 +28,7 @@ Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
   
   X <- as.numeric(sort(data))
   n <- length(X)
-  H <- matrix(nrow = n, ncol = 3) #empty matrix
+  H <- matrix(nrow=n, ncol=3) #empty matrix
   H[n,] <- start
   K <- 1:(n-1)
 
@@ -75,9 +75,9 @@ Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
     
     if (X[n-k] > 0) { 
       # minimise llsum, give him the gradient, method, data ... 
-      estim <- optim(par = start, fn = llsum, gr = llsum.dif, method = "L-BFGS-B", y = Zval, x = xval, 
-                     lower = c(0.001, -mif*abs(H[k+1,2]), rhoh.min), 
-                     upper = c(Inf, mif*abs(H[k+1,2]), mif*H[k+1,3]))
+      estim <- optim(par=start, fn=llsum, gr=llsum.dif, method = "L-BFGS-B", y=Zval, x=xval, 
+                     lower=c(0.001, -mif*abs(H[k+1,2]), rhoh.min), 
+                     upper=c(Inf, mif*abs(H[k+1,2]), mif*H[k+1,3]))
       if (estim$convergence > 0 & warnings) {
         warning("Optimisation did not complete succesfully.")
         if (!is.null(estim$message)) {
@@ -96,13 +96,13 @@ Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), H[K,1], type = "l", xlab = "log(k)", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), H[K,1], type="l", xlab="log(k)", ylab="gamma", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, H[K,1], type = "l", xlab = "k", ylab = "gamma", main = main, plot = plot, add = add, ...)
+    .plotfun(K, H[K,1], type="l", xlab="k", ylab="gamma", main=main, plot=plot, add=add, ...)
   }
   
   
-  .output(list(k = K, gamma = H[K,1], b = H[K,2], beta = H[K,3]), plot = plot, add = add)
+  .output(list(k=K, gamma=H[K,1], b=H[K,2], beta=H[K,3]), plot=plot, add=add)
 
 }
 
@@ -120,14 +120,14 @@ Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, 
 # log-spacings (Section 4.4 in Beirlant et al. (2004)) and maximum likelihood estimation
 # on the parameters gamma, b and beta (Hill.2oQV)
 #
-# If plot = TRUE then the estimates of gamma are plotted as a
+# If plot=TRUE then the estimates of gamma are plotted as a
 # function of k
 #
 # If add=TRUE then the estimates of gamma are added to an existing
 # plot
 
 Quant.2oQV <- function(data, gamma, b, beta, p, plot = FALSE, add = FALSE, 
-                       main = "Estimates of extreme quantile", ...) {
+                       main="Estimates of extreme quantile", ...) {
   
   # Check input arguments
   .checkInput(data,gamma)
@@ -146,11 +146,11 @@ Quant.2oQV <- function(data, gamma, b, beta, p, plot = FALSE, add = FALSE,
   ### plots if TRUE
   
   # plots if TRUE
-  .plotfun(K, wq[K], type = "l", xlab = "k", ylab = "Q(1-p)", main = main, plot = plot, add = add, ...)
+  .plotfun(K, wq[K], type="l", xlab="k", ylab="Q(1-p)", main=main, plot=plot, add=add, ...)
   
   ### output list with values of k, corresponding quantile estimates 
   ### and the considered small tail probability p
-  .output(list(k = K, Q = wq[K], p = p), plot = plot, add = add)
+  .output(list(k=K, Q=wq[K], p=p), plot=plot, add=add)
 }
 
 Weissman.q.2oQV <- Quant.2oQV 
@@ -169,7 +169,7 @@ Weissman.q.2oQV <- Quant.2oQV
 # If add=TRUE, the optimal k value is added to
 # the plot of the Hill estimates (given the plot is available)
 #
-# If plot = TRUE then the estimates of the AMSE are plotted
+# If plot=TRUE then the estimates of the AMSE are plotted
 # as a function of k and the optimal k value is added to it
 Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, plot = FALSE, add = FALSE, 
                      main = "AMSE plot", ...) {
@@ -185,7 +185,7 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   }
   
   # Estimates of the second order parameters gamma, b and beta 
-  H <- Hill.2oQV(data = data, start = start, warnings = warnings, plot = plot, add = add)
+  H <- Hill.2oQV(data=data, start=start, warnings=warnings, plot=plot, add=add)
   gamma <- H$gamma
   b <- H$b
   beta <- H$beta
@@ -194,7 +194,7 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   # calculate AMSE and find the minimum
   
   AMSE.Hill <- (gamma^2)/K + (b/(1+beta))^2
-  AMSE.Hill.min <- min(AMSE.Hill, na.rm = TRUE)
+  AMSE.Hill.min <- min(AMSE.Hill, na.rm=TRUE)
   kopt <- K[AMSE.Hill == AMSE.Hill.min]
   gammaopt <- gamma[kopt]
   
@@ -202,20 +202,20 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   if (plot || add) {
     if (add) {   # add optimal k value to Hill-plot
       if (logk) {
-        abline(v = log(kopt), lty = 2, col = "black", lwd = 2)
+        abline(v=log(kopt), lty=2, col="black", lwd=2)
       } else {
-        abline(v = kopt, lty = 2, col = "black", lwd = 2)
+        abline(v=kopt, lty=2, col="black", lwd=2)
       }
       
     } else {
       if (logk) {
         ## plot estimates of AMSE as function of log(k)
-        plot(log(K), AMSE.Hill, type = "l", ylab = "AMSE", xlab = "log(k)", main = main, ...)
-        abline(v = log(kopt), lty = 2, col = "black", lwd = 2)
+        plot(log(K), AMSE.Hill, type="l", ylab="AMSE", xlab="log(k)", main=main, ...)
+        abline(v=log(kopt), lty=2, col="black", lwd=2)
       } else {
         ## plot estimates of AMSE as function of k
-        plot(K, AMSE.Hill, type = "l", ylab = "AMSE", xlab = "k", main = main, ...)
-        abline(v = kopt, lty = 2, col = "black", lwd = 2)
+        plot(K, AMSE.Hill, type="l", ylab="AMSE", xlab="k", main=main, ...)
+        abline(v=kopt, lty=2, col="black", lwd=2)
       }
 
     }
@@ -224,6 +224,6 @@ Hill.kopt <- function(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, pl
   
   # output list with values of k, corresponding
   # estimates of AMSE Hill and optimal k value kopt
-  .output(list(k = K, AMSE = AMSE.Hill, kopt = kopt, gammaopt = gammaopt), plot = plot, add = add)
+  .output(list(k=K, AMSE=AMSE.Hill, kopt=kopt, gammaopt=gammaopt), plot=plot, add=add)
 }
 

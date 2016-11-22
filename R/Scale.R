@@ -26,12 +26,12 @@ Scale <- function(data, gamma = NULL, logk = FALSE, plot = FALSE, add = FALSE,
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), A[K], type = "l", xlab = "log(k)", ylab = "scale", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), A[K], type="l", xlab="log(k)", ylab="scale", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, A[K], type = "l", xlab = "k", ylab = "scale", main = main, plot = plot, add = add, ...)
+    .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k = K, A = A[K], C = C[K]), plot = plot, add = add)
+  .output(list(k=K, A=A[K], C=C[K]), plot=plot, add=add)
   
 }
 
@@ -55,12 +55,12 @@ Scale.2o <- function(data, gamma, b, beta, logk = FALSE, plot = FALSE, add = FAL
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), A[K], type = "l", xlab = "log(k)", ylab = "scale", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), A[K], type="l", xlab="log(k)", ylab="scale", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, A[K], type = "l", xlab = "k", ylab = "scale", main = main, plot = plot, add = add, ...)
+    .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k = K, A = A[K], C = C[K]), plot = plot, add = add)
+  .output(list(k=K, A=A[K], C=C[K]), plot=plot, add=add)
 }
 
 
@@ -85,11 +85,11 @@ ScaleEPD <- function (data, gamma, kappa, logk = FALSE, plot = FALSE, add = FALS
   
   # plots if TRUE
   if (logk) {
-    .plotfun(log(K), A[K], type = "l", xlab = "log(k)", ylab = "scale", main = main, plot = plot, add = add, ...)
+    .plotfun(log(K), A[K], type="l", xlab="log(k)", ylab="scale", main=main, plot=plot, add=add, ...)
   } else {
-    .plotfun(K, A[K], type = "l", xlab = "k", ylab = "scale", main = main, plot = plot, add = add, ...)
+    .plotfun(K, A[K], type="l", xlab="k", ylab="scale", main=main, plot=plot, add=add, ...)
   }
   
-  .output(list(k = K, A = A[K], C = C[K]), plot = plot, add = add)
+  .output(list(k=K, A=A[K], C=C[K]), plot=plot, add=add)
 }
 
