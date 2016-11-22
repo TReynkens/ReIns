@@ -32,8 +32,7 @@
   # Call C++ code
   .Call("ReIns_spliceEM_splicefit_raw_Rexport", pi, theta, shape, beta, gamma,
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, 
-        trunclower, tsplice, truncupper, eps, beta_tol, maxiter, 
-        PACKAGE = "ReIns")
+        trunclower, tsplice, truncupper, eps, beta_tol, maxiter)
 }
 
 
@@ -69,8 +68,7 @@
   # Call C++ code
   .Call("ReIns_spliceEM_shape_adj_Rexport", pi, theta, shape, beta, gamma, 
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5,
-        trunclower, tsplice, truncupper, eps, beta_tol, maxiter, 
-        PACKAGE = "ReIns")
+        trunclower, tsplice, truncupper, eps, beta_tol, maxiter)
 }
 
 
@@ -104,31 +102,9 @@
   # Call C++ code
   .Call("ReIns_spliceEM_shape_red", pi, theta, shape, beta, gamma, 
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, 
-        trunclower, tsplice, truncupper, criterium, improve, eps, beta_tol, maxiter, adj, 
-        PACKAGE = "ReIns")
+        trunclower, tsplice, truncupper, criterium, improve, eps, beta_tol, maxiter, adj)
 }
 
-
-########################
-# Estimators of the stable tail dependence function
-
-# Call C++ and make sure the right input types are used
-stdf <- function(x, k, X, alpha = 0.5) {
-  
-  # Convert to rank matrix
-  R <- apply(as.matrix(X), 2, rank)
-  return(.Call("ReIns_stdf_cpp", as.numeric(x), k, as.matrix(R), alpha, 
-               PACKAGE = "ReIns"))
-}
-
-# Call C++ and make sure the right input types are used
-stdf2 <- function(x, k, X) {
-  
-  return(.Call("ReIns_stdf2_cpp", as.numeric(x), k, as.matrix(X), 
-               PACKAGE = "ReIns"))
-}
-
-########################
 
 # Unload package DLL when package is unloaded
 .onUnload <- function (libpath) {

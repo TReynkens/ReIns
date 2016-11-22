@@ -14,7 +14,7 @@ using namespace Rcpp;
 // Estimator for the stable tail dependence function: hat(l)
 // R is the matrix of ranks!
 // [[Rcpp::export]]
-double stdf_cpp(const NumericVector &x, const int k, const NumericMatrix &R, const double alpha) {
+double stdf(const NumericVector &x, const int k, const NumericMatrix &R, const double alpha) {
 
   int n = R.nrow();
   int d = R.ncol();
@@ -38,7 +38,7 @@ double stdf_cpp(const NumericVector &x, const int k, const NumericMatrix &R, con
 
 // Estimator for the stable tail dependence function: tilde(l)
 // [[Rcpp::export]]
-double stdf2_cpp(const NumericVector &x, const int k, NumericMatrix &X) {
+double stdf2(const NumericVector &x, const int k, NumericMatrix &X) {
   
   int n = X.nrow();
   int d = X.ncol();
