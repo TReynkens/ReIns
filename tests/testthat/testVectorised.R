@@ -309,7 +309,7 @@ test_that("Truncation (gamma pos) for-loops", {
   # Compute L(H_{k,n})
   E <- numeric(n)
 
-  for(k in K) {
+  for (k in K) {
     E[k] <- 1/k * sum((X[n-k]/X[n-(1:k)+1])^(1/H[k]))
   }  
   

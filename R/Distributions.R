@@ -497,7 +497,7 @@ qepd <-  function(p, gamma, kappa, tau = -1, lower.tail = TRUE, log.p = FALSE) {
  
   
   
-  for(i in 1:l) {
+  for (i in 1:l) {
 
     if (p[i] < .Machine$double.eps) {
       # p=0 case

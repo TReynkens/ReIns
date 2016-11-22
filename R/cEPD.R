@@ -86,7 +86,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
       # and hence a different value of beta for each k
       beta[,1] <- -rho/HillZ
       
-      for(j in 1:length(rho)) {
+      for (j in 1:length(rho)) {
         beta[,j] <- -rho[j]/HillZ
       }
       
@@ -94,7 +94,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
       
       # rho is provided => beta is constant over k
       # (but differs with rho)
-      for(j in 1:nrho) {
+      for (j in 1:nrho) {
         beta[,j] <- -rho[j]/HillZ
       }
       
@@ -123,7 +123,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
   kappa1 <- matrix(0, n-1, nrho)
   Delta <- matrix(0, n-1, nrho)
   
-  for(j in 1:nrho) {
+  for (j in 1:nrho) {
 
     K <- 1:k
     D <- - (beta[K,j]^4 * HillZ[K]^3) / ( (1+HillZ[K]*beta[K,j])^2 * (1+2*HillZ[K]*beta[K,j]) )
@@ -169,7 +169,7 @@ cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FAL
     Delta <- as.vector(Delta)
   } else if (plot | add) {
   # Add lines
-    for(j in 2:nrho) {
+    for (j in 2:nrho) {
       lines(K, gamma1[,j], lty=j)
     }
   }

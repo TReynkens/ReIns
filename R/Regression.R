@@ -33,7 +33,7 @@ ScaleReg <- function(s, Z, kernel = c("normal", "uniform", "triangular", "epanec
   # Scale estimates in the point s for several values of k
   A <- numeric(n)
   
-  for(k in K) {
+  for (k in K) {
     A[k] <- 1/(k+1) * sum( (Z > Zsort[n-k]) * kernelh( s-(1:n)/n ) )
   }
   

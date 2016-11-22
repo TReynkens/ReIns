@@ -49,7 +49,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     
   } else if (plot | add) {
     # Add lines
-    for(j in 2:length(rho)) {
+    for (j in 2:length(rho)) {
       lines(K, EPD$gamma[K,j], lty=j)
     }
   }
@@ -99,7 +99,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   
   beta <- -rho
   
-  for(j in 1:nrho) {
+  for (j in 1:nrho) {
     
     # tau
     if (nrho == 1 & all(rho.orig > 0)) {
@@ -121,7 +121,7 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
     # kappa
     E <- numeric(n-1)
     
-    for(k in K) {
+    for (k in K) {
       i <- 1:k
       E[k] <- 1/k * sum( (X[n-k+i]/X[n-k])^tau[k,j] )
     }
@@ -173,10 +173,10 @@ EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE,
   kappa <- matrix(0, n-1, nrho)
   tau <- matrix(0, n-1, nrho)
   
-  for(j in 1:nrho) {
+  for (j in 1:nrho) {
 
     # Compute gamma and kappa for several values of k
-    for(k in (n-1):1) {
+    for (k in (n-1):1) {
       epddata <- data[data > X[n-k]]/X[n-k]
       
       # tau
@@ -304,7 +304,7 @@ EPDfit <- function(data, tau, start = c(0.1, 1), warnings = FALSE) {
   M_alpha_theta2 <- numeric(n)
   
   l <- log(X[n-K+1])
-  for(k in K) {
+  for (k in K) {
     M_alpha[k] <- sum( (l[1:k]-log(X[n-k]))^alpha ) / k
     M_alpha_theta1[k] <- sum( (l[1:k]-log(X[n-k]))^(alpha*theta1) ) / k
     M_alpha_theta2[k] <- sum( (l[1:k]-log(X[n-k]))^(alpha*theta2) ) / k

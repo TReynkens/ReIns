@@ -268,7 +268,7 @@ trParetoQQ <- function(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa Q
     # Compute correlation between log(X[n-j+1]) and DT[i]+j/n
     cors <- numeric(length(k)) 
     
-    for(i in 1:length(k)) {
+    for (i in 1:length(k)) {
       cors[i] <- abs( cor(log(X[n-(1:k[i])+1]), -log(DT[K == k[i]]+(1:k[i])/n)) )
     }
     # Value for k which maximises correlation
@@ -333,7 +333,7 @@ trTest <- function(data, alpha = 0.05, plot = TRUE, main = "Test for truncation"
   # Compute L(H_{k,n})
   E <- numeric(n)
 
-  for(k in K) {
+  for (k in K) {
     E[k] <- sum( (X[n-k]/X[n-(1:k)+1])^(1/H[k]) ) / k
   }  
     

@@ -335,7 +335,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   
   # Print all but last element of pi
   if (length(splicefit$pi) > 2) {
-    for(i in 1:(length(splicefit$pi)-1)) {
+    for (i in 1:(length(splicefit$pi)-1)) {
       s <- .pasteVec(s, paste0("\\pi_", i), splicefit$pi[i], digits, ", ")
     }
     # Remove last ", " and add newline (twice)
@@ -352,7 +352,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # Print all splicing points
   if (length(splicefit$t) > 1) {
     
-    for(i in 1:length(splicefit$t)) {
+    for (i in 1:length(splicefit$t)) {
       s <- .pasteVec(s, paste0("t_", i), splicefit$t[i], digits, ", ")
     }
     # Remove last ", " and add newline (twice)
@@ -380,7 +380,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   # Print gamma
   if (length(evtfit$gamma) > 1) {
     
-    for(i in 1:length(evtfit$gamma)) {
+    for (i in 1:length(evtfit$gamma)) {
       s <- .pasteVec(s, paste0("\\gamma_", i), evtfit$gamma[i], digits, ", ")
     }
     # Remove last ", " and add newline (twice)
@@ -395,7 +395,7 @@ tex.SpliceFit <- function(object, digits = 3, ...) {
   if (exists("sigma", where=splicefit$EVTfit)) {
     if (length(evtfit$sigma) > 1) {
       
-      for(i in 1:length(evtfit$sigma)) {
+      for (i in 1:length(evtfit$sigma)) {
         s <- .pasteVec(s, paste0("\\sigma_", i), evtfit$sigma[i], digits, ", ")
       }
       # Remove last ", " and add newline (twice)
@@ -579,7 +579,7 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
   kvec <- k_init
   
   if (l > 1) {
-    for(i in (l-1):1) {
+    for (i in (l-1):1) {
       kvec[i] <- kvec[i] - sum(kvec[(i+1):l])
     } 
   }

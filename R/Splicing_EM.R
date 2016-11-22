@@ -446,7 +446,7 @@ numtol <- .Machine$double.eps^0.5
   M <- length(shape)
   
   # Try to improve IC by reducing M
-  while(improve && length(shape) > 1) {    
+  while (improve && length(shape) > 1) {    
     
     # Remove shape with smallest beta
     min_ind <- which.min(beta)
@@ -526,17 +526,17 @@ numtol <- .Machine$double.eps^0.5
   iteration <- 1
   
   # Improve as long as log-likelihood increases significantly
-  while(after_loglikelihood > before_loglikelihood + eps) {   
+  while (after_loglikelihood > before_loglikelihood + eps) {   
     
     before_loglikelihood <- after_loglikelihood
     
     # Try changing the shapes (step 1), loop over all shapes
-    for(i in M:1) {
+    for (i in M:1) {
       
       improve <- TRUE
       
       # Increase i-th shape as long as improvement and not larger than next shape
-      while( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE)) ) {
+      while ( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE)) ) {
         
         # Increase i-th shape by 1
         new_shape <- shape
@@ -564,12 +564,12 @@ numtol <- .Machine$double.eps^0.5
     }
     
     # Try decreasing the shapes (step 2), loop over all shapes
-    for(i in 1:M) {
+    for (i in 1:M) {
       
       improve <- TRUE
       
       # Decrease i-th shape as long as improvement and larger than 1 and not smaller than previous shape
-      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
+      while ( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
         
         # Decrease i-th shape by 1
         new_shape <- shape
@@ -683,7 +683,7 @@ numtol <- .Machine$double.eps^0.5
   iteration <- 1
   old_loglikelihood <- -Inf
 
-  while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter) {
+  while (loglikelihood - old_loglikelihood > eps & iteration <= maxiter) {
     
     old_loglikelihood <- loglikelihood
     

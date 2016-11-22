@@ -161,7 +161,7 @@
   loglikelihood <- .ME_loglikelihood(x_densities, c_probabilities, beta, t_probabilities, no_censoring, censoring)
   old_loglikelihood <- -Inf
   
-  while(loglikelihood - old_loglikelihood > eps & iteration <= maxiter) {
+  while (loglikelihood - old_loglikelihood > eps & iteration <= maxiter) {
     old_loglikelihood <- loglikelihood
     # E step
     if (no_censoring & censoring) {
@@ -229,13 +229,13 @@
   before_loglikelihood <- -Inf
   after_loglikelihood <- loglikelihood    
   iteration <- 1
-  while(after_loglikelihood > before_loglikelihood + eps) {    
+  while (after_loglikelihood > before_loglikelihood + eps) {    
     
     before_loglikelihood <- after_loglikelihood
     # Try increasing the shapes
-    for(i in M:1) {
+    for (i in M:1) {
       improve <- TRUE
-      while( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE))) {
+      while ( improve && (i == M || ifelse(i <= length(shape), shape[i] < shape[i+1]-1, FALSE))) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]+1        
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -258,9 +258,9 @@
       }
     }
     # Try decreasing the shapes
-    for(i in 1:M) {
+    for (i in 1:M) {
       improve <- TRUE
-      while( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
+      while ( improve && ( (i == 1) || ifelse(i <= length(shape), shape[i] > shape[i-1]+1, FALSE) ) && ifelse(i <= length(shape), shape[i] > 1, FALSE)) {
         new_shape <- shape
         new_shape[i] <- new_shape[i]-1
         fit <- .ME_em(lower=lower, upper=upper, trunclower=trunclower, truncupper=truncupper, 
@@ -308,7 +308,7 @@
   alpha <- fit$alpha
   M <- length(shape)
 
-  while( improve && length(shape) > 1) {    
+  while ( improve && length(shape) > 1) {    
     new_shape <- shape[beta != min(beta)]
     new_beta <- beta[beta != min(beta)]
     new_beta <- new_beta/sum(new_beta)
@@ -649,7 +649,7 @@
           if (!is.na(VaR[i+1])) {
             interval[2] <- min(VaR[i+1], interval[2])
           }
-          for(j in 1:length(shape)) {
+          for (j in 1:length(shape)) {
             VaR_nlm[[j]] <- nlm(f = objective, p = qgamma(p[i], shape = shape[j], scale = theta))
             VaR_optimise[[j]] <- optimise(f = objective, interval = interval[c(1, j+1)])
           }
@@ -707,7 +707,7 @@
       VaR_optimise <-  vector("list", length(shape))
       # Fixed for truncation case
       interval <- c(trunclower, pmin(truncupper, trunclower + qgamma(p, shape, scale = theta)))
-      for(i in 1:length(shape)) {
+      for (i in 1:length(shape)) {
         VaR_nlm[[i]] <- nlm(f = objective, p = qgamma(p, shape = shape[i], scale = theta))    
         VaR_optimise[[i]] <- optimise(f = objective, interval = interval[c(1, i+1)])
       }
@@ -751,7 +751,7 @@
   alphas <- rep(0, M)
   alphas[shape] <- alpha
   coeff <- rep(0, M)
-  for(n in 1:M) {
+  for (n in 1:M) {
     coeff[n] <- sum( alphas[0:(M-n)+n] * (0:(M-n)+1) * pgamma(C, shape = 0:(M-n)+2, scale = theta) )
   }
   if (C == Inf) {
