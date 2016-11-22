@@ -23,6 +23,7 @@
         \item Add estimators for regression extremes with censored data.
         \item Add estimators for stable tail dependence function (STDF).
         \item Rename \code{.p.hat.fun} to \code{.p_hat_fun}.
+        \item Clean R code.
       }
     }
     
