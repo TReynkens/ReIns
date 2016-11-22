@@ -32,7 +32,8 @@
   # Call C++ code
   .Call("ReIns_spliceEM_splicefit_raw_Rexport", pi, theta, shape, beta, gamma,
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, 
-        trunclower, tsplice, truncupper, eps, beta_tol, maxiter)
+        trunclower, tsplice, truncupper, eps, beta_tol, maxiter,
+        PACKAGE = "ReIns")
 }
 
 
@@ -68,7 +69,8 @@
   # Call C++ code
   .Call("ReIns_spliceEM_shape_adj_Rexport", pi, theta, shape, beta, gamma, 
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5,
-        trunclower, tsplice, truncupper, eps, beta_tol, maxiter)
+        trunclower, tsplice, truncupper, eps, beta_tol, maxiter,
+        PACKAGE = "ReIns")
 }
 
 
@@ -102,7 +104,8 @@
   # Call C++ code
   .Call("ReIns_spliceEM_shape_red", pi, theta, shape, beta, gamma, 
         lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, 
-        trunclower, tsplice, truncupper, criterium, improve, eps, beta_tol, maxiter, adj)
+        trunclower, tsplice, truncupper, criterium, improve, eps, beta_tol, maxiter, adj,
+        PACKAGE = "ReIns")
 }
 
 
