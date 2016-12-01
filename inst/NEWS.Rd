@@ -2,7 +2,7 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
-\section{Changes in version 0.7-00 (2016-xx-yy)}{
+\section{Changes in version 0.7.0 (2016-xx-yy)}{
 
     \subsection{Major changes:}{
       \itemize{
@@ -38,9 +38,15 @@
         \item Correct alignment in usage sections of documentation.
       }
     }
+    
+     \subsection{Miscellaneous changes:}{
+      \itemize{
+        \item Change version numbering format.
+      }
+    }
 }
 
-\section{Changes in version 0.6-00 (2016-08-05)}{
+\section{Changes in version 0.6.0 (2016-08-05)}{
 
 
     \subsection{Major changes in \code{R} code:}{
@@ -112,7 +118,7 @@
 }
 
 
-\section{Changes in version 0.5-00 (2015-12-01)}{
+\section{Changes in version 0.5.0 (2015-12-01)}{
     \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Rename \code{SpliceFitHill} to \code{SpliceFitPareto}. \code{SpliceFitHill} is still included for                      compatibility with older versions.
@@ -179,7 +185,7 @@
     }
 }
 
-\section{Changes in version 0.4-00 (2015-09-08)}{
+\section{Changes in version 0.4.0 (2015-09-08)}{
     \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Fix bug with limit \code{L} in \code{ExcessSplice}.
@@ -233,7 +239,7 @@
 }
 
 
-\section{Changes in version 0.3-00 (2015-08-07)}{
+\section{Changes in version 0.3.0 (2015-08-07)}{
     \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Include GPD: \code{dgpd}, \code{pgpd}, \code{qgpd} and \code{rgpd}.
@@ -288,7 +294,7 @@
     }
 }
 
-\section{Changes in version 0.2-00 (2015-05-20)}{
+\section{Changes in version 0.2.0 (2015-05-20)}{
     \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Multiple values for \code{rho} can be provided in \code{EPD}.
