@@ -33,14 +33,15 @@
         \item Change reference of Albrecher et al. from 2016 to 2017.
         \item Update Beirlant, Fraga Alves and Gomes (2016) reference.
         \item Improve documentation of approximations for the CDF.
-        \item Add comment to role of Anastasios Bardoutsos in DESCRIPTION.
         \item Replace \eqn{I} by \eqn{\Pi} as notation for excess-loss premium function.
         \item Correct alignment in usage sections of documentation.
+        \item General check and correction of documentation and vignette.
       }
     }
     
      \subsection{Miscellaneous changes:}{
       \itemize{
+        \item Add comment to role of Anastasios Bardoutsos in DESCRIPTION.
         \item Change version numbering format.
       }
     }
