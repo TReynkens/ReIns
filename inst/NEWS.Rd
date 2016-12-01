@@ -2,7 +2,7 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
-\section{Changes in version 0.7.0 (2016-xx-yy)}{
+\section{Changes in version 0.7.0 (2016-12-01)}{
 
     \subsection{Major changes:}{
       \itemize{
