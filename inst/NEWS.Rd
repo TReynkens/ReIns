@@ -2,6 +2,17 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 0.8.0 (2017-xx-yy)}{
+
+
+   \subsection{Documentation changes:}{
+      \itemize{
+        \item Update Beirlant, Schoutens, De Spiegeleer, Reynkens and Herrmann (2016) reference.
+        }
+    }
+}
+
+
 \section{Changes in version 0.7.0 (2016-12-01)}{
 
     \subsection{Major changes:}{
@@ -29,7 +40,7 @@
     
    \subsection{Documentation changes:}{
       \itemize{
-        \item Update Beirlant, De Spiegeleer, Schoutens, Reynkens and Herrmann (2016) reference.
+        \item Update Beirlant, Schoutens, De Spiegeleer, Reynkens and Herrmann (2016) reference.
         \item Change reference of Albrecher et al. from 2016 to 2017.
         \item Update Beirlant, Fraga Alves and Gomes (2016) reference.
         \item Improve documentation of approximations for the CDF.

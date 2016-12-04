@@ -54,11 +54,10 @@ A list with following components:
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
 
-Beirlant, J., De Spiegeleer, J., Schoutens, W., Reynkens, T. and Herrmann, K. (2016).
-"Hunting for Black Swans in the European Banking Sector using Extreme Value Analysis."
-In: Jan Kallsen and Antonis Papapantoleon (eds.), \emph{Advanced Modeling in Mathematical
-Finance: In honour of Ernst Eberlein}, Springer International Publishing, Switzerland,
-accepted.
+Beirlant, J., Schoutens, W., De Spiegeleer, J., Reynkens, T. and Herrmann, K. (2016).
+"Hunting for Black Swans in the European Banking Sector Using Extreme Value Analysis."
+In: Jan Kallsen and Antonis Papapantoleon (eds.), \emph{Advanced Modelling in Mathematical
+Finance}, Springer International Publishing, Switzerland, pp. 147--166.
 }
 \author{
 Tom Reynkens
