@@ -44,7 +44,7 @@ and where the variable of interest \eqn{X} lies between \eqn{L} and \eqn{R}.
 
 Right censored data should be entered as \code{L=l} and \code{R=truncupper}, and right censored data should be entered as \code{L=trunclower} and \code{R=r}.
 
-This function calls \code{survfit.formula} from \pkg{survival}.
+This function calls \code{\link[survival]{survfit.formula}} from \pkg{survival}.
 
 See Section 4.3.2 in Albrecher et al. (2017) for more details.
 }

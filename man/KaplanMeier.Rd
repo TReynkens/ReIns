@@ -32,7 +32,7 @@ Confidence level of the two-sided confidence interval, see \code{\link[survival]
 We consider the random right censoring model where one observes \eqn{Z = \min(X,C)}
 where \eqn{X} is the variable of interest and \eqn{C} is the censoring variable.
 
-This function is merely a wrapper for \code{survfit.formula} from \pkg{survival}.
+This function is merely a wrapper for \code{\link[survival]{survfit.formula}} from \pkg{survival}.
 
 This estimator is only suitable for right censored data. When the data are interval censored, one can use the Turnbull estimator implemented in \code{\link{Turnbull}}.
 }
