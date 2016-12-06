@@ -8,6 +8,7 @@
    \subsection{Documentation changes:}{
       \itemize{
         \item Update Beirlant, Schoutens, De Spiegeleer, Reynkens and Herrmann (2016) reference.
+        \item Replace * by \code{\\times}.
         }
     }
     

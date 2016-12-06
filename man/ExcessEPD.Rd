@@ -57,7 +57,7 @@ The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{
 where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}. When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
 We estimate \eqn{\Pi} by
-\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) * (X_{n-k,n})^{1/\hat{\gamma}} * ((1-\hat{\kappa}/\hat{\gamma})(1/\hat{\gamma}-1)^{-1}u^{1-1/\hat{\gamma}} + 
+\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) \times (X_{n-k,n})^{1/\hat{\gamma}} \times ((1-\hat{\kappa}/\hat{\gamma})(1/\hat{\gamma}-1)^{-1}u^{1-1/\hat{\gamma}} + 
 \hat{\kappa}/(\hat{\gamma}X_{n-k,n}^{\hat{\tau}})(1/\hat{\gamma}-\hat{\tau}-1)^{-1}u^{1+\hat{\tau}-1/\hat{\gamma}})}
 with \eqn{\hat{\gamma}, \hat{\kappa}} and \eqn{\hat{\tau}} the estimates for the parameters of the EPD.
 

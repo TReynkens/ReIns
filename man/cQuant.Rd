@@ -39,7 +39,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-The quantile is estimated as \deqn{\hat{Q}(1-p)=Z_{n-k,n} * ( (1-km)/p)^{H_{k,n}^c}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c}
+The quantile is estimated as \deqn{\hat{Q}(1-p)=Z_{n-k,n} \times ( (1-km)/p)^{H_{k,n}^c}} with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{H_{k,n}^c}
 the Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}.
 }
 \value{

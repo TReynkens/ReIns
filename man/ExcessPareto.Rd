@@ -58,7 +58,7 @@ The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{
 where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}. When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
 We estimate \eqn{\Pi} (for the untruncated Pareto distribution) by
-\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) / (1/H_{k,n}-1) * (X_{n-k,n}^{1/H_{k,n}} u^{1-1/H_{k,n}}),}
+\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) / (1/H_{k,n}-1) \times (X_{n-k,n}^{1/H_{k,n}} u^{1-1/H_{k,n}}),}
 with \eqn{H_{k,n}} the Hill estimator.
 
 The \code{ExcessHill} function is the same function but with a different name for compatibility with old versions of the package.

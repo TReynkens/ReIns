@@ -54,7 +54,7 @@ The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{
 where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}. When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
 We estimate \eqn{\Pi} by
-\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) * \hat{\sigma}_k/ (1-\hat{\gamma}_k) * (1+\hat{\gamma}_k/\hat{\sigma}_k (u-X_{n-k,n}))^{1-1/\hat{\gamma}_k},}
+\deqn{ \hat{\Pi}(u) = (k+1)/(n+1) \times \hat{\sigma}_k/ (1-\hat{\gamma}_k) \times (1+\hat{\gamma}_k/\hat{\sigma}_k (u-X_{n-k,n}))^{1-1/\hat{\gamma}_k},}
 with \eqn{\hat{\gamma}_k} and \eqn{\hat{\sigma}_k} the estimates for the parameters of the GPD.
 
 See Section 4.6 of Albrecher et al. (2017) for more details.
