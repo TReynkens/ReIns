@@ -10,6 +10,12 @@
         \item Update Beirlant, Schoutens, De Spiegeleer, Reynkens and Herrmann (2016) reference.
         }
     }
+    
+   \subsection{Miscellaneous changes:}{
+      \itemize{
+        \item Add Klaus Herrmann in DESCRIPTION.
+      }
+    }
 }
 
 
