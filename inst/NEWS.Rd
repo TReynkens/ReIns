@@ -15,6 +15,7 @@
    \subsection{Miscellaneous changes:}{
       \itemize{
         \item Add Klaus Herrmann in DESCRIPTION.
+        \item Reformat DESCRIPTION file.
       }
     }
 }

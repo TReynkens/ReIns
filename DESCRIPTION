@@ -1,20 +1,17 @@
 Package: ReIns
-Type: Package
-Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
-Version: 0.7.0.9003
+Version: 0.7.0.9004
 Date: 2016-12-06
+Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
+Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) 
+             of Hansjoerg Albrecher, Jan Beirlant and Jef Teugels.
 Authors@R: c(
-          person("Tom", "Reynkens", email = "tomreynkens@hotmail.com",role = c("aut", "cre")),
-          person("Roel", "Verbelen", role = "aut", comment="R code for Mixed Erlang distribution"),
-          person("Anastasios", "Bardoutsos", role = "ctb", comment="Original R code for cEPD estimator"),
-          person("Dries", "Cornilly", role = "ctb", comment="Original R code for EVT estimators for truncated data"),
-          person("Yuri", "Goegebeur", role = "ctb", comment="Original S-Plus code for basic EVT estimators"),
-          person("Klaus", "Herrmann", role = "ctb", comment="Original R code for GPD estimator"))
+          person("Tom", "Reynkens", email = "tomreynkens@hotmail.com", role = c("aut", "cre")),
+          person("Roel", "Verbelen", role = "aut", comment = "R code for Mixed Erlang distribution"),
+          person("Anastasios", "Bardoutsos", role = "ctb", comment = "Original R code for cEPD estimator"),
+          person("Dries", "Cornilly", role = "ctb", comment = "Original R code for EVT estimators for truncated data"),
+          person("Yuri", "Goegebeur", role = "ctb", comment = "Original S-Plus code for basic EVT estimators"),
+          person("Klaus", "Herrmann", role = "ctb", comment = "Original R code for GPD estimator"))
 Maintainer: Tom Reynkens <tomreynkens@hotmail.com>
-Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) of Hansjoerg Albrecher, Jan Beirlant and Jef Teugels.
-License: GPL (>= 2)
-URL: https://github.com/TReynkens/ReIns
-BugReports: https://github.com/TReynkens/ReIns/issues
 Depends: R (>= 3.1)
 Imports: stats, 
          graphics, 
@@ -30,6 +27,10 @@ Suggests: testthat,
           interval, 
           Icens
 LinkingTo: Rcpp
-NeedsCompilation: yes
+License: GPL (>= 2)
+URL: https://github.com/TReynkens/ReIns
+BugReports: https://github.com/TReynkens/ReIns/issues
 VignetteBuilder: knitr
 Encoding: UTF-8
+NeedsCompilation: yes
+
