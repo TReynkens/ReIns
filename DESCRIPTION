@@ -1,8 +1,8 @@
 Package: ReIns
-Version: 0.7.0.9004
+Version: 0.7.0.9005
 Date: 2016-12-06
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
-Description: Functions and datasets from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) 
+Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) 
              of Hansjoerg Albrecher, Jan Beirlant and Jef Teugels.
 Authors@R: c(
           person("Tom", "Reynkens", email = "tomreynkens@hotmail.com", role = c("aut", "cre")),

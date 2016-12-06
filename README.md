@@ -8,7 +8,7 @@ The *ReIns* package contains functions from the book "Reinsurance: Actuarial and
 
 -   EVT estimators and graphical methods adapted for censored and/or truncated data.
 
--   Splicing of mixed Erlang distributions with EVT distributions (Pareto, GPD).
+-   Splicing of mixed Erlang (ME) distribution with EVT distributions (Pareto, GPD).
 
 -   VaR, expected shortfall and excess-loss premium estimates.
 
