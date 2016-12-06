@@ -20,7 +20,7 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
 }
 }
 \details{ 
-See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2017) for details.
+See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for details.
 
 Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, lower.tail = FALSE)}.
 }

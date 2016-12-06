@@ -61,7 +61,7 @@ We estimate \eqn{\Pi} by
 \hat{\kappa}/(\hat{\gamma}X_{n-k,n}^{\hat{\tau}})(1/\hat{\gamma}-\hat{\tau}-1)^{-1}u^{1+\hat{\tau}-1/\hat{\gamma}})}
 with \eqn{\hat{\gamma}, \hat{\kappa}} and \eqn{\hat{\tau}} the estimates for the parameters of the EPD.
 
-See Section 4.5 of Albrecher et al. (2017) for more details.
+See Section 4.6 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:

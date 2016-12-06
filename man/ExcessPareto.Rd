@@ -63,7 +63,7 @@ with \eqn{H_{k,n}} the Hill estimator.
 
 The \code{ExcessHill} function is the same function but with a different name for compatibility with old versions of the package.
 
-See Section 4.5 of Albrecher et al. (2017) for more details.
+See Section 4.6 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:

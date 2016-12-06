@@ -41,7 +41,7 @@ The Hill estimator adapted for right censored data is equal to the ordinary Hill
 
 This estimator is only suitable for right censored data, use \code{\link{icHill}} for interval censored data.
 
-See Section 4.4.3 of Albrecher et al. (2017) for more details.
+See Section 4.3.2 of Albrecher et al. (2017) for more details.
 }
 \value{
 A list with following components:

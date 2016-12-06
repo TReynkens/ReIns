@@ -27,7 +27,7 @@ where \eqn{\Pi(u)=E((X-u)_+)} is the premium of the excess-loss insurance with r
 If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
 \eqn{TVaR} the Tail Value-at-Risk.
 
-See Reynkens et al. (2016) and Section 4.5 of Albrecher et al. (2017) for more details.
+See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for more details.
 }
 \value{
 Vector with the ES corresponding to each element of \eqn{p}.
