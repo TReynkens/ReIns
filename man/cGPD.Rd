@@ -49,7 +49,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The GPD-MLE estimator for the EVI adapted for right censored data is equal to the ordinary GPD-MLE estimator for the EVI divided by the proportion of the \eqn{k} largest observations that is non-censored. The estimates for \eqn{\sigma} are the ordinary GPD-MLE estimates for \eqn{\sigma}.
 
-This estimator is only suitable for right censored data!
+This estimator is only suitable for right censored data.
 
 \code{cPOT} is the same function but with a different name for compatibility with \code{\link{POT}}.
 }

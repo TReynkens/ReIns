@@ -38,7 +38,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 The moment estimator adapted for right censored data is equal to the ordinary moment estimator divided by the proportion of the \eqn{k} largest observations that is non-censored.
 
-This estimator is only suitable for right censored data!
+This estimator is only suitable for right censored data.
 }
 \value{
 A list with following components:
