@@ -11,7 +11,7 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   if (!is.numeric(X)) stop("X should be a numeric vector.")
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
-  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
+  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", col="blue", ...)
   
   # ECDF estimator
   fit  <- ecdf(X)
@@ -22,11 +22,11 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   # http://stats.stackexchange.com/questions/55500/confidence-intervals-for-empirical-cdf
   n <- length(X)
   eps <- sqrt(1/(2*n)*log(2/alpha))
-  lines(x, est, lty=1, col="red")
-  lines(x, pmax(est-eps, 0), lty=2, col="blue")
-  lines(x, pmin(est+eps, 1), lty=2, col="blue")
+  lines(x, est, lty=1, col="orange")
+  lines(x, pmax(est-eps, 0), lty=2, col="black")
+  lines(x, pmin(est+eps, 1), lty=2, col="black")
   legend("topright", c("Fitted survival function", "Empirical survival function", "95% confidence bounds"),
-         lty=c(1, 1, 2), col=c("black", "red", "blue"))
+         lty=c(1, 1, 2), col=c("blue", "orange", "black"))
 }
 
 # Plot of fitted survival function and Turnbull estimator + confidence intervals
@@ -49,20 +49,20 @@ SpliceTB <- function(x = sort(L), L, U = L, censored, splicefit, alpha = 0.05, .
   }
   
   # Plot fitted survival function
-  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", ...)
+  plot(x, 1-pSplice(x, splicefit=splicefit), type="l", xlab="x", ylab="1-F(x)", col="blue", ...)
   
   
   # Add Turnbull survival function
   tb <- Turnbull(x, L=L, R=U, censored=censored, trunclower=splicefit$trunclower,
                  truncupper=max(splicefit$EVTfit$endpoint), conf.type="plain", conf.int=1-alpha)
-  lines(x, tb$surv, col="red")
+  lines(x, tb$surv, col="orange")
   
   # Add confidence intervals
   fit <- tb$fit
-  lines(fit$time, fit$lower, col = "blue", lty = 2)
-  lines(fit$time, fit$upper, col = "blue", lty = 2)
+  lines(fit$time, fit$lower, col = "black", lty = 2)
+  lines(fit$time, fit$upper, col = "black", lty = 2)
   legend("topright", c("Fitted survival function", "Turnbull estimator", "95% confidence intervals"),
-         lty=c(1, 1, 2), col=c("black", "red", "blue"))
+         lty=c(1, 1, 2), col=c("blue", "orange", "black"))
 }
 
 

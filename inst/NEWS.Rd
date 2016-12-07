@@ -4,6 +4,12 @@
 
 \section{Changes in version 0.8.0 (2017-xx-yy)}{
 
+  \subsection{Changes in \code{C++} code:}{
+      \itemize{
+        \item Change colours of lines in \code{SpliceECDF} and \code{SpliceTB}.
+      }
+    }
+    
     \subsection{Changes in \code{C++} code:}{
       \itemize{
         \item Fix (minor) bug in computation of stable tail dependence function.
