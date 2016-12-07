@@ -738,13 +738,14 @@ List spliceEM_shape_red(const double pi_in, const double theta_in, const Integer
   }
   
   // Compute ICs
-  int df = 2*alpha.size()-1+1+1+1;
+  int M = alpha.size();
+  int df = 2*M-1+1+1+1;
   double aic = -2 * loglikelihood + 2.0 * df;
   double bic = -2 * loglikelihood + log(n) * df;
-  
+
   
   // Make output list
-  List output = Rcpp::List::create(Rcpp::Named("M") = alpha.size(),
+  List output = Rcpp::List::create(Rcpp::Named("M") = M,
                                    Rcpp::Named("pi") = pi,
                                    Rcpp::Named("alpha") = alpha,
                                    Rcpp::Named("beta") = beta,
