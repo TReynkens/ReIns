@@ -30,7 +30,7 @@ double stdf_cpp(const NumericVector &x, const int k, const NumericMatrix &R, con
   double l = 0;
   // Look in each row if at least one element above (or equal to) threshold
   for (int i = 0; i < n; ++i) {
-    l += sum(R.row(i)<threshold)!=d;
+    l += sum(R.row(i)<=threshold)!=d;
   }
   return l / k;
 }
