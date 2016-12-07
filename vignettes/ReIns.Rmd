@@ -383,7 +383,7 @@ We see that the fitted spliced distribution approximates the empirical distribut
 
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Points to look at
-x <- seq(0, 5*10^5, 10^2)
+x <- seq(0, 1*10^5, 10^2)
 
 # Plot of fitted survival function and empirical survival function
 SpliceECDF(x, size, splicefit, ylim=c(0,0.1))
