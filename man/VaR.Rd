@@ -5,7 +5,7 @@
 VaR of splicing fit
 }
 \description{
-Compute Value-at-Risk (\eqn{VaR_p=Q(1-p)}) of the fitted spliced distribution.
+Compute Value-at-Risk (\eqn{VaR_{1-p}=Q(1-p)}) of the fitted spliced distribution.
 }
 \usage{
 VaR(p, splicefit)
@@ -13,7 +13,7 @@ VaR(p, splicefit)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p}{
-The exceedance probability (we estimate \eqn{VaR_p=Q(1-p)}).
+The exceedance probability (we estimate \eqn{VaR_{1-p}=Q(1-p)}).
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
@@ -25,7 +25,7 @@ See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for detail
 Note that \code{VaR(p, splicefit)} corresponds to \code{qSplice(p, splicefit, lower.tail = FALSE)}.
 }
 \value{
-Vector of quantiles \eqn{VaR_p=Q(1-p)}.
+Vector of quantiles \eqn{VaR_{1-p}=Q(1-p)}.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -62,7 +62,7 @@ p <- seq(0,1,0.01)
 plot(p, qSplice(p, splicefit), type="l", xlab="p", ylab="Q(p)")
 
 # Plot of VaR
-plot(p, VaR(p, splicefit), type="l", xlab="p", ylab=bquote(VaR[p]))
+plot(p, VaR(p, splicefit), type="l", xlab="p", ylab=bquote(VaR[1-p]))
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
