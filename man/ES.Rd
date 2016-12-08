@@ -5,7 +5,7 @@
 Expected Shortfall
 }
 \description{
-Compute Expected Shortfall (ES) \eqn{ES_p} of the fitted spliced distribution.
+Compute Expected Shortfall (ES) \eqn{ES_{1-p}} of the fitted spliced distribution.
 }
 \usage{
 ES(p, splicefit)
@@ -13,7 +13,7 @@ ES(p, splicefit)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p}{
-The probability associated with the ES (we estimate  \eqn{ES_p}).
+The probability associated with the ES (we estimate  \eqn{ES_{1-p}}).
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
@@ -21,10 +21,10 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
 }
 \details{
 The Expected Shortfall is defined as
-\deqn{ES_p = E(X | X>Q(1-p)) = E(X | X>VaR_p) = VaR_p + \Pi(VaR_p)/p,}
+\deqn{ES_{1-p} = E(X | X>Q(1-p)) = E(X | X>VaR_{1-p}) = VaR_{1-p} + \Pi(VaR_{1-p})/p,}
 where \eqn{\Pi(u)=E((X-u)_+)} is the premium of the excess-loss insurance with retention u.
 
-If the CDF is continuous in \eqn{p}, we have \eqn{ES_p=TVaR_p= 1/p \int_0^p VaR_s ds} with
+If the CDF is continuous in \eqn{p}, we have \eqn{ES_{1-p}=TVaR_{1-p}= 1/p \int_0^p VaR_{1-s} ds} with
 \eqn{TVaR} the Tail Value-at-Risk.
 
 See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for more details.
@@ -60,6 +60,6 @@ splicefit <- SpliceFitPareto(X, 0.6)
 
 p <- seq(0.01, 0.99, 0.01)
 # Plot of expected shortfall
-plot(p, ES(p, splicefit), type="l", xlab="p", ylab=bquote(ES[p]))
+plot(p, ES(p, splicefit), type="l", xlab="p", ylab=bquote(ES[1-p]))
 }
 }
