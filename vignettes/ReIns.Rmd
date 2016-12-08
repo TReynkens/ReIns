@@ -435,7 +435,7 @@ p <- seq(0, 0.01, 0.0001)
 VaR <- VaR(p, splicefit)
 
 # Plot VaR
-plot(p, VaR, xlab="p", ylab=expression(VaR[p]), type="l")
+plot(p, VaR, xlab="p", ylab=expression(VaR[1-p]), type="l")
 ```
 
 
