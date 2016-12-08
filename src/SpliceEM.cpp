@@ -248,7 +248,7 @@ List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const Int
   double loglikelihood = splice_loglikelihood(x1_dens, x2_dens, c3_probs, c4_probs, c5_probs);
   
   int iteration = 1;
-  double old_loglikelihood = -INFINITY;
+  double old_loglikelihood = R_NegInf;
   
   // Start EM-loop
   
@@ -498,7 +498,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Integer
   int M = beta.size();
 
   int iteration = 1;
-  double before_loglikelihood = -INFINITY;
+  double before_loglikelihood = R_NegInf;
   double after_loglikelihood = loglikelihood;
   double new_loglikelihood;
   

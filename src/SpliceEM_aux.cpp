@@ -206,8 +206,8 @@ double pME(const double x, const double theta, const IntegerVector shape,
   // Truncation
   if (trunclower!= 0 || R_FINITE(truncupper)) {
     
-    double pl = pME(trunclower, theta, shape, alpha, 0, INFINITY);
-    double pu = pME(truncupper, theta, shape, alpha, 0, INFINITY);
+    double pl = pME(trunclower, theta, shape, alpha, 0, R_PosInf);
+    double pu = pME(truncupper, theta, shape, alpha, 0, R_PosInf);
     
     if (x <= trunclower) {
       p = 0;
