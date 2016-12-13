@@ -939,9 +939,10 @@ dSplice <- function(x, splicefit, log = FALSE) {
     } else {
       stop("Invalid type.")
     }
-    # PDF is 0 after endpoint
-    d[x > EVTfit$endpoint[i]] <- 0
   }
+  
+  # PDF is 0 after endpoint
+  d[x > EVTfit$endpoint[l]] <- 0
   
   if (log) d <- log(d)
   
@@ -1009,10 +1010,10 @@ pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
     } else {
       stop("Invalid type.")
     }
-    
-    # CDF is 1 after endpoint
-    p[x >= EVTfit$endpoint[i]] <- 1
   }
+  
+  # CDF is 1 after endpoint
+  p[x >= EVTfit$endpoint[l]] <- 1
   
   if (!lower.tail) p <- 1-p
   

@@ -7,6 +7,8 @@
   \subsection{Changes in \code{R} code:}{
       \itemize{
         \item Change colours of lines in \code{SpliceECDF} and \code{SpliceTB}.
+        \item Fix bug with evaluation of \code{pSplice} in splicing points as reported by William Guevara Alarcon 
+              (Unil).
       }
     }
     
