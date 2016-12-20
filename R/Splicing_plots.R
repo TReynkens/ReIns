@@ -4,7 +4,7 @@
 ###########################################################################
 
 
-# Plot of fitted survival function and ECDF estimator + bounds
+# Plot of fitted survival function and ECDF estimator + bands
 SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   
   # Check if X and x are numeric
@@ -18,14 +18,14 @@ SpliceECDF <- function(x, X, splicefit, alpha = 0.05, ...) {
   # Empirical surivival function
   est <- 1-fit(x)
   
-  # Confidence bounds using Dvoretzky-Kiefer-Wolfowitz inequality
+  # Confidence bands using Dvoretzky-Kiefer-Wolfowitz inequality
   # http://stats.stackexchange.com/questions/55500/confidence-intervals-for-empirical-cdf
   n <- length(X)
   eps <- sqrt(1/(2*n)*log(2/alpha))
   lines(x, est, lty=1, col="orange")
   lines(x, pmax(est-eps, 0), lty=2, col="black")
   lines(x, pmin(est+eps, 1), lty=2, col="black")
-  legend("topright", c("Fitted survival function", "Empirical survival function", "95% confidence bounds"),
+  legend("topright", c("Fitted survival function", "Empirical survival function", "95% confidence bands"),
          lty=c(1, 1, 2), col=c("blue", "orange", "black"))
 }
 

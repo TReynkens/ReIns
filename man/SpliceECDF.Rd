@@ -6,7 +6,7 @@ Plot of fitted and empirical survival function
 }
 \description{
 This function plots the fitted survival function of the spliced distribution together with the
-empirical survival function (determined using the Empirical CDF (ECDF)). Moreover, \eqn{100(1-\alpha)\%} confidence bounds are added.
+empirical survival function (determined using the Empirical CDF (ECDF)). Moreover, \eqn{100(1-\alpha)\%} confidence bands are added.
 }
 \usage{
 SpliceECDF(x, X, splicefit, alpha = 0.05, ...)
@@ -23,7 +23,7 @@ Data used for fitting the distribution.
 A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}} or \code{\link{SpliceFitGPD}}.
 }
   \item{alpha}{
-\eqn{100(1-\alpha)\%} is the confidence level for the confidence bounds.  Default is \eqn{\alpha=0.05}.
+\eqn{100(1-\alpha)\%} is the confidence level for the confidence bands.  Default is \eqn{\alpha=0.05}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
@@ -32,7 +32,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 \details{
 Use \code{\link{SpliceTB}} for censored data. 
 
-Confidence bounds are determined using the Dvoretzky-Kiefer-Wolfowitz inequality (Massart, 1990).
+Confidence bands are determined using the Dvoretzky-Kiefer-Wolfowitz inequality (Massart, 1990).
 
 See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more details.
 }
