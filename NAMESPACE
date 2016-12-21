@@ -118,7 +118,7 @@ S3method(tex, SpliceFit)
 
 export("ExcessPareto", "ExcessHill", "ExcessEPD", "ExcessGPD")
 export("ExcessSplice")
-export("VaR", "CTE")
+export("VaR", "CTE", "ES")
 
 ######################################
 # Approximations

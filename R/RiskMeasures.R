@@ -607,6 +607,13 @@ CTE <- function(p, splicefit) {
   return(cte)
 }
 
-
-
+# Old function
+ES <- function(p, splicefit) {
+  
+  # Issue warning that this function is deprecated
+  .Deprecated("CTE", old="ES")
+  
+  # Call CTE function
+  return(CTE(p=p, splicefit=splicefit))
+}
 

@@ -1,5 +1,6 @@
 \name{CTE}
 \alias{CTE}
+\alias{ES}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Conditional Tail Expectation
@@ -9,6 +10,8 @@ Compute Conditional Tail Expectation (CTE) \eqn{CTE_{1-p}} of the fitted spliced
 }
 \usage{
 CTE(p, splicefit)
+
+ES(p, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +31,8 @@ If the CDF is continuous in \eqn{p}, we have \eqn{CTE_{1-p}=TVaR_{1-p}= 1/p \int
 \eqn{TVaR} the Tail Value-at-Risk.
 
 See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for more details.
+
+The \code{ES} function is the same function as \code{CTE} but is deprecated. 
 }
 \value{
 Vector with the CTE corresponding to each element of \eqn{p}.
