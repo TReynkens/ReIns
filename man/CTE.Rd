@@ -1,36 +1,36 @@
-\name{ES}
-\alias{ES}
+\name{CTE}
+\alias{CTE}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Expected Shortfall
+Conditional Tail Expectation
 }
 \description{
-Compute Expected Shortfall (ES) \eqn{ES_{1-p}} of the fitted spliced distribution.
+Compute Conditional Tail Expectation (CTE) \eqn{CTE_{1-p}} of the fitted spliced distribution.
 }
 \usage{
-ES(p, splicefit)
+CTE(p, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p}{
-The probability associated with the ES (we estimate  \eqn{ES_{1-p}}).
+The probability associated with the CTE (we estimate  \eqn{CTE_{1-p}}).
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
 }
 }
 \details{
-The Expected Shortfall is defined as
-\deqn{ES_{1-p} = E(X | X>Q(1-p)) = E(X | X>VaR_{1-p}) = VaR_{1-p} + \Pi(VaR_{1-p})/p,}
+The Conditional Tail Expectation is defined as
+\deqn{CTE_{1-p} = E(X | X>Q(1-p)) = E(X | X>VaR_{1-p}) = VaR_{1-p} + \Pi(VaR_{1-p})/p,}
 where \eqn{\Pi(u)=E((X-u)_+)} is the premium of the excess-loss insurance with retention u.
 
-If the CDF is continuous in \eqn{p}, we have \eqn{ES_{1-p}=TVaR_{1-p}= 1/p \int_0^p VaR_{1-s} ds} with
+If the CDF is continuous in \eqn{p}, we have \eqn{CTE_{1-p}=TVaR_{1-p}= 1/p \int_0^p VaR_{1-s} ds} with
 \eqn{TVaR} the Tail Value-at-Risk.
 
 See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for more details.
 }
 \value{
-Vector with the ES corresponding to each element of \eqn{p}.
+Vector with the CTE corresponding to each element of \eqn{p}.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.
@@ -59,7 +59,7 @@ X <- rpareto(1000, shape = 2)
 splicefit <- SpliceFitPareto(X, 0.6)
 
 p <- seq(0.01, 0.99, 0.01)
-# Plot of expected shortfall
-plot(p, ES(p, splicefit), type="l", xlab="p", ylab=bquote(ES[1-p]))
+# Plot of CTE
+plot(p, CTE(p, splicefit), type="l", xlab="p", ylab=bquote(CTE[1-p]))
 }
 }

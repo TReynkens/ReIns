@@ -53,7 +53,7 @@ It contains implementations of
 
 * Splicing of mixed Erlang distributions with EVT distributions (Pareto, GPD).
 
-* VaR, expected shortfall and excess-loss premium estimates.
+* Value-at-Risk (VaR), Conditional Tail Expectation (CTE) and excess-loss premium estimates.
 
 This vignette describes how to use the most important functions of the package.
 We split this into several sections: *[datasets](#datasets), [graphical methods](#graphical-methods), [estimators of the extreme value index](#estimators-of-the-evi), [estimators of quantiles and return periods](#estimators-of-quantiles-and-return-periods), [censored data](#censored-data), [global fits using splicing](#global-fits-using-splicing), [risk measures](#risk-measures), [distributions](#distributions)* and *[approximations of the distribution function](#approximations-of-the-distribution-function)*.
@@ -401,7 +401,7 @@ SpliceQQ(size, splicefit)
 # Risk measures
 
 Using the fitted spliced distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
-Expected Shortfall (ES). Moreover, data can be simulated from the spliced distribution. See Section 4.5 in Albrecher et al. (2017) for more details.
+Conditional Tail Expectation (CTE). Moreover, data can be simulated from the spliced distribution. See Section 4.5 in Albrecher et al. (2017) for more details.
 
 
 ## Excess-loss premiums
@@ -439,19 +439,19 @@ plot(p, VaR, xlab="p", ylab=expression(VaR[1-p]), type="l")
 ```
 
 
-## Expected shortfall
-In recent years, the **Expected Shortfall** (`ES`) is gaining importance. It is the conditional expectation of the data
+## Conditional Tail Expectation
+In recent years, the **Conditional Tail Expectation** (`CTE`) is gaining importance. It is the conditional expectation of the data
 above a certain VaR. It is therefore always a larger than the corresponding VaR.
-When the CDF is continuous, which is the case for the ME-Pa and ME-GPD splicing models, the ES is equal to the Tail Value-at-Risk (TVaR).
+When the CDF is continuous, which is the case for the ME-Pa and ME-GPD splicing models, the CTE is equal to the Tail Value-at-Risk (TVaR).
 ```{r, fig.width=5, fig.height=3.5, fig.align='center'}
 # Small values for p
 p <- seq(0.0001, 0.01, 0.0001)
 
-# ES
-es <- ES(p, splicefit)
+# CTE
+cte <- CTE(p, splicefit)
 
-# Plot ES
-plot(p, es, xlab="p", ylab=expression(ES[1-p]), type="l")
+# Plot CTE
+plot(p, cte, xlab="p", ylab=expression(CTE[1-p]), type="l")
 ```
 
 

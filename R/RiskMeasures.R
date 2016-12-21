@@ -1,6 +1,6 @@
 
 # This file contains implementations of the risk measures: excess-loss premiums (for the splicing model
-# and several EVT models), and Value-at-Risk (VaR) and Expected Shortfall (ES) for the splicing model.
+# and several EVT models), and Value-at-Risk (VaR) and Conditional Tail Expectation (CTE) for the splicing model.
 
 ###########################################################################
 
@@ -583,8 +583,8 @@ VaR <- function(p, splicefit) {
 }
 
 
-# Expected Shortfall (ES)
-ES <- function(p, splicefit) {
+# Conditional Tail Expectation (CTE)
+CTE <- function(p, splicefit) {
   
   
   # Check input
@@ -601,10 +601,10 @@ ES <- function(p, splicefit) {
   # VaR
   VaR <- VaR(p=p, splicefit=splicefit)
 
-  # ES
-  es <-  VaR + 1/p * ExcessSplice(VaR, splicefit=splicefit)
+  # CTE
+  cte <-  VaR + 1/p * ExcessSplice(VaR, splicefit=splicefit)
     
-  return(es)
+  return(cte)
 }
 
 

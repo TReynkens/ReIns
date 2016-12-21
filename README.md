@@ -10,7 +10,7 @@ The *ReIns* package contains functions from the book "Reinsurance: Actuarial and
 
 -   Splicing of mixed Erlang (ME) distribution with EVT distributions (Pareto, GPD).
 
--   VaR, expected shortfall and excess-loss premium estimates.
+-   Value-at-Risk (VaR), Conditional Tail Expectation (CTE) and excess-loss premium estimates.
 
 You can install the latest development version of *ReIns* from GitHub. If you work on Windows, make sure first that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed. Then, install the latest development version of *ReIns* using
 
