@@ -84,7 +84,7 @@ MeanExcess_TB <- function(L, U = L, censored, trunclower = 0, truncupper = Inf,
       ind_r <- length(x) - findInterval(-r, -rev(x))
       #ind_r = findInterval(r, x)
       
-      if (r < x[1]) r <- x[1]
+      #if (r < x[1]) r <- x[1]
       
       # Slope and intercept of function in interval containing r
       if (ind_r == 0) {
@@ -265,7 +265,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
       ind_r <- length(x) - findInterval(-r, -rev(x))
       #ind_r = findInterval(r, x)
       
-      if (r < x[1]) r <- x[1]
+      #if (r < x[1]) r <- x[1]
       
       
       # Slope and intercept of function in interval containing r
@@ -367,7 +367,7 @@ icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf,
     ind_r <- length(x) - findInterval(-r, -rev(x))
     #ind_r = findInterval(r, x)
     
-    if (r < x[1]) r <- x[1]
+    #if (r < x[1]) r <- x[1]
     
     
     # Slope and intercept of function in interval containing r
