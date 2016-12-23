@@ -401,7 +401,7 @@ SpliceQQ(size, splicefit)
 # Risk measures
 
 Using the fitted spliced distribution, one can compute estimates for excess-loss premiums, Value-at-Risk (VaR) and
-Conditional Tail Expectation (CTE). Moreover, data can be simulated from the spliced distribution. See Section 4.5 in Albrecher et al. (2017) for more details.
+Conditional Tail Expectation (CTE). Moreover, data can be simulated from the spliced distribution. See Section 4.6 in Albrecher et al. (2017) for more details.
 
 
 ## Excess-loss premiums
