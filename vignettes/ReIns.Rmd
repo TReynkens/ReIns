@@ -75,7 +75,7 @@ year <- norwegianfire$year + 1900
 # Claim size
 size <- norwegianfire$size
 
-# Plot norwegian fire insurance data per year
+# Plot Norwegian fire insurance data per year
 plot(year, size, xlab="Year", ylab="Size")
 ```
 
