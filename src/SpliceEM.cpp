@@ -433,7 +433,7 @@ List spliceEM_splicefit_raw(const double pi_in, const double theta_in, const Int
   // Compute ICs
   int df = 2*alpha.size()-1+1+1+1;
   double aic = -2 * loglikelihood + 2.0 * df;
-  double bic = -2 * loglikelihood + log(n) * df;
+  double bic = -2 * loglikelihood + std::log(n*1.0) * df;
   
   
   // Make output list
@@ -617,7 +617,7 @@ List spliceEM_shape_adj(const double pi_in, const double theta_in, const Integer
   int df = 2*alpha.size()-1+1+1+1;
   double aic = -2 * loglikelihood + 2.0 * df;
   int n = lower1.size() + lower2.size() + lower3.size() + lower4.size() + lower5.size();
-  double bic = -2 * loglikelihood + log(n) * df;
+  double bic = -2 * loglikelihood + std::log(n*1.0) * df;
   
   
   // Make output list
@@ -741,7 +741,7 @@ List spliceEM_shape_red(const double pi_in, const double theta_in, const Integer
   int M = alpha.size();
   int df = 2*M-1+1+1+1;
   double aic = -2 * loglikelihood + 2.0 * df;
-  double bic = -2 * loglikelihood + log(n) * df;
+  double bic = -2 * loglikelihood + std::log(n*1.0) * df;
 
   
   // Make output list
