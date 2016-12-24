@@ -89,7 +89,7 @@ double f_theta_der(const double ltheta, const double br_sum, const NumericVector
       dCtheta2 = shape[j] * log(trunclower) - trunclower / theta - 2 * dCtheta_tmp1;
       dCtheta3 = shape[j] * log(tsplice) - tsplice / theta - 2 * dCtheta_tmp1;
 
-      dCtheta_tmp2 = exp(log(shape[j]-1) + R::lgammafn(shape[j]) + (shape[j]-2) * log(theta)  + log(FE_t - FE_tl));
+      dCtheta_tmp2 = exp(log(shape[j]-1.0) + R::lgammafn(shape[j]) + (shape[j]-2) * log(theta)  + log(FE_t - FE_tl));
       dCtheta_tmp2 += exp(shape[j] * log(trunclower)  - trunclower / theta - 2 * log(theta)) - exp(shape[j] * log(tsplice) - tsplice / theta - 2 * log(theta));
 
       dCtheta2 = (exp(dCtheta2) - exp(dCtheta3)) * dCtheta_tmp2;
@@ -122,7 +122,7 @@ double f_theta_der(const double ltheta, const double br_sum, const NumericVector
       dCtheta_tmp1 = (shape[j]-1) * log(theta) +  R::lgammafn(shape[j]) + log(1 - FE_tl);
       dCtheta2 = shape[j] * log(trunclower) - trunclower / theta - 2 * dCtheta_tmp1;
 
-      dCtheta_tmp2 = exp(log(shape[j]-1) + R::lgammafn(shape[j]) + (shape[j]-2) * log(theta)  + log(1 - FE_tl));
+      dCtheta_tmp2 = exp(log(shape[j]-1.0) + R::lgammafn(shape[j]) + (shape[j]-2) * log(theta)  + log(1 - FE_tl));
       dCtheta_tmp2 += exp(shape[j] * log(trunclower)  - trunclower / theta - 2 * log(theta));
 
       dCtheta2 = exp(dCtheta2) * dCtheta_tmp2;
