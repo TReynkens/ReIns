@@ -2,7 +2,7 @@
 ReIns
 =====
 
-The *ReIns* package contains functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjörg Albrecher, Jan Beirlant and Jef Teugels. It contains implementations of
+The *ReIns* package contains functions from the book "Reinsurance: Actuarial and Statistical Aspects" (Wiley, 2017) by Hansjörg Albrecher, Jan Beirlant and Jef Teugels. It contains implementations of
 
 -   Basic extreme value theory (EVT) estimators and graphical methods as described in "Statistics of Extremes: Theory and Applications" (2004) of Jan Beirlant, Yuri Goegebeur, Johan Segers and Jef Teugels.
 
