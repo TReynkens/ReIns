@@ -2,6 +2,14 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 1.0.2 (2017-yy-xx)}{
+
+ \itemize{
+    \item \code{C++}: register native symbols and disable symbol search (as requested by NOTE in R CMD check).
+ }
+}
+
+
 
 \section{Changes in version 1.0.1 (2016-12-26)}{
 
