@@ -1,5 +1,5 @@
 # Make C code recognisable
-useDynLib("ReIns", .registration=TRUE)
+useDynLib("ReIns")
 
 importFrom("stats", "approxfun", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dweibull", "ecdf", "knots",
             "nlm", "optim", "optimise", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", 
