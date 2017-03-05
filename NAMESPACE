@@ -101,6 +101,10 @@ export("trHill", "trDT", "trEndpoint", "trQuant", "trQuantW", "trProb")
 export("trTest")
 export("trParetoQQ")
 
+export("trMLE", "trDTMLE", "trEndpointMLE", "trQuantMLE", "trProbMLE")
+export("trTestMLE")
+
+
 #####################################
 # Splicing
 

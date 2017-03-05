@@ -67,7 +67,7 @@ Tom Reynkens.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{trHill}}
+\code{\link{trHill}}, \code{\link{trTestMLE}}
 }
 \examples{
 # Sample from truncated Pareto distribution.

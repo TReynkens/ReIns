@@ -6,7 +6,7 @@
 Estimator of large quantiles using truncated Hill
 }
 \description{
-\code{trQuant} computes estimates of large quantiles \eqn{Q(1-p)} of the truncated data using the estimates for the EVI obtained from the Hill estimator adapted for upper truncation. \code{trQuantW} computes estimates of large quantiles \eqn{Q_W(1-p)} of the original data \eqn{W} which is unobserved.
+\code{trQuant} computes estimates of large quantiles \eqn{Q(1-p)} of the truncated distribution using the estimates for the EVI obtained from the Hill estimator adapted for upper truncation. \code{trQuantW} computes estimates of large quantiles \eqn{Q_W(1-p)} of the parent distribution \eqn{W} which is unobserved.
 }
 \usage{
 trQuant(data, r = 1, rough = TRUE, gamma, DT, p, plot = FALSE, add = FALSE, 
@@ -85,7 +85,7 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{trHill}}, \code{\link{trDT}}, \code{\link{trProb}}, \code{\link{trEndpoint}}, \code{\link{trTest}}, \code{\link{Quant}}
+\code{\link{trHill}}, \code{\link{trDT}}, \code{\link{trProb}}, \code{\link{trEndpoint}}, \code{\link{trTest}}, \code{\link{Quant}}, \code{\link{trQuantMLE}}
 }
 \examples{
 # Sample from truncated Pareto distribution.

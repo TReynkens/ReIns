@@ -5,7 +5,7 @@
 Truncation odds
 }
 \description{
-Estimates of truncation odds of the truncated probability mass under the untruncated distribution.
+Estimates of truncation odds of the truncated probability mass under the untruncated distribution using truncated Hill.
 }
 \usage{
 trDT(data, r = 1, gamma, plot = FALSE, add = FALSE, main = "Estimates of DT", ...)
@@ -59,7 +59,7 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 }
 
 \seealso{
-\code{\link{trHill}}, \code{\link{trEndpoint}}, \code{\link{trQuant}}
+\code{\link{trHill}}, \code{\link{trEndpoint}}, \code{\link{trQuant}}, \code{\link{trDTMLE}}
 }
 \examples{
 # Sample from truncated Pareto distribution.
@@ -70,6 +70,6 @@ X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 # Truncated Hill estimator
 trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 
-# truncation odds
+# Truncation odds
 dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,0.05))
 }

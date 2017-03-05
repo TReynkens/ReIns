@@ -77,7 +77,7 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{Hill}}, \code{\link{trDT}}, \code{\link{trEndpoint}}, \code{\link{trProb}}, \code{\link{trQuant}}
+\code{\link{Hill}}, \code{\link{trDT}}, \code{\link{trEndpoint}}, \code{\link{trProb}}, \code{\link{trQuant}}, \code{\link{trMLE}}
 }
 \examples{
 # Sample from truncated Pareto distribution.

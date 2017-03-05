@@ -57,7 +57,7 @@ Tom Reynkens based on \code{R} code of Dries Cornilly.
 }
 
 \seealso{
-\code{\link{trHill}}, \code{\link{trDT}}
+\code{\link{trHill}}, \code{\link{trDT}}, \code{\link{trEndpointMLE}}
 }
 \examples{
 # Sample from truncated Pareto distribution.
