@@ -30,7 +30,7 @@ Logical indicating if rough truncation is present, default is \code{TRUE}.
 Vector of \eqn{n-1} estimates for the EVI obtained from \code{\link{trHill}}.
 }
 \item{DT}{
-Vector of \eqn{n-1} estimates for the odds ratio obtained from \code{\link{trDT}}.
+Vector of \eqn{n-1} estimates for the truncation odds obtained from \code{\link{trDT}}.
 }
   \item{p}{
 The exceedance probability of the quantile (we estimate \eqn{Q(1-p)} for \eqn{p} small).
@@ -53,7 +53,7 @@ We observe the truncated r.v. \eqn{X=W | W<T} where \eqn{T} is the truncation po
 
 Under rough truncation, the quantiles for \eqn{X} are estimated using
 \deqn{\hat{Q}(1-p)=X_{n-k,n}  ((\hat{D}_T + (k+1)/(n+1))/(\hat{D}_T+p))^{\hat{\gamma}_k},}
-with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation and \eqn{\hat{D}_T} the estimates for the odds ratio.
+with \eqn{\hat{\gamma}_k} the Hill estimates adapted for truncation and \eqn{\hat{D}_T} the estimates for the truncation odds.
 
 Under light truncation, the quantiles are estimated using the Weissman estimator with the Hill estimates replaced
 by the truncated Hill estimates:
@@ -96,7 +96,7 @@ X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 # Truncated Hill estimator
 trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 
-# Odds ratio
+# Truncation odds
 dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,2))
 
 # Large quantile

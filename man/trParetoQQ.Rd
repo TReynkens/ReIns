@@ -19,7 +19,7 @@ trParetoQQ(data, r = 1, DT, kstar = NULL, plot = TRUE, main = "TPa QQ-plot", ...
 Trimming parameter, default is \code{1} (no trimming).
 }
 \item{DT}{
-Vector of \eqn{n-1} estimates for the odds ratio \eqn{D_T} obtained from \code{\link{trDT}}.
+Vector of \eqn{n-1} estimates for the truncation odds \eqn{D_T} obtained from \code{\link{trDT}}.
 }
   \item{kstar}{
 Value for \eqn{k} used to construct the plot. When \code{NULL} (default), a value will be chosen by maximising the
@@ -84,7 +84,7 @@ ParetoQQ(X)
 # Truncated Hill estimates
 gamma <- trHill(X)$gamma
 
-# Estimates for odds ratio
+# Estimates for truncation odds
 dt <- trDT(X, gamma=gamma)$DT
 
 # Truncated Pareto QQ-plot
