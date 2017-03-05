@@ -71,5 +71,5 @@ X <- rtpareto(n=1000, shape=shape, endpoint=qpareto(0.99, shape=shape))
 trh <- trHill(X, plot=TRUE, ylim=c(0,2))
 
 # truncation odds
-dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,2))
+dt <- trDT(X, gamma=trh$gamma, plot=TRUE, ylim=c(0,0.05))
 }
