@@ -7,7 +7,6 @@ trMLE <- function(data, start = c(1,1), eps = 10^(-10),
   n <- length(X)
   gamma <- numeric(n)
   tau <- numeric(n)
-  beta <- numeric(n)
   K <- 1:(n-1)
   
   # Convergence indicator
@@ -76,7 +75,7 @@ trMLE <- function(data, start = c(1,1), eps = 10^(-10),
 
 
 
-# Estimator for odds ratio
+# Estimator for truncation odds
 trDTMLE <- function(data, gamma, tau, plot = FALSE, add = FALSE, main = "Estimates of DT", ...) {
   
   X <- sort(data)
@@ -85,7 +84,7 @@ trDTMLE <- function(data, gamma, tau, plot = FALSE, add = FALSE, main = "Estimat
   
   E <- X[n] - X[n-K]
   
-  # Formula 17
+  # Formula 19
   DT <- pmax(0, K/n * ((1+tau[K]*E)^(-1/gamma[K])-1/K) / (1-(1+tau[K]*E)^(-1/gamma[K])))
   
   ### plots if TRUE  
@@ -106,12 +105,12 @@ trQuantMLE <- function(data, gamma, tau, DT, p, Y = FALSE, plot = FALSE, add = F
   
   if (Y) {
     
-    # Quantile of Y, formula 19
+    # Quantile of Y, formula 23
     Q <- X[n-K] + 1/tau[K] * (((DT[K]+K/n) / (p*(DT[K]+1)))^(gamma[K]) - 1)
     
   } else {
     
-    # Quantile of X, formula 18
+    # Quantile of X, formula 20
     Q <- X[n-K] + 1/tau[K] * (((DT[K]+K/n) / (DT[K]+p))^(gamma[K]) - 1)
     
   }
@@ -134,7 +133,7 @@ trEndpointMLE <- function(data, gamma, tau, plot = FALSE, add = FALSE, main = "E
   
   
   a <- (1+tau[K]*(X[n]-X[n-K]))^(-1/gamma[K])
-  # Quantile of X, formula 18
+  # Formula 21
   Tn <- X[n-K] + 1/tau[K] * (((1-1/K) / (a-1/K))^(gamma[K]) - 1)
 
   ### plots if TRUE  

@@ -39,7 +39,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 We compute the MLE for the \eqn{\gamma} and \eqn{\sigma} parameters of the truncated GPD.
 For numerical reasons, we compute the MLE for \eqn{\tau=\gamma/\sigma} and transform this estimate to \eqn{\sigma}.
 
-The equation that needs maximised is
+The log-likelihood is given by
 \deqn{(k-1) \ln \tau - (k-1) \ln \xi- ( 1 + 1/\xi)\sum_{j=2}^k \ln (1+\tau E_{j,k}) -(k-1) \ln( 1- (1+ \tau E_{1,k})^{-1/\xi})}
 with \eqn{E_{j,k} = X_{n-j+1,n}-X_{n-k,n}}.
 

@@ -45,7 +45,7 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 }
 }
 \details{
-We observe the truncated r.v. \eqn{X=Y | Y<T} where \eqn{T} is the truncation point and \eqn{Y} the untruncated r.v.
+We observe the truncated r.v. \eqn{X=_d Y | Y<T} where \eqn{T} is the truncation point and \eqn{Y} the untruncated r.v.
 
 Under rough truncation, the quantiles for \eqn{X} are estimated using
 \deqn{\hat{Q}_{T,k}(1-p) = X_{n-k,n} +1/(\hat{\tau}_k)([(\hat{D}_{T,k} + (k+1)/(n+1))/(\hat{D}_{T,k}+p)]^{\hat{\xi}_k} -1),}
