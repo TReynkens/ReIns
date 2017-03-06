@@ -70,4 +70,5 @@ trmle <- trMLE(X, plot=TRUE, ylim=c(0,2))
 
 # Endpoint
 trEndpointMLE(X, gamma=trmle$gamma, tau=trmle$tau, plot=TRUE, ylim=c(0,50))
+abline(h=qgpd(0.99, gamma=gamma, sigma=sigma), lty=2)
 }
