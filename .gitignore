@@ -17,6 +17,3 @@ inst/doc
 src/*.o
 # dll file
 src/*.dll
-# Rcpp export files
-src/RcppExports.cpp
-R/RcppExports.R
