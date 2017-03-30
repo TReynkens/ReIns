@@ -7,6 +7,8 @@
 
  \itemize{
     \item Add estimators from Beirlant et al. (2017) that can handle truncated distributions with \eqn{\gamma>-0.5}.
+    \item \code{C++}: use output from \code{package_native_routine_registration_skeleton()} (\pkg{tools}) to 
+                      register symbols and disable symbol search.
  }
 }
 
