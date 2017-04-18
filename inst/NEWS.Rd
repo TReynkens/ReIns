@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 
 
-\section{Changes in version 1.0.3 (2017-yy-xx)}{
+\section{Changes in version 1.0.3 (2017-04-18)}{
 
  \itemize{
     \item Add estimators from Beirlant et al. (2017) that can handle truncated distributions with \eqn{\gamma>-0.5}.
