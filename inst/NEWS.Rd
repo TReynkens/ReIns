@@ -3,6 +3,14 @@
 \encoding{UTF-8}
 
 
+\section{Changes in version 1.0.4 (2017-yy-xx)}{
+
+ \itemize{
+    \item Remove unnecessary capitals in plot labels.
+ }
+}
+
+
 \section{Changes in version 1.0.3 (2017-04-18)}{
 
  \itemize{

@@ -24,7 +24,7 @@ ExpQQ <- function(data, plot = TRUE, main = "Exponential QQ-plot", ...) {
   
   # plots if TRUE
   
-  .plotfun(eqq.the, eqq.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="X", 
+  .plotfun(eqq.the, eqq.emp, type="p", xlab="Quantiles of standard exponential", ylab="X", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles eqq.the and empirical quantiles eqq.emp
@@ -96,7 +96,7 @@ ParetoQQ <- function(data, plot = TRUE, main = "Pareto QQ-plot", ...) {
   pqq.emp <- log(X)
   
   # plots if TRUE
-	.plotfun(pqq.the, pqq.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="log(X)", 
+	.plotfun(pqq.the, pqq.emp, type="p", xlab="Quantiles of standard exponential", ylab="log(X)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles pqq.the and empirical quantiles pqq.emp
@@ -153,7 +153,7 @@ LognormalQQ <- function(data, plot = TRUE, main = "Log-normal QQ-plot", ...) {
   lnqq.emp <- log(X)
   
   # plots if TRUE
-  .plotfun(lnqq.the, lnqq.emp, type="p", xlab="Quantiles of Standard Normal", ylab="log(X)", 
+  .plotfun(lnqq.the, lnqq.emp, type="p", xlab="Quantiles of standard normal", ylab="log(X)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles lnqq.the and empirical quantiles lnqq.emp
@@ -209,7 +209,7 @@ WeibullQQ <- function(data, plot = TRUE, main = "Weibull QQ-plot", ...) {
   wqq.emp <- log(X)
   
   # plots if TRUE
-  .plotfun(wqq.the, wqq.emp, type="p", xlab="Quantiles of Standard Weibull", ylab="log(X)", 
+  .plotfun(wqq.the, wqq.emp, type="p", xlab="Quantiles of standard Weibull", ylab="log(X)", 
            main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles wqq.the and empirical quantiles wqq.emp
@@ -275,7 +275,7 @@ genQQ <- function(data, gamma, plot = TRUE, main = "Generalised QQ-plot", ...) {
   
   
   # plots if TRUE
-  .plotfun(gqq.the[K], gqq.emp[K], type="p", xlab="Quantiles of Standard Exponential", ylab="log(UH)", 
+  .plotfun(gqq.the[K], gqq.emp[K], type="p", xlab="Quantiles of standard exponential", ylab="log(UH)", 
           main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles gqq.the

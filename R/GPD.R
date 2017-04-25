@@ -257,7 +257,7 @@ GPDresiduals <- function(data, t, gamma, sigma, plot = TRUE, main = "GPD residua
   
   
   # plots if TRUE
-  .plotfun(res.the, res.emp, type="p", xlab="Quantiles of Standard Exponential", ylab="R", 
+  .plotfun(res.the, res.emp, type="p", xlab="Quantiles of standard exponential", ylab="R", 
            main=main, plot=plot, add=FALSE, ...)
   
   # output list with theoretical quantiles gqq.the
