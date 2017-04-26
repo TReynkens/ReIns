@@ -83,8 +83,8 @@ SplicePP <- function(X, splicefit, x = sort(X), log = FALSE, plot = TRUE, main =
     spp.the <- -log(1-pSplice(x[ind], splicefit=splicefit))
     spp.emp <- -log(est[ind])
     .plotfun(spp.emp, spp.the, type="p",
-             xlab="-log(Empirical survival probability)",
-             ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
+             xlab="-log(empirical survival probability)",
+             ylab="-log(fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
     spp.the <- 1-pSplice(x, splicefit=splicefit)
@@ -157,7 +157,7 @@ SplicePP_TB <- function(L, U = L, censored, splicefit, x = NULL, log = FALSE, pl
     spp.emp <- -log(surv[ind])
     .plotfun(spp.emp, spp.the, type="p",
              xlab="-log(Turnbull survival probability)",
-             ylab="-log(Fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
+             ylab="-log(fitted survival probability)", plot=plot, add=FALSE, main=main, ...)
     
   } else {
     spp.the <- 1-pSplice(x, splicefit=splicefit)
