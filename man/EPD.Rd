@@ -9,7 +9,7 @@ Fit the Extended Pareto Distribution (GPD) to the exceedances (peaks) over a thr
 }
 \usage{
 EPD(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE, 
-    logk = FALSE, plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...)
+    logk = FALSE, plot = FALSE, add = FALSE, main = "EPD estimates of the EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,7 +41,7 @@ Logical indicating if the estimates of \eqn{\gamma} should be plotted as a funct
 Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"EPD estimates of EVI"}.
+Title for the plot, default is \code{"EPD estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

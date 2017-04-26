@@ -10,10 +10,10 @@ Computes ML estimates of fitting GPD to peaks over a threshold adapted for right
 }
 \usage{
 cGPDmle(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
-        plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
+        plot = FALSE, add = FALSE, main = "POT estimates of the EVI", ...)
       
 cPOT(data, censored, start = c(0.1,1), warnings = FALSE, logk = FALSE, 
-     plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...)
+     plot = FALSE, add = FALSE, main = "POT estimates of the EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,7 +40,7 @@ Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a fun
 Logical indicating if the estimates of \eqn{\gamma_1} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"POT estimates of EVI"}.
+Title for the plot, default is \code{"POT estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

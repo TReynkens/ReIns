@@ -6,7 +6,7 @@
 
 # Estimation of extreme value index of truncated Pareto model
 trHill <- function(data, r = 1, tol = 1e-8, maxiter = 100, logk = FALSE, plot = FALSE, add = FALSE, 
-                         main="Estimates of EVI", ...) {
+                         main="Estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)

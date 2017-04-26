@@ -13,7 +13,7 @@
 # plot
 
 
-Moment <- function(data, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
+Moment <- function(data, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)

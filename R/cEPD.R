@@ -55,7 +55,7 @@
 # when strictly positive or (a) choice(s) for rho if negative
 
 cEPD <- function(data, censored, rho = -1, beta = NULL, logk = FALSE, plot = FALSE, add = FALSE, 
-                 main = "EPD estimates of EVI", ...) {
+                 main = "EPD estimates of the EVI", ...) {
   
   # Check input
   .checkInput(data)

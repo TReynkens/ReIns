@@ -29,7 +29,7 @@ Logical indicating if the estimates of \eqn{\gamma} should be plotted as a funct
 Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of EVI"}.
+Title for the plot, default is \code{"Estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

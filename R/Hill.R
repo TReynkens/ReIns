@@ -10,7 +10,7 @@
 # If add=TRUE then the estimates are added to an existing
 # plot
 
-Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
+Hill <- function(data, k = TRUE, logk = FALSE, plot = FALSE, add = FALSE, main = "Hill estimates of the EVI", ...) {
 	
   # Check input arguments
   .checkInput(data)

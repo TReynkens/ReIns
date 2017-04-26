@@ -9,7 +9,7 @@ Computes the EPD estimates adapted for right censored data.
 }
 \usage{
 cEPD(data, censored, rho = -1, beta = NULL, logk = FALSE, 
-     plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...)
+     plot = FALSE, add = FALSE, main = "EPD estimates of the EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,7 +37,7 @@ Logical indicating if the estimates of \eqn{\gamma} should be plotted as a funct
 Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"EPD estimates of EVI"}.
+Title for the plot, default is \code{"EPD estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

@@ -15,7 +15,7 @@
 
 
 genHill <- function(data, gamma, logk = FALSE, plot = FALSE, add = FALSE,  
-                    main = "Generalised Hill estimates of EVI", ...) {
+                    main = "Generalised Hill estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data, gamma)

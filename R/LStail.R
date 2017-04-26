@@ -9,7 +9,7 @@
 # is set to NULL. We then need a value for lambda (between 0 and 1)
 
 LStail <- function(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
-                       main = "LS estimates of EVI", ...) {
+                       main = "LS estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)

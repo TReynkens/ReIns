@@ -21,7 +21,7 @@
 
 
 Hill.2oQV <- function(data, start = c(1, 1, 1), warnings = FALSE, logk = FALSE, plot = FALSE, add = FALSE, 
-                      main = "Estimates of EVI", ...) {
+                      main = "Estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)

@@ -9,7 +9,7 @@ Computes bias-reduced ML estimates of gamma based on the quantile view.
 }
 \usage{
 Hill.2oQV(data, start = c(1,1,1), warnings = FALSE, logk = FALSE, 
-          plot = FALSE, add = FALSE, main = "Estimates of EVI", ...)
+          plot = FALSE, add = FALSE, main = "Estimates of the EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,7 +33,7 @@ Logical indicating if the estimates of \eqn{\gamma} should be plotted as a funct
 Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Estimates of EVI"}.
+Title for the plot, default is \code{"Estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

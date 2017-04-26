@@ -13,7 +13,7 @@
 # rho is a parameter for the rho_estimator of Fraga Alves et al. (2003)
 # when strictly positive or (a) choice(s) for rho if negative
 EPD <- function(data, rho = -1, start = NULL, direct = FALSE, warnings = FALSE, 
-                logk = FALSE, plot = FALSE, add = FALSE, main = "EPD estimates of EVI", ...) {
+                logk = FALSE, plot = FALSE, add = FALSE, main = "EPD estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)

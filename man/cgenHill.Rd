@@ -9,7 +9,7 @@ Computes the generalised Hill estimates adapted for right censored data.
 }
 \usage{
 cgenHill(data, censored, logk = FALSE, plot = FALSE, add = FALSE, 
-         main = "Generalised Hill estimates of EVI", ...)
+         main = "Generalised Hill estimates of the EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,7 +29,7 @@ Logical indicating if the estimates of \eqn{\gamma_1} should be plotted as a fun
 Logical indicating if the estimates of \eqn{\gamma_1} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"Generalised Hill estimates of EVI"}.
+Title for the plot, default is \code{"Generalised Hill estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

@@ -192,7 +192,7 @@ icParetoQQ <- function(L, U = L, censored, trunclower=0, truncupper=Inf, plot = 
 
 # Estimator for gamma using Turnbull estimator
 icHill <- function(L, U, censored, trunclower = 0, truncupper = Inf, 
-                   logk = FALSE, plot = TRUE, add = FALSE, main = "Hill estimates of EVI", ...) {
+                   logk = FALSE, plot = TRUE, add = FALSE, main = "Hill estimates of the EVI", ...) {
   
   # Check if L and U are numeric
   if (!is.numeric(L)) stop("L should be a numeric vector.")

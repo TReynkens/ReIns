@@ -11,10 +11,10 @@ Computes the Least Squares (LS) estimates of the EVI based on the last \eqn{k} o
 }
 \usage{
 LStail(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
-       main = "LS estimates of EVI", ...)
+       main = "LS estimates of the EVI", ...)
             
 TSfraction(data, rho = -1, lambda = 0.5, logk = FALSE, plot = FALSE, add = FALSE, 
-           main = "LS estimates of EVI", ...)
+           main = "LS estimates of the EVI", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,7 +37,7 @@ Logical indicating if the estimates of \eqn{\gamma} should be plotted as a funct
 Logical indicating if the estimates of \eqn{\gamma} should be added to an existing plot, default is \code{FALSE}.
 }
   \item{main}{
-Title for the plot, default is \code{"LS estimates of EVI"}.
+Title for the plot, default is \code{"LS estimates of the EVI"}.
 }
   \item{\dots}{
 Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.

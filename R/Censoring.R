@@ -138,7 +138,7 @@ cWeibullQQ <- function(data, censored, plot = TRUE, main = "Weibull QQ-plot", ..
 # Hill estimator for censored data
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary Hill estimator
-cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main = "Hill estimates of EVI", ...) {
+cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main = "Hill estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -191,7 +191,7 @@ cHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main 
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary generalised Hill estimator.
 cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,  
-         main = "Generalised Hill estimates of EVI", ...) {
+         main = "Generalised Hill estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -249,7 +249,7 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
 # Moment estimator for censored data
 # censored is a vector which is 1 if a data point is censored and 0 otherwise,
 # giving censored=0 results in the ordinary Moment estimator
-cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment estimates of EVI", ...) {
+cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, main = "Moment estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
@@ -302,7 +302,7 @@ cMoment <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE, mai
 
 
 cGPDmle <- function(data, censored, start = c(0.1, 1), warnings = FALSE, logk = FALSE, 
-                 plot = FALSE, add = FALSE, main = "POT estimates of EVI", ...) {
+                 plot = FALSE, add = FALSE, main = "POT estimates of the EVI", ...) {
   
   # Check input arguments
   .checkInput(data)
