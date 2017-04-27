@@ -30,7 +30,7 @@ where \eqn{\Pi(u)=E((X-u)_+)} is the premium of the excess-loss insurance with r
 If the CDF is continuous in \eqn{p}, we have \eqn{CTE_{1-p}=TVaR_{1-p}= 1/p \int_0^p VaR_{1-s} ds} with
 \eqn{TVaR} the Tail Value-at-Risk.
 
-See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for more details.
+See Reynkens et al. (2017) and Section 4.6 of Albrecher et al. (2017) for more details.
 
 The \code{ES} function is the same function as \code{CTE} but is deprecated. 
 }

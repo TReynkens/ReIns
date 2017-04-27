@@ -34,7 +34,7 @@ Use \code{\link{SpliceTB}} for censored data.
 
 Confidence bands are determined using the Dvoretzky-Kiefer-Wolfowitz inequality (Massart, 1990).
 
-See Reynkens et al. (2016) and Section 4.3.1 in Albrecher et al. (2017) for more details.
+See Reynkens et al. (2017) and Section 4.3.1 in Albrecher et al. (2017) for more details.
 }
 \references{
 Albrecher, H., Beirlant, J. and Teugels, J. (2017). \emph{Reinsurance: Actuarial and Statistical Aspects}, Wiley, Chichester.

@@ -23,7 +23,7 @@ Vector of scale estimates for the GPD (with the same length as \code{gamma}). Wh
 }
 }
 \details{
-See Reynkens et al. (2016) and Section 4.3 of Albrecher et al. (2017) for details.
+See Reynkens et al. (2017) and Section 4.3 of Albrecher et al. (2017) for details.
 }
 \value{
 An S3 object containing the above input arguments.

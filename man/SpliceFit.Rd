@@ -40,7 +40,7 @@ This vector should have length 1, 2 or 3 when included.
 }
 }
 \details{
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for details.
+See Reynkens et al. (2017) and Section 4.3 in Albrecher et al. (2017) for details.
 }
 \value{
 An S3 object containing the above input arguments and values for \eqn{\pi}, the splicing weights.

@@ -44,7 +44,7 @@ A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}
  }
 }
 \details{ 
-See Reynkens et al. (2016) and Section 4.3 in Albrecher et al. (2017) for details.
+See Reynkens et al. (2017) and Section 4.3 in Albrecher et al. (2017) for details.
 }
 \value{
 \code{dSplice} gives the density function evaluated in \eqn{x}, \code{pSplice} the CDF evaluated in \eqn{x} and \code{qSplice} the quantile function evaluated in \eqn{p}. The length of the result is equal to the length of \eqn{x} or \eqn{p}.

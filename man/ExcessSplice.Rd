@@ -28,7 +28,7 @@ The premium for the excess-loss insurance with retention \eqn{R} and limit \eqn{
 \deqn{E(\min{(X-R)_+, L}) = \Pi(R) - \Pi(R+L)}
 where \eqn{\Pi(u)=E((X-u)_+)=\int_u^{\infty} (1-F(z)) dz} is the premium of the excess-loss insurance with retention \eqn{u}.  When \eqn{L=\infty}, the premium is equal to \eqn{\Pi(R)}.
 
-See Reynkens et al. (2016) and Section 4.6 of Albrecher et al. (2017) for more details.
+See Reynkens et al. (2017) and Section 4.6 of Albrecher et al. (2017) for more details.
 }
 \value{
 An estimate for the premium is returned (for every value of \code{R}).

@@ -67,7 +67,7 @@ Use \code{C++} implementation (\code{cpp=TRUE}) or \code{R} implementation (\cod
 }
 }
 \details{
-See Reynkens et al. (2016), Section 4.3.2 of Albrecher et al. (2017) and Verbelen et al. (2015) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2016).
+See Reynkens et al. (2017), Section 4.3.2 of Albrecher et al. (2017) and Verbelen et al. (2015) for details. The code follows the notation of the latter. Initial values follow from Verbelen et al. (2016).
 
 Right censored data should be entered as \code{L=l} and \code{U=truncupper}, and left censored data should be entered as \code{L=trunclower} and \code{U=u}. 
 }
