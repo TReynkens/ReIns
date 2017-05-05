@@ -8,6 +8,7 @@
  \itemize{
     \item Remove unnecessary capitals in plot labels.
     \item Update Reynkens et al. (2017) reference.
+    \item Update Beirlant et al. (2017) reference.
  }
 }
 

@@ -57,7 +57,7 @@ A list with following components:
 }
 \references{
 Beirlant, J., Fraga Alves, M. I. and Reynkens, T. (2017). "Fitting Tails Affected
-by Truncation". \emph{arXiv:1606.02090}.
+by Truncation". \emph{Electronic Journal of Statistics}, accepted. Available on arXiv:1606.02090.
 }
 \author{
 Tom Reynkens.
