@@ -57,8 +57,7 @@ A list with following components:
 \item{Reject}{Logical vector indicating if the null hypothesis is rejected for a certain value of \code{k}.}
 }
 \references{
-Beirlant, J., Fraga Alves, M. I. and Reynkens, T. (2017). "Fitting Tails Affected
-by Truncation". \emph{Electronic Journal of Statistics}, accepted. Available on arXiv:1606.02090.
+Beirlant, J., Fraga Alves, M. I. and Reynkens, T. (2017). "Fitting Tails Affected by Truncation". \emph{Electronic Journal of Statistics}, 11(1), 2026--2065.
 }
 \author{
 Tom Reynkens.
