@@ -12,6 +12,7 @@
     \item Include default value for \code{L} in documentation of \code{ExcessSplice}.
     \item Make sure that both \code{R} and \code{L} have length 1 in \code{ExcessEPD}, \code{ExcessGPD}
     and \code{ExcessPareto}.
+    \item Add reference to website of Albrecher et al. (2017) in DESCRIPTION.
  }
 }
 
