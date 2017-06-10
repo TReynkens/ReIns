@@ -92,6 +92,6 @@ H <- Hill(secura$size)
 
 # Premium of excess-loss insurance with retention R
 R <- 10^7
-ExcessHill(secura$size, H$gamma, R=R)
+ExcessPareto(secura$size, H$gamma, R=R)
 }
 

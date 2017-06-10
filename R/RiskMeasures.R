@@ -187,11 +187,10 @@ ExcessPareto <- function(data, gamma, R, L = Inf, endpoint = Inf, warnings = TRU
     stop("L should be positive.")
   }
   
-  if (length(R) != length(L)) {
-    if (length(R) != 1 & length(L) != 1) {
-      stop("R and L should have equal length or at least one of them should have length 1.")
-    }
+  if (length(R) != 1 | length(L) != 1) {
+      stop("R and L should both have length 1.")
   }
+  
   
   f <- function(R) .IntTailPareto(R=R, data=data, gamma=gamma, endpoint=endpoint, warnings=warnings, 
                                   plot=FALSE, add=FALSE) 
@@ -232,10 +231,8 @@ ExcessGPD <- function(data, gamma, sigma, R, L = Inf, warnings = TRUE, plot = TR
     stop("L should be positive.")
   }
   
-  if (length(L) != length(R)) {
-    if (length(L) != 1 & length(R) != 1) {
-      stop("R and L should have equal length or at least one of them should have length 1.")
-    }
+  if (length(R) != 1 | length(L) != 1) {
+    stop("R and L should both have length 1.")
   }
   
   f <- function(R) .IntTailGPD(R=R, data=data, gamma=gamma, sigma=sigma, warnings=warnings, 
@@ -275,10 +272,8 @@ ExcessEPD <- function(data, gamma, kappa, tau, R, L = Inf, warnings = TRUE, plot
     stop("L should be positive.")
   }
   
-  if (length(L) != length(R)) {
-    if (length(L) != 1 & length(R) != 1) {
-      stop("R and L should have equal length or at least one of them should have length 1.")
-    }
+  if (length(R) != 1 | length(L) != 1) {
+    stop("R and L should both have length 1.")
   }
   
   f <- function(R) .IntTailEPD(R=R, data=data, gamma=gamma, kappa=kappa, tau=tau, warnings=warnings, 
