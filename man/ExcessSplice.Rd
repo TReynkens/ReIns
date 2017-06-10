@@ -9,7 +9,7 @@ Estimates for excess-loss premiums using splicing
 Estimate premiums of excess-loss reinsurance with retention \eqn{R} and limit \eqn{L} using fitted spliced distribution.
 }
 \usage{
-ExcessSplice(R, L, splicefit)
+ExcessSplice(R, L=Inf, splicefit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,7 +17,7 @@ ExcessSplice(R, L, splicefit)
 The retention level of the (re-)insurance or a vector of retention levels for the (re-)insurance.
 }
   \item{L}{
-The limit of the (re-)insurance or a vector of limits for the (re-)insurance.
+The limit for the (re-)insurance or a vector of limits for the (re-)insurance, default is \code{Inf}.
 }
   \item{splicefit}{
 A \code{\link{SpliceFit}} object,  e.g. output from \code{\link{SpliceFitPareto}}, \code{\link{SpliceFiticPareto}} or \code{\link{SpliceFitGPD}}.
@@ -62,7 +62,7 @@ X <- rpareto(1000, shape = 2)
 splicefit <- SpliceFitPareto(X, 0.8)
 
 # Excess-loss premium 
-ExcessSplice(R=2, L=Inf, splicefit=splicefit)
+ExcessSplice(R=2, splicefit=splicefit)
 }
 }
 
