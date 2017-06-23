@@ -2,6 +2,13 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 1.0.5 (2017-yy-xx)}{
+
+ \itemize{
+    \item Add link to Unil webpage for Albrecher et al. (2017) in DESCRIPTION.
+ }
+}
+
 
 \section{Changes in version 1.0.4 (2017-06-10)}{
 
