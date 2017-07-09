@@ -6,6 +6,7 @@
 
  \itemize{
     \item Add link to Unil webpage for Albrecher et al. (2017) in DESCRIPTION.
+    \item Enable byte-compilation of package code.
  }
 }
 
