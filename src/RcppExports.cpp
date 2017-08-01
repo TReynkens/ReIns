@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // spliceEM_splicefit_raw_Rexport
 List spliceEM_splicefit_raw_Rexport(const double pi, const double theta, const IntegerVector shape, const NumericVector beta, const double gamma, const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, const double trunclower, const double tsplice, const double truncupper, const double eps, const double beta_tol, const double maxiter);
-RcppExport SEXP ReIns_spliceEM_splicefit_raw_Rexport(SEXP piSEXP, SEXP thetaSEXP, SEXP shapeSEXP, SEXP betaSEXP, SEXP gammaSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP) {
+RcppExport SEXP _ReIns_spliceEM_splicefit_raw_Rexport(SEXP piSEXP, SEXP thetaSEXP, SEXP shapeSEXP, SEXP betaSEXP, SEXP gammaSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,7 +36,7 @@ END_RCPP
 }
 // spliceEM_shape_adj_Rexport
 List spliceEM_shape_adj_Rexport(const double pi, const double theta, const IntegerVector shape, const NumericVector beta, const double gamma, const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, const double trunclower, const double tsplice, const double truncupper, const double eps, const double beta_tol, const double maxiter);
-RcppExport SEXP ReIns_spliceEM_shape_adj_Rexport(SEXP piSEXP, SEXP thetaSEXP, SEXP shapeSEXP, SEXP betaSEXP, SEXP gammaSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP) {
+RcppExport SEXP _ReIns_spliceEM_shape_adj_Rexport(SEXP piSEXP, SEXP thetaSEXP, SEXP shapeSEXP, SEXP betaSEXP, SEXP gammaSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -65,7 +65,7 @@ END_RCPP
 }
 // spliceEM_shape_red
 List spliceEM_shape_red(const double pi_in, const double theta_in, const IntegerVector shape_in, const NumericVector beta_in, const double gamma_in, const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, const double trunclower, const double tsplice, const double truncupper, const String criterium, bool improve, const double eps, const double beta_tol, const double maxiter, const bool adj);
-RcppExport SEXP ReIns_spliceEM_shape_red(SEXP pi_inSEXP, SEXP theta_inSEXP, SEXP shape_inSEXP, SEXP beta_inSEXP, SEXP gamma_inSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP criteriumSEXP, SEXP improveSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP, SEXP adjSEXP) {
+RcppExport SEXP _ReIns_spliceEM_shape_red(SEXP pi_inSEXP, SEXP theta_inSEXP, SEXP shape_inSEXP, SEXP beta_inSEXP, SEXP gamma_inSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP criteriumSEXP, SEXP improveSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP, SEXP adjSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -97,7 +97,7 @@ END_RCPP
 }
 // stdf_cpp
 double stdf_cpp(const NumericVector& x, const int k, const NumericMatrix& R, const double alpha);
-RcppExport SEXP ReIns_stdf_cpp(SEXP xSEXP, SEXP kSEXP, SEXP RSEXP, SEXP alphaSEXP) {
+RcppExport SEXP _ReIns_stdf_cpp(SEXP xSEXP, SEXP kSEXP, SEXP RSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -111,7 +111,7 @@ END_RCPP
 }
 // stdf2_cpp
 double stdf2_cpp(const NumericVector& x, const int k, NumericMatrix& X);
-RcppExport SEXP ReIns_stdf2_cpp(SEXP xSEXP, SEXP kSEXP, SEXP XSEXP) {
+RcppExport SEXP _ReIns_stdf2_cpp(SEXP xSEXP, SEXP kSEXP, SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
