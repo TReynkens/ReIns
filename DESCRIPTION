@@ -1,6 +1,6 @@
 Package: ReIns
-Version: 1.0.4.9001
-Date: 2017-07-09
+Version: 1.0.4.9002
+Date: 2017-08-01
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
 Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjoerg Albrecher, Jan Beirlant and Jef Teugels <http://wiley.com/WileyCDA/WileyTitle/productCd-0470772689.html>.
 Authors@R: c(
@@ -19,7 +19,7 @@ Imports: stats,
          parallel, 
          foreach (>= 1.4.1), 
          doParallel (>= 1.0.10), 
-         Rcpp (>= 0.12.7)
+         Rcpp (>= 0.12.12)
 Suggests: testthat, 
           knitr, 
           rmarkdown, 

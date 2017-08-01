@@ -7,6 +7,7 @@
  \itemize{
     \item Add link to Unil webpage for Albrecher et al. (2017) in DESCRIPTION.
     \item Enable byte-compilation of package code.
+    \item Set minimal required \pkg{Rcpp} version to 0.12.12.
  }
 }
 
