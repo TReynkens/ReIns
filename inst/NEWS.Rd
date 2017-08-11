@@ -10,6 +10,11 @@
     }
   } 
 
+  \subsection{Changes in documentation:}{
+    \itemize{
+      \item Update Reynkens et al. (2017) reference.
+    }
+  }      
         
   \subsection{Miscellaneous changes:}{
      \itemize{
