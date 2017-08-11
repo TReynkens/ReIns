@@ -4,26 +4,47 @@
 
 \section{Changes in version 1.0.5 (2017-yy-xx)}{
 
- \itemize{
-    \item Add link to Unil webpage for Albrecher et al. (2017) in DESCRIPTION.
-    \item Enable byte-compilation of package code.
-    \item Set minimal required \pkg{Rcpp} version to 0.12.12.
-    \item Change calls to \code{C++} functions as required by \pkg{Rcpp} version 0.12.12.
+  \subsection{Changes in \code{C++} code:}{
+    \itemize{
+      \item Change calls to \code{C++} functions as required by \pkg{Rcpp} version 0.12.12.
+    }
+  } 
+
+        
+  \subsection{Miscellaneous changes:}{
+     \itemize{
+      \item Add link to Unil webpage for Albrecher et al. (2017) in DESCRIPTION.
+      \item Enable byte-compilation of package code.
+      \item Set minimal required \pkg{Rcpp} version to 0.12.12.
+    }
  }
 }
 
 
 \section{Changes in version 1.0.4 (2017-06-10)}{
 
- \itemize{
-    \item Remove unnecessary capitals in plot labels.
-    \item Update Reynkens et al. (2017) reference.
-    \item Update Beirlant et al. (2017) reference.
-    \item Include default value for \code{L} in documentation of \code{ExcessSplice}.
-    \item Make sure that both \code{R} and \code{L} have length 1 in \code{ExcessEPD}, \code{ExcessGPD}
+
+  \subsection{Changes in \code{R} code:}{
+    \itemize{
+       \item Remove unnecessary capitals in plot labels.
+       \item Make sure that both \code{R} and \code{L} have length 1 in \code{ExcessEPD}, \code{ExcessGPD}
     and \code{ExcessPareto}.
-    \item Add reference to website of Albrecher et al. (2017) in DESCRIPTION.
- }
+    }
+  }
+  
+  \subsection{Changes in documentation:}{
+    \itemize{
+      \item Include default value for \code{L} in documentation of \code{ExcessSplice}.
+      \item Update Reynkens et al. (2017) reference.
+      \item Update Beirlant et al. (2017) reference.
+    }
+  }      
+  
+  \subsection{Miscellaneous changes:}{
+    \itemize{
+      \item Add reference to website of Albrecher et al. (2017) in DESCRIPTION.
+    }
+  }
 }
 
 
