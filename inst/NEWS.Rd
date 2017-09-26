@@ -9,7 +9,11 @@
       \item Update Reynkens et al. (2017) reference to final version.
     }
   }      
-        
+   \subsection{Miscellaneous changes:}{
+     \itemize{
+      \item Correct link to Wiley webpage for Albrecher et al. (2017). 
+    }
+ }      
 
 }
 
