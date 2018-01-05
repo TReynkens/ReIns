@@ -2,6 +2,16 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 1.0.7 (2018-yy-xx)}{
+
+   \subsection{Miscellaneous changes:}{
+     \itemize{
+      \item Correct link to Wiley webpage for Albrecher et al. (2017). 
+    }
+ }      
+
+}
+
 \section{Changes in version 1.0.6 (2017-12-11)}{
 
   \subsection{Changes in documentation:}{
