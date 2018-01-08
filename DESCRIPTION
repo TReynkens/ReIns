@@ -1,8 +1,8 @@
 Package: ReIns
-Version: 1.0.6.9000
-Date: 2018-01-05
+Version: 1.0.6.9001
+Date: 2018-01-08
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
-Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjoerg Albrecher, Jan Beirlant and Jef Teugels <https://doi.org/10.1002/9781119412540>.
+Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjoerg Albrecher, Jan Beirlant and Jef Teugels <doi:10.1002/9781119412540>.
 Authors@R: c(
           person("Tom", "Reynkens", email = "tomreynkens@hotmail.com", role = c("aut", "cre")),
           person("Roel", "Verbelen", role = "aut", comment = "R code for Mixed Erlang distribution"),
