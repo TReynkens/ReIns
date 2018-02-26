@@ -1,11 +1,11 @@
 Package: ReIns
-Version: 1.0.6
-Date: 2017-12-11
+Version: 1.0.6.9000
+Date: 2018-02-26
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
 Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjoerg Albrecher, Jan Beirlant and Jef Teugels <http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470772689.html>.
 Authors@R: c(
-          person("Tom", "Reynkens", email = "tomreynkens@hotmail.com", role = c("aut", "cre")),
-          person("Roel", "Verbelen", role = "aut", comment = "R code for Mixed Erlang distribution"),
+          person("Tom", "Reynkens", email = "tomreynkens@hotmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-5516-5107")),
+          person("Roel", "Verbelen", role = "aut", comment = c("R code for Mixed Erlang distribution", ORCID = "0000-0002-2347-9240")),
           person("Anastasios", "Bardoutsos", role = "ctb", comment = "Original R code for cEPD estimator"),
           person("Dries", "Cornilly", role = "ctb", comment = "Original R code for EVT estimators for truncated data"),
           person("Yuri", "Goegebeur", role = "ctb", comment = "Original S-Plus code for basic EVT estimators"),
