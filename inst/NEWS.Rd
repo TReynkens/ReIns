@@ -5,6 +5,12 @@
 \section{Changes in version 1.0.7 (2018-yy-xx)}{
 
 
+  \subsection{Changes in \code{R} code:}{
+    \itemize{
+     \item Fix bug with random samples of Mixed Erlang when only one shape is present.
+    }
+  }
+  
    \subsection{Miscellaneous changes:}{
      \itemize{
       \item Add ORCID identifiers.

@@ -730,7 +730,12 @@
     (.ME_cdf(truncupper, theta=theta, shape=shape, alpha=alpha) - .ME_cdf(trunclower, theta=theta, shape=shape, alpha=alpha))
   
   # Sample shapes using multinomial distribution with probabilities beta
-  shapes <- sample(shape, size=n, replace=TRUE, prob=beta)
+  if (length(beta) > 1) {
+    shapes <- sample(shape, size=n, replace=TRUE, prob=beta)
+  } else {
+    shapes <- rep(shape, n)
+  }
+  
   
   # Sample from truncated Gamma distribution with selected shapes
   # as truncated ME can be seen as mixture of truncated Erlangs with mixing weights beta
