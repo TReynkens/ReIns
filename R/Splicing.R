@@ -1127,10 +1127,15 @@ rSplice <- function(n, splicefit) {
     splice_sample[ind1] <- .ME_random(length(ind1), theta=mefit$theta, shape=mefit$shape, alpha=mefit$p, 
                                       trunclower=splicefit$trunclower, truncupper=splicefit$t)
     
-    # Sample from Pareto
     ind2 <- which(ind == 2)
-    splice_sample[ind2] <- rtpareto(length(ind2), shape=1/evtfit$gamma, scale=splicefit$t, endpoint=evtfit$endpoint)
-
+    if (splicefit$type[2] == "GPD") {
+      # Sample from GPD
+      splice_sample[ind2] <- rgpd(length(ind2), gamma=evtfit$gamma, sigma=evtfit$sigma, mu=splicefit$t)
+    } else {
+      # Sample from Pareto
+      splice_sample[ind2] <- rtpareto(length(ind2), shape=1/evtfit$gamma, scale=splicefit$t, endpoint=evtfit$endpoint)
+    }
+  
     return(splice_sample)
   }
   

@@ -8,6 +8,7 @@
   \subsection{Changes in \code{R} code:}{
     \itemize{
      \item Fix bug with random samples of Mixed Erlang when only one shape is present.
+     \item Ensure that \code{rSplice} also works for the ME-GPD model.
     }
   }
   
