@@ -2,7 +2,7 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
-\section{Changes in version 1.0.7 (2018-yy-xx)}{
+\section{Changes in version 1.0.7 (2018-04-24)}{
 
 
   \subsection{Changes in \code{R} code:}{
