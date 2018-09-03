@@ -18,7 +18,7 @@ The SOA Group Medical Insurance Large Claims Database records, among others, all
 \source{
 Grazier, K. L. and G'Sell Associates (1997). \emph{Group Medical Insurance Large Claims Database Collection and Analysis}. SOA Monograph M-HB97-1, Society of Actuaries, Schaumburg.
 
-Society of Actuaries, \url{https://www.soa.org/Research/Experience-Study/group-health/91-92-group-medical-claims.aspx}.
+Society of Actuaries, \url{https://www.soa.org/resources/experience-studies/2000-2004/91-92-group-medical-claims/}.
 }
 \references{
 Beirlant J., Goegebeur Y., Segers, J. and Teugels, J. (2004). \emph{Statistics of Extremes: Theory and Applications}, Wiley Series in Probability, Wiley, Chichester.
