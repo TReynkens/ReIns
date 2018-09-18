@@ -4,6 +4,7 @@
 // Include libraries and header files
 #include <iostream> // Input and output
 #include <cmath> // C numerics library
+#include <cfloat> // Characteristics of floating-point types
 
 // R functionality
 #include <Rcpp.h> // R/C++ interface class library

@@ -2,8 +2,14 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
-\section{Changes in version 1.0.8 (2018-04-24)}{
+\section{Changes in version 1.0.8 (2018-09-18)}{
 
+   \subsection{Changes in \code{C++} code:}{
+     \itemize{
+      \item Load \code{cfloat} to define \code{DBL_MAX} when strict R headers are set (flag \code{-DSTRICT_R_HEADERS} in MAKEVARS) as this will be done by default in \pkg{Rcpp} in September 2019. See \url{https://github.com/RcppCore/Rcpp/issues/898} for more details. This fixes \url{https://github.com/TReynkens/ReIns/issues/2}.
+    }
+   }
+   
    \subsection{Miscellaneous changes:}{
      \itemize{
       \item Update URL for SOA data.
