@@ -211,20 +211,11 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
     stop("We need at least two data points.")
   }
   
-  gamma1 <- numeric(n)
-  gamma1[ind] <- (cumsum(log(X[n-ind+1]))- ind*log(X[n-ind])) / cumsum(delta[n-ind+1]) 
-  # Problems with division by 0
-  indNA <- ind[cumsum(delta[n-ind+1]) == 0]
-  gamma1[indNA] <- NA
-  
   ### Generalised Hill estimates
   
   # Fast vectorised version
-  UH.scores[ind] <- X[n-ind] * gamma1[ind]
-  #Set to 1 to have no influence (we take logs!)
-  UH.scores[indNA] <- 1
-  
-  
+  UH.scores[ind] <- X[n-ind] * Hill(X)$gamma[ind]
+
   # Stop at n-2 since UH.scores[n]=0, so log(UH.scores[n])=Inf
   K <- 1:max((n-2), 1) 
   Hill[K] <- (cumsum(log(UH.scores[K]))- K*log(UH.scores[K+1])) / cumsum(delta[n-K+1]) 
@@ -240,7 +231,7 @@ cgenHill <- function(data, censored, logk = FALSE, plot = FALSE, add = FALSE,
   }
   
   # output list with values of k and
-  # corresponding Zipf estimates
+  # corresponding generalised Hill estimates
   
   .output(list(k=K, gamma1=Hill[K]), plot=plot, add=add)
   

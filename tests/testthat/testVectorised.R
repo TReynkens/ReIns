@@ -38,25 +38,16 @@ test_that("Censored estimators for-loops", {
   
   UH.scores2 <- numeric(n)
   Hill2 <- numeric(max((n-2),1))
-  gamma <- cHill(X,censored=censored)$gamma
+  gamma <- Hill(X)$gamma
   # Slow for-loops
   UH.scores2 <- numeric(n)
 	Hill2 <- numeric(max((n-2),1))
 	for (i in 1:(n-1)) {
-    if (sum(delta[n-(1:i)+1])!=0) {
-	    UH.scores2[i] <- X[n-i]*gamma[i]
-    } else{
-      UH.scores2[i] <- 1
-    }
+	  UH.scores2[i] <- X[n-i]*gamma[i]
 	}	
 	
 	for (k in 1:max((n-2),1)) {
-    if (sum(delta[n-(1:k)+1])!=0) {
-      Hill2[k] <- sum(log(UH.scores2[1:k])-log(UH.scores2[k+1]))/sum(delta[n-(1:k)+1])
-    } else {
-      Hill2[k] <- NA
-    }
-	  
+    Hill2[k] <- sum(log(UH.scores2[1:k])-log(UH.scores2[k+1]))/sum(delta[n-(1:k)+1])
 	}
 
   

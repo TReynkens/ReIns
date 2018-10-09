@@ -2,6 +2,17 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+
+\section{Changes in version 1.0.9 (2018-yy-xx)}{
+
+   \subsection{Changes in \code{R} code:}{
+     \itemize{
+      \item Fix bug in \code{cgenHill}.
+    }
+   }
+}
+
+
 \section{Changes in version 1.0.8 (2018-09-18)}{
 
    \subsection{Changes in \code{C++} code:}{
