@@ -8,6 +8,7 @@
    \subsection{Changes in \code{R} code:}{
      \itemize{
       \item Fix bug in \code{cgenHill}.
+      \item Fix bug in \code{cQuantGH}.
     }
    }
 }

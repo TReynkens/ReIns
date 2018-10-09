@@ -175,8 +175,9 @@ cQuantGH <- function(data, censored, gamma1, p, plot = FALSE, add = FALSE,
   # Hill estimator (non-censored)
   H <- Hill(X)$gamma
   
-  # Auxiliary value
-  a <- X[n-K] * H[K] * (1-pmin(gamma1[K], 0)) / pk[K]
+  # Auxiliary values
+  S <- Moment(X)$gamma - Hill(X)$gamma
+  a <- X[n-K] * H[K] * (1-S[K]) / pk[K]
   
   # Kaplan-Meier estimator for CDF
   km <- KaplanMeier(X[n-K], data = X, censored = censored[sortix])$surv

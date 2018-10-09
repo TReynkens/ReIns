@@ -42,8 +42,10 @@ Additional arguments for the \code{plot} function, see \code{\link[graphics]{plo
 The quantile is estimated as 
 \deqn{\hat{Q}(1-p)= Z_{n-k,n} + a_{k,n} ( ( (1-km)/p)^{\hat{\gamma}_1} -1 ) / \hat{\gamma}_1)} 
 with \eqn{Z_{i,n}} the \eqn{i}-th order statistic of the data, \eqn{\hat{\gamma}_1} the generalised Hill estimator adapted for right censoring and \eqn{km} the Kaplan-Meier estimator for the CDF evaluated in \eqn{Z_{n-k,n}}. The value \eqn{a} is defined as
-\deqn{a_{k,n} = Z_{n-k,n} H_{k,n} (1-\min(\hat{\gamma}_1,0)) / \hat{p}_k} with \eqn{H_{k,n}} the ordinary Hill estimator
-and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored.
+\deqn{a_{k,n} = Z_{n-k,n} H_{k,n} (1-S_{Z,k,n}) / \hat{p}_k} with \eqn{H_{k,n}} the ordinary Hill estimator
+and \eqn{\hat{p}_k} the proportion of the \eqn{k} largest observations that is non-censored, and
+\deqn{S_{Z,k,n} = 1 - (1-M_1^2/M_2)^(-1) / 2} with \deqn{M_l = =1/k\sum_{j=1}^k (\log X_{n-j+1,n}- \log X_{n-k,n})^l.}
+
 }
 \value{
 A list with following components:
