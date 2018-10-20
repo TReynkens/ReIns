@@ -1,7 +1,7 @@
 ---
 output:
   md_document:
-    variant: markdown_github
+    variant: gfm
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -32,9 +32,9 @@ It contains implementations of
 You can install the latest development version of *ReIns* from GitHub. If you work on Windows, make sure first that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed. Then, install the latest development version of *ReIns* using
 
 ```
-install.packages("devtools")
+install.packages("remotes")
 
-devtools::install_github("TReynkens/ReIns")
+remotes::install_github("TReynkens/ReIns")
 ```
 
 
