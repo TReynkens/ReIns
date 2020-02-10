@@ -5,6 +5,33 @@
 
 using namespace Rcpp;
 
+// stdf_cpp
+double stdf_cpp(const NumericVector& x, const int k, const NumericMatrix& R, const double alpha);
+RcppExport SEXP _ReIns_stdf_cpp(SEXP xSEXP, SEXP kSEXP, SEXP RSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(stdf_cpp(x, k, R, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stdf2_cpp
+double stdf2_cpp(const NumericVector& x, const int k, NumericMatrix& X);
+RcppExport SEXP _ReIns_stdf2_cpp(SEXP xSEXP, SEXP kSEXP, SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(stdf2_cpp(x, k, X));
+    return rcpp_result_gen;
+END_RCPP
+}
 // spliceEM_splicefit_raw_Rexport
 List spliceEM_splicefit_raw_Rexport(const double pi, const double theta, const IntegerVector shape, const NumericVector beta, const double gamma, const NumericVector lower1, const NumericVector lower2, const NumericVector lower3, const NumericVector lower4, const NumericVector lower5, const NumericVector upper3, const NumericVector upper4, const NumericVector upper5, const double trunclower, const double tsplice, const double truncupper, const double eps, const double beta_tol, const double maxiter);
 RcppExport SEXP _ReIns_spliceEM_splicefit_raw_Rexport(SEXP piSEXP, SEXP thetaSEXP, SEXP shapeSEXP, SEXP betaSEXP, SEXP gammaSEXP, SEXP lower1SEXP, SEXP lower2SEXP, SEXP lower3SEXP, SEXP lower4SEXP, SEXP lower5SEXP, SEXP upper3SEXP, SEXP upper4SEXP, SEXP upper5SEXP, SEXP trunclowerSEXP, SEXP tspliceSEXP, SEXP truncupperSEXP, SEXP epsSEXP, SEXP beta_tolSEXP, SEXP maxiterSEXP) {
@@ -92,33 +119,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const double >::type maxiter(maxiterSEXP);
     Rcpp::traits::input_parameter< const bool >::type adj(adjSEXP);
     rcpp_result_gen = Rcpp::wrap(spliceEM_shape_red(pi_in, theta_in, shape_in, beta_in, gamma_in, lower1, lower2, lower3, lower4, lower5, upper3, upper4, upper5, trunclower, tsplice, truncupper, criterium, improve, eps, beta_tol, maxiter, adj));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stdf_cpp
-double stdf_cpp(const NumericVector& x, const int k, const NumericMatrix& R, const double alpha);
-RcppExport SEXP _ReIns_stdf_cpp(SEXP xSEXP, SEXP kSEXP, SEXP RSEXP, SEXP alphaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const int >::type k(kSEXP);
-    Rcpp::traits::input_parameter< const NumericMatrix& >::type R(RSEXP);
-    Rcpp::traits::input_parameter< const double >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(stdf_cpp(x, k, R, alpha));
-    return rcpp_result_gen;
-END_RCPP
-}
-// stdf2_cpp
-double stdf2_cpp(const NumericVector& x, const int k, NumericMatrix& X);
-RcppExport SEXP _ReIns_stdf2_cpp(SEXP xSEXP, SEXP kSEXP, SEXP XSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const int >::type k(kSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(stdf2_cpp(x, k, X));
     return rcpp_result_gen;
 END_RCPP
 }

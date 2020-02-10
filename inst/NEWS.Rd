@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 
 
-\section{Changes in version 1.0.9 (2018-yy-xx)}{
+\section{Changes in version 1.0.9 (2020-02-10)}{
 
    \subsection{Changes in \code{R} code:}{
      \itemize{
