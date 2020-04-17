@@ -36,7 +36,7 @@ Logical indicating if the splicing LL-plot should be made, default is \code{TRUE
 Title for the plot, default is \code{"Splicing LL-plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

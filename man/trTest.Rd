@@ -25,7 +25,7 @@ Logical indicating if the P-values should be plotted as a function of \eqn{k}, d
 Title for the plot, default is \code{"Test for truncation"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

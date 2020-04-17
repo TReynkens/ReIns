@@ -28,7 +28,7 @@ Logical indicating if the quantiles should be plotted in a generalised QQ-plot, 
 Title for the plot, default is \code{"Generalised QQ-plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

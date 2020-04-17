@@ -26,7 +26,7 @@ Logical indicating if the derivative values are plotted as a function of the tai
 Title for the plot, default is \code{"Derivative plot of Pareto QQ-plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

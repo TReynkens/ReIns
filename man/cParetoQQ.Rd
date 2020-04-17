@@ -25,7 +25,7 @@ Logical indicating if the quantiles should be plotted in a Pareto QQ-plot, defau
 Title for the plot, default is \code{"Pareto QQ-plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

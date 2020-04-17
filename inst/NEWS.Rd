@@ -2,6 +2,15 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 1.0.10 (2020-yy-xx)}{
+
+  \subsection{Changes in documentation:}{
+      \itemize{
+        \item Link to \code{plot.default} instead of \code{plot} (\pkg{graphics}) to avoid warnings on R-4.0.
+      }
+  }
+}
+
 
 \section{Changes in version 1.0.9 (2020-02-10)}{
 

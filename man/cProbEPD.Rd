@@ -47,7 +47,7 @@ and \code{"Estimates of large return period"} for \code{cReturnEPD}.
 
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

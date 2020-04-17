@@ -32,7 +32,7 @@ Logical indicating if the residuals should be plotted, default is \code{FALSE}.
 Title for the plot, default is \code{"GPD residual plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

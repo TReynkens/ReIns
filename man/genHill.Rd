@@ -33,7 +33,7 @@ Logical indicating if the estimates should be added to an existing plot, default
 Title for the plot, default is \code{"Generalised Hill estimates of the EVI"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 

@@ -35,7 +35,7 @@ Logical indicating if the optimal value for \eqn{k} should be added to an existi
 Title for the plot, default is \code{"AMSE plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

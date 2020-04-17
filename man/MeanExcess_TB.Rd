@@ -42,7 +42,7 @@ Logical indicating if the Turnbull estimator is computed using the implementatio
 Title for the plot, default is \code{"Mean excess plot"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

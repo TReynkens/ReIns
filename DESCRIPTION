@@ -1,6 +1,6 @@
 Package: ReIns
-Version: 1.0.9
-Date: 2020-02-10
+Version: 1.0.9.9000
+Date: 2020-04-17
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
 Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjoerg Albrecher, Jan Beirlant and Jef Teugels <http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470772689.html>.
 Authors@R: c(

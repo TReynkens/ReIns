@@ -36,7 +36,7 @@ Logical indicating if the estimates of \eqn{\gamma} should be added to an existi
 Title for the plot, default is \code{"Estimates of the EVI"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

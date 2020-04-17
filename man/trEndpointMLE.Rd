@@ -32,7 +32,7 @@ Logical indicating if the estimates of \eqn{T} should be added to an existing pl
 Title for the plot, default is \code{"Estimates of endpoint"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

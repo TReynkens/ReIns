@@ -26,7 +26,7 @@ A \code{\link{SpliceFit}} object, e.g. output from \code{\link{SpliceFitPareto}}
 \eqn{100(1-\alpha)\%} is the confidence level for the confidence bands.  Default is \eqn{\alpha=0.05}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

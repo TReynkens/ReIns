@@ -32,7 +32,7 @@ Logical indicating if the estimates of \eqn{\gamma_1} should be added to an exis
 Title for the plot, default is \code{"Generalised Hill estimates of the EVI"}.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{

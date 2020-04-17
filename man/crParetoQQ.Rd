@@ -42,10 +42,10 @@ Logical indicating if the quantiles should be added to an existing plot, default
 Title for the plot, default is \code{"Pareto QQ-plot"}.
 }
   \item{type}{
-Type of the plot, default is \code{"p"} meaning points are plotted, see \code{\link[graphics]{plot}} for more details.
+Type of the plot, default is \code{"p"} meaning points are plotted, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
   \item{\dots}{
-Additional arguments for the \code{plot} function, see \code{\link[graphics]{plot}} for more details.
+Additional arguments for the \code{plot} function, see \code{\link[graphics:plot.default]{plot}} for more details.
 }
 }
 \details{
