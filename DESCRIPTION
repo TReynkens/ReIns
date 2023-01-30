@@ -1,6 +1,6 @@
 Package: ReIns
-Version: 1.0.10
-Date: 2020-05-16
+Version: 1.0.11
+Date: 2023-01-30
 Title: Functions from "Reinsurance: Actuarial and Statistical Aspects"
 Description: Functions from the book "Reinsurance: Actuarial and Statistical Aspects" (2017) by Hansjoerg Albrecher, Jan Beirlant and Jef Teugels <http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470772689.html>.
 Authors@R: c(
@@ -11,7 +11,7 @@ Authors@R: c(
           person("Yuri", "Goegebeur", role = "ctb", comment = "Original S-Plus code for basic EVT estimators"),
           person("Klaus", "Herrmann", role = "ctb", comment = "Original R code for GPD estimator"))
 Maintainer: Tom Reynkens <tomreynkens@hotmail.com>
-Depends: R (>= 3.1)
+Depends: R (>= 3.4)
 Imports: stats, 
          graphics, 
          survival, 

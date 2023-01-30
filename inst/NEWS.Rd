@@ -2,6 +2,22 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 1.0.11 (2023-01-30)}{
+
+   \subsection{Changes in \code{C++} code:}{
+     \itemize{
+      \item Change \code{C++} standard from \code{C++11} to \code{C++17} (default for \code{R 4.3.0}).
+    }
+   }
+   
+   \subsection{Miscellaneous changes:}{
+     \itemize{
+      \item Require at least \code{R 3.4} to have \code{C++17} support.
+    }
+  }      
+}
+
+
 \section{Changes in version 1.0.10 (2020-05-16)}{
 
   \subsection{Changes in documentation:}{

@@ -1,5 +1,5 @@
-# Use C++11
-CXX_STD = CXX11
+# Use C++17
+CXX_STD = CXX17
 
 # Set strict R headers, this will be enabled in Rcpp by default in September 2019
 PKG_CXXFLAGS = -DSTRICT_R_HEADERS
