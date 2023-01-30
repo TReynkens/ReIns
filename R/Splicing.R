@@ -189,8 +189,8 @@ SpliceFit <- function(const, trunclower, t, type, MEfit, EVTfit, loglik = NULL, 
   
 
   # Check MEfit and EVTfit
-  if (class(MEfit) != "MEfit") stop("MEfit should be of class MEfit.")
-  if (class(EVTfit) != "EVTfit") stop("EVTfit should be of class EVTfit.")
+  if (!is(MEfit, "MEfit")) stop("MEfit should be of class MEfit.")
+  if (!is(EVTfit, "EVTfit")) stop("EVTfit should be of class EVTfit.")
   
   if (length(EVTfit$gamma) != l) stop("gamma should have the same length as const.")
   
@@ -884,7 +884,7 @@ SpliceFitGPD <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, trunc
 dSplice <- function(x, splicefit, log = FALSE) {
   
   # Check input
-  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (!is(splicefit, "SpliceFit")) stop("splicefit should be of class SpliceFit.")
   
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
@@ -954,7 +954,7 @@ dSplice <- function(x, splicefit, log = FALSE) {
 pSplice <- function(x, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   # Check input
-  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (!is(splicefit, "SpliceFit")) stop("splicefit should be of class SpliceFit.")
   
   if (!is.numeric(x)) stop("x should be a numeric vector.")
   
@@ -1030,7 +1030,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
   
   
   # Check input
-  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (!is(splicefit, "SpliceFit")) stop("splicefit should be of class SpliceFit.")
 
   if (!is.numeric(p)) {
     stop("p should be numeric.")
@@ -1106,7 +1106,7 @@ qSplice <- function(p, splicefit, lower.tail = TRUE, log.p = FALSE) {
 rSplice <- function(n, splicefit) {
   
   # Check input
-  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (!is(splicefit, "SpliceFit")) stop("splicefit should be of class SpliceFit.")
   
   # Use quantile function directly if more than 1 Pareto piece
   if (length(splicefit$EVTfit$gamma) > 1) {

@@ -526,7 +526,7 @@ ExcessSplice <- function(R, L=Inf, splicefit) {
   }
   
   # Check input
-  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (!is(splicefit, "SpliceFit")) stop("splicefit should be of class SpliceFit.")
   
   
   type <- splicefit$type
@@ -591,7 +591,7 @@ CTE <- function(p, splicefit) {
     stop("All elements of p should be in (0,1].")
   }
   
-  if (class(splicefit) != "SpliceFit") stop("splicefit should be of class SpliceFit.")
+  if (!is(splicefit, "SpliceFit")) stop("splicefit should be of class SpliceFit.")
   
   # VaR
   VaR <- VaR(p=p, splicefit=splicefit)
