@@ -27,7 +27,7 @@ Suggests: testthat,
           Icens
 LinkingTo: Rcpp
 License: GPL (>= 2)
-URL: http://www.hec.unil.ch/halbrech_files/reinsurance.html, https://github.com/TReynkens/ReIns 
+URL: https://github.com/TReynkens/ReIns 
 BugReports: https://github.com/TReynkens/ReIns/issues
 VignetteBuilder: knitr
 Encoding: UTF-8
