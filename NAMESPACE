@@ -5,6 +5,7 @@ importFrom("stats", "approxfun", "cor", "dexp", "dgamma", "dlnorm", "dnorm", "dw
             "nlm", "optim", "optimise", "pexp", "pgamma", "plnorm", "pnorm", "pweibull", 
             "quantile", "qexp", "qgamma", "qlnorm", "qnorm", "qweibull", "runif", "stepfun", "uniroot", "var")
 importFrom("graphics", "abline", "legend", "lines", "par", "plot")
+importFrom("methods", "is")
 importFrom("survival", "Surv", "survfit")
 importFrom("utils", "tail")
 # Import function from Rcpp to import registered functions
