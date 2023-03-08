@@ -320,7 +320,7 @@ summary.SpliceFit <- function(object, digits = 3, ...) {
 }
 
 # General tex function
-tex <- function(x, ... ) UseMethod("tex", x)
+tex <- function(object, ... ) UseMethod("tex", object)
 
 # TeX method for SpliceFit class
 tex.SpliceFit <- function(object, digits = 3, ...) {

@@ -2,6 +2,16 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+\section{Changes in version 1.0.12 (2023-03-08)}{
+
+   \subsection{Changes in \code{R} code:}{
+     \itemize{
+      \item Correct definition of generic S3 method \code{tex}.
+    }
+   }
+}
+
+
 \section{Changes in version 1.0.11 (2023-01-30)}{
 
    \subsection{Changes in \code{C++} code:}{
