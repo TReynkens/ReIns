@@ -1,4 +1,4 @@
-\name{Fréchet}
+\name{Frechet}
 \alias{dfrechet}
 \alias{pfrechet}
 \alias{qfrechet}

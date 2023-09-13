@@ -2,6 +2,17 @@
 \title{News for package "ReIns"}
 \encoding{UTF-8}
 
+
+\section{Changes in version 1.0.13 (2023-09-13)}{
+
+   \subsection{Changes in \code{R} documentation:}{
+     \itemize{
+      \item Remove non-ASCII characters in Rd name as requested by CRAN.
+    }
+   }
+}
+
+
 \section{Changes in version 1.0.12 (2023-03-08)}{
 
    \subsection{Changes in \code{R} code:}{

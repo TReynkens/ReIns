@@ -1,4 +1,4 @@
-\name{tFréchet}
+\name{tFrechet}
 \alias{dtfrechet}
 \alias{ptfrechet}
 \alias{qtfrechet}
