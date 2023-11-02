@@ -635,6 +635,13 @@ SpliceFitPareto <- function(X, const = NULL, tsplice = NULL, M = 3, s = 1:10, tr
 
         type[i] <- "TPa"
         
+        # If endpoint cannot be estimated, change to ordinary Pareto distribution
+        if (is.nan(EVTfit$endpoint[i])) {
+          EVTfit$gamma[i] <- .Hillinternal(X, tvec[i])
+          EVTfit$endpoint[i] <- Inf
+          type[i] <- "Pa"
+        }
+        
       } else {
         # Last Pareto distribution is not truncated
         
