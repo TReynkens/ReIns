@@ -3,13 +3,18 @@
 \encoding{UTF-8}
 
 
+\section{Changes in version 1.0.15 (2024-11-30)}{
+
+   \itemize{
+      \item Change maintainer email address.
+    }
+}
+
 \section{Changes in version 1.0.14 (2023-11-03)}{
 
-   \subsection{Changes in \code{R} code:}{
      \itemize{
       \item Bugfix: \code{SpliceFitPareto} no longer gives an error when the endpoint of the truncated Pareto part cannot be estimated.
     }
-   }
 }
 
 \section{Changes in version 1.0.13 (2023-09-13)}{
