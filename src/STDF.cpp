@@ -21,7 +21,7 @@ double stdf_cpp(const NumericVector &x, const int k, const NumericMatrix &R, con
   
   // Check if x has the right length
   if (x.size()!=d) {
-    ::Rf_error("x should be a vector with the same length as the number of columns of R.");
+    Rcpp::stop("x should be a vector with the same length as the number of columns of R.");
   } 
   
   // Compute thresholds to use
@@ -45,7 +45,7 @@ double stdf2_cpp(const NumericVector &x, const int k, NumericMatrix &X) {
   
   // Check if x has the right length
   if (x.size()!=d) {
-    ::Rf_error("x should be a vector with the same length as the number of columns of X.");
+    Rcpp::stop("x should be a vector with the same length as the number of columns of X.");
   } 
   
   // Compute thresholds to use

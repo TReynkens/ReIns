@@ -3,6 +3,13 @@
 \encoding{UTF-8}
 
 
+\section{Changes in version 1.0.16 (2026-02-27)}{
+
+   \itemize{
+      \item Replace \code{::Rf_error} by \code{Rcpp::stop}, as requested in \url{https://github.com/RcppCore/Rcpp/issues/1247}.
+    }
+}
+
 \section{Changes in version 1.0.15 (2024-11-30)}{
 
    \itemize{
